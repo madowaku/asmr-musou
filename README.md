@@ -91,3 +91,11 @@ T6では実機試遊に基づく指示を優先し、旧READMEの155px連鎖・�
 T3では旧READMEの「画像未統合・ボスy=560・ピーク正規化・600粒子」を今回の指示に沿って更新。`assets/ART_LOG.md` のT2範囲外の記述は履歴として維持。各画像節の `Tool: undefined` / `Date: undefined` は元ログの欠落で、冒頭のimage_gen・制作日2026-11-22という記録を参照しているが、個別実行日時は未確認。
 
 素材の生成方法と出所は [ASSETS.md](ASSETS.md)、全体の方針は [ORCHESTRATOR_BRIEF.md](ORCHESTRATOR_BRIEF.md) を参照。
+
+## ASMR素材研究所 (lab.html)
+
+`lab.html` を Chrome で直接開く。v0.2とは独立したWebGL2実験場で、ロウの殻の亀裂・剥離、軌跡どおりの切断、ゼリーの切断面の振動を試せる。マウス・タッチ・ペン対応。下部に素材、追加、群れ（標準40体）、¼スロー、一時停止、1コマ送り、線表示、音、リセットがある。キーは `1/2`, `N`, `H`, `S`, `Space`, `.`, `D`, `R`。群れは斜めに密集した2列で、左上から右下への長い一振りを測るための配置。
+
+`npm run test:lab` で構文・幾何・file://画像バンドル・ブラウザー挙動・33msフレームストリップ・4倍CPU性能測定を実行する。結果は `research/v03/`、採否・失敗例・API・残課題は [R0A研究ログ](docs/v0.3/research_log/R0A.md)。画面の音は仮の `synth_lab_click`。人間の試遊やASMR音響の評価を済ませたものではない。
+
+画像なしでも手続きテクスチャで動く。`npm run bundle:lab` は **assets/v03 内を変更せず**、全PNG（サブフォルダーを含む）を `lab/assets-bundle.js` へbase64埋め込みする。キーは拡張子なしの相対パス。`LAB.tex('wax_body')` / `jelly_body` / `wax_core` が描画スロットで、別名は `LAB.textureNames.wax_body = 'body/wax_boss'` のように指定する。生成アートを採用するときは、テクスチャ名だけでなく余白と輪郭・UVの整合も合わせること。R0-Aのコミットは空のバンドルを含み、検証画像は手続きテクスチャで統一している。並行制作中のアート・本格音声は別途統合する。

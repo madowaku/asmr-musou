@@ -1,0 +1,67 @@
+{
+  "scenario": "40 mixed wax/jelly roots replenished every 0.45 simulation seconds; continuous real pointer swipes; all slicing, respawn, shape matching, debris and draw submissions inside measured rAF; retain 120 bodies on refill, subsequent cuts can increase this up to runtime cap 240",
+  "chrome": "158.0.8127.36",
+  "throttle": 4,
+  "durationMs": 10165,
+  "swipes": 48,
+  "frames": 750,
+  "averageMs": 5.143466667075952,
+  "p95Ms": 7.0999999940395355,
+  "maxMs": 19.599999994039536,
+  "minBodies": 40,
+  "maxBodies": 162,
+  "maxParticles": 1161,
+  "cuts": 941,
+  "inputWorkMaxMs": 16,
+  "scope": "JS frame work including queued cut processing; excludes browser pointer dispatch, GPU completion, compositor and actual device latency",
+  "targetP95Ms": 8,
+  "stages": {
+    "update": {
+      "avg": 2.6977333340247474,
+      "p95": 4.5,
+      "max": 17.5
+    },
+    "draw": {
+      "avg": 2.4669333330194156,
+      "p95": 3.5,
+      "max": 5.5
+    }
+  },
+  "slowestFrames": [
+    {
+      "total": 19.599999994039536,
+      "update": 14.299999997019768,
+      "draw": 5.299999997019768,
+      "bodies": 118,
+      "particles": 248
+    },
+    {
+      "total": 19.400000005960464,
+      "update": 17.5,
+      "draw": 1.9000000059604645,
+      "bodies": 44,
+      "particles": 24
+    },
+    {
+      "total": 17.69999998807907,
+      "update": 15,
+      "draw": 2.699999988079071,
+      "bodies": 160,
+      "particles": 949
+    },
+    {
+      "total": 17.600000008940697,
+      "update": 14.400000005960464,
+      "draw": 3.2000000029802322,
+      "bodies": 160,
+      "particles": 885
+    },
+    {
+      "total": 17.099999994039536,
+      "update": 11.599999994039536,
+      "draw": 5.5,
+      "bodies": 160,
+      "particles": 528
+    }
+  ]
+}
