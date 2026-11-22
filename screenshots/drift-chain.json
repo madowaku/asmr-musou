@@ -4,19 +4,19 @@
   "seed": 1,
   "waxAtEightSeconds": {
     "id": 2,
-    "x": 147.06162050942123,
-    "y": 417.19269807387656,
-    "elapsed": 8.656499999999978
+    "x": 147.89205923483226,
+    "y": 417.1491348520556,
+    "elapsed": 8.696499999999988
   },
   "idle": {
-    "seconds": 20.100700000000078,
+    "seconds": 20.10060000000009,
     "frames": 1508,
     "removals": 0
   },
   "openingChainMs": 120,
   "run": {
     "elapsed": 45,
-    "wallSeconds": 45.08424099999999,
+    "wallSeconds": 45.42949780000001,
     "taps": 26,
     "chainEvents": 19,
     "chainSizes": [

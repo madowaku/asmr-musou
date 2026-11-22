@@ -60,8 +60,8 @@
       "deathBeats": [],
       "particleFx": [
         "sparkle",
-        "chip_wax_c",
         "chip_wax_a",
+        "chip_wax_c",
         "chip_wax_b"
       ],
       "bloom": 0,
@@ -72,8 +72,8 @@
       "deathBeats": [],
       "particleFx": [
         "sparkle",
-        "chip_wax_c",
         "chip_wax_a",
+        "chip_wax_c",
         "chip_wax_b"
       ],
       "bloom": 0,
@@ -84,8 +84,8 @@
       "deathBeats": [],
       "particleFx": [
         "sparkle",
-        "chip_wax_c",
         "chip_wax_a",
+        "chip_wax_c",
         "chip_wax_b"
       ],
       "bloom": 0,
@@ -96,8 +96,8 @@
       "deathBeats": [],
       "particleFx": [
         "sparkle",
-        "chip_wax_c",
         "chip_wax_a",
+        "chip_wax_c",
         "chip_wax_b"
       ],
       "bloom": 0,
@@ -108,8 +108,8 @@
       "deathBeats": [],
       "particleFx": [
         "sparkle",
-        "chip_wax_c",
         "chip_wax_a",
+        "chip_wax_c",
         "chip_wax_b"
       ],
       "bloom": 0,
@@ -120,8 +120,8 @@
       "deathBeats": [],
       "particleFx": [
         "sparkle",
-        "chip_wax_c",
         "chip_wax_a",
+        "chip_wax_c",
         "chip_wax_b"
       ],
       "bloom": 0,
@@ -139,8 +139,8 @@
       ],
       "particleFx": [
         "sparkle",
-        "chip_wax_c",
         "chip_wax_a",
+        "chip_wax_c",
         "chip_wax_b"
       ],
       "bloom": 0,
@@ -157,10 +157,10 @@
         }
       ],
       "particleFx": [
-        "sparkle",
-        "chip_wax_c",
         "chip_wax_a",
-        "chip_wax_b"
+        "chip_wax_c",
+        "chip_wax_b",
+        "sparkle"
       ],
       "bloom": 0,
       "softRings": 0
@@ -176,10 +176,10 @@
         }
       ],
       "particleFx": [
-        "sparkle",
-        "chip_wax_c",
         "chip_wax_a",
-        "chip_wax_b"
+        "chip_wax_c",
+        "chip_wax_b",
+        "sparkle"
       ],
       "bloom": 0,
       "softRings": 0
@@ -188,10 +188,10 @@
       "label": "Tap 3 · 115 ms",
       "deathBeats": [],
       "particleFx": [
-        "sparkle",
-        "chip_wax_c",
         "chip_wax_a",
+        "chip_wax_c",
         "chip_wax_b",
+        "sparkle",
         "drop_cream",
         "drop_pink"
       ],
@@ -202,10 +202,10 @@
       "label": "Tap 3 · 148 ms",
       "deathBeats": [],
       "particleFx": [
-        "sparkle",
-        "chip_wax_c",
         "chip_wax_a",
+        "chip_wax_c",
         "chip_wax_b",
+        "sparkle",
         "drop_cream",
         "drop_pink"
       ],
@@ -216,10 +216,10 @@
       "label": "Tap 3 · 181 ms",
       "deathBeats": [],
       "particleFx": [
-        "sparkle",
-        "chip_wax_c",
         "chip_wax_a",
+        "chip_wax_c",
         "chip_wax_b",
+        "sparkle",
         "drop_cream",
         "drop_pink"
       ],
@@ -241,8 +241,8 @@
       "particleFx": [
         "sparkle",
         "chunk_boss_a",
-        "chunk_boss_c",
-        "chunk_boss_b"
+        "chunk_boss_b",
+        "chunk_boss_c"
       ],
       "bloom": 0.384,
       "softRings": 0
@@ -260,8 +260,8 @@
       "particleFx": [
         "sparkle",
         "chunk_boss_a",
-        "chunk_boss_c",
-        "chunk_boss_b"
+        "chunk_boss_b",
+        "chunk_boss_c"
       ],
       "bloom": 0.352,
       "softRings": 0
@@ -279,8 +279,8 @@
       "particleFx": [
         "sparkle",
         "chunk_boss_a",
-        "chunk_boss_c",
-        "chunk_boss_b"
+        "chunk_boss_b",
+        "chunk_boss_c"
       ],
       "bloom": 0.31999999999999995,
       "softRings": 0
@@ -298,8 +298,8 @@
       "particleFx": [
         "sparkle",
         "chunk_boss_a",
-        "chunk_boss_c",
-        "chunk_boss_b"
+        "chunk_boss_b",
+        "chunk_boss_c"
       ],
       "bloom": 0.2879999999999999,
       "softRings": 0
@@ -310,8 +310,8 @@
       "particleFx": [
         "sparkle",
         "chunk_boss_a",
-        "chunk_boss_c",
         "chunk_boss_b",
+        "chunk_boss_c",
         "drop_peach"
       ],
       "bloom": 0.2559999999999999,
@@ -323,8 +323,8 @@
       "particleFx": [
         "sparkle",
         "chunk_boss_a",
-        "chunk_boss_c",
         "chunk_boss_b",
+        "chunk_boss_c",
         "drop_peach"
       ],
       "bloom": 0.22399999999999987,
@@ -336,8 +336,8 @@
       "particleFx": [
         "sparkle",
         "chunk_boss_a",
-        "chunk_boss_c",
         "chunk_boss_b",
+        "chunk_boss_c",
         "drop_peach"
       ],
       "bloom": 0.19199999999999984,
@@ -349,8 +349,8 @@
       "particleFx": [
         "sparkle",
         "chunk_boss_a",
-        "chunk_boss_c",
         "chunk_boss_b",
+        "chunk_boss_c",
         "drop_peach"
       ],
       "bloom": 0.1599999999999998,
@@ -362,8 +362,8 @@
       "particleFx": [
         "sparkle",
         "chunk_boss_a",
-        "chunk_boss_c",
         "chunk_boss_b",
+        "chunk_boss_c",
         "drop_peach"
       ],
       "bloom": 0.12799999999999978,
@@ -375,8 +375,8 @@
       "particleFx": [
         "sparkle",
         "chunk_boss_a",
-        "chunk_boss_c",
         "chunk_boss_b",
+        "chunk_boss_c",
         "drop_peach"
       ],
       "bloom": 0.09599999999999978,
@@ -388,8 +388,8 @@
       "particleFx": [
         "sparkle",
         "chunk_boss_a",
-        "chunk_boss_c",
         "chunk_boss_b",
+        "chunk_boss_c",
         "drop_peach"
       ],
       "bloom": 0.06399999999999978,
@@ -401,8 +401,8 @@
       "particleFx": [
         "sparkle",
         "chunk_boss_a",
-        "chunk_boss_c",
         "chunk_boss_b",
+        "chunk_boss_c",
         "drop_peach"
       ],
       "bloom": 0.03199999999999978,
@@ -414,8 +414,8 @@
       "particleFx": [
         "sparkle",
         "chunk_boss_a",
-        "chunk_boss_c",
         "chunk_boss_b",
+        "chunk_boss_c",
         "drop_peach"
       ],
       "bloom": 0,
@@ -427,8 +427,8 @@
       "particleFx": [
         "sparkle",
         "chunk_boss_a",
-        "chunk_boss_c",
         "chunk_boss_b",
+        "chunk_boss_c",
         "drop_peach"
       ],
       "bloom": 0,
@@ -440,8 +440,8 @@
       "particleFx": [
         "sparkle",
         "chunk_boss_a",
-        "chunk_boss_c",
         "chunk_boss_b",
+        "chunk_boss_c",
         "drop_peach"
       ],
       "bloom": 0,
@@ -453,8 +453,8 @@
       "particleFx": [
         "sparkle",
         "chunk_boss_a",
-        "chunk_boss_c",
         "chunk_boss_b",
+        "chunk_boss_c",
         "drop_peach"
       ],
       "bloom": 0,
@@ -466,8 +466,8 @@
       "particleFx": [
         "sparkle",
         "chunk_boss_a",
-        "chunk_boss_c",
         "chunk_boss_b",
+        "chunk_boss_c",
         "drop_peach"
       ],
       "bloom": 0,
@@ -479,8 +479,8 @@
       "particleFx": [
         "sparkle",
         "chunk_boss_a",
-        "chunk_boss_c",
         "chunk_boss_b",
+        "chunk_boss_c",
         "drop_peach"
       ],
       "bloom": 0,
