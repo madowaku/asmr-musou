@@ -1,0 +1,140 @@
+[
+  {
+    "stem": "wax_0",
+    "attempt": 1,
+    "prompt": "Use case: stylized-concept. Make ONE separate square 1024x1024 production enemy sprite for ASMR MUSOU, asset wax_0.\nSubject: a tactile toy / squishy collectible: perfectly round strawberry-pink squishy ball covered by a THIN HARD glossy pastel-pink candy-wax shell, like a wax-coated sweet. Intact state. At the lower-right edge a subtle tiny seam/lip reveals that the shell is very thin, never a thick rim. No cracks or missing chunks.\nShared style: premium soft 2.5D toy product render, glossy macro material, bright pastel, soft studio key light from UPPER LEFT, simple clean readable silhouette with no ink outline. Front three-quarter view, full body, no limbs. Face centered on front: exactly two small dark plum oval eyes and one small dark plum U-shaped smile, no nose, eyebrows or cheeks; bold enough to read when the whole sprite is only 80 pixels. Each eye about 3.5 percent of body diameter, smile about 10 percent wide, eyes separated by about 24 percent of body diameter.\nComposition: single character centered; circular body center exactly at image center. Body occupies about 76 percent of square canvas, generous empty margin on ALL sides. Nothing detached outside silhouette.\nBackground: REAL transparent RGBA background, clean alpha cutout, no checkerboard graphic, NO ground shadow, NO floor, NO backdrop, no scenery. If true transparent output cannot be made, use ONLY a perfectly flat solid pure #00FF00 chroma-green background with no gradient and no green reflection on toy. Do not render checkerboard.\nNo text, logos, watermark, border, extra objects, existing character likeness.",
+    "references": [],
+    "source": "src/wax_0_attempt1.png",
+    "status": "adopted",
+    "review": "Adopted: round strawberry toy, thin glossy shell lip, readable face.",
+    "generated_source_path": "$CODEX_HOME\\generated_images\\01a20098-bb42-7db2-acc3-fc8967d796c4\\exec-00a772c5-b100-457e-8a30-82dfcddb522b.png",
+    "edge_inset": 2,
+    "postprocessing": "Native alpha retained; connected subject cleanup at alpha>=16; 2px source edge inset and 0.35px soft matte; shared framing per damage family; 6% nominal margin; premultiplied-alpha Lanczos resize to 384x384; clear alpha<2 and hidden RGB."
+  },
+  {
+    "stem": "wax_1",
+    "prompt": "Use case: precise-object-edit. ONE separate square production sprite for ASMR MUSOU. Image 1 is the EDIT TARGET, the approved wax_0 character. Preserve its round body silhouette, exact centered body position and diameter, framing, strawberry-pink hue, two dark plum oval eyes and small U-shaped smile, face position, front three-quarter camera, soft UPPER-LEFT studio light, toy product macro material, crisp unoutlined edge. No limbs or detached flying debris. Full body with generous empty margins. Preserve real transparent RGBA background; no ground shadow, no floor, scenery, text, logos, watermark, checkerboard or other objects.\nChange ONLY shell damage: the same thin hard glossy candy-wax shell now has a connected web of fine WHITE fracture lines over its surface. Several irregular polygonal cracks, clearly readable at 80px without overwhelming the face. The shell still completely covers the soft interior; no missing shell yet. Keep face entirely unobscured. Exactly the same silhouette and pose as reference.",
+    "attempt": 1,
+    "references": [
+      "src/wax_0_attempt1.png"
+    ],
+    "source": "src/wax_1_attempt1.png",
+    "status": "adopted",
+    "review": "Adopted: registered fine white fracture web; at 80 px the finest hairlines are deliberately subtle.",
+    "generated_source_path": "$CODEX_HOME\\generated_images\\01a20098-bb42-7db2-acc3-fc8967d796c4\\exec-4934e683-277e-4ea8-894a-118319c4ea5a.png",
+    "edge_inset": 2,
+    "postprocessing": "Native alpha retained; connected subject cleanup at alpha>=16; 2px source edge inset and 0.35px soft matte; shared framing per damage family; 6% nominal margin; premultiplied-alpha Lanczos resize to 384x384; clear alpha<2 and hidden RGB."
+  },
+  {
+    "stem": "wax_2",
+    "prompt": "Use case: precise-object-edit. ONE separate square production sprite for ASMR MUSOU. Image 1 is the EDIT TARGET, the approved wax_0 character. Preserve its round body silhouette, exact centered body position and diameter, framing, strawberry-pink hue, two dark plum oval eyes and small U-shaped smile, face position, front three-quarter camera, soft UPPER-LEFT studio light, toy product macro material, crisp unoutlined edge. No limbs or detached flying debris. Full body with generous empty margins. Preserve real transparent RGBA background; no ground shadow, no floor, scenery, text, logos, watermark, checkerboard or other objects.\nChange ONLY shell damage: about HALF of the thin glossy candy-wax shell has broken away. Several BIG shell flakes are missing from upper-right and left side, revealing large areas of soft MATTE strawberry-pink squishy interior bulging gently through the gaps. Remaining shell is thin, with visibly wafer-thin broken edges, curled slightly at fracture edges. Face remains intact on the central front patch. Fragments stay attached, nothing scattered around. Keep the overall circular body diameter and center exactly the same as reference; bulges remain within original outline envelope. Make the matte interior / glossy shell material contrast unmistakable at 80px.",
+    "attempt": 1,
+    "references": [
+      "src/wax_0_attempt1.png"
+    ],
+    "source": "src/wax_2_attempt1.png",
+    "status": "adopted",
+    "review": "Adopted: large thin-shell gaps reveal matte pink interior; face preserved.",
+    "generated_source_path": "$CODEX_HOME\\generated_images\\01a20098-bb42-7db2-acc3-fc8967d796c4\\exec-dc312397-e6db-412a-b261-5f48bba2a060.png",
+    "edge_inset": 2,
+    "postprocessing": "Native alpha retained; connected subject cleanup at alpha>=16; 2px source edge inset and 0.35px soft matte; shared framing per damage family; 6% nominal margin; premultiplied-alpha Lanczos resize to 384x384; clear alpha<2 and hidden RGB."
+  },
+  {
+    "stem": "bubble_0",
+    "prompt": "Use case: stylized-concept. ONE individual square 1024x1024 production enemy sprite for ASMR MUSOU. Image 1 is a STYLE REFERENCE ONLY: match its tactile squishy toy collectible rendering, soft studio key light from UPPER LEFT, glossy macro material, bright pastel, clean edge with no ink outline, tiny cute face of exactly two dark plum oval eyes and small dark plum U-shaped smile. Face must stay clearly readable at 80px. Similar relative eye size and spacing, no eyebrows, nose or cheeks. Front three-quarter view, centered full body, no limbs. Single simple readable silhouette filling about 76 percent of canvas, generous empty margin on every side, body center at image center. Real transparent RGBA background, no checkerboard artwork; no ground shadow, floor, scenery, text, logos, watermark, frame, extra objects, existing character likeness. Subject: MINT-GREEN bubble-wrap blob made of approximately EIGHT distinct plump clear inflated bubble-wrap CELLS fused in a compact round cluster, one slightly larger central cell with the tiny face on it, seven surrounding cells, about eight cells total, no tiny bead details. Soft mint-tinted transparent material, glossy curved cell highlights, clear subtle seams between puffy cells, delicately wobbly squishy form. Only one face on central cell. Keep dark facial features crisp against pale mint. If actual transparent output is impossible, use perfectly uniform pure #FF00FF background without any magenta bounce light.",
+    "attempt": 1,
+    "references": [
+      "src/wax_0_attempt1.png"
+    ],
+    "source": "src/bubble_0_attempt1.png",
+    "status": "adopted",
+    "review": "Adopted: central face cell plus seven surrounding cells, mint palette, clear bubble material cue.",
+    "generated_source_path": "$CODEX_HOME\\generated_images\\01a20098-bb42-7db2-acc3-fc8967d796c4\\exec-9f6fec04-b6b7-417e-99da-dfe4e7d2d136.png",
+    "edge_inset": 2,
+    "postprocessing": "Native alpha retained; connected subject cleanup at alpha>=16; 2px source edge inset and 0.35px soft matte; shared framing per damage family; 6% nominal margin; premultiplied-alpha Lanczos resize to 384x384; clear alpha<2 and hidden RGB."
+  },
+  {
+    "stem": "jelly_0",
+    "prompt": "Use case: stylized-concept. ONE individual square 1024x1024 production enemy sprite for ASMR MUSOU. Image 1 is a STYLE REFERENCE ONLY: match its tactile squishy toy collectible rendering, soft studio key light from UPPER LEFT, glossy macro material, bright pastel, clean edge with no ink outline, tiny cute face of exactly two dark plum oval eyes and small dark plum U-shaped smile. Face must stay clearly readable at 80px. Similar relative eye size and spacing, no eyebrows, nose or cheeks. Front three-quarter view, centered full body, no limbs. Single simple readable silhouette filling about 76 percent of canvas, generous empty margin on every side, body center at image center. Real transparent RGBA background, no checkerboard artwork; no ground shadow, floor, scenery, text, logos, watermark, frame, extra objects, existing character likeness. Subject: a LAVENDER translucent wobbly JELLY DROP, slightly squat with a gently tapered domed peak and softly lobed bottom, like a squishy jelly collectible. Simple single droplet silhouette, no limbs or detached droplets. Glossy moist surface, soft translucent lavender interior, gentle internal light refraction without complicated sparkle details. One tiny dark plum face in middle of body. Material reads as jelly, NOT opaque plastic. If actual transparent output is impossible, use perfectly uniform pure #00FF00 background without any green bounce light.",
+    "attempt": 1,
+    "references": [
+      "src/wax_0_attempt1.png"
+    ],
+    "source": "src/jelly_0_attempt1.png",
+    "status": "adopted",
+    "review": "Adopted: lavender squat droplet, soft lobed base, readable face. Translucency is mainly rendered shading, not strong through-body alpha.",
+    "generated_source_path": "$CODEX_HOME\\generated_images\\01a20098-bb42-7db2-acc3-fc8967d796c4\\exec-0eada604-cb52-41ca-becb-6a9dae691340.png",
+    "edge_inset": 2,
+    "postprocessing": "Native alpha retained; connected subject cleanup at alpha>=16; 2px source edge inset and 0.35px soft matte; shared framing per damage family; 6% nominal margin; premultiplied-alpha Lanczos resize to 384x384; clear alpha<2 and hidden RGB."
+  },
+  {
+    "stem": "ice_0",
+    "prompt": "Use case: stylized-concept. ONE individual square 1024x1024 production enemy sprite for ASMR MUSOU. Image 1 is a STYLE REFERENCE ONLY, not the character shape or color: match its tactile squishy toy collectible rendering, soft studio key light from UPPER LEFT, glossy macro materials, bright pastel, clean edge with no ink outline. Match the face style: exactly two dark plum oval eyes and a small dark plum U-shaped smile, bold enough to read at 80px; no eyebrows, nose or cheeks. Front three-quarter view, centered full body, no limbs. Single simple readable silhouette filling about 76 percent of canvas, generous empty margin on every side, circular body center at image center. Real transparent RGBA background with clean smooth alpha edges, no colored fringe, no checkerboard artwork. No ground shadow, floor, scenery, text, logos, watermark, frame, extra objects, existing character likeness. Subject: ICY-BLUE faceted ICE-CANDY CRYSTAL creature, an angular chunky gem silhouette, with flat polygonal faces and ice-blue translucent material with a little milky INTERNAL FROST. Broad flat front facet holds the simple tiny cute face. Squat chunky irregular hexagonal gem, width and height similar, not a ball and not a spiky star. About 7-9 broad clean facets, upper-left white glossy reflection, cyan-blue refracted side facets, soft frozen internal gradients. Intact, NO fracture lines yet. Keep overall face size like reference. If true transparent output is impossible, use ONLY pure uniform #FF00FF backdrop with no magenta reflection.",
+    "attempt": 1,
+    "references": [
+      "src/wax_0_attempt1.png"
+    ],
+    "source": "src/ice_0_attempt1.png",
+    "status": "adopted",
+    "review": "Adopted: angular icy-blue gem with internal frost.",
+    "generated_source_path": "$CODEX_HOME\\generated_images\\01a20098-bb42-7db2-acc3-fc8967d796c4\\exec-18081f4c-e96e-4260-bb37-74da7a52d844.png",
+    "edge_inset": 2,
+    "postprocessing": "Native alpha retained; connected subject cleanup at alpha>=16; 2px source edge inset and 0.35px soft matte; shared framing per damage family; 6% nominal margin; premultiplied-alpha Lanczos resize to 384x384; clear alpha<2 and hidden RGB."
+  },
+  {
+    "stem": "boss_0",
+    "prompt": "Use case: stylized-concept. ONE individual square 1024x1024 production enemy sprite for ASMR MUSOU. Image 1 is a STYLE REFERENCE ONLY, not the character shape or color: match its tactile squishy toy collectible rendering, soft studio key light from UPPER LEFT, glossy macro materials, bright pastel, clean edge with no ink outline. Match the face style: exactly two dark plum oval eyes and a small dark plum U-shaped smile, bold enough to read at 80px; no eyebrows, nose or cheeks. Front three-quarter view, centered full body, no limbs. Single simple readable silhouette filling about 76 percent of canvas, generous empty margin on every side, circular body center at image center. Real transparent RGBA background with clean smooth alpha edges, no colored fringe, no checkerboard artwork. No ground shadow, floor, scenery, text, logos, watermark, frame, extra objects, existing character likeness. Subject: BOSS, a large GOLDEN-PEACH round squishy sphere wrapped in a visibly THICK MULTI-LAYER WAX SHELL. Intact state, no cracks. On the right and lower-right curved perimeter, show a tidy stepped shell lip exposing THREE distinct concentric coating layers like an onion: outer golden-apricot, middle pale peach, inner pale pink. These are smooth manufactured shell edges, not damage and not decorative stripes. Thick rounded layered coating contrasts clearly with thin wax in reference. Large friendly round body, front face stays smooth and simple. Keep the circular body centered; whole outline roughly round without crown, limbs or accessories. Face uses same dark plum eyes and smile. If true transparent output is impossible, use ONLY pure uniform #00FF00 backdrop with no green reflection.",
+    "attempt": 1,
+    "references": [
+      "src/wax_0_attempt1.png"
+    ],
+    "source": "src/boss_0_attempt1.png",
+    "status": "adopted",
+    "review": "Adopted: golden-peach round form with three visibly thick stepped shell layers.",
+    "generated_source_path": "$CODEX_HOME\\generated_images\\01a20098-bb42-7db2-acc3-fc8967d796c4\\exec-2054db27-a24a-4659-9498-ea70cc82db34.png",
+    "edge_inset": 2,
+    "postprocessing": "Native alpha retained; connected subject cleanup at alpha>=16; 2px source edge inset and 0.35px soft matte; shared framing per damage family; 6% nominal margin; premultiplied-alpha Lanczos resize to 384x384; clear alpha<2 and hidden RGB."
+  },
+  {
+    "stem": "ice_1",
+    "prompt": "Use case: precise-object-edit. ONE separate square production sprite for ASMR MUSOU. Image 1 is the EDIT TARGET. Keep the SAME character identity, camera, full body position, exact outer silhouette scale and center, face position and size, dark plum oval eyes and small U smile, soft UPPER-LEFT studio light, glossy macro toy collectible finish, no ink outline. Generous empty margin on all sides, no limbs, no loose debris. Real transparent RGBA background with clean alpha edges, no fringe, no ground shadow, no floor, no checkerboard, scenery, text, logos, watermark, accessories or other objects. Change ONLY the ice damage state: the same icy-blue angular faceted ice-candy gem now has SHARP WHITE FRACTURE LINES inside and across the crystal. Three or four bold branching fracture paths crossing upper and side facets, with finer branching hairlines, recognizable at 80px. Fractures are distinct from the intact facet boundaries. Keep central eyes and mouth entirely unobscured, same internal frost and blue refraction as reference. No missing chunks, same exact polygonal outer silhouette and framing.",
+    "attempt": 1,
+    "references": [
+      "src/ice_0_attempt1.png"
+    ],
+    "source": "src/ice_1_attempt1.png",
+    "status": "adopted",
+    "review": "Adopted: sharp white branching fractures distinguish the damaged state at 80 px.",
+    "generated_source_path": "$CODEX_HOME\\generated_images\\01a20098-bb42-7db2-acc3-fc8967d796c4\\exec-d976ca48-ac19-42e2-9896-7083eb73d491.png",
+    "edge_inset": 2,
+    "postprocessing": "Native alpha retained; connected subject cleanup at alpha>=16; 2px source edge inset and 0.35px soft matte; shared framing per damage family; 6% nominal margin; premultiplied-alpha Lanczos resize to 384x384; clear alpha<2 and hidden RGB."
+  },
+  {
+    "stem": "boss_1",
+    "prompt": "Use case: precise-object-edit. ONE separate square production sprite for ASMR MUSOU. Image 1 is the EDIT TARGET. Keep the SAME character identity, camera, full body position, exact outer silhouette scale and center, face position and size, dark plum oval eyes and small U smile, soft UPPER-LEFT studio light, glossy macro toy collectible finish, no ink outline. Generous empty margin on all sides, no limbs, no loose debris. Real transparent RGBA background with clean alpha edges, no fringe, no ground shadow, no floor, no checkerboard, scenery, text, logos, watermark, accessories or other objects. Change ONLY the golden-peach multi-layer boss shell damage state: the thick GOLDEN outer shell has shattered and peeled away in a few LARGE chunks, revealing a substantial smooth PALE PEACH second wax layer beneath. Remaining golden outer shell plates have a few strong white cracks. Show visible THICK stepped broken shell edges, like broken layered wax, obviously thicker than a thin candy coating. The lowest pink inner layer remains visible at the right-bottom rim. Keep the friendly face exactly in place and readable on the smooth center. No flying or detached pieces. Same round body diameter and centered outline envelope as reference. The damaged state must read as partly peeled golden shell over peach wax, not a completely naked jelly yet.",
+    "attempt": 1,
+    "references": [
+      "src/boss_0_attempt1.png"
+    ],
+    "source": "src/boss_1_attempt1.png",
+    "status": "adopted",
+    "review": "Adopted: broad missing outer-shell areas expose the peach layer; thick broken edges and cracks.",
+    "generated_source_path": "$CODEX_HOME\\generated_images\\01a20098-bb42-7db2-acc3-fc8967d796c4\\exec-f3d1ee83-faab-436b-9f4a-0228d6b51a3c.png",
+    "edge_inset": 2,
+    "postprocessing": "Native alpha retained; connected subject cleanup at alpha>=16; 2px source edge inset and 0.35px soft matte; shared framing per damage family; 6% nominal margin; premultiplied-alpha Lanczos resize to 384x384; clear alpha<2 and hidden RGB."
+  },
+  {
+    "stem": "boss_2",
+    "prompt": "Use case: precise-object-edit. ONE separate square production sprite for ASMR MUSOU. Image 1 is the EDIT TARGET. Keep the SAME character identity, camera, full body position, exact outer silhouette scale and center, face position and size, dark plum oval eyes and small U smile, soft UPPER-LEFT studio light, glossy macro toy collectible finish, no ink outline. Generous empty margin on all sides, no limbs, no loose debris. Real transparent RGBA background with clean alpha edges, no fringe, no ground shadow, no floor, no checkerboard, scenery, text, logos, watermark, accessories or other objects. Change ONLY the multi-layer boss to its final exposed-core state: ALL wax shell layers are GONE, zero remaining rind or shell rings. A single GLOSSY SOFT PEACH-PINK JELLY CORE is fully exposed, slightly bulging and subtly wobbly, with same round overall outline, center, scale and face position as reference. Gently peach-tinted pink, visually distinct from strawberry-pink regular wax enemy. Smooth clear jelly gloss and gentle translucent internal light, soft rounded material with one slight squishy bulge inside the same silhouette envelope, no large bottom puddle. The face is HAPPY, same two plum oval eyes and small U smile, marginally more cheerful but same size. Keep upper-left highlight and dark edge shading consistent.",
+    "attempt": 1,
+    "references": [
+      "src/boss_0_attempt1.png"
+    ],
+    "source": "src/boss_2_attempt1.png",
+    "status": "adopted",
+    "review": "Adopted: shell-free peach-pink jelly core with subtle bulge; happy face.",
+    "generated_source_path": "$CODEX_HOME\\generated_images\\01a20098-bb42-7db2-acc3-fc8967d796c4\\exec-8514eb10-b1e7-439c-984a-9e39c17e705d.png",
+    "edge_inset": 2,
+    "postprocessing": "Native alpha retained; connected subject cleanup at alpha>=16; 2px source edge inset and 0.35px soft matte; shared framing per damage family; 6% nominal margin; premultiplied-alpha Lanczos resize to 384x384; clear alpha<2 and hidden RGB."
+  }
+]
