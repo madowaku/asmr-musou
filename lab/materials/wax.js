@@ -25,11 +25,11 @@
     init(body,parent){body.wax=null;},
     onPress(body,hit){if(body.depth||body.wax)return;body.wax=network(body,hit,L.timing.duration('wax','pre'));L.events.emit('press',{material:'wax',x:body.x+hit.x,y:body.y+hit.y,speed:0,length:0,area:body.area});},
     onCut(body,cut){
-      for(const child of cut.children)if(child.lod!=='strip'){
+      /* Grunts (hordes) skip the crack network and keep few chips: at mob scale dozens of crack lines + chips read as pink fuzz. */const grunt=body.radius<70;for(const child of cut.children)if(child.lod!=='strip'&&!grunt){
         const face=child.poly.find(p=>p.cut===cut.id)||child.poly[0];child.wax=network(child,face,.08);
         if(child.wax)for(const cell of child.wax.cells)cell.peelAt=.065+L.random()*.09;
       }
-      for(const face of cut.faces){const len=Math.hypot(face.b.x-face.a.x,face.b.y-face.a.y),n=Math.min(14,Math.max(2,Math.round(len/18)));for(let i=0;i<n;i++){const t=(i+.5)/n;L.addParticle({x:face.a.x+(face.b.x-face.a.x)*t,y:face.a.y+(face.b.y-face.a.y)*t,kind:Math.floor(L.random()*3),size:6+L.random()*8,color:[1,1,1,1],vx:(L.random()-.5)*180,vy:-45-L.random()*120});}}
+      for(const face of cut.faces){const len=Math.hypot(face.b.x-face.a.x,face.b.y-face.a.y),n=grunt?2:Math.min(14,Math.max(2,Math.round(len/18)));for(let i=0;i<n;i++){const t=(i+.5)/n;L.addParticle({x:face.a.x+(face.b.x-face.a.x)*t,y:face.a.y+(face.b.y-face.a.y)*t,kind:Math.floor(L.random()*3),size:grunt?9+L.random()*6:6+L.random()*8,color:[1,1,1,1],vx:(L.random()-.5)*180,vy:-45-L.random()*120});}}
     },
     onImpact(body,impact){if(impact.speed>160&&!body.depth)this.onPress(body,{x:0,y:body.radius*.8});},
     update(dt,body){
@@ -42,7 +42,7 @@
     draw(renderer,body){
       const wax=body.wax;if(!wax)return;
 
-      for(const e of wax.edges){const t=Math.max(0,Math.min(1,(wax.age-e.start)/e.duration));if(!t)continue;const a=L.worldPoint(body,wax.nodes[e.a]),b=L.worldPoint(body,S.interpolate(wax.nodes[e.a],wax.nodes[e.b],t));renderer.line(a,b,1.6,[1,.93,.72,Math.max(0,1-(wax.age-(body.pressing?.duration||.2))*5)]);}
+      for(const e of wax.edges){const t=Math.max(0,Math.min(1,(wax.age-e.start)/e.duration));if(!t)continue;/* Cracks live on the skin, so they take the same book-open foreshortening as the mesh (otherwise they float outside the piece). */const a=L.worldPoint(body,L.cap.skin(body,wax.nodes[e.a])),b=L.worldPoint(body,L.cap.skin(body,S.interpolate(wax.nodes[e.a],wax.nodes[e.b],t)));/* On cut pieces the cap opens over the soft core within ~120 ms; cracks must be gone by then (a soft core does not crack). */const fade=body.depth?Math.max(0,1-Math.max(0,wax.age-.04)*9):Math.max(0,1-(wax.age-(body.pressing?.duration||.2))*5);if(fade>0)renderer.line(a,b,1.6,[1,.93,.72,fade]);}
     }
   });
 })(window.LAB);

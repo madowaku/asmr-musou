@@ -15,7 +15,7 @@
   void main(){
     float mode=vExtra.x;vec4 c=vColor;
     if(mode<.5){c*=texture(uTex,vUV);if(c.a<.03)discard;}
-    else if(mode>1.5&&mode<3.5){c*=texture(uTex,fract(vUV));c.rgb*=1.06-.22*vExtra.y;if(mode>2.5){c.rgb=mix(c.rgb,vec3(.68,.54,.86),.17);c.rgb+=.35*exp(-pow((vExtra.y-.12)*19.,2.));c.a=.96;}}
+    else if(mode>1.5&&mode<3.5){c*=texture(uTex,fract(vUV));c.rgb*=1.06-.22*vExtra.y;if(mode>2.5){/* jelly cut face: depth-tinted translucent gel, wet edge line, travelling glossy sheen (was opaque -> read as paper) */float depth=clamp(vExtra.y,0.,1.);vec3 gel=mix(vec3(.86,.74,1.),vec3(.47,.27,.78),depth*.85);c.rgb=mix(c.rgb,gel,.55);c.rgb+=.55*exp(-pow((depth-.06)*16.,2.));float sheen=pow(max(0.,sin((vUV.x*1.3+vUV.y)*4.2-uTime*1.7)),18.);c.rgb+=sheen*.42*(1.-depth*.6);c.a=mix(.62,.86,depth)+sheen*.12;}}
     else if(mode>3.5){float d=length(vUV*2.-1.);c.a*=exp(-d*d*4.)*(1.-smoothstep(.7,1.,d));}
     if(uDebug>0.){if(mode<.5)c=vec4(0.,0.,1.,1.);else if(mode>1.5&&mode<3.5)c=vec4(1.,0.,0.,1.);else discard;}
     outColor=c;

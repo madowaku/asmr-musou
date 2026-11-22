@@ -29,21 +29,25 @@
   }
   function spawn(material='wax',x=360,y=645,r=195,options={}){
     if(bodies.length>=config.maxBodies)return null;
-    const variant=options.variant||(r<60?'grunt':'boss'),key=material+'_'+variant,outline=L.outlines[key].points;
+    const variant=options.variant||(r<60?'grunt':'boss'),key=material+'_'+variant,full=L.outlines[key].points,outline=r<45&&full.length>24?full.filter((_,i)=>i%2===0):full;/* ~50px mob grunts: half the outline vertices, same silhouette at that size; halves slicing + cap cost */
     // r denotes silhouette radius, not transparent sprite framing.
     const reach=Math.max(...outline.map(p=>Math.hypot(p[0]-.5,p[1]-.5))),scale=r/reach;
     const poly=outline.map(p=>({x:x+(p[0]-.5)*scale,y:y+(p[1]-.5)*scale,u:p[0],v:p[1],cut:null}));
     const b=makeBody(material,poly,{texture:'body/'+key,boss:variant==='boss',lod:options.lod||'book'});bodies.push(b);return b;
   }
   const hordeLine={a:{x:35,y:760},b:{x:685,y:760}};
+  let hordeLod='book';
+  // Researched materials first; the selector's material leads so each study can be tested as a mob.
+  function hordeMaterials(){const sel=$('material').value,base=['wax','jelly'];return base.includes(sel)?[sel,...base.filter(m=>m!==sel)]:[sel,...base];}
   function horde(n=40,clearFirst=true){
     if(clearFirst)clear();n=Math.max(1,Math.min(80,Math.round(n)));const placed=[];
-    for(let i=0;i<n;i++){
-      const r=26+L.random()*14;let x,y,ok=false;
-      for(let attempt=0;attempt<400;attempt++){x=45+L.random()*630;y=345+L.random()*720;ok=placed.every(b=>Math.hypot(x-b.x,y-b.y)>r+b.r+4);if(ok)break;}
-      if(!ok)continue;placed.push({x,y,r});spawn(i%3?'jelly':'wax',x,y,r,{variant:'grunt',lod:'strip'});
-    }
-    $('hint').textContent='ばらけた群れを、指の軌跡でまとめて斬る。';
+    // 無双 mob: a dense, jittered hex-packed crowd (a scattered field only gave ~8 hits per swipe).
+    // Rows fill outward from the screen middle so N=40..80 always forms one thick band a single swipe can rake through.
+    const mats=hordeMaterials(),cell=58,rows=[];for(let k=0;k<14;k++)rows.push(k%2?-(k+1>>1):k>>1);
+    let i=0;for(const row of rows){if(i>=n)break;const y=700+row*cell*.86;if(y<330||y>1060)continue;
+      for(let col=0;col<12&&i<n;col++){const x=58+col*cell+(row&1?cell/2:0)+(L.random()-.5)*14;if(x>670)continue;const r=23+L.random()*9;
+        spawn(mats[i%mats.length],x,y+(L.random()-.5)*14,r,{variant:'grunt',lod:hordeLod});i++;}}
+    $('hint').textContent='群れを、一振りでまとめて斬る。';
   }
   function clear(){bodies.length=particles.length=trails.length=flashes.length=pending.length=fractures.length=accents.length=0;L.capture.reset();strokes.clear();freeze=punch=cutCount=0;lastCut=null;L.events.clear();$('status').textContent='';}
   L.addParticle=p=>{const particle={x:0,y:0,vx:0,vy:0,size:3,angle:L.random()*6.28,spin:(L.random()-.5)*12,life:.65+L.random()*.35,kind:0,color:[1,1,1,1],...p};if(particles.length>=config.maxParticles){particles[particleCursor++%config.maxParticles]=particle;}else particles.push(particle);};
@@ -55,8 +59,8 @@
     for(const poly of result.pieces)for(let i=0;i<poly.length;i++)if(poly[i].cut===id)faces.push({a:{...poly[i]},b:{...poly[(i+1)%poly.length]}});
     const first=path[0],last=path[path.length-1],dx=last.x-first.x,dy=last.y-first.y,len=Math.hypot(dx,dy)||1,nx=-dy/len,ny=dx/len;
     const children=result.pieces.map(poly=>{
-      const c=S.centroid(poly),side=Math.sign((c.x-first.x)*nx+(c.y-first.y)*ny)||1,speed=Math.min(260,70+stroke.speed*.055);
-      const child=makeBody(body.material,poly,{depth:body.depth+1,vx:body.vx+nx*side*speed+dx/len*speed*.22,vy:body.vy+ny*side*speed+dy/len*speed*.22-100,spin:side*Math.min(5.4,1.15+90/Math.sqrt(S.area(poly))),lastStroke:stroke.id,lastIndex:stroke.points.length-1},body);
+      const c=S.centroid(poly),side=Math.sign((c.x-first.x)*nx+(c.y-first.y)*ny)||1,grunt=body.radius<70,speed=Math.min(grunt?340:260,(grunt?110:70)+stroke.speed*(grunt?.07:.055));
+      const child=makeBody(body.material,poly,{depth:body.depth+1,vx:body.vx+nx*side*speed+dx/len*speed*.22,vy:body.vy+ny*side*speed+dy/len*speed*.22-(grunt?170:100),spin:side*Math.min(5.4,1.15+90/Math.sqrt(S.area(poly))),lastStroke:stroke.id,lastIndex:stroke.points.length-1},body);
       // Open a subpixel gap on the fracture frame; clear face bands are visible now.
       L.cap.init(child,path,capMode||body.lod);child.x+=nx*side*3;child.y+=ny*side*3;child.lastIndex=stroke.points[stroke.points.length-1].seq??stroke.points.length-1;child.lastPoint={...stroke.points[stroke.points.length-1]};return child;
     });
@@ -80,6 +84,13 @@
       const id='cut-'+(++cutId);let result;
       if(body.lod==='strip')for(let i=1;i<path.length;i++){if(!nearPath(body,[path[i-1],path[i]]))continue;const r=S.splitPath(poly,[path[i-1],path[i]],{minArea:config.minPieceArea,cutId:id});if(r.cut){result=r;break;}}
       result=result||S.splitPath(poly,path,{minArea:config.minPieceArea,cutId:id});
+      // Blade magnetism (無双): a stroke that grazes past a body still cuts it, along a line parallel to the
+      // nearest blade segment, pulled into the body. Reach grows with swipe speed. Without it a fast rake
+      // through a crowd misses everything between the exact pixel paths.
+      if(!result.cut){const reach=Math.min(34,10+stroke.speed*.006);let best=null;
+        for(let i=1;i<path.length;i++){const a=path[i-1],q=path[i],dx=q.x-a.x,dy=q.y-a.y,den=dx*dx+dy*dy||1,t=Math.max(0,Math.min(1,((body.x-a.x)*dx+(body.y-a.y)*dy)/den)),px=a.x+dx*t,py=a.y+dy*t,d=Math.hypot(body.x-px,body.y-py);if(!best||d<best.d)best={d,ux:dx/Math.sqrt(den),uy:dy/Math.sqrt(den),px,py};}
+        if(best&&best.d<body.radius+reach){const nx=(body.x-best.px)/(best.d||1),ny=(body.y-best.py)/(best.d||1),o=Math.min(best.d,body.radius*.45),cx=body.x-nx*o,cy=body.y-ny*o,L2=body.radius*2.4;
+          const line=[{x:cx-best.ux*L2,y:cy-best.uy*L2},{x:cx+best.ux*L2,y:cy+best.uy*L2}];result=S.splitPath(poly,line,{minArea:config.minPieceArea,cutId:id});if(result.cut)result.magnet=true;}}
       if(!result.cut||result.pieces.length<1)continue;result.id=id;body.queued=true;hits.push({body,result,path});
     }
     if(hits.length){
@@ -96,7 +107,7 @@
         fractures.push({...hit,at:L.time+lead+k.dt/1000,stroke:{...stroke,wave:hits.length>1?wave:null,dt:k.dt}});
       }
       for(let i=1;i<stroke.points.length;i++)trails.push({a:stroke.points[i-1],b:stroke.points[i],life:lead+end+.24,total:lead+end+.24});
-      if(hits.length>=13)accents.push({at:L.time+lead+end,age:-1,from,to,material:hits[0].body.material,count:hits.length});
+      if(hits.length>=13){/* accent spans the first..last broken body, not the stroke endpoints (a zig-zag starts and ends on the same side) */const ordered=plan.slice().sort((a,b)=>a.dt-b.dt),f=ordered[0],z=ordered.at(-1);accents.push({at:L.time+lead+end,age:-1,from:{x:f.x,y:f.y},to:{x:z.x,y:z.y},material:hits[0].body.material,count:hits.length});}
       stroke.didCut=true;
     }
     if(profile)profileInput.push(performance.now()-begin);
@@ -146,7 +157,9 @@
     renderer.begin();
     // Subtle WebGL laboratory guides; no Canvas2D scene drawing.
     renderer.line({x:46,y:1117},{x:674,y:1117},1,[.46,.66,.58,.19]);
-    for(const b of bodies){
+    // Flying pieces are closer to the camera than the intact crowd: draw intact bodies first.
+    for(let pass=0;pass<2;pass++)for(const b of bodies){
+      if((pass===0)===!!b.active)continue;
       if(onlyBody&&b.id!==onlyBody)continue;const world=worldVertices(b);
       renderer.mesh(b.baseTexture||b.material+'_body',world,b.meshIndices);
       if(L.materials[b.material].draw)L.materials[b.material].draw(renderer,b);
@@ -193,7 +206,7 @@
   window.addEventListener('keydown',e=>{if(/INPUT|SELECT/.test(e.target.tagName))return;const key=e.key.toLowerCase(),ids={n:'spawn',h:'horde',s:'slow',' ':'pause','.':'step',d:'wire',r:'record',l:'replay'};if(ids[key]){$(ids[key]).click();e.preventDefault();}if(key==='1'||key==='2'){$('material').value=key==='1'?'wax':'jelly';$('material').onchange();}});
   $('record').onclick=()=>L.capture.record(canvas);$('replay').onclick=()=>L.capture.startReplay();
   L.test={
-    capMode(mode){capMode=mode;},
+    capMode(mode){capMode=mode;},hordeLod(mode){hordeLod=mode;},
     capPixels(){const result=[];renderer.setDebug(true);for(const b of bodies.filter(b=>b.cap)){onlyBody=b.id;draw();const px=renderer.pixels();let cap=0,skin=0;for(let i=0;i<px.length;i+=4){if(px[i]>200&&px[i+2]<10)cap++;else if(px[i+2]>200&&px[i]<10)skin++;}result.push({id:b.id,cap,skin,ratio:cap/(cap+skin)});}onlyBody=null;renderer.setDebug(false);draw();return result;},
     clear,spawn,horde,hordeLine,hordeQueued(n){queuedHorde=n;},
     getState(){return {webgl2:renderer.gl instanceof WebGL2RenderingContext,frame:L.frame,time:L.time,paused,slow,freeze,punch,cutCount,lastCut,queue:fractures.length,capture:L.capture.stats(),particles:particles.length,assets:L.assetStatus,bodies:bodies.map(b=>({id:b.id,rootId:b.rootId,material:b.material,depth:b.depth,x:b.x,y:b.y,angle:b.angle,vy:b.vy,cap:b.cap?{age:b.cap.age,lod:b.cap.lod,vertices:b.capVertices}:null,area:b.area,poly:currentPoly(b),soft:b.soft?{age:b.soft.age,amplitude:b.soft.amplitude,points:b.soft.points.map(p=>({x:p.x,y:p.y,rx:p.rx,ry:p.ry,face:p.face}))}:null,crack:b.wax?{age:b.wax.age,shown:b.wax.shown,edges:b.wax.edges.length,peeled:b.wax.cells.filter(c=>c.peeled).length}:null})),events:L.events.history.slice()};},

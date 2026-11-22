@@ -41,11 +41,30 @@
   }
   // x uses the lab's 720-wide world coordinates. Set LAB.audioWorldWidth before
   // init() for another world width (1 also permits normalized coordinates).
+  // Adapter between the lab engine's event vocabulary and the audio engine's.
+  // - Wave-managed cut/kill are already scheduled by the 'wave' event: forwarding them would double every fracture.
+  // - The lab's one-shot 'press' is covered by the per-frame 'strain' pre-phase; the audio engine treats 'press' as an
+  //   open stream that would never receive pressure 0, so it is not forwarded.
+  // - Parameter names/units differ (growthRate px/s → rate cells/s, impact speed → energy 0..1, peel area → size).
+  const clamp01 = v => Math.max(0, Math.min(1, v));
+  function adapt(name, p) {
+    p = p || {};
+    if ((name === 'cut' || name === 'kill') && p.waveManaged) return null;
+    if (name === 'press') return null;
+    if (name === 'crack_grow' && p.rate === undefined) return { ...p, rate: Math.min(400, (p.growthRate || 0) / 18) };
+    if (name === 'impact' && p.energy === undefined) return { ...p, energy: clamp01((p.speed || 0) / 900), size: p.size ?? Math.sqrt(p.area || 400) / 30 };
+    if (name === 'peel' && p.size === undefined) return { ...p, size: Math.sqrt(p.area || 100) / 20 };
+    return p;
+  }
   for (const name of ['strain', 'release', 'settle', 'wave', 'cut', 'crack_grow', 'peel', 'wobble', 'flow', 'impact', 'press', 'crumble', 'kill', 'horde', 'synth_preview']) {
-    LAB.events.on(name, params => { if (engine && enabled && context.state === 'running') engine.emit(name, params); });
+    LAB.events.on(name, params => { if (!engine || !enabled || context.state !== 'running') return; const a = adapt(name, params); if (a) engine.emit(name, a); });
   }
   LAB.audio = {
     init,
+    // Lab UI conveniences (first gesture unlock, sound button).
+    unlock() { return init(); },
+    toggle() { enabled = !enabled; if (engine) engine.setEnabled(enabled); return enabled; },
+    get context() { return context; },
     planWave: LAB.AudioTemporal.planWave,
     setEnabled(value) { enabled = !!value; if (engine) engine.setEnabled(enabled); },
     setMaster(value) { if (!Number.isFinite(value)) return; master = Math.max(0, Math.min(1, value)); if (engine) engine.setMaster(master); },

@@ -8,7 +8,8 @@
       const nx=-(z.y-a.y)/len,ny=(z.x-a.x)/len,side=Math.sign(-a.x*nx-a.y*ny)||1;
       b.cap={a,nx,ny,side,lod,age:0,reach:Math.max(...b.poly.map(p=>Math.abs((p.x-a.x)*nx+(p.y-a.y)*ny))),indices:S.triangulate(b.poly)};
     },
-    theta(b){const age=b.cap.age;return .611*(1-(1-clamp(age/.12))**3)*(age<.18?1:.78+.22*Math.exp(-(age-.18)*3));},
+    theta(b){const c=b.cap;if(c.thetaFrame===L.frame&&c.thetaAge===c.age)return c.thetaValue;c.thetaFrame=L.frame;c.thetaAge=c.age;return c.thetaValue=this.thetaAt(c.age);},
+    thetaAt(age){return .611*(1-(1-clamp(age/.12))**3)*(age<.18?1:.78+.22*Math.exp(-(age-.18)*3));},
     skin(b,p){
       if(!b.cap||b.cap.lod==='strip')return p;
       const c=b.cap,d=(p.x-c.a.x)*c.nx+(p.y-c.a.y)*c.ny,k=Math.cos(this.theta(b))-1;
@@ -30,6 +31,9 @@
       });
       if(sin<.02)return;
       b.capVertices=pts;
+      // Mob grunts (~50px on screen): one cap layer and only the cut-edge line. The full outline stroke and
+      // the shell/core double cap are invisible at that size but were ~2/3 of horde draw cost.
+      if(b.radius<45){r.cap('xsec/'+b.material,pts,c.indices,jelly?3:2,[1,1,1,1]);for(let i=0;i<b.poly.length;i++)if(b.poly[i].cut)r.line(pts[i],pts[(i+1)%pts.length],jelly?2.6:2,jelly?[1,.96,1,.9]:[1,.72,.84,1]);return;}
       const center=S.centroid(pts);
       if(b.material==='wax'){
         r.cap('xsec/wax_shell',pts,c.indices,2,[1,.86,.96,1]);

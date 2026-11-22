@@ -7,7 +7,7 @@ const browser=await chromium.launch({channel:'chrome'});
 try{
   const {page,errors,network}=await openLab(browser,{clock:false,mobile:true}),cdp=await page.context().newCDPSession(page);
   await cdp.send('Emulation.setCPUThrottlingRate',{rate:4});await page.waitForTimeout(300);
-  let swipes=0;const start=performance.now();await page.evaluate(()=>LAB.test.profile(true));
+  let swipes=0;const start=performance.now();await page.evaluate(()=>{LAB.test.hordeLod('book');LAB.test.profile(true);});
   while(performance.now()-start<10000){
     await page.evaluate(()=>{LAB.test.hordeQueued(40);const points=[];for(let i=0;i<11;i++){const y=345+i*68;points.push({x:i%2?720:0,y},{x:i%2?0:720,y});}LAB.test.path(points,3000);});swipes++;await page.waitForTimeout(850);
   }
