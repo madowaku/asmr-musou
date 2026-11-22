@@ -1,0 +1,224 @@
+{
+  "profiles": 9,
+  "strain": [
+    {
+      "material": "wax",
+      "hz": 30,
+      "gapMs": 0,
+      "riseDb": 22.818761136880653,
+      "earlyToSettledPower": 0.6471613190869608,
+      "peakAfterStop50ms": 3.230983883217853e-11
+    },
+    {
+      "material": "wax",
+      "hz": 60,
+      "gapMs": 0,
+      "riseDb": 22.818761136880653,
+      "earlyToSettledPower": 0.6471613190869608,
+      "peakAfterStop50ms": 3.230983883217853e-11
+    },
+    {
+      "material": "jelly",
+      "hz": 30,
+      "gapMs": 0,
+      "riseDb": 17.012403069407238,
+      "earlyToSettledPower": 0.8463875131449095,
+      "peakAfterStop50ms": 3.7564651389487835e-10
+    },
+    {
+      "material": "jelly",
+      "hz": 60,
+      "gapMs": 0,
+      "riseDb": 17.012403069407238,
+      "earlyToSettledPower": 0.8463875131449095,
+      "peakAfterStop50ms": 3.7564651389487835e-10
+    },
+    {
+      "material": "soap",
+      "hz": 30,
+      "gapMs": 0,
+      "riseDb": 19.872921775117025,
+      "earlyToSettledPower": 0.9130190149860397,
+      "peakAfterStop50ms": 1.0190550660260644e-11
+    },
+    {
+      "material": "soap",
+      "hz": 60,
+      "gapMs": 0,
+      "riseDb": 19.872921775117025,
+      "earlyToSettledPower": 0.9130190149860397,
+      "peakAfterStop50ms": 1.0190550660260644e-11
+    },
+    {
+      "material": "sand",
+      "hz": 30,
+      "gapMs": 0,
+      "riseDb": 13.872190830908737,
+      "earlyToSettledPower": 1.1213824994092414,
+      "peakAfterStop50ms": 1.420834283560879e-11
+    },
+    {
+      "material": "sand",
+      "hz": 60,
+      "gapMs": 0,
+      "riseDb": 13.872190830908737,
+      "earlyToSettledPower": 1.1213824994092414,
+      "peakAfterStop50ms": 1.420834283560879e-11
+    },
+    {
+      "material": "sponge",
+      "hz": 30,
+      "gapMs": 0,
+      "riseDb": 14.682718878378955,
+      "earlyToSettledPower": 0.9125400703912794,
+      "peakAfterStop50ms": 6.978293637383004e-11
+    },
+    {
+      "material": "sponge",
+      "hz": 60,
+      "gapMs": 0,
+      "riseDb": 14.682718878378955,
+      "earlyToSettledPower": 0.9125400703912794,
+      "peakAfterStop50ms": 6.978293637383004e-11
+    },
+    {
+      "material": "chalk",
+      "hz": 30,
+      "gapMs": 0,
+      "riseDb": 27.25389519442206,
+      "earlyToSettledPower": 0.6672857857010751,
+      "peakAfterStop50ms": 6.402209925399083e-12
+    },
+    {
+      "material": "chalk",
+      "hz": 60,
+      "gapMs": 0,
+      "riseDb": 27.25389519442206,
+      "earlyToSettledPower": 0.6672857857010751,
+      "peakAfterStop50ms": 6.402209925399083e-12
+    },
+    {
+      "material": "beadslime",
+      "hz": 30,
+      "gapMs": 0,
+      "riseDb": 20.650891130983844,
+      "earlyToSettledPower": 1.0119855122133912,
+      "peakAfterStop50ms": 2.948047639339535e-10
+    },
+    {
+      "material": "beadslime",
+      "hz": 60,
+      "gapMs": 0,
+      "riseDb": 20.650891130983844,
+      "earlyToSettledPower": 1.0119855122133912,
+      "peakAfterStop50ms": 2.948047639339535e-10
+    },
+    {
+      "material": "kohaku",
+      "hz": 30,
+      "gapMs": 0,
+      "riseDb": 29.420753242070003,
+      "earlyToSettledPower": 0.9152752085311542,
+      "peakAfterStop50ms": 8.920151076119431e-12
+    },
+    {
+      "material": "kohaku",
+      "hz": 60,
+      "gapMs": 0,
+      "riseDb": 29.420753242070003,
+      "earlyToSettledPower": 0.9152752085311542,
+      "peakAfterStop50ms": 8.920151076119431e-12
+    },
+    {
+      "material": "bubble",
+      "hz": 30,
+      "gapMs": 0,
+      "riseDb": 24.786406924610922,
+      "earlyToSettledPower": 0.6672943938187765,
+      "peakAfterStop50ms": 1.061440779021039e-11
+    },
+    {
+      "material": "bubble",
+      "hz": 60,
+      "gapMs": 0,
+      "riseDb": 24.786406924610922,
+      "earlyToSettledPower": 0.6672943938187765,
+      "peakAfterStop50ms": 1.061440779021039e-11
+    }
+  ],
+  "waves": [
+    {
+      "n": 1,
+      "waveMs": 0,
+      "material": "wax",
+      "maxActive": 2,
+      "dropped": 0
+    },
+    {
+      "n": 3,
+      "waveMs": 60,
+      "material": "wax",
+      "maxActive": 3,
+      "dropped": 0
+    },
+    {
+      "n": 10,
+      "waveMs": 191.42857142857144,
+      "material": "wax",
+      "maxActive": 11,
+      "dropped": 0
+    },
+    {
+      "n": 20,
+      "waveMs": 295.83333333333337,
+      "material": "wax",
+      "maxActive": 9,
+      "dropped": 0
+    },
+    {
+      "n": 40,
+      "waveMs": 450,
+      "material": "wax",
+      "maxActive": 13,
+      "dropped": 0
+    }
+  ],
+  "allMaterialBudgets": [
+    {
+      "material": "wax",
+      "delta": 6.284599403570752
+    },
+    {
+      "material": "jelly",
+      "delta": 5.8426638037475485
+    },
+    {
+      "material": "soap",
+      "delta": 5.380778409192416
+    },
+    {
+      "material": "sand",
+      "delta": 2.3223802964625264
+    },
+    {
+      "material": "sponge",
+      "delta": 4.476471399199703
+    },
+    {
+      "material": "chalk",
+      "delta": 4.909624052966709
+    },
+    {
+      "material": "beadslime",
+      "delta": 7.724722973267966
+    },
+    {
+      "material": "kohaku",
+      "delta": 6.330120552023999
+    },
+    {
+      "material": "bubble",
+      "delta": 6.881824330092261
+    }
+  ]
+}

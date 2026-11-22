@@ -25,7 +25,9 @@ try {
   const page = await context.newPage();
   page.on('pageerror', e => errors.push(String(e))); page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
   await page.goto(new URL('../../lab-audio.html', import.meta.url).href);
-  assert.equal(await page.locator('[data-sound]').count(), 22);
+  assert.equal(await page.locator('[data-sound]').count(), 24);
+  assert.equal(await page.locator('[data-profile]').count(), 9);
+  assert.equal(await page.locator('[data-strain]').count(), 9);
   await page.locator('#start').click(); await page.waitForFunction(() => LAB.audio.stats().ready);
   await page.locator('#horde').click(); await page.waitForTimeout(1050);
   report.horde = await page.evaluate(() => LAB.audio.stats());
@@ -50,8 +52,32 @@ try {
   // All labelled one-shots remain reachable and error-free after disable/re-enable.
   for (const button of await page.locator('[data-sound]').all()) { await button.click(); await page.waitForTimeout(45); }
   await page.locator('#stop').click();
+  // New panels must drive real PCM and the shared clock, including bubble.
+  report.temporal = [];
+  for (const material of ['wax', 'soap', 'bubble', 'beadslime']) {
+    await page.locator('#strain-' + material).fill('75'); await page.locator('#strain-' + material).dispatchEvent('input');
+    await page.waitForTimeout(100);
+    assert(await page.evaluate(m => LAB.audio.stats().strains.some(s => s.material === m && s.amount > .7), material));
+    assert(await page.evaluate(() => __pcm.slice(-3).some(x => x.energy > 1e-7)));
+    await page.locator('[data-release="' + material + '"]').click(); await page.waitForTimeout(90);
+    assert.equal(await page.locator('#strain-' + material).inputValue(), '0');
+    assert(await page.evaluate(() => LAB.audio.stats().events.some(e => e.group === 'settle')));
+    await page.locator('#stop').click();
+  }
+  for (const n of [1, 3, 10, 20, 40]) {
+    await page.locator('#wave-n').fill(String(n)); await page.locator('#wave-n').dispatchEvent('input');
+    await page.locator('#wave-material').selectOption(n === 40 ? 'soap' : 'wax');
+    await page.locator('#play-wave').click(); await page.waitForTimeout(700);
+    assert.equal(await page.locator('.wave-dot.broken').count(), n);
+    const state = await page.evaluate(() => LAB.audio.stats());
+    assert.equal(state.lastWave.kills.length, n); assert(await page.evaluate(() => __pcm.slice(-60).some(x => x.energy > .001)));
+    report.temporal.push({ n, tier: state.lastWave.tier, tail: state.lastWave.tailDuration });
+    await page.locator('#stop').click(); assert.equal(await page.locator('#play-wave').isEnabled(), true);
+  }
   await page.screenshot({ path: fileURLToPath(new URL('lab-audio-desktop.png', output)), fullPage: true });
   await page.setViewportSize({ width: 390, height: 844 }); await page.screenshot({ path: fileURLToPath(new URL('lab-audio-mobile.png', output)), fullPage: true });
+  await page.locator('#wave-panel').screenshot({ path: fileURLToPath(new URL('wave-panel-mobile.png', output)) });
+  await page.locator('[data-profile="wax"]').screenshot({ path: fileURLToPath(new URL('strain-panel-mobile.png', output)) });
   assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'mobile fits width');
   report.final = await page.evaluate(() => LAB.audio.stats());
   const cdp = await context.newCDPSession(page); await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
@@ -59,6 +85,12 @@ try {
   await page.locator('#horde').click(); await page.waitForTimeout(1300);
   report.throttled4x = await page.evaluate(() => LAB.audio.stats());
   assert(report.throttled4x.maxActive <= 24); assert(report.throttled4x.cpuP95Ms < 8, 'audio-only 4x callback p95 budget');
+  await page.locator('#stop').click(); await cdp.send('Emulation.setCPUThrottlingRate', { rate: 1 });
+  await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
+  await page.locator('#strain-beadslime').fill('85'); await page.locator('#strain-beadslime').dispatchEvent('input');
+  await page.locator('#wave-material').selectOption('mix'); await page.locator('#play-wave').click();
+  await page.waitForTimeout(2000); report.temporalThrottled4x = await page.evaluate(() => LAB.audio.stats());
+  assert(report.temporalThrottled4x.cpuP95Ms < 8); assert.equal(report.temporalThrottled4x.lastWave.kills.length, 40);
   await page.locator('#stop').click(); await cdp.send('Emulation.setCPUThrottlingRate', { rate: 1 });
   // Bootstrap must preserve an emitter supplied by the host engine.
   const host = await context.newPage();
@@ -72,7 +104,7 @@ try {
   assert.equal(await host.evaluate(() => LAB.audio.stats().kills), 1);
   assert.deepEqual(errors, []); assert.deepEqual(network, []);
   report.errors = errors; report.networkRequests = network; report.browserVersion = browser.version();
-  for (const key of ['horde', 'flow', 'final', 'throttled4x']) delete report[key].events;
+  for (const key of ['horde', 'flow', 'final', 'throttled4x', 'temporalThrottled4x']) delete report[key].events;
   await writeFile(new URL('browser-tests.json', output), JSON.stringify(report, null, 2) + '\n');
   console.log('PASS: Chrome file://, real PCM non-silence/stop/mute, horde aggregation + 24-voice cap, all buttons, responsive layout, existing emitter, zero network/errors.');
 } finally { await browser.close(); }

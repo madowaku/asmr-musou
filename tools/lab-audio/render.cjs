@@ -29,7 +29,8 @@ function main() {
       const channels = [variants[i]], m = metrics(channels), file = name + '_' + String(i + 1).padStart(2, '0');
       if (m.phonePct < 50) failures.push(file + ': phone band below 50%');
       if (m.peakDb > -3) failures.push(file + ': peak above -3 dBFS');
-      if (Math.abs(m.rms150Db - (grain ? -37 : levels[name.slice(6)])) > .5) failures.push(file + ': RMS150 normalization');
+      const level = grain ? -37 : name.endsWith('_accent') || name === 'synth_bubble_cut' ? -23 : name === 'synth_bubble_pop' ? -29 : levels[name.slice(6)];
+      if (!Number.isFinite(level) || Math.abs(m.rms150Db - level) > .5) failures.push(file + ': RMS150 normalization');
       if (impactNames.has(name) && m.peakMs > 8) failures.push(file + ': impact later than 8 ms');
       if (!Number.isFinite(m.phonePct) || m.peakDb < -80) failures.push(file + ': silence');
       fs.writeFileSync(path.join(output, file + '.wav'), wav(channels)); rows.push({ name: file, kind: grain ? 'grain' : 'one-shot', ...m });
@@ -56,6 +57,7 @@ function main() {
   fs.writeFileSync(path.join(output, 'analysis.md'), '# Synthetic material audio — measured, not auditioned\n\n48 kHz PCM16. One-shots/grains mono, scenarios stereo. Measurements before quantization. RMS150 has a fixed 150 ms denominator; short sounds zero padded. Phone power is full-buffer FFT power in 500–8000 Hz. Peak time is start of the loudest sliding 1 ms power window. Scenario loudness is max sliding 400 ms BS.1770 K-weighted stereo energy (48 kHz coefficients, no gating); RMS400 is also checked. This is sample peak, not an intersample true-peak or human comfort claim.\n\n' + table + '\n\n```json\n' + JSON.stringify(summary, null, 2) + '\n```\n');
   console.log(table); console.log(JSON.stringify(summary, null, 2));
   if (failures.length) { console.error(failures.join('\n')); process.exitCode = 1; } else console.log('PASS: all material, grain and scheduler-rendered scenario gates.');
+  require('./wave-render.cjs').main(renderScenario, bank, output);
   return { summary, rows, scenarioStats };
 }
 if (require.main === module) main();

@@ -2,6 +2,7 @@
   'use strict';
   const $ = id => document.getElementById(id), audio = LAB.audio, emit = (n, p) => LAB.events.emit(n, p);
   const names = { wax: ['ロウ', '殻の乾いた音と、内側のクリーム。', '#e5c1a5'], jelly: ['ゼリー', '短いぷちゅと、柔らかな水の揺れ。', '#c8b5e1'], soap: ['石鹸', '滑らかな切削と、小さな立方体。', '#b8dfc5'], sand: ['砂', '一瞬のザッから、流れる粒の雲へ。', '#d8c39c'], sponge: ['吸水スポンジ', '空気の穴、泡、水滴の組み合わせ。', '#ddd597'], chalk: ['チョーク', '短い折れ音、乾いた粒、微かな粉。', '#d7dfdf'], beadslime: ['粒入りスライム', '粘りの中から、小さなビーズが離れる。', '#b2d8e0'], kohaku: ['琥珀糖', '硬い結晶の殻と、柔らかな芯。', '#e6c6ad'] };
+  names.bubble = ['プチプチ', '薄い膜が、連鎖してはじける。', '#b1d9e8'];
   let timers = [], ready = false;
   async function start() {
     const ok = await audio.init(); ready = ok;
@@ -20,7 +21,7 @@
     const title = document.createElement('h3'); title.textContent = label; card.append(title);
     const desc = document.createElement('p'); desc.textContent = description; card.append(desc);
     const buttons = document.createElement('div'); buttons.className = 'sounds';
-    for (const [name, spec] of Object.entries(LAB.AudioDSP.SPECS)) if (spec.material === m) {
+    for (const [name, spec] of Object.entries(LAB.AudioDSP.SPECS)) if (spec.material === m && spec.action !== 'accent') {
       const button = document.createElement('button'); button.textContent = spec.label; button.dataset.sound = name; button.title = name;
       button.addEventListener('click', async () => { if (await start()) { emit('synth_preview', { name }); $('status').textContent = label + ' · ' + spec.label + ' / 合成音'; } }); buttons.append(button);
     }

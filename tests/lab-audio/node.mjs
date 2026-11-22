@@ -44,7 +44,7 @@ assert(maxGap(quietFlow.channels, .015, .39) <= 30, 'even very low positive flow
 const scrape = speed => renderScenario({ duration: 1, events: [{ at: 0, name: 'cut', params: { material: 'soap', length: 180, speed } }] }, bank);
 assert(scrape(300).stats.events[0].duration > scrape(1800).stats.events[0].duration * 4, 'scrape length/speed controls duration');
 const materialHordes = [];
-for (const m of D.MATERIALS) {
+for (const m of D.MATERIALS.slice(0, 8)) { // Preserve the original R2 comparison fixture.
   const single = renderScenario({ duration: 1, events: [{ at: .1, name: 'kill', params: { material: m } }] }, bank);
   const horde = renderScenario({ duration: 1.4, events: scenarioModule.horde(40, 200, [m]) }, bank);
   const sm = metrics(single.channels), hm = metrics(horde.channels), delta = hm.momentary400LUFS - sm.momentary400LUFS;
@@ -83,6 +83,6 @@ const pan = new Engine(SR, bank); assert.equal(pan.pan(0), -.4); assert.equal(pa
 const malformed = new Engine(SR, bank);
 for (const event of ['cut', 'impact', 'peel', 'crumble', 'press', 'flow', 'wobble', 'kill']) malformed.emit(event, { material: 'sand', rate: NaN, pressure: Infinity, energy: -2, count: NaN, x: NaN });
 malformed.process(left, right); assert(left.every(Number.isFinite) && right.every(Number.isFinite));
-const report = { distinctGrains: 128, stops, crackLowGrains: low.stats.started, crackHighGrains: high.stats.started, materialHordes, forcedLimiterPeakDb, wobble2, wobble8 };
+const report = { distinctGrains: 144, stops, crackLowGrains: low.stats.started, crackHighGrains: high.stats.started, materialHordes, forcedLimiterPeakDb, wobble2, wobble8 };
 writeFileSync(new URL('../../research/v03/audio/node-tests.json', import.meta.url), JSON.stringify(report, null, 2) + '\n');
 console.log('PASS: distinct banks, material coupling, explicit + stale stream stops, all 8 homogeneous hordes, material mix, limiter, cap, mute and malformed inputs.');

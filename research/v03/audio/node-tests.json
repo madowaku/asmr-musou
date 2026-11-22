@@ -1,5 +1,5 @@
 {
-  "distinctGrains": 128,
+  "distinctGrains": 144,
   "stops": [
     {
       "name": "flow",

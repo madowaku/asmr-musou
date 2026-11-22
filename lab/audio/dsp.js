@@ -3,7 +3,7 @@
 (function (root) {
   'use strict';
   const TAU = Math.PI * 2;
-  const MATERIALS = ['wax', 'jelly', 'soap', 'sand', 'sponge', 'chalk', 'beadslime', 'kohaku'];
+  const MATERIALS = ['wax', 'jelly', 'soap', 'sand', 'sponge', 'chalk', 'beadslime', 'kohaku', 'bubble'];
   const SPECS = {};
   function spec(material, action, duration, db, impact, label) {
     SPECS['synth_' + material + '_' + action] = { material, action, duration, db, impact, label };
@@ -31,6 +31,9 @@
   spec('kohaku', 'crust', .075, -27, true, '結晶の殻');
   spec('kohaku', 'inner', .18, -27, false, 'ゼリーの芯');
   spec('horde', 'release', .60, -33, false, '余韻の息と光');
+  spec('bubble', 'cut', .085, -23, true, 'プチッと膜がはじける');
+  spec('bubble', 'pop', .045, -29, true, '転がる小さなプチッ');
+  for (const m of MATERIALS) spec(m, 'accent', .16, -23, false, '崩落のアクセント');
   const clamp = (x, lo, hi) => Math.max(lo, Math.min(hi, x));
   const finite = (x, fallback) => Number.isFinite(x) ? x : fallback;
   const dbGain = db => 10 ** (db / 20);
@@ -144,6 +147,17 @@
     if (m === 'horde') {
       noise(0, .60, 1200, 5400, .9, .17);
       [1568, 2093, 2637].forEach((hz, i) => modal(.022 + i * .045, hz, .09, .08));
+    }
+    if (m === 'bubble') { modal(0, 1750, .002, 1.4, -.7); noise(.001, .025, 850, 3900, .8, .005); if (a === 'cut') modal(.018, 2200, .0018, .22, -.65); }
+    if (a === 'accent') {
+      // A material-specific end gesture, broader than the isolated fracture.
+      if (m === 'wax') { wet(0, .15, 2.0, 800); ticks(24, .13, 1900, 4900, .55); noise(0, .13, 850, 3600, 1.2, .07, 37); }
+      if (m === 'soap') { noise(0, .16, 950, 3700, 2.0, .07, 62); ticks(18, .12, 900, 2500, .6); }
+      if (m === 'sand') noise(0, .16, 2800, 6200, 2.0, .08, 41);
+      if (m === 'chalk') { noise(0, .16, 1800, 4800, 1.7, .05, 85); ticks(12, .07, 1200, 2600, .5); }
+      if (m === 'kohaku') { ticks(25, .12, 2900, 5900, .9); wet(.014, .14, 1.2, 900); }
+      if (m === 'jelly' || m === 'sponge' || m === 'beadslime') { wet(0, .16, 1.8, m === 'beadslime' ? 600 : 950); noise(0, .12, 1200, 3400, .8, .06, 22); }
+      if (m === 'bubble') ticks(9, .10, 1400, 3200, .6);
     }
     // Band-limit before RMS normalization; no bass-only phone-invisible instruments.
     const hp = new Filter(coefficients('highpass', 520, .707, 0, sr));

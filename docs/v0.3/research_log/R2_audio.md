@@ -179,3 +179,142 @@ classic scripts/file:///同一DSPという制約を優先し、今回はScriptPr
 | kohaku | crust→inner→cutを交互。 | 1回のcutで「薄い硬い殻→柔らかな芯」の両方を聞き取れるか。単なるwax/ガラス音との差。 | needs ear-check |
 
 最後に「同じ音量で1体」→20体/100ms→40体/200ms。同じmasterで数回ずつ、ミックスと各素材を比較。40体が大音量だけで迫力を作っていないか、後半が耳に刺さらないか、定位が飛ばないか、15体以上の余韻が勝利ジングルではなく解放感になっているかを記録。何回なら気持ちよく繰り返せるかも記録する。**この欄の人間による結果はまだない。**
+
+## R2b
+
+2026-11-22 / Codex task R2b (Astra)。正本は `docs/v0.3/ASMR_TEMPORAL_STRUCTURE.md`。以下はR2の記録への追記で、以前の採否・数値は当時の結果として残す。
+
+**実装・数値・視覚検査は通過。音を聴いたという主張はしない。洪水／雪崩に聞こえるか、素材らしさ、快適さと耳疲れは全素材 needs human ear-check。** 本編の描画・物理統合と実機確認は今回の所有範囲外。
+
+### R2から変えたこと
+
+- `lab/profiles.js`: pure dataの9素材。waxの別名squeeze、bubbleを追加。pre/postは正本の秒数。正本が数値を定めないsponge/beadslimeのpre、bubbleの短いpostはmin/max=null。操作依存・未指定を明示し、正本にない秒数を確定仕様にしない。collapse.base/logGrowthは音響用の調整値。
+- `lab/audio/temporal.js`: 位置順の波プラン、5段階の破断形状、素材別アクセント／崩落、継ぎ目のない予兆。単発はフル、連打は90ms以内へ短縮＋五音音階、rushは先頭3体だけフル、残り25ms粒、avalancheは18ms、floodは12ms粒＋8ms間隔の重なった素材層。
+- 20/40では最後の破断位置に160msの素材アクセント。waxはwet shell-burst、soapはcrumble-hit、砂はslide、chalkは粉の崩落、kohakuはcrystal burst、jellyはwet slap、spongeはwater squeeze、beadslimeはbead spill、bubbleはcluster pop。
+- 崩落時間は素材のbase + logGrowth × log2(N)。ロウはshell-chip rain、石鹸はcube、砂は連続流、chalkはdust、kohakuはcrystal、jellyはwet slap、beadslimeはbead patter、spongeはdrip。混合時、個々の破断は元の素材を保ち、崩落・アクセントは最多素材。同数なら波の先頭側を優先。
+- R2の固定8粒×√Nは新waveの主経路で使わない。長さ・発音密度・音色・幅・末尾を増やし、全イベント共通のN^-0.22で音量予算を配る。ファイルごとの事後正規化なし。旧kill/horde経路は比較・互換用として残す。
+- `lab-audio.html`: 9素材の時間バーとstrain slider／解放ボタン、新wave material/N panel、同じdtを使う左→右の視覚シミュレーション。R2の群れは比較用と表示。
+
+### 試行・採否
+
+| 試行 | 観測と変更 | 判定 |
+|---|---|---|
+| A: 全段階を破断→粒→連続層へmorph、素材アクセントとlog尾 | 初回1→40差がwax +13.19、soap +12.29、sand +9.34、kohaku +13.23dB。質感は変わるが予算超過。 | 形状採用、未制御gainは却下 |
+| B: 波全体共通のN^-0.22予算 | 個々の破断、accent、tailの相対ダイナミクスを保持し、最終差+2.32〜+6.33dB。全9素材endpoint補助検査も+2〜8dB内。 | 採用 |
+| C: onset検出の直前6ms最小電力基準 | ノイズの谷を過剰に拾う。生の粒子数とも混同できない。直前6ms平均基準へ変更し、全素材で同一条件に固定。 | 最小値基準を却下、平均基準採用 |
+| D: 均等な崩落間隔 | 最初のwave_ladderを開くと石鹸の尾が規則的な櫛に見えた。間隔にseed固定のばらつき＋減速を加え、再レンダー・再目視。 | 均等配置を却下、ばらつき採用 |
+| E: soap予兆を極端に小さく | 低amountの5ms窓が-90dBFSを下回る区間が10ms。ほぼ無音という役割を保ちつつ摩擦の連続床を微増。 | 調整後採用 |
+| F: strainの粒の次回時刻を低amountのまま保持 | amountを急上昇させた50ms内の出力が、soapで安定後の25%に満たずNode検査FAIL。次回時刻を現在の張力に追従させた。 | 旧予約方式を却下、追従方式採用 |
+| G: 波を全て予約voiceとして追加 | R2の24voice capを先々の音で埋めないよう、別queueから25ms先までだけdispatch。 | 採用、指定16波でdrop 0、最大15voice |
+
+### 最終ラダー測定
+
+書き出した48kHz stereo PCM16そのものを測定。master=.65。durationは2ms RMS包絡の最大値に対する-40dBまで。onsetは2ms窓・1ms hop、直前6ms平均より+4dB、7ms refractory、最大包絡比-35dB floorの音響検出。**1体でも破断内部と破片の複数onsetがあり、撃破数そのものではない。** centroidは電力重み付き。400ms値はR2と同じ最大K-weighted stereo energy。peakはsample peakでありtrue peakではない。tail欄は最後の破断＋accent区間終了から-40dB終端まで。
+
+| material | N | -40dB s | onsets | /s | centroid Hz | 400ms LUFS | peak dBFS | >9k % | tail s |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| wax | 1 | 0.561 | 19 | 33.9 | 2906 | -29.75 | -12.63 | 0.008 | 0.331 |
+| wax | 3 | 0.899 | 56 | 62.3 | 3274 | -28.00 | -12.26 | 0.006 | 0.749 |
+| wax | 10 | 1.383 | 103 | 74.5 | 3072 | -26.35 | -12.17 | 0.002 | 1.102 |
+| wax | 20 | 1.729 | 122 | 70.6 | 3303 | -24.09 | -11.40 | 0.002 | 1.273 |
+| wax | 40 | 2.066 | 167 | 80.8 | 3236 | -23.47 | -12.87 | 0.001 | 1.456 |
+| soap | 1 | 0.501 | 15 | 29.9 | 2618 | -30.02 | -17.79 | 0.008 | 0.271 |
+| soap | 3 | 0.849 | 19 | 22.4 | 2769 | -29.09 | -17.41 | 0.020 | 0.699 |
+| soap | 10 | 1.349 | 45 | 33.4 | 1753 | -27.67 | -14.09 | 0.002 | 1.068 |
+| soap | 20 | 1.699 | 69 | 40.6 | 1526 | -25.05 | -8.41 | 0.001 | 1.243 |
+| soap | 40 | 2.046 | 110 | 53.8 | 1441 | -24.64 | -9.77 | 0.000 | 1.436 |
+| sand | 1 | 1.866 | 5 | 2.7 | 4079 | -30.46 | -15.57 | 0.056 | 1.636 |
+| sand | 10 | 2.845 | 14 | 4.9 | 4076 | -29.17 | -20.01 | 0.070 | 2.564 |
+| sand | 40 | 3.619 | 24 | 6.6 | 4014 | -28.13 | -19.51 | 0.063 | 3.009 |
+| kohaku | 1 | 0.610 | 9 | 14.8 | 3473 | -30.44 | -13.32 | 0.005 | 0.380 |
+| kohaku | 10 | 1.437 | 84 | 58.5 | 4432 | -28.00 | -13.19 | 0.005 | 1.156 |
+| kohaku | 40 | 2.115 | 144 | 68.1 | 4179 | -24.11 | -12.73 | 0.003 | 1.505 |
+
+- Gate (a): 素材ごとのdurationとtransient countが指定Nに従い厳密増加。onset density自体の単調増加は条件に含めず、wax 10→20やsoap 1→3で低下する点も公開する。波そのもののkill密度は増え、全体密度には長い崩落時間が影響する。
+- Gate (b): wax +6.28、soap +5.38、sand +2.32、kohaku +6.33dB。追加の全9素材endpoint検査の最大はbeadslime +7.72dB。
+- Gate (c)(d): ラダー最大peak -8.41dBFS、>9kHz最大0.070%。全行phone bandも50%以上。
+- Gate (e): 20/40はwave section末尾40%内に20ms平滑局所電力最大（全体最大の60%以上）あり。波の区間は最終dt+160ms。区間終了後の実測tailは最短1.243sで400ms以上。アクセントのイベント有無だけで合格にしていない。
+- Gate (f): 9素材のstrain WAVは正amount保持中の5ms gap 0（-90dBFS床）。30/60fpsでamount .2→.85の最初50ms内に実PCM電力が最低+13.87dB増加、安定後電力比最低0.647。明示zeroから50ms後のpeakは全素材<1e-5。持続入力が消えた場合のみ70ms lease＋短いfadeで停止。これは明示zeroの50ms応答とは別。
+- Chrome file://で9profile/9slider、解放→settle、1/3/10/20/40のwave、実PCM非無音、mute/stop、390px横overflowなし、console error 0、network 0。4倍CPUでbeadslime strain＋40体mix waveもcallback p95約1.4ms。描画・物理を加えた本編負荷の証明ではない。
+
+再現:
+
+```powershell
+node tests/lab-audio/run.mjs
+python tools/lab-audio/wave-figure.py
+```
+
+R2の253 WAV（追加bubble/accents込み）＋16 wave WAV＋9 strain WAV = 計278 WAV。新規音も全てoriginal procedural synthesis。録音・外部サンプル・依存追加なし。package.json変更なし。詳細は `wave-metrics.json`、`wave-analysis.md`、`temporal-tests.json`、`browser-tests.json`、`R2b-test-output.txt`。
+
+### 視覚検査
+
+`research/v03/audio/wave_ladder.png` を修正前・修正後とも実際に開いた。各素材5段を共通0〜2.4秒、共通波形±.30、共通STFT -85〜-25dBFSで比較し、行ごとの拡大・正規化をしていない。waxは単発の短い多帯域破断→rushの断続的な縦帯→floodの密な帯と殻片の雨。soapは広い擦過帯→短い粒の反復→低めの連続粒層・最後の広帯域accent・立方体の尾。長さだけでなく帯域と縦縞の密度が変わることを確認。微細な尾の周期性は残り得るので人間の耳で判断する。
+
+desktop/mobile全体図と新panelのmobile抜粋を保存。正本で秒数未指定のpreは点線、短いsoap preと長いsand postの比率が画面で分かる。スマホ画面では1列となり全操作へスクロールできる。
+
+### エンジン統合契約（R2b時点の正しい読み込み順）
+
+```html
+<!-- ホストのLAB.eventsの後。lab/audio.js（旧仮クリック）は併用しない -->
+<script src="lab/profiles.js"></script>
+<script src="lab/audio/dsp.js"></script>
+<script src="lab/audio/temporal.js"></script>
+<script src="lab/audio/engine.js"></script>
+<script src="lab/audio/audio.js"></script>
+```
+
+`lab/audio/lab-page.js` と `temporal-page.js` は単独試聴UI専用。本編では読み込まない。initはユーザージェスチャー内。profilesとplanWaveは音声init前にも利用可能。
+
+```js
+await LAB.audio.init();
+LAB.audio.setMaster(0.65);
+
+// pre: 毎フレーム、同素材はホストで集約。rateは相対変形速度（標準1）。
+LAB.events.emit('strain', {material: 'wax', amount: 0.6, rate: 1, x: 360});
+// 明示停止。amount 0..1、rate 0..3（安定した最小密度あり）。
+LAB.events.emit('strain', {material: 'wax', amount: 0, rate: 0});
+
+// 単体release: strain停止＋既存フル解放音。cutの既存契約も残る。
+LAB.events.emit('release', {material: 'wax', x: 360});
+// post: 物理が落ち着き始めた時に1回。毎フレームではない。
+LAB.events.emit('settle', {material: 'wax', energy: 0.8, x: 360});
+// 既存flow/impact/crumble/wobbleを実物理に合わせて使うことも可能。
+
+const swipe = {from: {x: 0, y: 640}, to: {x: 720, y: 640}};
+const planned = LAB.audio.planWave(kills, swipe);
+// kills: [{id?, material, x, y, ...}]。返り値は新しい位置順の配列。
+// planned[i].dt: ミリ秒。入力オブジェクトを変更せず、id等も保持。
+// 描画担当: 各破断をこのdtと同じオフセットで予約する。
+const audioStart = LAB.audio.stats().time; // PCMエンジンの秒時計
+LAB.events.emit('wave', {kills: planned, dir: 1});
+// 視覚検証例:
+// elapsedMs = (LAB.audio.stats().time - audioStart) * 1000;
+// elapsedMs >= planned[i].dt になった物体の破断を描画する。
+```
+
+- planWaveのswipeはfrom/toの直線。位置を進行方向へ射影して順序とdtを求める。全点同じ射影位置なら入力順に均等配分。single=0、N3=60、N10≈191.43、N20≈295.83、N40=450ms。曲線の弧長はこのAPIに含まれない。
+- waveは受け取ったdtを音響的に再配置しない。素材有効な先頭200件まで、dtは0〜5000msへ制限、非有限dtは0。未知素材は無視。world x/y単位はホストと同じ。dirは1/-1または{x,y}で、ステレオの進行方向に使用し、時間順を再計算しない。未指定は1。
+- waveには素材release・末尾accent・collapseが全て含まれる。同じ撃破についてkill/horde/cut/settleを重複発行しない。残っているstrainはホストがamount:0で止める。個別releaseはstrain停止を兼ねるが、cutは既存動作を保つ。
+- mixedのmaterialはkillごとに保持。最多素材はcanonical IDで数え、squeezeはwax。全9素材ID: wax/bubble/jelly/soap/sand/chalk/sponge/beadslime/kohaku。
+- `LAB.profiles.tier(n)` はsingle/combo/rush/avalanche/flood。`LAB.profiles.tiers` のwaveMin/Maxはms、素材pre/post/collapseは秒。
+- strainは同素材1stream、毎フレーム更新、amount0で終了。32msの旧stream leaseと別に70ms leaseで30fpsもカバー。入力変化の音響追従と、ブラウザーcallback/デバイス/BT遅延は別。視覚シミュレーションはPCM時計に追従するが、スピーカー到達時刻を測定していない。
+- 24voice cap、4096件pending cap。今回の指定ラダー・9素材mixはdrop0。多数の波の同時再生や同じdtへの極端な集中では詳細音を省略し得る。`stats().dropped/queued/lastWave/strains` で観測する。200体超や過負荷を無制限に鳴らすAPIではない。
+
+### 弱点と人間のear-check script
+
+一番弱い可能性は**石鹸floodの粒が硬いクリック／小さな木琴に聞こえること**、次に**ロウのwet accentが「バシャッ」に足りないこと**。石鹸のcentroidが2618→1441Hzへ下がるため、丸いclackの連打になっていないかを重点確認。waxの19→167 onsetsは聴感上の豊かさの証明ではない。beadslimeの張力とspongeの水分感も旧R2同様に要試聴。砂の1→40差は+2.32dBと下限に近く、長い尾に頼る規模感。ScriptProcessorのmain-thread依存、初回bank同期生成（今回Chrome約595ms）、同時多波のcapも残る。
+
+試聴手順（音量を固定して、スマホスピーカーと普段のイヤホンを別々に）:
+
+1. `lab-audio.html` のmasterを20〜30%から開始して適切な音量に固定。wave panelでwax、Nを1→3→10→20→40。各回は余韻が終わるまで待つ。
+2. wax: 1「パキッ＋殻片」→3「パキパキッ」→10「バリバリバリッ」→20「バリバリバシャッ！」→40「殻の割れる洪水が流れ、殻片の雨へ」。20/40の終端が単なる強いクリックになっていないか。
+3. soap: 1「サクッ」→3「サクサクッ」→10「ザクザクザクッ」→20「ザザザザッ！」→40「粒が崩れる雪崩」。20→40が同じ音を長くしただけか、独立粒が連続する質感に変わったか。
+4. N40→1へ戻し、音量以外に長さ・密度・広がり・末尾の違いが残るか。sandとkohakuも1→10→40、次に9素材mixで素材が消えていないか。
+5. 予兆sliderを20→60→90%、2秒保持→「解放」。waxは細い亀裂が育つ、spongeはじゅわ、beadslimeは張りが上がる、sandはこぼれ始める、chalkは微かなきしみ、kohakuは外皮tick、jellyは柔らかいへこみ、soapはほぼ無音。0へ戻す操作も試し、音切れ・笛のような唸り・zipperがないか。
+6. 特にN20/40を各5回ずつ繰り返し、「刺さり」「単調さ」「もう一度触りたい」「音量を下げたくなる」を記録。**まだ人間による採用判断はない。**
+
+### 文書・並行コードとの食い違い
+
+1. 本ファイルR2「合成・ミキサーの構成」「エンジン統合契約」の8素材／固定8grainの√N主経路／旧3script読み込みはR2当時の記録。R2bは今回の依頼と新しい時間構造正本に従って9素材＋wave主経路＋profiles/temporal追加を採用。この追記を最新契約とし、旧章は履歴として保存。
+2. 最終確認時、並行作業の `lab.html:4` にはprofiles/timingの読み込みが追加されていた。一方、音声scriptはなお `lab/audio.js` で、`lab/main.js` のdown/sound handlerはunlock/toggleを呼ぶ。`lab/audio.js` には新APIが存在する場合のadapterも追加されているが、HTMLにはまだ今回のdsp/temporal/engine/audioの読み込みがない。今回の所有範囲に従い本編を変更せず、上記新APIで音響ページを検証。本編のwave接続・描画同期は並行作業の確認待ち。
+3. 正本§2のsponge/beadslime preおよびbubble postには数値がない。仕様矛盾として埋めず、dataはnull、UIは秒数未指定を表示。音響collapseの調整値とUIの可変バー幅を正本由来の時間と扱わない。

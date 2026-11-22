@@ -2,14 +2,16 @@
 (function (root) {
   'use strict';
   const D = typeof module !== 'undefined' && module.exports ? require('./dsp.js') : root.LAB.AudioDSP;
+  const T = typeof module !== 'undefined' && module.exports ? require('./temporal.js') : root.LAB.AudioTemporal;
   const { clamp, finite, dbGain } = D;
   const CUT = Object.fromEntries(D.MATERIALS.map(m => [m, 'synth_' + m + (m === 'chalk' ? '_snap' : '_cut')]));
-  const IMPACT = { wax: 'snap', jelly: 'blip', soap: 'clack', sand: 'settle', sponge: 'drip', chalk: 'snap', beadslime: 'plink', kohaku: 'crust' };
+  const IMPACT = { wax: 'snap', jelly: 'blip', soap: 'clack', sand: 'settle', sponge: 'drip', chalk: 'snap', beadslime: 'plink', kohaku: 'crust', bubble: 'pop' };
   const pentatonic = n => Math.min(24, Math.floor(n / 5) * 12 + [0, 2, 4, 7, 9][n % 5]);
   class Engine {
     constructor(sr = 48000, bank = D.makeBank(sr), worldWidth = 720) {
       this.sr = sr; this.bank = bank; this.worldWidth = Math.max(1, finite(worldWidth, 720)); this.time = 0; this.sample = 0; this.cap = 24;
       this.voices = []; this.streams = new Map(); this.buckets = new Map(); this.recent = [];
+      this.queue = []; this.strains = new Map(); this.waveCount = 0; this.lastWave = null;
       this.rand = D.seeded(2387); this.master = .65; this.masterNow = .65; this.enabled = true;
       this.lastKill = -10; this.stroke = 0; this.strokeKills = 0; this.declared = 0; this.hintUntil = -1; this.released = false;
       this.nextTick = 0; this.density = 0; this.shelfDb = 0; this.limiterGain = 1;
@@ -19,20 +21,21 @@
     }
     resetSound() {
       this.voices.length = 0; this.streams.clear(); this.buckets.clear(); this.recent.length = 0; this.throttles.clear();
+      this.queue.length = 0; this.strains.clear();
       this.strokeKills = 0; this.declared = 0; this.hintUntil = -1; this.lastKill = -10; this.density = 0; this.limiterGain = 1;
       for (const f of this.filters) for (const filter of Object.values(f)) filter.z1 = filter.z2 = 0;
     }
     setEnabled(value) { this.enabled = !!value; if (!this.enabled) this.resetSound(); }
     setMaster(value) { if (Number.isFinite(value)) this.master = clamp(value, 0, 1); }
     pan(x) { return clamp((finite(x, this.worldWidth / 2) / this.worldWidth - .5) * .8, -.4, .4); }
-    play(name, at = this.time, gain = 1, pan = 0, pitch = 0, group = '', duration = 0) {
+    play(name, at = this.time, gain = 1, pan = 0, pitch = 0, group = '', duration = 0, clip = 0) {
       if (!this.enabled || !this.bank[name] || gain <= 0) return;
       this.voices = this.voices.filter(v => v.end > this.time);
       // Never hard-steal a sounding grain: skip new low-level detail when full.
       if (this.voices.length >= this.cap) { this.counters.dropped++; return; }
       const variants = this.bank[name], variation = Math.floor(this.rand() * variants.length), buffer = variants[variation];
       const rate = 2 ** (pitch / 12), natural = buffer.length / this.sr / rate;
-      const end = at + (duration || natural), p = clamp(pan, -.4, .4);
+      const end = at + (clip ? Math.min(clip, natural) : duration || natural), p = clamp(pan, -.4, .4);
       this.voices.push({ name, buffer, at, end, natural, rate, gain, group, fadeAt: Infinity, left: Math.cos((p + 1) * Math.PI / 4), right: Math.sin((p + 1) * Math.PI / 4), stretch: !!duration });
       this.counters.started++; this.maxActive = Math.max(this.maxActive, this.voices.length);
       this.history.push({ name, at, gain, pan: p, pitch, group, duration: end - at, variation });
@@ -47,11 +50,34 @@
     }
     emit(name, raw = {}) {
       if (!this.enabled) return;
-      const p = raw && typeof raw === 'object' ? raw : {}, m = D.MATERIALS.includes(p.material) ? p.material : null;
+      const p = raw && typeof raw === 'object' ? raw : {}, material = p.material === 'squeeze' ? 'wax' : p.material, m = D.MATERIALS.includes(material) ? material : null;
+      if (name === 'wave') {
+        const plan = T.wavePlan(p.kills, p.dir); if (!plan) return;
+        if (this.queue.length + plan.events.length > 4096) { this.counters.dropped += plan.events.length; return; }
+        this.waveCount++; this.counters.kills += plan.kills.length;
+        this.lastWave = { tier: plan.tier, material: plan.material, waveEnd: plan.waveEnd, tailStart: plan.tailStart, tailDuration: plan.tailDuration, kills: plan.kills };
+        // Bounded pending work; no hundreds of future voices occupying the cap.
+        this.queue.push(...plan.events.map(e => ({ ...e, at: this.time + e.at, group: 'wave-' + e.role })));
+        this.queue.sort((a, b) => a.at - b.at); this.dispatch(); return;
+      }
       if (name === 'horde') { this.declared = clamp(finite(p.count, 0), 0, 1000); this.hintUntil = this.time + clamp(finite(p.span_ms, 200), 0, 5000) / 1000 + .12; return; }
       if (name === 'synth_preview') { if (D.SPECS[p.name]) this.play(p.name); return; }
       if (!m) return;
       const pan = this.pan(p.x);
+      if (name === 'strain') {
+        const amount = clamp(finite(p.amount, 0), 0, 1);
+        let s = this.strains.get(m);
+        if (!s && amount) { s = new T.Strain(m, this.sr, this.time); this.strains.set(m, s); }
+        if (s) { s.target = amount; s.rate = clamp(finite(p.rate, 1), 0, 3); s.last = this.time; s.pan = pan; }
+        return;
+      }
+      if (name === 'release') { this.emit('strain', { material: m, amount: 0 }); this.play(CUT[m], this.time, .85, pan); return; }
+      if (name === 'settle') {
+        const plan = T.wavePlan([{ material: m, dt: 0 }]); const energy = Math.sqrt(clamp(finite(p.energy, .5), 0, 1));
+        if (!energy || this.queue.length > 4000) return;
+        this.queue.push(...plan.events.filter(e => e.role === 'collapse' || e.role === 'flow-tail').map(e => ({ ...e, at: this.time + e.at - plan.tailStart, gain: e.gain * energy, pan: clamp(pan + e.pan, -.4, .4), group: 'settle' })));
+        this.queue.sort((a, b) => a.at - b.at); this.dispatch(); return;
+      }
       if (['flow', 'crack_grow', 'wobble', 'press'].includes(name)) {
         const key = name + ':' + m;
         const value = name === 'wobble' ? clamp(finite(p.amp, .5), 0, 1) : name === 'press' ? clamp(finite(p.pressure, .5), 0, 1) : clamp(finite(p.rate, name === 'flow' ? 300 : 50), 0, 20000);
@@ -88,6 +114,11 @@
         if (m === 'chalk') this.play('synth_chalk_dust', this.time + .03, .5, pan);
       }
     }
+    dispatch() {
+      while (this.queue.length && this.queue[0].at <= this.time + .025) {
+        const e = this.queue.shift(); this.play(e.name, e.at, e.gain, e.pan, e.pitch, e.group, 0, e.clip);
+      }
+    }
     kill(material, pan) {
       if (this.time - this.lastKill > .12) { this.stroke = 0; this.strokeKills = 0; this.released = false; }
       this.lastKill = this.time; this.strokeKills++; this.counters.kills++;
@@ -103,6 +134,7 @@
       this.stroke++;
     }
     tick() {
+      this.dispatch();
       this.recent = this.recent.filter(t => t >= this.time - .2);
       const target = clamp(Math.max(this.recent.length, this.recent.length && this.time < this.hintUntil ? this.declared * .5 : 0) / 40, 0, 1);
       this.density += (target - this.density) * .10;
@@ -149,6 +181,11 @@
         if (!this.enabled) { left[i] = right[i] = 0; this.sample++; continue; }
         if (this.time >= this.nextTick) { this.tick(); this.nextTick = this.time + .005; }
         let l = 0, r = 0;
+        for (const [material, s] of this.strains) {
+          const value = s.sample(this.time), angle = (s.pan + 1) * Math.PI / 4;
+          l += value * Math.cos(angle); r += value * Math.sin(angle);
+          if ((!s.target || this.time - s.last > .070) && s.value < 1e-5) this.strains.delete(material);
+        }
         for (let j = this.voices.length - 1; j >= 0; j--) {
           const v = this.voices[j];
           if (this.time >= v.end) { this.voices.splice(j, 1); continue; }
@@ -188,7 +225,7 @@
       this.time = this.sample / this.sr;
     }
     stats() {
-      return { ...this.counters, enabled: this.enabled, master: this.master, active: this.voices.length, sounding: this.voices.filter(v => v.at <= this.time && v.end > this.time).length, cap: this.cap, maxActive: this.maxActive, continuous: this.streams.size, lookaheadMs: 25, leaseMs: 32, releaseMs: 10, shelfDb: this.shelfDb, spread: .12 + .28 * this.density, time: this.time, events: this.history.slice() };
+      return { ...this.counters, waves: this.waveCount, lastWave: this.lastWave, queued: this.queue.length, strains: [...this.strains].map(([material, s]) => ({ material, amount: s.value, target: s.target })), strainLeaseMs: 70, enabled: this.enabled, master: this.master, active: this.voices.length, sounding: this.voices.filter(v => v.at <= this.time && v.end > this.time).length, cap: this.cap, maxActive: this.maxActive, continuous: this.streams.size + this.strains.size, lookaheadMs: 25, leaseMs: 32, releaseMs: 10, shelfDb: this.shelfDb, spread: .12 + .28 * this.density, time: this.time, events: this.history.slice() };
     }
   }
   const API = { Engine, pentatonic, CUT };

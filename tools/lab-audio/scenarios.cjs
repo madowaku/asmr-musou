@@ -1,6 +1,6 @@
 'use strict';
 const { MATERIALS } = require('../../lab/audio/dsp.js');
-function horde(count, span, materials = MATERIALS) {
+function horde(count, span, materials = MATERIALS.slice(0, 8)) {
   const events = [{ at: .10, name: 'horde', params: { count, span_ms: span } }];
   for (let i = 0; i < count; i++) events.push({ at: .10 + i * span / 1000 / count, name: 'kill', params: { material: materials[i % materials.length], x: 720 * (.15 + .7 * i / Math.max(1, count - 1)) } });
   return events;

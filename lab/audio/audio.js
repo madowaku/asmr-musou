@@ -1,4 +1,5 @@
-/* Integration entrypoint. Load dsp.js, engine.js, then this classic script. */
+/* Integration entrypoint. Load profiles.js, dsp.js, temporal.js, engine.js,
+ * then this classic script. See the R2b integration contract in R2_audio.md. */
 (function (root) {
   'use strict';
   const LAB = root.LAB = root.LAB || {};
@@ -40,11 +41,12 @@
   }
   // x uses the lab's 720-wide world coordinates. Set LAB.audioWorldWidth before
   // init() for another world width (1 also permits normalized coordinates).
-  for (const name of ['cut', 'crack_grow', 'peel', 'wobble', 'flow', 'impact', 'press', 'crumble', 'kill', 'horde', 'synth_preview']) {
+  for (const name of ['strain', 'release', 'settle', 'wave', 'cut', 'crack_grow', 'peel', 'wobble', 'flow', 'impact', 'press', 'crumble', 'kill', 'horde', 'synth_preview']) {
     LAB.events.on(name, params => { if (engine && enabled && context.state === 'running') engine.emit(name, params); });
   }
   LAB.audio = {
     init,
+    planWave: LAB.AudioTemporal.planWave,
     setEnabled(value) { enabled = !!value; if (engine) engine.setEnabled(enabled); },
     setMaster(value) { if (!Number.isFinite(value)) return; master = Math.max(0, Math.min(1, value)); if (engine) engine.setMaster(master); },
     stats() {

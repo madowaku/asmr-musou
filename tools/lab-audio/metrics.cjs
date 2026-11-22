@@ -12,9 +12,9 @@ function bands(data, sr = SR) {
       for (let base = 0; base < n; base += size) { const a = base + k, b = a + size / 2, tr = re[b] * c - im[b] * s, ti = re[b] * s + im[b] * c; re[b] = re[a] - tr; im[b] = im[a] - ti; re[a] += tr; im[a] += ti; }
     }
   }
-  let total = 0, phone = 0, high = 0;
-  for (let i = 0; i <= n / 2; i++) { const p = (re[i] ** 2 + im[i] ** 2) * (i === 0 || i === n / 2 ? 1 : 2), hz = i * sr / n; total += p; if (hz >= 500 && hz <= 8000) phone += p; if (hz > 9000) high += p; }
-  return { total, phone, high };
+  let total = 0, phone = 0, high = 0, moment = 0;
+  for (let i = 0; i <= n / 2; i++) { const p = (re[i] ** 2 + im[i] ** 2) * (i === 0 || i === n / 2 ? 1 : 2), hz = i * sr / n; total += p; moment += p * hz; if (hz >= 500 && hz <= 8000) phone += p; if (hz > 9000) high += p; }
+  return { total, phone, high, moment };
 }
 function filter(input, b, a) {
   const out = new Float64Array(input.length); let x1 = 0, x2 = 0, y1 = 0, y2 = 0;
@@ -35,7 +35,7 @@ function maxPower(channels, samples) {
   return max;
 }
 function metrics(channels) {
-  let peak = 0, first = 0, total = 0, phone = 0, high = 0, running = 0, max = -1, peakMs = 0;
+  let peak = 0, first = 0, total = 0, phone = 0, high = 0, moment = 0, running = 0, max = -1, peakMs = 0;
   const n150 = SR * .15, win = SR * .001;
   for (let i = 0; i < channels[0].length; i++) {
     for (const x of channels) {
@@ -45,8 +45,8 @@ function metrics(channels) {
     }
     if (i >= win - 1 && running > max) { max = running; peakMs = (i - win + 1) / SR * 1000; }
   }
-  for (const x of channels) { const b = bands(x); total += b.total; phone += b.phone; high += b.high; }
-  return { duration: channels[0].length / SR, peakDb: db(peak * peak), rms150Db: db(first / n150 / channels.length), phonePct: phone / total * 100, high9kPct: high / total * 100, peakMs, rms400Db: db(maxPower(channels, SR * .4) / channels.length), momentary400LUFS: -.691 + db(maxPower(channels.map(kWeight), SR * .4)) };
+  for (const x of channels) { const b = bands(x); total += b.total; phone += b.phone; high += b.high; moment += b.moment; }
+  return { duration: channels[0].length / SR, peakDb: db(peak * peak), rms150Db: db(first / n150 / channels.length), phonePct: phone / total * 100, high9kPct: high / total * 100, centroidHz: moment / total, peakMs, rms400Db: db(maxPower(channels, SR * .4) / channels.length), momentary400LUFS: -.691 + db(maxPower(channels.map(kWeight), SR * .4)) };
 }
 function maxGap(channels, start, end, thresholdDb = -65) {
   const hop = Math.round(SR * .005), threshold = 10 ** (thresholdDb / 10); let gap = 0, max = 0;
@@ -63,4 +63,32 @@ function wav(channels) {
   for (let i = 0; i < n; i++) for (let c = 0; c < count; c++) { if (Math.abs(channels[c][i]) > 1) throw new Error('Clipping before PCM export'); out.writeInt16LE(Math.round(channels[c][i] * 32767), 44 + (i * count + c) * 2); }
   return out;
 }
-module.exports = { SR, metrics, maxGap, wav, maxPower };
+// Signal-only detector, identical thresholds for all materials and counts.
+// 2ms power / 1ms hop, +4dB novelty against previous 6ms mean, 7ms refractory.
+// The -35dB relative floor rejects inaudible late ripple; counts are acoustic
+// onsets (including debris), not a proxy for the number of scheduled kills.
+function temporalMetrics(channels, waveSectionEnd) {
+  const hop = 48, envelope = [];
+  for (let i = 0; i < channels[0].length; i += hop) {
+    let p = 0; for (const c of channels) for (let j = i; j < Math.min(i + hop * 2, c.length); j++) p += c[j] ** 2;
+    envelope.push(p / (hop * 2 * channels.length));
+  }
+  const top = Math.max(...envelope), floor = top * 10 ** (-35 / 10);
+  const novelty = envelope.map((v, i) => {
+    const previous = envelope.slice(Math.max(0, i - 6), i);
+    const reference = previous.reduce((a, b) => a + b, 0) / Math.max(1, previous.length);
+    return v > floor ? db(v / Math.max(top * 1e-7, reference)) : 0;
+  });
+  const onsets = []; let last = -10;
+  for (let i = 0; i < novelty.length; i++) if (i - last >= 7 && novelty[i] >= 4 && novelty[i] >= (novelty[i - 1] || 0) && novelty[i] > (novelty[i + 1] || 0)) { onsets.push(i / 1000); last = i; }
+  let first = envelope.findIndex(x => x >= top * 1e-4), end = envelope.length - 1;
+  while (end > first && envelope[end] < top * 1e-4) end--;
+  const duration40 = Math.max(0, (end - Math.max(0, first) + 2) / 1000);
+  const smooth = envelope.map((_, i) => envelope.slice(Math.max(0, i - 10), i + 11).reduce((a, b) => a + b, 0) / 21);
+  const accents = [];
+  for (let i = Math.floor(waveSectionEnd * .6 * 1000); i < Math.min(smooth.length - 1, waveSectionEnd * 1000); i++) {
+    if (smooth[i] > smooth[i - 1] && smooth[i] >= smooth[i + 1] && smooth[i] > Math.max(...smooth) * .6) accents.push(i / 1000);
+  }
+  return { duration40, signalEnd: (end + 2) / 1000, transientCount: onsets.length, onsetDensity: onsets.length / duration40, onsets, accentPeaks: accents, tailAfterWave: Math.max(0, (end + 2) / 1000 - waveSectionEnd) };
+}
+module.exports = { SR, metrics, maxGap, wav, maxPower, temporalMetrics };
