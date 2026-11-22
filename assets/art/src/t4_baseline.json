@@ -1,0 +1,28 @@
+{
+  "existing_pngs": {
+    "assets/art/boss_0.png": "54cd59c30032e82b39f5675fad9f2bac143e5b70a53b3fc83bde6e0ef7fb1f02",
+    "assets/art/boss_1.png": "6d0130aaa3e0dedcb70af315f4e0627a252759943d63ac957447e0d61ccd03b8",
+    "assets/art/boss_2.png": "e736ab3f86b091b70f4e0411324eba6cd1d7ff8f24436d02e9d3fd0083de861c",
+    "assets/art/bubble_0.png": "3fa52db16ffa89959215a0e8a0161e48547ada3908d354be8d43c9db5f72ac83",
+    "assets/art/contact_sheet.png": "a1725bdf34b4cbcc56eb07eb671d2cdb14cb5b5e046b6e89554fe1fb64e44057",
+    "assets/art/contact_sheet_80.png": "0e38e5514e93b75580b3987be2303965bd24910fe0a18d06fda96940b909bc64",
+    "assets/art/ice_0.png": "3489e0cc393e401c1590ecf92fefbd30add2062e124ff59c432c3b992ffc684a",
+    "assets/art/ice_1.png": "201fcefee943d866578c738f421ae8d9d0475e05fb9027af698b4c41a5032bd1",
+    "assets/art/jelly_0.png": "8e9eda1348df4c991e5c233e393580dd773909e10f5fd0334bbea90373a7f314",
+    "assets/art/wax_0.png": "a57f7cc4ca829d8bd9ea6818532621d968fec51eaec404b468720a5468a335a6",
+    "assets/art/wax_1.png": "31f26cdb9db2c15e7722d58325d257287d7d56329054d9f84f0dc971912f7998",
+    "assets/art/wax_2.png": "4a0ff0745d759b780dfee781bd8e8643716fe3b12dcfb4fbc0798750d883f0bb",
+    "assets/art/src/boss_0_attempt1.png": "7ebcb5a71db41d562969913c95496a5b29bfe96ecc66eafaa0b68d6d0b923453",
+    "assets/art/src/boss_1_attempt1.png": "89b28eb37dccbbc43516b42e98a595a2bc20dabcea2022f43307cfef29c1d6ca",
+    "assets/art/src/boss_2_attempt1.png": "7e700a0db89054f425c10630e4c02cb6c42e3bddbb25113e593b38f8490c5ab1",
+    "assets/art/src/bubble_0_attempt1.png": "3a137454aa25691b24c0b878fc8050e635ac811b3469382ee17bc7e3dc135c60",
+    "assets/art/src/ice_0_attempt1.png": "31ffa8d1bb83eda03276f0579e491a41e7fe69d244f4e632de6fd7a619f0e0b0",
+    "assets/art/src/ice_1_attempt1.png": "d4c60eeef19be21005a48c91ba7bf22a67749b6096f80ce1960e1e73ccb15f5f",
+    "assets/art/src/jelly_0_attempt1.png": "b0529b274e52bbfd0ea149185c69aa2b558f89a2e353e5f18de912d896962371",
+    "assets/art/src/wax_0_attempt1.png": "9535e0a22df017059720e3333aaf2a35c136bd5d2db3935734dbb2693fbff4db",
+    "assets/art/src/wax_1_attempt1.png": "539cfe0773499bf5e21cde42e7ef2a075cfd32daadd8ad3868e89edb8a02ce94",
+    "assets/art/src/wax_2_attempt1.png": "a5f3a1be7dca072b6dca333aa3359118864c237d14b875319d91bdf1c2f6ba68"
+  },
+  "art_log_bytes": 29089,
+  "art_log_sha256": "23c3c592675eba52015eef1a9c0617331cee2da19cc92d7b038bc110a64c16c9"
+}
