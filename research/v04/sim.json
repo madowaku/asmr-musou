@@ -1,0 +1,992 @@
+[
+ {
+  "cls": "slasher",
+  "seed": 1,
+  "kills": 74,
+  "actions": 129,
+  "chainKills": 0,
+  "best": 12,
+  "bestChain": 0,
+  "perfect": 0,
+  "formsSeen": 4,
+  "byMaterial": {
+   "jelly": 12,
+   "soap": 26,
+   "wax": 6,
+   "kohaku": 20,
+   "chalk": 5,
+   "beadslime": 4,
+   "sand": 1
+  },
+  "bossTime": 33.683333333332705,
+  "bossDefeated": false,
+  "forms": [
+   {
+    "id": "dense",
+    "actions": 15,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "column",
+    "actions": 19,
+    "cleared": true,
+    "total": 16,
+    "left": 0
+   },
+   {
+    "id": "ring",
+    "actions": 19,
+    "cleared": true,
+    "total": 14,
+    "left": 0
+   },
+   {
+    "id": "guard",
+    "actions": 20,
+    "cleared": true,
+    "total": 21,
+    "left": 0
+   }
+  ],
+  "seconds": 60.21666666666667,
+  "state": "result",
+  "skill": "random",
+  "finaleKills": 10,
+  "wallMs": 145
+ },
+ {
+  "cls": "slasher",
+  "seed": 1,
+  "kills": 156,
+  "actions": 75,
+  "chainKills": 0,
+  "best": 7,
+  "bestChain": 0,
+  "perfect": 0,
+  "formsSeen": 6,
+  "byMaterial": {
+   "soap": 39,
+   "wax": 17,
+   "jelly": 30,
+   "kohaku": 31,
+   "chalk": 12,
+   "sand": 8,
+   "beadslime": 14,
+   "sponge": 5
+  },
+  "bossTime": 31.19999999999951,
+  "bossDefeated": true,
+  "forms": [
+   {
+    "id": "dense",
+    "actions": 8,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "column",
+    "actions": 8,
+    "cleared": true,
+    "total": 16,
+    "left": 0
+   },
+   {
+    "id": "ring",
+    "actions": 5,
+    "cleared": true,
+    "total": 14,
+    "left": 0
+   },
+   {
+    "id": "guard",
+    "actions": 13,
+    "cleared": true,
+    "total": 21,
+    "left": 0
+   },
+   {
+    "id": "mixed",
+    "actions": 15,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "dense",
+    "actions": 7,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   }
+  ],
+  "seconds": 45.03333333333333,
+  "state": "result",
+  "skill": "naive",
+  "finaleKills": 5,
+  "wallMs": 94
+ },
+ {
+  "cls": "slasher",
+  "seed": 1,
+  "kills": 584,
+  "actions": 66,
+  "chainKills": 0,
+  "best": 21,
+  "bestChain": 0,
+  "perfect": 24,
+  "formsSeen": 26,
+  "byMaterial": {
+   "soap": 121,
+   "wax": 59,
+   "kohaku": 64,
+   "jelly": 138,
+   "chalk": 68,
+   "beadslime": 51,
+   "sponge": 39,
+   "sand": 44
+  },
+  "bossTime": 30.116666666666237,
+  "bossDefeated": true,
+  "forms": [
+   {
+    "id": "dense",
+    "actions": 2,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "column",
+    "actions": 2,
+    "cleared": true,
+    "total": 16,
+    "left": 0
+   },
+   {
+    "id": "ring",
+    "actions": 2,
+    "cleared": true,
+    "total": 14,
+    "left": 0
+   },
+   {
+    "id": "guard",
+    "actions": 2,
+    "cleared": true,
+    "total": 21,
+    "left": 0
+   },
+   {
+    "id": "mixed",
+    "actions": 2,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "dense",
+    "actions": 2,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "column",
+    "actions": 2,
+    "cleared": true,
+    "total": 16,
+    "left": 0
+   },
+   {
+    "id": "ring",
+    "actions": 2,
+    "cleared": true,
+    "total": 14,
+    "left": 0
+   },
+   {
+    "id": "guard",
+    "actions": 2,
+    "cleared": true,
+    "total": 21,
+    "left": 0
+   },
+   {
+    "id": "mixed",
+    "actions": 3,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "dense",
+    "actions": 2,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "column",
+    "actions": 3,
+    "cleared": true,
+    "total": 16,
+    "left": 0
+   },
+   {
+    "id": "ring",
+    "actions": 2,
+    "cleared": true,
+    "total": 14,
+    "left": 0
+   },
+   {
+    "id": "guard",
+    "actions": 2,
+    "cleared": true,
+    "total": 21,
+    "left": 0
+   },
+   {
+    "id": "mixed",
+    "actions": 3,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "dense",
+    "actions": 2,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "column",
+    "actions": 3,
+    "cleared": true,
+    "total": 16,
+    "left": 0
+   },
+   {
+    "id": "ring",
+    "actions": 2,
+    "cleared": true,
+    "total": 14,
+    "left": 0
+   },
+   {
+    "id": "guard",
+    "actions": 1,
+    "cleared": true,
+    "total": 21,
+    "left": 0
+   },
+   {
+    "id": "mixed",
+    "actions": 2,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "dense",
+    "actions": 2,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "column",
+    "actions": 2,
+    "cleared": true,
+    "total": 16,
+    "left": 0
+   },
+   {
+    "id": "ring",
+    "actions": 2,
+    "cleared": true,
+    "total": 14,
+    "left": 0
+   },
+   {
+    "id": "guard",
+    "actions": 1,
+    "cleared": true,
+    "total": 21,
+    "left": 0
+   },
+   {
+    "id": "mixed",
+    "actions": 2,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "dense",
+    "actions": 2,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   }
+  ],
+  "seconds": 41.11666666666667,
+  "state": "result",
+  "skill": "skilled",
+  "finaleKills": 0,
+  "wallMs": 277
+ },
+ {
+  "cls": "crusher",
+  "seed": 1,
+  "kills": 119,
+  "actions": 124,
+  "chainKills": 76,
+  "best": 17,
+  "bestChain": 3,
+  "perfect": 0,
+  "formsSeen": 5,
+  "byMaterial": {
+   "jelly": 20,
+   "wax": 15,
+   "soap": 28,
+   "kohaku": 26,
+   "chalk": 9,
+   "beadslime": 11,
+   "sponge": 6,
+   "sand": 4
+  },
+  "bossTime": 38.63333333333242,
+  "bossDefeated": false,
+  "forms": [
+   {
+    "id": "dense",
+    "actions": 15,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "column",
+    "actions": 10,
+    "cleared": true,
+    "total": 16,
+    "left": 0
+   },
+   {
+    "id": "ring",
+    "actions": 20,
+    "cleared": true,
+    "total": 14,
+    "left": 0
+   },
+   {
+    "id": "guard",
+    "actions": 19,
+    "cleared": true,
+    "total": 21,
+    "left": 0
+   },
+   {
+    "id": "mixed",
+    "actions": 19,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   }
+  ],
+  "seconds": 60.21666666666667,
+  "state": "result",
+  "skill": "random",
+  "finaleKills": 1,
+  "wallMs": 113
+ },
+ {
+  "cls": "crusher",
+  "seed": 1,
+  "kills": 188,
+  "actions": 78,
+  "chainKills": 157,
+  "best": 15,
+  "bestChain": 3,
+  "perfect": 0,
+  "formsSeen": 9,
+  "byMaterial": {
+   "soap": 42,
+   "wax": 20,
+   "jelly": 40,
+   "kohaku": 29,
+   "chalk": 23,
+   "sand": 8,
+   "beadslime": 12,
+   "sponge": 14
+  },
+  "bossTime": 31.3499999999995,
+  "bossDefeated": true,
+  "forms": [
+   {
+    "id": "dense",
+    "actions": 6,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "column",
+    "actions": 6,
+    "cleared": true,
+    "total": 16,
+    "left": 0
+   },
+   {
+    "id": "ring",
+    "actions": 10,
+    "cleared": true,
+    "total": 14,
+    "left": 0
+   },
+   {
+    "id": "guard",
+    "actions": 5,
+    "cleared": true,
+    "total": 21,
+    "left": 0
+   },
+   {
+    "id": "mixed",
+    "actions": 7,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "dense",
+    "actions": 4,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "column",
+    "actions": 8,
+    "cleared": true,
+    "total": 16,
+    "left": 0
+   },
+   {
+    "id": "ring",
+    "actions": 6,
+    "cleared": true,
+    "total": 14,
+    "left": 0
+   },
+   {
+    "id": "guard",
+    "actions": 4,
+    "cleared": true,
+    "total": 21,
+    "left": 0
+   }
+  ],
+  "seconds": 46.733333333333334,
+  "state": "result",
+  "skill": "naive",
+  "finaleKills": 1,
+  "wallMs": 95
+ },
+ {
+  "cls": "crusher",
+  "seed": 1,
+  "kills": 485,
+  "actions": 67,
+  "chainKills": 243,
+  "best": 44,
+  "bestChain": 4,
+  "perfect": 16,
+  "formsSeen": 22,
+  "byMaterial": {
+   "soap": 96,
+   "kohaku": 66,
+   "jelly": 122,
+   "wax": 48,
+   "sand": 30,
+   "beadslime": 39,
+   "chalk": 52,
+   "sponge": 32
+  },
+  "bossTime": 30.349999999999557,
+  "bossDefeated": true,
+  "forms": [
+   {
+    "id": "dense",
+    "actions": 4,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "column",
+    "actions": 4,
+    "cleared": true,
+    "total": 16,
+    "left": 0
+   },
+   {
+    "id": "ring",
+    "actions": 3,
+    "cleared": true,
+    "total": 14,
+    "left": 0
+   },
+   {
+    "id": "guard",
+    "actions": 5,
+    "cleared": true,
+    "total": 21,
+    "left": 0
+   },
+   {
+    "id": "mixed",
+    "actions": 3,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "dense",
+    "actions": 1,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "column",
+    "actions": 2,
+    "cleared": true,
+    "total": 16,
+    "left": 0
+   },
+   {
+    "id": "ring",
+    "actions": 1,
+    "cleared": true,
+    "total": 14,
+    "left": 0
+   },
+   {
+    "id": "guard",
+    "actions": 1,
+    "cleared": true,
+    "total": 21,
+    "left": 0
+   },
+   {
+    "id": "mixed",
+    "actions": 2,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "dense",
+    "actions": 1,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "column",
+    "actions": 2,
+    "cleared": true,
+    "total": 16,
+    "left": 0
+   },
+   {
+    "id": "ring",
+    "actions": 7,
+    "cleared": true,
+    "total": 14,
+    "left": 0
+   },
+   {
+    "id": "guard",
+    "actions": 2,
+    "cleared": true,
+    "total": 21,
+    "left": 0
+   },
+   {
+    "id": "mixed",
+    "actions": 6,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "dense",
+    "actions": 1,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "column",
+    "actions": 1,
+    "cleared": true,
+    "total": 16,
+    "left": 0
+   },
+   {
+    "id": "ring",
+    "actions": 2,
+    "cleared": true,
+    "total": 14,
+    "left": 0
+   },
+   {
+    "id": "guard",
+    "actions": 2,
+    "cleared": true,
+    "total": 21,
+    "left": 0
+   },
+   {
+    "id": "mixed",
+    "actions": 2,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "dense",
+    "actions": 1,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "column",
+    "actions": 1,
+    "cleared": true,
+    "total": 16,
+    "left": 0
+   }
+  ],
+  "seconds": 41.63333333333333,
+  "state": "result",
+  "skill": "skilled",
+  "finaleKills": 0,
+  "wallMs": 218
+ },
+ {
+  "cls": "caster",
+  "seed": 1,
+  "kills": 169,
+  "actions": 118,
+  "chainKills": 3,
+  "best": 60,
+  "bestChain": 1,
+  "perfect": 1,
+  "formsSeen": 7,
+  "byMaterial": {
+   "soap": 45,
+   "wax": 21,
+   "jelly": 32,
+   "kohaku": 28,
+   "chalk": 19,
+   "beadslime": 14,
+   "sand": 2,
+   "sponge": 8
+  },
+  "bossTime": 36.89999999999919,
+  "bossDefeated": false,
+  "forms": [
+   {
+    "id": "dense",
+    "actions": 1,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "column",
+    "actions": 8,
+    "cleared": true,
+    "total": 16,
+    "left": 0
+   },
+   {
+    "id": "ring",
+    "actions": 12,
+    "cleared": true,
+    "total": 14,
+    "left": 0
+   },
+   {
+    "id": "guard",
+    "actions": 19,
+    "cleared": true,
+    "total": 21,
+    "left": 0
+   },
+   {
+    "id": "mixed",
+    "actions": 16,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "dense",
+    "actions": 3,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "column",
+    "actions": 15,
+    "cleared": true,
+    "total": 16,
+    "left": 0
+   }
+  ],
+  "seconds": 60.21666666666667,
+  "state": "result",
+  "skill": "random",
+  "finaleKills": 8,
+  "wallMs": 85
+ },
+ {
+  "cls": "caster",
+  "seed": 1,
+  "kills": 264,
+  "actions": 107,
+  "chainKills": 0,
+  "best": 32,
+  "bestChain": 0,
+  "perfect": 5,
+  "formsSeen": 12,
+  "byMaterial": {
+   "soap": 57,
+   "wax": 32,
+   "jelly": 57,
+   "kohaku": 37,
+   "chalk": 27,
+   "beadslime": 23,
+   "sand": 12,
+   "sponge": 19
+  },
+  "bossTime": 34.68333333333265,
+  "bossDefeated": false,
+  "forms": [
+   {
+    "id": "dense",
+    "actions": 1,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "column",
+    "actions": 6,
+    "cleared": true,
+    "total": 16,
+    "left": 0
+   },
+   {
+    "id": "ring",
+    "actions": 4,
+    "cleared": true,
+    "total": 14,
+    "left": 0
+   },
+   {
+    "id": "guard",
+    "actions": 4,
+    "cleared": true,
+    "total": 21,
+    "left": 0
+   },
+   {
+    "id": "mixed",
+    "actions": 2,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "dense",
+    "actions": 6,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "column",
+    "actions": 13,
+    "cleared": true,
+    "total": 16,
+    "left": 0
+   },
+   {
+    "id": "ring",
+    "actions": 2,
+    "cleared": true,
+    "total": 14,
+    "left": 0
+   },
+   {
+    "id": "guard",
+    "actions": 2,
+    "cleared": true,
+    "total": 21,
+    "left": 0
+   },
+   {
+    "id": "mixed",
+    "actions": 2,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "dense",
+    "actions": 4,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "column",
+    "actions": 16,
+    "cleared": true,
+    "total": 16,
+    "left": 0
+   }
+  ],
+  "seconds": 60.21666666666667,
+  "state": "result",
+  "skill": "naive",
+  "finaleKills": 9,
+  "wallMs": 116
+ },
+ {
+  "cls": "caster",
+  "seed": 1,
+  "kills": 276,
+  "actions": 78,
+  "chainKills": 12,
+  "best": 28,
+  "bestChain": 1,
+  "perfect": 6,
+  "formsSeen": 12,
+  "byMaterial": {
+   "soap": 64,
+   "wax": 26,
+   "jelly": 58,
+   "kohaku": 50,
+   "chalk": 29,
+   "beadslime": 28,
+   "sand": 12,
+   "sponge": 9
+  },
+  "bossTime": 32.049999999999464,
+  "bossDefeated": true,
+  "forms": [
+   {
+    "id": "dense",
+    "actions": 1,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "column",
+    "actions": 2,
+    "cleared": true,
+    "total": 16,
+    "left": 0
+   },
+   {
+    "id": "ring",
+    "actions": 2,
+    "cleared": true,
+    "total": 14,
+    "left": 0
+   },
+   {
+    "id": "guard",
+    "actions": 2,
+    "cleared": true,
+    "total": 21,
+    "left": 0
+   },
+   {
+    "id": "mixed",
+    "actions": 11,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "dense",
+    "actions": 3,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "column",
+    "actions": 8,
+    "cleared": true,
+    "total": 16,
+    "left": 0
+   },
+   {
+    "id": "ring",
+    "actions": 5,
+    "cleared": true,
+    "total": 14,
+    "left": 0
+   },
+   {
+    "id": "guard",
+    "actions": 9,
+    "cleared": true,
+    "total": 21,
+    "left": 0
+   },
+   {
+    "id": "mixed",
+    "actions": 1,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "dense",
+    "actions": 2,
+    "cleared": true,
+    "total": 28,
+    "left": 0
+   },
+   {
+    "id": "column",
+    "actions": 11,
+    "cleared": true,
+    "total": 16,
+    "left": 0
+   }
+  ],
+  "seconds": 47.3,
+  "state": "result",
+  "skill": "skilled",
+  "finaleKills": 1,
+  "wallMs": 117
+ }
+]
