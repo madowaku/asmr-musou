@@ -136,16 +136,18 @@
       if(p.flying&&p.proj&&p.proj.energy>0){
         if(p.x<FIELD.x0&&p.vx<0||p.x>FIELD.x1&&p.vx>0){p.vx*=-.85;p.proj.bank=(p.proj.bank||0)+1;C.sfx('bank',p);}
         if(p.y<FIELD.y0-60&&p.vy<0){p.vy*=-.8;p.proj.bank=(p.proj.bank||0)+1;}
-        for(const e of en){if(e===p||e.flying||C.locked(e))continue;if(Math.hypot(e.x-p.x,e.y-p.y)>e.radius*.85+p.radius*.85)continue;
+        for(const e of en){if(!p.proj)break; /* a break in this loop can end the flight (e.g. finale/well reset) */if(e===p||e.flying||C.locked(e))continue;if(Math.hypot(e.x-p.x,e.y-p.y)>e.radius*.85+p.radius*.85)continue;
           const cost=C.MAT[e.material].hard/C.MAT[p.material].hard;p.proj.energy-=cost*.55;p.proj.hits++;
-          const sp=Math.hypot(p.vx,p.vy);C.hit(e,()=>W.shatter(e,sp,{angle:Math.atan2(p.vy,p.vx)+Math.PI/2,push:{x:p.vx*.35,y:p.vy*.35},projectile:Math.max(0,p.proj.energy*.5),owner:p.proj.owner,action:p.proj.owner,cause:'chain',gen:p.proj.gen+1,stop:.015}),{action:p.proj.owner},0,p.proj.gen+1);
-          p.vx*=.86;p.vy*=.86;if(p.proj.energy<=0)break;}
+          // capture now: the break may be deferred (break budget) after this projectile has landed
+          const sp=Math.hypot(p.vx,p.vy),ang=Math.atan2(p.vy,p.vx)+Math.PI/2,pu={x:p.vx*.35,y:p.vy*.35},pe=Math.max(0,p.proj.energy*.5),po=p.proj.owner,pg=p.proj.gen+1;C.hit(e,()=>W.shatter(e,sp,{angle:ang,push:pu,projectile:pe,owner:po,action:po,cause:'chain',stop:.015}),{action:po},0,pg);
+          p.vx*=.86;p.vy*=.86;if(!p.proj||p.proj.energy<=0)break;}
+        if(!p.proj)continue;
         if(p.proj.energy<=0||p.flyT<=0||Math.hypot(p.vx,p.vy)<200){p.flying=false;const own=p.proj.owner;p.proj=null;C.hit(p,()=>W.shatter(p,900,{action:own,cause:'chain-end',stop:.01}),{action:own});}
       }
       // flying pieces (shards) with leftover energy break what they hit — the cascade
       else if(p.shard&&p.shard.energy>.15&&p.active&&L.time-p.shard.born<.9){const sp=Math.hypot(p.vx,p.vy);if(sp<420)continue;
         for(const e of en){if(e.flying||C.locked(e))continue;if(Math.hypot(e.x-p.x,e.y-p.y)>e.radius*.8+p.radius*.6)continue;
-          p.shard.energy-=C.MAT[e.material].hard*.6;C.hit(e,()=>W.shatter(e,sp,{angle:Math.atan2(p.vy,p.vx)+Math.PI/2,push:{x:p.vx*.3,y:p.vy*.3},projectile:Math.max(0,p.shard.energy*.6),owner:p.shard.owner,action:p.shard.owner,cause:'shard',stop:.01}),{action:p.shard.owner},0,p.shard.gen+1);break;}}
+          if(!p.shard)break;p.shard.energy-=C.MAT[e.material].hard*.6;const ang=Math.atan2(p.vy,p.vx)+Math.PI/2,pu={x:p.vx*.3,y:p.vy*.3},pe=Math.max(0,p.shard.energy*.6),po=p.shard.owner,pg=p.shard.gen+1;C.hit(e,()=>W.shatter(e,sp,{angle:ang,push:pu,projectile:pe,owner:po,action:po,cause:'shard',stop:.01}),{action:po},0,pg);break;}}
     }
   };
 })(window.LAB);

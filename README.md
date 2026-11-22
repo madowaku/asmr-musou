@@ -92,6 +92,14 @@ T3では旧READMEの「画像未統合・ボスy=560・ピーク正規化・600�
 
 素材の生成方法と出所は [ASSETS.md](ASSETS.md)、全体の方針は [ORCHESTRATOR_BRIEF.md](ORCHESTRATOR_BRIEF.md) を参照。
 
+## COMBAT LAB (combat.html) — v0.4 研究
+
+素材破壊に**ゲーム性**を足す研究。3キャラ（SLASHER 大剣士／CRUSHER 拳闘士／CASTER 魔法使い）で、60秒（雑魚の陣形ラッシュ → 巨大素材ボス → 大規模破壊 → 余韻）を戦う。
+- 試遊：`combat.html`（スマホ：https://research-v0-4-combat.asmr-musou.pages.dev/combat.html ）。人間の評価シートは [docs/v0.4/PLAYTEST_COMBAT.md](docs/v0.4/PLAYTEST_COMBAT.md)。
+- 設計の仮説：[docs/v0.4/COMBAT_DESIGN.md](docs/v0.4/COMBAT_DESIGN.md)。研究記録（失敗・AI の客観検証）：[docs/v0.4/research_log/V04_COMBAT_LOG.md](docs/v0.4/research_log/V04_COMBAT_LOG.md)。
+- 操作（共通）：なぞる＝キャラが軌跡どおりに動いて攻撃／長押し→引いて離す＝狙った大技／タップ＝その場の小技。
+- テスト：`node tests/combat/sim.mjs 1,2,3`（自動プレイヤー 3段階 × 3キャラ、決まった結果になる模擬）、`node tests/combat/input.mjs`（実際のポインター入力と描画込みの性能）、`node tests/combat/ui-shots.mjs`（画面の撮影）。
+
 ## ASMR素材研究所 (lab.html) — v0.3 研究
 
 **試遊する人へ**：[試遊ガイドと評価シート](docs/v0.3/PLAYTEST_GUIDE.md)／研究のまとめは [REPORT_v0.3_lab.md](REPORT_v0.3_lab.md)。
