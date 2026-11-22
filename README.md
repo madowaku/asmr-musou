@@ -92,6 +92,15 @@ T3では旧READMEの「画像未統合・ボスy=560・ピーク正規化・600�
 
 素材の生成方法と出所は [ASSETS.md](ASSETS.md)、全体の方針は [ORCHESTRATOR_BRIEF.md](ORCHESTRATOR_BRIEF.md) を参照。
 
+## FEEL LAB (feel.html) — v0.5 研究
+
+v0.4 の試遊結果（キャラが思いどおりに動かない）を受けて、**操作快感と60秒の成長**を作り直した版。v0.4 の `combat.html` は比較用にそのまま残している。
+- 試遊：`feel.html`（スマホ：https://research-v0-5-feel.asmr-musou.pages.dev/feel.html ）。人間の評価シートは [docs/v0.5/PLAYTEST_FEEL.md](docs/v0.5/PLAYTEST_FEEL.md)。
+- 設計：[docs/v0.5/FEEL_DESIGN.md](docs/v0.5/FEEL_DESIGN.md)。研究記録（操作の前後比較、強化の前後、失敗）：[docs/v0.5/research_log/V05_FEEL_LOG.md](docs/v0.5/research_log/V05_FEEL_LOG.md)。
+- 操作：触った場所・スワイプした向きに攻撃が出て、キャラは自分でそこへ踏み込む。大剣士＝スワイプで大きく斬る／拳闘士＝タップした敵を殴る（連打でラッシュ）／魔法使い＝タップした場所に魔法（マナなし）。長押し→離すで大技。
+- 成長：12秒と24秒で、時間を止めて2択の強化を選ぶ（形・音・壊れ方が変わる）。最後に巨大な多層素材ボス。
+- テスト：`node tests/feel/sim.mjs`（自動プレイヤー、強化なしの対照つき）、`node tests/feel/compare.mjs`（v0.4 と v0.5 を同じ「人間らしい」プレイヤーで比較）、`node tests/feel/bench.mjs`（同じ群れで強化前後の破壊規模）、`node tests/feel/boss.mjs`、`node tests/feel/input.mjs`（実際のポインター入力と CPU 4倍の性能）、`node tests/feel/shots.mjs`（画面の撮影）。
+
 ## COMBAT LAB (combat.html) — v0.4 研究
 
 素材破壊に**ゲーム性**を足す研究。3キャラ（SLASHER 大剣士／CRUSHER 拳闘士／CASTER 魔法使い）で、60秒（雑魚の陣形ラッシュ → 巨大素材ボス → 大規模破壊 → 余韻）を戦う。

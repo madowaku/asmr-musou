@@ -1,0 +1,12 @@
+slasher  random       kills  836 k/a   9.0 best  68 lv0→2 6.0→19.5 best0→2 25→68 boss 6/6 15.1s firstKill 1.11 lat 100ms end 55.3
+slasher  intent       kills 1076 k/a  13.6 best  55 lv0→2 11.1→23.5 best0→2 22→55 boss 6/6 6.0s firstKill 0.39 lat 36ms end 46.2
+slasher  skilled      kills 1124 k/a  14.6 best  55 lv0→2 13.4→24.9 best0→2 47→55 boss 6/6 5.1s firstKill 0.70 lat 47ms end 45.3
+slasher  intent-noup  kills  930 k/a   8.4 best  30 lv0→2 12.6→0.0 best0→2 30→0 boss 0/6 NaNs firstKill 0.39 lat 33ms end 60.2
+crusher  random       kills  844 k/a   8.2 best  70 lv0→2 6.7→16.3 best0→2 39→70 boss 6/6 15.3s firstKill 0.72 lat 42ms end 55.5
+crusher  intent       kills 1032 k/a   9.8 best  62 lv0→2 9.1→18.5 best0→2 33→62 boss 6/6 10.6s firstKill 0.45 lat 44ms end 50.8
+crusher  skilled      kills 1029 k/a  13.4 best  65 lv0→2 13.7→23.6 best0→2 57→62 boss 6/6 8.0s firstKill 0.45 lat 58ms end 48.2
+crusher  intent-noup  kills  922 k/a   7.8 best  59 lv0→2 11.1→0.0 best0→2 59→0 boss 6/6 17.4s firstKill 0.45 lat 47ms end 57.6
+caster   random       kills  968 k/a   8.5 best  73 lv0→2 8.1→23.1 best0→2 34→73 boss 1/6 19.9s firstKill 0.97 lat 33ms end 60.2
+caster   intent       kills 1153 k/a  14.0 best  57 lv0→2 11.9→36.2 best0→2 33→57 boss 6/6 9.9s firstKill 0.35 lat 17ms end 50.1
+caster   skilled      kills 1137 k/a  15.2 best  66 lv0→2 18.2→28.2 best0→2 38→66 boss 6/6 8.7s firstKill 0.35 lat 17ms end 48.9
+caster   intent-noup  kills 1107 k/a   8.4 best  49 lv0→2 13.6→0.0 best0→2 49→0 boss 0/6 NaNs firstKill 0.35 lat 17ms end 60.2

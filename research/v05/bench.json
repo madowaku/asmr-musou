@@ -1,0 +1,380 @@
+[
+ {
+  "skill": "intent",
+  "cls": "slasher",
+  "ups": "none",
+  "kills": 9.666666666666666,
+  "share": 0.41282242063492064,
+  "dur": 0.0895833333333333,
+  "actions": 1
+ },
+ {
+  "skill": "intent",
+  "cls": "slasher",
+  "ups": "wide",
+  "kills": 14.208333333333334,
+  "share": 0.6121031746031745,
+  "dur": 0.08749999999999997,
+  "actions": 1
+ },
+ {
+  "skill": "intent",
+  "cls": "slasher",
+  "ups": "wave",
+  "kills": 19.291666666666668,
+  "share": 0.8315972222222223,
+  "dur": 0.25416666666666693,
+  "actions": 1
+ },
+ {
+  "skill": "intent",
+  "cls": "slasher",
+  "ups": "double",
+  "kills": 13.916666666666666,
+  "share": 0.5933779761904762,
+  "dur": 0.182638888888889,
+  "actions": 1
+ },
+ {
+  "skill": "intent",
+  "cls": "slasher",
+  "ups": "wide+double",
+  "kills": 19.208333333333332,
+  "share": 0.8237847222222222,
+  "dur": 0.1777777777777779,
+  "actions": 1
+ },
+ {
+  "skill": "intent",
+  "cls": "slasher",
+  "ups": "wave+double",
+  "kills": 22.208333333333332,
+  "share": 0.9533730158730158,
+  "dur": 0.29375000000000046,
+  "actions": 1
+ },
+ {
+  "skill": "intent",
+  "cls": "slasher",
+  "ups": "wide+wave",
+  "kills": 22.083333333333332,
+  "share": 0.9479166666666666,
+  "dur": 0.22013888888888908,
+  "actions": 1
+ },
+ {
+  "skill": "intent",
+  "cls": "crusher",
+  "ups": "none",
+  "kills": 3.9583333333333335,
+  "share": 0.17683531746031747,
+  "dur": 0.43194444444444446,
+  "actions": 1
+ },
+ {
+  "skill": "intent",
+  "cls": "crusher",
+  "ups": "rush",
+  "kills": 6.541666666666667,
+  "share": 0.2787698412698412,
+  "dur": 0.577777777777778,
+  "actions": 1
+ },
+ {
+  "skill": "intent",
+  "cls": "crusher",
+  "ups": "blast",
+  "kills": 11.708333333333334,
+  "share": 0.46899801587301587,
+  "dur": 0.8368055555555555,
+  "actions": 1
+ },
+ {
+  "skill": "intent",
+  "cls": "crusher",
+  "ups": "quake",
+  "kills": 8.541666666666666,
+  "share": 0.36259920634920645,
+  "dur": 0.47916666666666713,
+  "actions": 1
+ },
+ {
+  "skill": "intent",
+  "cls": "crusher",
+  "ups": "blast+quake",
+  "kills": 11.625,
+  "share": 0.4595734126984128,
+  "dur": 0.5013888888888892,
+  "actions": 1
+ },
+ {
+  "skill": "intent",
+  "cls": "crusher",
+  "ups": "rush+blast",
+  "kills": 11.291666666666666,
+  "share": 0.4446924603174604,
+  "dur": 0.8756944444444438,
+  "actions": 1
+ },
+ {
+  "skill": "intent",
+  "cls": "crusher",
+  "ups": "rush+quake",
+  "kills": 11.458333333333334,
+  "share": 0.47358630952380953,
+  "dur": 0.5388888888888894,
+  "actions": 1
+ },
+ {
+  "skill": "intent",
+  "cls": "caster",
+  "ups": "none",
+  "kills": 16.791666666666668,
+  "share": 0.7068452380952381,
+  "dur": 0.0923611111111111,
+  "actions": 1
+ },
+ {
+  "skill": "intent",
+  "cls": "caster",
+  "ups": "wide",
+  "kills": 21.5,
+  "share": 0.9029017857142857,
+  "dur": 0.26458333333333356,
+  "actions": 1
+ },
+ {
+  "skill": "intent",
+  "cls": "caster",
+  "ups": "chain",
+  "kills": 21.333333333333332,
+  "share": 0.8802083333333334,
+  "dur": 0.13750000000000004,
+  "actions": 1
+ },
+ {
+  "skill": "intent",
+  "cls": "caster",
+  "ups": "double",
+  "kills": 18.916666666666668,
+  "share": 0.7894345238095237,
+  "dur": 0.4111111111111116,
+  "actions": 1
+ },
+ {
+  "skill": "intent",
+  "cls": "caster",
+  "ups": "wide+chain",
+  "kills": 23.25,
+  "share": 1,
+  "dur": 0.11319444444444444,
+  "actions": 1
+ },
+ {
+  "skill": "intent",
+  "cls": "caster",
+  "ups": "double+wide",
+  "kills": 22.666666666666668,
+  "share": 0.9747023809523809,
+  "dur": 0.30069444444444476,
+  "actions": 1
+ },
+ {
+  "skill": "intent",
+  "cls": "caster",
+  "ups": "chain+double",
+  "kills": 21.333333333333332,
+  "share": 0.8802083333333334,
+  "dur": 0.13750000000000004,
+  "actions": 1
+ },
+ {
+  "skill": "skilled",
+  "cls": "slasher",
+  "ups": "none",
+  "kills": 16.291666666666668,
+  "share": 0.6964285714285715,
+  "dur": 0.1326388888888891,
+  "actions": 1
+ },
+ {
+  "skill": "skilled",
+  "cls": "slasher",
+  "ups": "wide",
+  "kills": 19.291666666666668,
+  "share": 0.8214285714285715,
+  "dur": 0.126388888888889,
+  "actions": 1
+ },
+ {
+  "skill": "skilled",
+  "cls": "slasher",
+  "ups": "wave",
+  "kills": 20.791666666666668,
+  "share": 0.8839285714285715,
+  "dur": 0.19791666666666707,
+  "actions": 1
+ },
+ {
+  "skill": "skilled",
+  "cls": "slasher",
+  "ups": "double",
+  "kills": 20.833333333333332,
+  "share": 0.9069940476190478,
+  "dur": 0.24444444444444494,
+  "actions": 1
+ },
+ {
+  "skill": "skilled",
+  "cls": "slasher",
+  "ups": "wide+double",
+  "kills": 21.958333333333332,
+  "share": 0.949404761904762,
+  "dur": 0.19722222222222252,
+  "actions": 1
+ },
+ {
+  "skill": "skilled",
+  "cls": "slasher",
+  "ups": "wave+double",
+  "kills": 23.125,
+  "share": 0.9955357142857143,
+  "dur": 0.24652777777777835,
+  "actions": 1
+ },
+ {
+  "skill": "skilled",
+  "cls": "slasher",
+  "ups": "wide+wave",
+  "kills": 22.208333333333332,
+  "share": 0.9464285714285715,
+  "dur": 0.151388888888889,
+  "actions": 1
+ },
+ {
+  "skill": "skilled",
+  "cls": "crusher",
+  "ups": "none",
+  "kills": 21.541666666666668,
+  "share": 0.9133184523809522,
+  "dur": 1.3708333333333325,
+  "actions": 2
+ },
+ {
+  "skill": "skilled",
+  "cls": "crusher",
+  "ups": "rush",
+  "kills": 21.041666666666668,
+  "share": 0.8932291666666666,
+  "dur": 1.346527777777777,
+  "actions": 2
+ },
+ {
+  "skill": "skilled",
+  "cls": "crusher",
+  "ups": "blast",
+  "kills": 19.416666666666668,
+  "share": 0.8309771825396824,
+  "dur": 1.5604166666666652,
+  "actions": 2
+ },
+ {
+  "skill": "skilled",
+  "cls": "crusher",
+  "ups": "quake",
+  "kills": 21.166666666666668,
+  "share": 0.8994295634920636,
+  "dur": 1.2999999999999992,
+  "actions": 2
+ },
+ {
+  "skill": "skilled",
+  "cls": "crusher",
+  "ups": "blast+quake",
+  "kills": 19.5,
+  "share": 0.8328373015873015,
+  "dur": 1.5812499999999983,
+  "actions": 2
+ },
+ {
+  "skill": "skilled",
+  "cls": "crusher",
+  "ups": "rush+blast",
+  "kills": 18.916666666666668,
+  "share": 0.8059275793650794,
+  "dur": 1.5784722222222205,
+  "actions": 2
+ },
+ {
+  "skill": "skilled",
+  "cls": "crusher",
+  "ups": "rush+quake",
+  "kills": 20.958333333333332,
+  "share": 0.8897569444444445,
+  "dur": 1.2687499999999994,
+  "actions": 2
+ },
+ {
+  "skill": "skilled",
+  "cls": "caster",
+  "ups": "none",
+  "kills": 23.25,
+  "share": 1,
+  "dur": 0.8798611111111111,
+  "actions": 1.75
+ },
+ {
+  "skill": "skilled",
+  "cls": "caster",
+  "ups": "wide",
+  "kills": 23.25,
+  "share": 1,
+  "dur": 0.5736111111111112,
+  "actions": 1.5
+ },
+ {
+  "skill": "skilled",
+  "cls": "caster",
+  "ups": "chain",
+  "kills": 23.25,
+  "share": 1,
+  "dur": 0.804166666666667,
+  "actions": 1.75
+ },
+ {
+  "skill": "skilled",
+  "cls": "caster",
+  "ups": "double",
+  "kills": 23.25,
+  "share": 1,
+  "dur": 0.8680555555555555,
+  "actions": 1.75
+ },
+ {
+  "skill": "skilled",
+  "cls": "caster",
+  "ups": "wide+chain",
+  "kills": 23.25,
+  "share": 1,
+  "dur": 0.5388888888888891,
+  "actions": 1.5
+ },
+ {
+  "skill": "skilled",
+  "cls": "caster",
+  "ups": "double+wide",
+  "kills": 23.25,
+  "share": 1,
+  "dur": 0.5486111111111113,
+  "actions": 1.5
+ },
+ {
+  "skill": "skilled",
+  "cls": "caster",
+  "ups": "chain+double",
+  "kills": 23.25,
+  "share": 1,
+  "dur": 0.804166666666667,
+  "actions": 1.75
+ }
+]

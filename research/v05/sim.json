@@ -1,0 +1,5238 @@
+{
+ "rows": [
+  {
+   "cls": "slasher",
+   "seed": 1,
+   "kills": 832,
+   "actions": 97,
+   "chainKills": 0,
+   "best": 56,
+   "bestChain": 0,
+   "ups": [
+    "wave",
+    "wide"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 17.449999999999008,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.36666666666666664,
+   "firstKillT": 0.9833333333333347,
+   "byMaterial": {
+    "beadslime": 46,
+    "jelly": 212,
+    "soap": 206,
+    "sponge": 37,
+    "wax": 123,
+    "sand": 41,
+    "kohaku": 111,
+    "chalk": 56
+   },
+   "byLevel": [
+    {
+     "actions": 22,
+     "kills": 134,
+     "best": 23,
+     "per": 6.090909090909091
+    },
+    {
+     "actions": 23,
+     "kills": 246,
+     "best": 29,
+     "per": 10.695652173913043
+    },
+    {
+     "actions": 23,
+     "kills": 427,
+     "best": 56,
+     "per": 18.565217391304348
+    }
+   ],
+   "latency": {
+    "n": 82,
+    "median": 0.11666666666666003,
+    "p90": 0.2666666666666515
+   },
+   "match": {
+    "slashShiftMean": 18.068643049332234,
+    "slashShifted": 3,
+    "slashN": 35,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 57.666666666666664,
+   "state": "result",
+   "skill": "random",
+   "finaleKills": 0,
+   "variant": "random"
+  },
+  {
+   "cls": "slasher",
+   "seed": 1,
+   "kills": 1026,
+   "actions": 81,
+   "chainKills": 0,
+   "best": 55,
+   "bestChain": 0,
+   "ups": [
+    "wave",
+    "wide"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 7.916666666666217,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.36666666666666664,
+   "firstKillT": 0.39999999999999997,
+   "byMaterial": {
+    "soap": 247,
+    "jelly": 243,
+    "kohaku": 140,
+    "wax": 131,
+    "beadslime": 75,
+    "sand": 54,
+    "sponge": 58,
+    "chalk": 78
+   },
+   "byLevel": [
+    {
+     "actions": 23,
+     "kills": 248,
+     "best": 19,
+     "per": 10.782608695652174
+    },
+    {
+     "actions": 22,
+     "kills": 301,
+     "best": 29,
+     "per": 13.681818181818182
+    },
+    {
+     "actions": 20,
+     "kills": 454,
+     "best": 55,
+     "per": 22.7
+    }
+   ],
+   "latency": {
+    "n": 81,
+    "median": 0.03333333333333499,
+    "p90": 0.05000000000000249
+   },
+   "match": {
+    "slashShiftMean": 0,
+    "slashShifted": 0,
+    "slashN": 81,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 48.13333333333333,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent"
+  },
+  {
+   "cls": "slasher",
+   "seed": 1,
+   "kills": 1118,
+   "actions": 88,
+   "chainKills": 0,
+   "best": 53,
+   "bestChain": 0,
+   "ups": [
+    "double",
+    "wide"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 7.3333333333329165,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.6166666666666669,
+   "firstKillT": 0.7000000000000005,
+   "byMaterial": {
+    "soap": 291,
+    "jelly": 248,
+    "wax": 153,
+    "sand": 40,
+    "beadslime": 74,
+    "sponge": 59,
+    "kohaku": 160,
+    "chalk": 93
+   },
+   "byLevel": [
+    {
+     "actions": 23,
+     "kills": 300,
+     "best": 49,
+     "per": 13.043478260869565
+    },
+    {
+     "actions": 24,
+     "kills": 269,
+     "best": 27,
+     "per": 11.208333333333334
+    },
+    {
+     "actions": 25,
+     "kills": 525,
+     "best": 53,
+     "per": 21
+    }
+   ],
+   "latency": {
+    "n": 88,
+    "median": 0.04999999999999716,
+    "p90": 0.0833333333333286
+   },
+   "match": {
+    "slashShiftMean": 0,
+    "slashShifted": 0,
+    "slashN": 78,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 47.55,
+   "state": "result",
+   "skill": "skilled",
+   "finaleKills": 0,
+   "variant": "skilled"
+  },
+  {
+   "cls": "slasher",
+   "seed": 1,
+   "kills": 914,
+   "actions": 110,
+   "chainKills": 0,
+   "best": 38,
+   "bestChain": 0,
+   "ups": [
+    "-",
+    "-"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": null,
+   "bossDefeated": false,
+   "bossHits": 120,
+   "firstActionT": 0.36666666666666664,
+   "firstKillT": 0.39999999999999997,
+   "byMaterial": {
+    "soap": 228,
+    "jelly": 213,
+    "kohaku": 135,
+    "wax": 113,
+    "beadslime": 61,
+    "sand": 47,
+    "sponge": 52,
+    "chalk": 65
+   },
+   "byLevel": [
+    {
+     "actions": 69,
+     "kills": 864,
+     "best": 38,
+     "per": 12.521739130434783
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    }
+   ],
+   "latency": {
+    "n": 110,
+    "median": 0.033333333333333215,
+    "p90": 0.06666666666666288
+   },
+   "match": {
+    "slashShiftMean": 0,
+    "slashShifted": 0,
+    "slashN": 110,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 60.21666666666667,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent-noup"
+  },
+  {
+   "cls": "crusher",
+   "seed": 1,
+   "kills": 745,
+   "actions": 112,
+   "chainKills": 632,
+   "best": 67,
+   "bestChain": 3,
+   "ups": [
+    "rush",
+    "quake"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 19.166666666665577,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.9000000000000011,
+   "byMaterial": {
+    "wax": 96,
+    "soap": 202,
+    "sand": 26,
+    "sponge": 41,
+    "chalk": 57,
+    "beadslime": 72,
+    "kohaku": 85,
+    "jelly": 166
+   },
+   "byLevel": [
+    {
+     "actions": 24,
+     "kills": 140,
+     "best": 34,
+     "per": 5.833333333333333
+    },
+    {
+     "actions": 24,
+     "kills": 175,
+     "best": 31,
+     "per": 7.291666666666667
+    },
+    {
+     "actions": 25,
+     "kills": 365,
+     "best": 67,
+     "per": 14.6
+    }
+   ],
+   "latency": {
+    "n": 82,
+    "median": 0.03333333333333144,
+    "p90": 0.06666666666666643
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": 98.77067257966813,
+    "jabN": 100,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 19
+   },
+   "seconds": 59.38333333333333,
+   "state": "result",
+   "skill": "random",
+   "finaleKills": 1,
+   "variant": "random"
+  },
+  {
+   "cls": "crusher",
+   "seed": 1,
+   "kills": 1038,
+   "actions": 108,
+   "chainKills": 816,
+   "best": 65,
+   "bestChain": 3,
+   "ups": [
+    "blast",
+    "quake"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 11.816666666665995,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.44999999999999996,
+   "byMaterial": {
+    "wax": 119,
+    "soap": 244,
+    "beadslime": 76,
+    "sand": 56,
+    "jelly": 253,
+    "kohaku": 125,
+    "sponge": 70,
+    "chalk": 95
+   },
+   "byLevel": [
+    {
+     "actions": 26,
+     "kills": 238,
+     "best": 31,
+     "per": 9.153846153846153
+    },
+    {
+     "actions": 27,
+     "kills": 276,
+     "best": 31,
+     "per": 10.222222222222221
+    },
+    {
+     "actions": 27,
+     "kills": 504,
+     "best": 65,
+     "per": 18.666666666666668
+    }
+   ],
+   "latency": {
+    "n": 99,
+    "median": 0.04999999999999716,
+    "p90": 0.05000000000000249
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": 18.90649405681121,
+    "jabN": 108,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 52.03333333333333,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent"
+  },
+  {
+   "cls": "crusher",
+   "seed": 1,
+   "kills": 1024,
+   "actions": 79,
+   "chainKills": 491,
+   "best": 57,
+   "bestChain": 3,
+   "ups": [
+    "blast",
+    "rush"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 8.166666666666202,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.44999999999999996,
+   "byMaterial": {
+    "jelly": 259,
+    "soap": 237,
+    "wax": 127,
+    "sponge": 46,
+    "sand": 47,
+    "kohaku": 141,
+    "beadslime": 74,
+    "chalk": 93
+   },
+   "byLevel": [
+    {
+     "actions": 19,
+     "kills": 252,
+     "best": 57,
+     "per": 13.263157894736842
+    },
+    {
+     "actions": 20,
+     "kills": 285,
+     "best": 34,
+     "per": 14.25
+    },
+    {
+     "actions": 21,
+     "kills": 463,
+     "best": 49,
+     "per": 22.047619047619047
+    }
+   ],
+   "latency": {
+    "n": 71,
+    "median": 0.06666666666666288,
+    "p90": 0.23333333333332007
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": 6.109656267685112,
+    "jabN": 56,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 48.38333333333333,
+   "state": "result",
+   "skill": "skilled",
+   "finaleKills": 0,
+   "variant": "skilled"
+  },
+  {
+   "cls": "crusher",
+   "seed": 1,
+   "kills": 911,
+   "actions": 120,
+   "chainKills": 619,
+   "best": 53,
+   "bestChain": 3,
+   "ups": [
+    "-",
+    "-"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 18.21666666666563,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.44999999999999996,
+   "byMaterial": {
+    "wax": 111,
+    "soap": 225,
+    "beadslime": 67,
+    "sand": 33,
+    "jelly": 198,
+    "kohaku": 136,
+    "sponge": 52,
+    "chalk": 89
+   },
+   "byLevel": [
+    {
+     "actions": 80,
+     "kills": 873,
+     "best": 53,
+     "per": 10.9125
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    }
+   ],
+   "latency": {
+    "n": 120,
+    "median": 0.04999999999999716,
+    "p90": 0.05000000000000249
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": 3.0382355534755114,
+    "jabN": 120,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 58.43333333333333,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent-noup"
+  },
+  {
+   "cls": "caster",
+   "seed": 1,
+   "kills": 996,
+   "actions": 115,
+   "chainKills": 582,
+   "best": 76,
+   "bestChain": 4,
+   "ups": [
+    "wide",
+    "chain"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": null,
+   "bossDefeated": false,
+   "bossHits": 117,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.850000000000001,
+   "byMaterial": {
+    "wax": 124,
+    "beadslime": 82,
+    "soap": 218,
+    "sponge": 60,
+    "jelly": 241,
+    "sand": 51,
+    "kohaku": 130,
+    "chalk": 90
+   },
+   "byLevel": [
+    {
+     "actions": 24,
+     "kills": 196,
+     "best": 32,
+     "per": 8.166666666666666
+    },
+    {
+     "actions": 24,
+     "kills": 263,
+     "best": 44,
+     "per": 10.958333333333334
+    },
+    {
+     "actions": 20,
+     "kills": 474,
+     "best": 76,
+     "per": 23.7
+    }
+   ],
+   "latency": {
+    "n": 69,
+    "median": 0.03333333333333499,
+    "p90": 0.11666666666666003
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": 18.45801684214449,
+    "castN": 103,
+    "redirects": 0
+   },
+   "seconds": 60.21666666666667,
+   "state": "result",
+   "skill": "random",
+   "finaleKills": 0,
+   "variant": "random"
+  },
+  {
+   "cls": "caster",
+   "seed": 1,
+   "kills": 1156,
+   "actions": 87,
+   "chainKills": 517,
+   "best": 58,
+   "bestChain": 3,
+   "ups": [
+    "double",
+    "chain"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 9.283333333332806,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.35,
+   "byMaterial": {
+    "soap": 265,
+    "kohaku": 165,
+    "jelly": 292,
+    "wax": 138,
+    "beadslime": 88,
+    "sand": 55,
+    "sponge": 58,
+    "chalk": 95
+   },
+   "byLevel": [
+    {
+     "actions": 25,
+     "kills": 298,
+     "best": 31,
+     "per": 11.92
+    },
+    {
+     "actions": 25,
+     "kills": 264,
+     "best": 29,
+     "per": 10.56
+    },
+    {
+     "actions": 16,
+     "kills": 572,
+     "best": 58,
+     "per": 35.75
+    }
+   ],
+   "latency": {
+    "n": 87,
+    "median": 0.01666666666666572,
+    "p90": 0.016666666666667496
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": 9.307281189659486,
+    "castN": 87,
+    "redirects": 0
+   },
+   "seconds": 49.5,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent"
+  },
+  {
+   "cls": "caster",
+   "seed": 1,
+   "kills": 1131,
+   "actions": 73,
+   "chainKills": 213,
+   "best": 60,
+   "bestChain": 1,
+   "ups": [
+    "wide",
+    "double"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 6.399999999999636,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.35,
+   "byMaterial": {
+    "sand": 54,
+    "jelly": 248,
+    "soap": 296,
+    "wax": 140,
+    "beadslime": 86,
+    "kohaku": 142,
+    "sponge": 65,
+    "chalk": 100
+   },
+   "byLevel": [
+    {
+     "actions": 17,
+     "kills": 310,
+     "best": 38,
+     "per": 18.235294117647058
+    },
+    {
+     "actions": 17,
+     "kills": 261,
+     "best": 37,
+     "per": 15.352941176470589
+    },
+    {
+     "actions": 23,
+     "kills": 539,
+     "best": 60,
+     "per": 23.434782608695652
+    }
+   ],
+   "latency": {
+    "n": 72,
+    "median": 0.01666666666666572,
+    "p90": 0.016666666666667496
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": 11.430778819867717,
+    "castN": 60,
+    "redirects": 0
+   },
+   "seconds": 46.61666666666667,
+   "state": "result",
+   "skill": "skilled",
+   "finaleKills": 0,
+   "variant": "skilled"
+  },
+  {
+   "cls": "caster",
+   "seed": 1,
+   "kills": 1093,
+   "actions": 131,
+   "chainKills": 354,
+   "best": 51,
+   "bestChain": 1,
+   "ups": [
+    "-",
+    "-"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": null,
+   "bossDefeated": false,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.35,
+   "byMaterial": {
+    "soap": 276,
+    "kohaku": 142,
+    "jelly": 251,
+    "wax": 137,
+    "beadslime": 82,
+    "sand": 39,
+    "sponge": 65,
+    "chalk": 101
+   },
+   "byLevel": [
+    {
+     "actions": 79,
+     "kills": 1064,
+     "best": 51,
+     "per": 13.468354430379748
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    }
+   ],
+   "latency": {
+    "n": 131,
+    "median": 0.01666666666666572,
+    "p90": 0.016666666666667496
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": 10.370537664936005,
+    "castN": 131,
+    "redirects": 0
+   },
+   "seconds": 60.21666666666667,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent-noup"
+  },
+  {
+   "cls": "slasher",
+   "seed": 2,
+   "kills": 841,
+   "actions": 91,
+   "chainKills": 0,
+   "best": 104,
+   "bestChain": 0,
+   "ups": [
+    "wide",
+    "double"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 13.583333333332561,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.36666666666666664,
+   "firstKillT": 0.5166666666666666,
+   "byMaterial": {
+    "wax": 108,
+    "jelly": 195,
+    "soap": 205,
+    "sponge": 41,
+    "sand": 42,
+    "beadslime": 55,
+    "chalk": 76,
+    "kohaku": 119
+   },
+   "byLevel": [
+    {
+     "actions": 22,
+     "kills": 140,
+     "best": 28,
+     "per": 6.363636363636363
+    },
+    {
+     "actions": 24,
+     "kills": 220,
+     "best": 32,
+     "per": 9.166666666666666
+    },
+    {
+     "actions": 18,
+     "kills": 457,
+     "best": 104,
+     "per": 25.38888888888889
+    }
+   ],
+   "latency": {
+    "n": 73,
+    "median": 0.0833333333333286,
+    "p90": 0.15000000000000746
+   },
+   "match": {
+    "slashShiftMean": 36.49326454126342,
+    "slashShifted": 6,
+    "slashN": 42,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 53.8,
+   "state": "result",
+   "skill": "random",
+   "finaleKills": 0,
+   "variant": "random"
+  },
+  {
+   "cls": "slasher",
+   "seed": 2,
+   "kills": 1063,
+   "actions": 74,
+   "chainKills": 0,
+   "best": 55,
+   "bestChain": 0,
+   "ups": [
+    "wave",
+    "double"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 4.39999999999975,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.36666666666666664,
+   "firstKillT": 0.3833333333333333,
+   "byMaterial": {
+    "sponge": 56,
+    "sand": 55,
+    "jelly": 238,
+    "soap": 262,
+    "beadslime": 77,
+    "kohaku": 131,
+    "wax": 149,
+    "chalk": 95
+   },
+   "byLevel": [
+    {
+     "actions": 23,
+     "kills": 242,
+     "best": 22,
+     "per": 10.521739130434783
+    },
+    {
+     "actions": 22,
+     "kills": 293,
+     "best": 30,
+     "per": 13.318181818181818
+    },
+    {
+     "actions": 20,
+     "kills": 506,
+     "best": 55,
+     "per": 25.3
+    }
+   ],
+   "latency": {
+    "n": 74,
+    "median": 0.04999999999999716,
+    "p90": 0.06666666666666288
+   },
+   "match": {
+    "slashShiftMean": 0,
+    "slashShifted": 0,
+    "slashN": 74,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 44.61666666666667,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent"
+  },
+  {
+   "cls": "slasher",
+   "seed": 2,
+   "kills": 1133,
+   "actions": 73,
+   "chainKills": 0,
+   "best": 55,
+   "bestChain": 0,
+   "ups": [
+    "double",
+    "wave"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 3.7166666666664554,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.6166666666666669,
+   "firstKillT": 0.7000000000000005,
+   "byMaterial": {
+    "soap": 261,
+    "kohaku": 141,
+    "sand": 54,
+    "wax": 148,
+    "jelly": 284,
+    "sponge": 55,
+    "beadslime": 89,
+    "chalk": 101
+   },
+   "byLevel": [
+    {
+     "actions": 22,
+     "kills": 304,
+     "best": 46,
+     "per": 13.818181818181818
+    },
+    {
+     "actions": 24,
+     "kills": 271,
+     "best": 28,
+     "per": 11.291666666666666
+    },
+    {
+     "actions": 19,
+     "kills": 534,
+     "best": 55,
+     "per": 28.105263157894736
+    }
+   ],
+   "latency": {
+    "n": 72,
+    "median": 0.05000000000000249,
+    "p90": 0.08333333333333304
+   },
+   "match": {
+    "slashShiftMean": 0,
+    "slashShifted": 0,
+    "slashN": 54,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 43.93333333333333,
+   "state": "result",
+   "skill": "skilled",
+   "finaleKills": 0,
+   "variant": "skilled"
+  },
+  {
+   "cls": "slasher",
+   "seed": 2,
+   "kills": 937,
+   "actions": 109,
+   "chainKills": 0,
+   "best": 26,
+   "bestChain": 0,
+   "ups": [
+    "-",
+    "-"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": null,
+   "bossDefeated": false,
+   "bossHits": 120,
+   "firstActionT": 0.36666666666666664,
+   "firstKillT": 0.3833333333333333,
+   "byMaterial": {
+    "sponge": 70,
+    "sand": 46,
+    "jelly": 215,
+    "soap": 244,
+    "beadslime": 65,
+    "kohaku": 121,
+    "wax": 111,
+    "chalk": 65
+   },
+   "byLevel": [
+    {
+     "actions": 69,
+     "kills": 876,
+     "best": 26,
+     "per": 12.695652173913043
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    }
+   ],
+   "latency": {
+    "n": 108,
+    "median": 0.03333333333333499,
+    "p90": 0.06666666666666288
+   },
+   "match": {
+    "slashShiftMean": 0,
+    "slashShifted": 0,
+    "slashN": 109,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 60.21666666666667,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 1,
+   "variant": "intent-noup"
+  },
+  {
+   "cls": "crusher",
+   "seed": 2,
+   "kills": 844,
+   "actions": 95,
+   "chainKills": 703,
+   "best": 82,
+   "bestChain": 4,
+   "ups": [
+    "blast",
+    "quake"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 11.266666666666026,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.44999999999999996,
+   "byMaterial": {
+    "soap": 199,
+    "wax": 112,
+    "sponge": 47,
+    "beadslime": 64,
+    "jelly": 207,
+    "sand": 43,
+    "chalk": 74,
+    "kohaku": 98
+   },
+   "byLevel": [
+    {
+     "actions": 24,
+     "kills": 163,
+     "best": 42,
+     "per": 6.791666666666667
+    },
+    {
+     "actions": 24,
+     "kills": 221,
+     "best": 26,
+     "per": 9.208333333333334
+    },
+    {
+     "actions": 23,
+     "kills": 432,
+     "best": 82,
+     "per": 18.782608695652176
+    }
+   ],
+   "latency": {
+    "n": 77,
+    "median": 0.04999999999999982,
+    "p90": 0.14999999999999147
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": 109.24327695323903,
+    "jabN": 87,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 28
+   },
+   "seconds": 51.483333333333334,
+   "state": "result",
+   "skill": "random",
+   "finaleKills": 1,
+   "variant": "random"
+  },
+  {
+   "cls": "crusher",
+   "seed": 2,
+   "kills": 976,
+   "actions": 101,
+   "chainKills": 683,
+   "best": 56,
+   "bestChain": 3,
+   "ups": [
+    "blast",
+    "rush"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 9.216666666666143,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.44999999999999996,
+   "byMaterial": {
+    "kohaku": 139,
+    "chalk": 86,
+    "wax": 125,
+    "jelly": 227,
+    "soap": 223,
+    "beadslime": 63,
+    "sand": 46,
+    "sponge": 67
+   },
+   "byLevel": [
+    {
+     "actions": 26,
+     "kills": 240,
+     "best": 35,
+     "per": 9.23076923076923
+    },
+    {
+     "actions": 27,
+     "kills": 250,
+     "best": 26,
+     "per": 9.25925925925926
+    },
+    {
+     "actions": 27,
+     "kills": 465,
+     "best": 56,
+     "per": 17.22222222222222
+    }
+   ],
+   "latency": {
+    "n": 95,
+    "median": 0.033333333333333215,
+    "p90": 0.05000000000000249
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": 23.153361174252332,
+    "jabN": 101,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 49.43333333333333,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent"
+  },
+  {
+   "cls": "crusher",
+   "seed": 2,
+   "kills": 1000,
+   "actions": 75,
+   "chainKills": 535,
+   "best": 61,
+   "bestChain": 3,
+   "ups": [
+    "rush",
+    "quake"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 7.966666666666214,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.44999999999999996,
+   "byMaterial": {
+    "kohaku": 123,
+    "chalk": 88,
+    "wax": 134,
+    "soap": 224,
+    "sand": 45,
+    "sponge": 58,
+    "jelly": 243,
+    "beadslime": 85
+   },
+   "byLevel": [
+    {
+     "actions": 19,
+     "kills": 266,
+     "best": 61,
+     "per": 14
+    },
+    {
+     "actions": 19,
+     "kills": 260,
+     "best": 57,
+     "per": 13.68421052631579
+    },
+    {
+     "actions": 18,
+     "kills": 436,
+     "best": 55,
+     "per": 24.22222222222222
+    }
+   ],
+   "latency": {
+    "n": 71,
+    "median": 0.05000000000000249,
+    "p90": 0.23333333333332007
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": 5.5296812987806305,
+    "jabN": 51,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 48.18333333333333,
+   "state": "result",
+   "skill": "skilled",
+   "finaleKills": 0,
+   "variant": "skilled"
+  },
+  {
+   "cls": "crusher",
+   "seed": 2,
+   "kills": 928,
+   "actions": 119,
+   "chainKills": 642,
+   "best": 51,
+   "bestChain": 3,
+   "ups": [
+    "-",
+    "-"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 17.216666666665688,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.44999999999999996,
+   "byMaterial": {
+    "kohaku": 120,
+    "chalk": 81,
+    "wax": 121,
+    "jelly": 213,
+    "soap": 222,
+    "beadslime": 73,
+    "sand": 48,
+    "sponge": 50
+   },
+   "byLevel": [
+    {
+     "actions": 80,
+     "kills": 895,
+     "best": 51,
+     "per": 11.1875
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    }
+   ],
+   "latency": {
+    "n": 118,
+    "median": 0.04999999999999716,
+    "p90": 0.05000000000000249
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": 3.0954282358287655,
+    "jabN": 119,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 57.43333333333333,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent-noup"
+  },
+  {
+   "cls": "caster",
+   "seed": 2,
+   "kills": 940,
+   "actions": 108,
+   "chainKills": 602,
+   "best": 68,
+   "bestChain": 4,
+   "ups": [
+    "double",
+    "chain"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 19.866666666665537,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.3833333333333333,
+   "byMaterial": {
+    "wax": 137,
+    "soap": 213,
+    "kohaku": 109,
+    "jelly": 211,
+    "beadslime": 66,
+    "chalk": 88,
+    "sponge": 70,
+    "sand": 46
+   },
+   "byLevel": [
+    {
+     "actions": 24,
+     "kills": 184,
+     "best": 34,
+     "per": 7.666666666666667
+    },
+    {
+     "actions": 24,
+     "kills": 234,
+     "best": 45,
+     "per": 9.75
+    },
+    {
+     "actions": 21,
+     "kills": 452,
+     "best": 68,
+     "per": 21.523809523809526
+    }
+   ],
+   "latency": {
+    "n": 64,
+    "median": 0.033333333333333215,
+    "p90": 0.31666666666664867
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": 11.535936502953998,
+    "castN": 98,
+    "redirects": 0
+   },
+   "seconds": 60.083333333333336,
+   "state": "result",
+   "skill": "random",
+   "finaleKills": 0,
+   "variant": "random"
+  },
+  {
+   "cls": "caster",
+   "seed": 2,
+   "kills": 1156,
+   "actions": 77,
+   "chainKills": 555,
+   "best": 58,
+   "bestChain": 3,
+   "ups": [
+    "chain",
+    "double"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 9.199999999999477,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.35,
+   "byMaterial": {
+    "wax": 151,
+    "kohaku": 155,
+    "soap": 267,
+    "chalk": 94,
+    "jelly": 281,
+    "beadslime": 89,
+    "sponge": 59,
+    "sand": 60
+   },
+   "byLevel": [
+    {
+     "actions": 26,
+     "kills": 299,
+     "best": 32,
+     "per": 11.5
+    },
+    {
+     "actions": 17,
+     "kills": 278,
+     "best": 30,
+     "per": 16.352941176470587
+    },
+    {
+     "actions": 14,
+     "kills": 558,
+     "best": 58,
+     "per": 39.857142857142854
+    }
+   ],
+   "latency": {
+    "n": 77,
+    "median": 0.01666666666666572,
+    "p90": 0.016666666666667496
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": 8.759627280356884,
+    "castN": 77,
+    "redirects": 0
+   },
+   "seconds": 49.416666666666664,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent"
+  },
+  {
+   "cls": "caster",
+   "seed": 2,
+   "kills": 1156,
+   "actions": 79,
+   "chainKills": 294,
+   "best": 62,
+   "bestChain": 3,
+   "ups": [
+    "chain",
+    "wide"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 11.849999999999326,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.35,
+   "byMaterial": {
+    "chalk": 98,
+    "kohaku": 136,
+    "soap": 256,
+    "wax": 152,
+    "beadslime": 89,
+    "sponge": 69,
+    "jelly": 294,
+    "sand": 62
+   },
+   "byLevel": [
+    {
+     "actions": 17,
+     "kills": 307,
+     "best": 39,
+     "per": 18.058823529411764
+    },
+    {
+     "actions": 17,
+     "kills": 256,
+     "best": 35,
+     "per": 15.058823529411764
+    },
+    {
+     "actions": 15,
+     "kills": 531,
+     "best": 62,
+     "per": 35.4
+    }
+   ],
+   "latency": {
+    "n": 77,
+    "median": 0.01666666666666572,
+    "p90": 0.016666666666667496
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": 10.551839066635152,
+    "castN": 66,
+    "redirects": 0
+   },
+   "seconds": 52.06666666666667,
+   "state": "result",
+   "skill": "skilled",
+   "finaleKills": 0,
+   "variant": "skilled"
+  },
+  {
+   "cls": "caster",
+   "seed": 2,
+   "kills": 1109,
+   "actions": 134,
+   "chainKills": 350,
+   "best": 49,
+   "bestChain": 1,
+   "ups": [
+    "-",
+    "-"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": null,
+   "bossDefeated": false,
+   "bossHits": 119,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.35,
+   "byMaterial": {
+    "wax": 149,
+    "kohaku": 137,
+    "soap": 269,
+    "chalk": 89,
+    "jelly": 267,
+    "beadslime": 67,
+    "sponge": 72,
+    "sand": 59
+   },
+   "byLevel": [
+    {
+     "actions": 80,
+     "kills": 1078,
+     "best": 49,
+     "per": 13.475
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    }
+   ],
+   "latency": {
+    "n": 134,
+    "median": 0.01666666666666572,
+    "p90": 0.016666666666667496
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": 9.497842654018676,
+    "castN": 134,
+    "redirects": 0
+   },
+   "seconds": 60.21666666666667,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent-noup"
+  },
+  {
+   "cls": "slasher",
+   "seed": 3,
+   "kills": 905,
+   "actions": 84,
+   "chainKills": 0,
+   "best": 55,
+   "bestChain": 0,
+   "ups": [
+    "double",
+    "wave"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 8.766666666666168,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.36666666666666664,
+   "firstKillT": 0.4666666666666666,
+   "byMaterial": {
+    "soap": 203,
+    "sponge": 55,
+    "beadslime": 71,
+    "wax": 109,
+    "jelly": 227,
+    "sand": 39,
+    "kohaku": 119,
+    "chalk": 82
+   },
+   "byLevel": [
+    {
+     "actions": 23,
+     "kills": 146,
+     "best": 25,
+     "per": 6.3478260869565215
+    },
+    {
+     "actions": 23,
+     "kills": 300,
+     "best": 42,
+     "per": 13.043478260869565
+    },
+    {
+     "actions": 21,
+     "kills": 431,
+     "best": 55,
+     "per": 20.523809523809526
+    }
+   ],
+   "latency": {
+    "n": 73,
+    "median": 0.09999999999999432,
+    "p90": 0.21666666666665435
+   },
+   "match": {
+    "slashShiftMean": 34.963738402113655,
+    "slashShifted": 7,
+    "slashN": 37,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 48.983333333333334,
+   "state": "result",
+   "skill": "random",
+   "finaleKills": 0,
+   "variant": "random"
+  },
+  {
+   "cls": "slasher",
+   "seed": 3,
+   "kills": 1079,
+   "actions": 89,
+   "chainKills": 0,
+   "best": 54,
+   "bestChain": 0,
+   "ups": [
+    "double",
+    "wide"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 9.866666666666106,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.36666666666666664,
+   "firstKillT": 0.3833333333333333,
+   "byMaterial": {
+    "wax": 142,
+    "beadslime": 81,
+    "kohaku": 137,
+    "soap": 255,
+    "jelly": 251,
+    "sponge": 67,
+    "chalk": 99,
+    "sand": 47
+   },
+   "byLevel": [
+    {
+     "actions": 23,
+     "kills": 265,
+     "best": 26,
+     "per": 11.521739130434783
+    },
+    {
+     "actions": 23,
+     "kills": 280,
+     "best": 25,
+     "per": 12.173913043478262
+    },
+    {
+     "actions": 23,
+     "kills": 500,
+     "best": 54,
+     "per": 21.73913043478261
+    }
+   ],
+   "latency": {
+    "n": 89,
+    "median": 0.033333333333333215,
+    "p90": 0.05000000000000249
+   },
+   "match": {
+    "slashShiftMean": 0,
+    "slashShifted": 0,
+    "slashN": 89,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 50.083333333333336,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent"
+  },
+  {
+   "cls": "slasher",
+   "seed": 3,
+   "kills": 1126,
+   "actions": 87,
+   "chainKills": 0,
+   "best": 54,
+   "bestChain": 0,
+   "ups": [
+    "wide",
+    "double"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 7.966666666666214,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.6166666666666669,
+   "firstKillT": 0.7000000000000005,
+   "byMaterial": {
+    "sponge": 66,
+    "jelly": 264,
+    "wax": 151,
+    "soap": 258,
+    "beadslime": 72,
+    "sand": 58,
+    "kohaku": 168,
+    "chalk": 89
+   },
+   "byLevel": [
+    {
+     "actions": 23,
+     "kills": 301,
+     "best": 46,
+     "per": 13.08695652173913
+    },
+    {
+     "actions": 22,
+     "kills": 274,
+     "best": 28,
+     "per": 12.454545454545455
+    },
+    {
+     "actions": 25,
+     "kills": 526,
+     "best": 54,
+     "per": 21.04
+    }
+   ],
+   "latency": {
+    "n": 87,
+    "median": 0.05000000000000249,
+    "p90": 0.0833333333333286
+   },
+   "match": {
+    "slashShiftMean": 0,
+    "slashShifted": 0,
+    "slashN": 77,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 48.18333333333333,
+   "state": "result",
+   "skill": "skilled",
+   "finaleKills": 0,
+   "variant": "skilled"
+  },
+  {
+   "cls": "slasher",
+   "seed": 3,
+   "kills": 943,
+   "actions": 112,
+   "chainKills": 0,
+   "best": 35,
+   "bestChain": 0,
+   "ups": [
+    "-",
+    "-"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": null,
+   "bossDefeated": false,
+   "bossHits": 120,
+   "firstActionT": 0.36666666666666664,
+   "firstKillT": 0.3833333333333333,
+   "byMaterial": {
+    "wax": 135,
+    "beadslime": 85,
+    "kohaku": 141,
+    "soap": 210,
+    "jelly": 218,
+    "sponge": 47,
+    "chalk": 63,
+    "sand": 44
+   },
+   "byLevel": [
+    {
+     "actions": 69,
+     "kills": 858,
+     "best": 35,
+     "per": 12.434782608695652
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    }
+   ],
+   "latency": {
+    "n": 112,
+    "median": 0.03333333333333499,
+    "p90": 0.06666666666666288
+   },
+   "match": {
+    "slashShiftMean": 0,
+    "slashShifted": 0,
+    "slashN": 112,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 60.21666666666667,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent-noup"
+  },
+  {
+   "cls": "crusher",
+   "seed": 3,
+   "kills": 837,
+   "actions": 96,
+   "chainKills": 628,
+   "best": 80,
+   "bestChain": 4,
+   "ups": [
+    "rush",
+    "blast"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 11.616666666666006,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.44999999999999996,
+   "byMaterial": {
+    "sponge": 51,
+    "chalk": 70,
+    "soap": 181,
+    "sand": 26,
+    "wax": 117,
+    "beadslime": 70,
+    "jelly": 206,
+    "kohaku": 116
+   },
+   "byLevel": [
+    {
+     "actions": 24,
+     "kills": 124,
+     "best": 32,
+     "per": 5.166666666666667
+    },
+    {
+     "actions": 25,
+     "kills": 240,
+     "best": 34,
+     "per": 9.6
+    },
+    {
+     "actions": 24,
+     "kills": 430,
+     "best": 80,
+     "per": 17.916666666666668
+    }
+   ],
+   "latency": {
+    "n": 75,
+    "median": 0.03333333333333144,
+    "p90": 0.06666666666666643
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": 75.83358185114763,
+    "jabN": 91,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 24
+   },
+   "seconds": 51.833333333333336,
+   "state": "result",
+   "skill": "random",
+   "finaleKills": 0,
+   "variant": "random"
+  },
+  {
+   "cls": "crusher",
+   "seed": 3,
+   "kills": 1012,
+   "actions": 103,
+   "chainKills": 745,
+   "best": 41,
+   "bestChain": 3,
+   "ups": [
+    "rush",
+    "quake"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 10.016666666666097,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.44999999999999996,
+   "byMaterial": {
+    "soap": 245,
+    "beadslime": 74,
+    "sponge": 51,
+    "jelly": 241,
+    "chalk": 87,
+    "wax": 129,
+    "kohaku": 137,
+    "sand": 48
+   },
+   "byLevel": [
+    {
+     "actions": 26,
+     "kills": 239,
+     "best": 31,
+     "per": 9.192307692307692
+    },
+    {
+     "actions": 27,
+     "kills": 247,
+     "best": 24,
+     "per": 9.148148148148149
+    },
+    {
+     "actions": 27,
+     "kills": 494,
+     "best": 41,
+     "per": 18.296296296296298
+    }
+   ],
+   "latency": {
+    "n": 103,
+    "median": 0.03333333333333144,
+    "p90": 0.04999999999999982
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": 4.282873433749847,
+    "jabN": 103,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 50.233333333333334,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent"
+  },
+  {
+   "cls": "crusher",
+   "seed": 3,
+   "kills": 1064,
+   "actions": 78,
+   "chainKills": 481,
+   "best": 61,
+   "bestChain": 3,
+   "ups": [
+    "blast",
+    "rush"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 7.366666666666248,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.44999999999999996,
+   "byMaterial": {
+    "jelly": 256,
+    "chalk": 86,
+    "wax": 148,
+    "sand": 53,
+    "sponge": 60,
+    "soap": 239,
+    "beadslime": 83,
+    "kohaku": 139
+   },
+   "byLevel": [
+    {
+     "actions": 19,
+     "kills": 269,
+     "best": 61,
+     "per": 14.157894736842104
+    },
+    {
+     "actions": 21,
+     "kills": 271,
+     "best": 36,
+     "per": 12.904761904761905
+    },
+    {
+     "actions": 21,
+     "kills": 507,
+     "best": 55,
+     "per": 24.142857142857142
+    }
+   ],
+   "latency": {
+    "n": 75,
+    "median": 0.06666666666666288,
+    "p90": 0.23333333333332007
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": 8.469836707611172,
+    "jabN": 56,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 47.583333333333336,
+   "state": "result",
+   "skill": "skilled",
+   "finaleKills": 0,
+   "variant": "skilled"
+  },
+  {
+   "cls": "crusher",
+   "seed": 3,
+   "kills": 931,
+   "actions": 119,
+   "chainKills": 639,
+   "best": 65,
+   "bestChain": 3,
+   "ups": [
+    "-",
+    "-"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 17.666666666665662,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.44999999999999996,
+   "byMaterial": {
+    "soap": 220,
+    "beadslime": 62,
+    "sponge": 49,
+    "jelly": 228,
+    "chalk": 75,
+    "wax": 133,
+    "kohaku": 126,
+    "sand": 38
+   },
+   "byLevel": [
+    {
+     "actions": 80,
+     "kills": 903,
+     "best": 65,
+     "per": 11.2875
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    }
+   ],
+   "latency": {
+    "n": 119,
+    "median": 0.04999999999999716,
+    "p90": 0.05000000000000249
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": 3.0960393755178828,
+    "jabN": 119,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 57.88333333333333,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent-noup"
+  },
+  {
+   "cls": "caster",
+   "seed": 3,
+   "kills": 968,
+   "actions": 117,
+   "chainKills": 513,
+   "best": 75,
+   "bestChain": 3,
+   "ups": [
+    "chain",
+    "wide"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": null,
+   "bossDefeated": false,
+   "bossHits": 114,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.36666666666666664,
+   "byMaterial": {
+    "soap": 204,
+    "chalk": 92,
+    "beadslime": 93,
+    "sponge": 63,
+    "wax": 144,
+    "jelly": 223,
+    "sand": 39,
+    "kohaku": 110
+   },
+   "byLevel": [
+    {
+     "actions": 24,
+     "kills": 197,
+     "best": 31,
+     "per": 8.208333333333334
+    },
+    {
+     "actions": 24,
+     "kills": 249,
+     "best": 45,
+     "per": 10.375
+    },
+    {
+     "actions": 21,
+     "kills": 502,
+     "best": 75,
+     "per": 23.904761904761905
+    }
+   ],
+   "latency": {
+    "n": 60,
+    "median": 0.03333333333333144,
+    "p90": 0.0833333333333286
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": 13.0095682981398,
+    "castN": 108,
+    "redirects": 0
+   },
+   "seconds": 60.21666666666667,
+   "state": "result",
+   "skill": "random",
+   "finaleKills": 0,
+   "variant": "random"
+  },
+  {
+   "cls": "caster",
+   "seed": 3,
+   "kills": 1137,
+   "actions": 86,
+   "chainKills": 267,
+   "best": 55,
+   "bestChain": 1,
+   "ups": [
+    "wide",
+    "double"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 7.133333333332928,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.35,
+   "byMaterial": {
+    "wax": 163,
+    "soap": 266,
+    "jelly": 262,
+    "beadslime": 81,
+    "kohaku": 151,
+    "chalk": 99,
+    "sponge": 73,
+    "sand": 42
+   },
+   "byLevel": [
+    {
+     "actions": 25,
+     "kills": 304,
+     "best": 34,
+     "per": 12.16
+    },
+    {
+     "actions": 22,
+     "kills": 273,
+     "best": 31,
+     "per": 12.409090909090908
+    },
+    {
+     "actions": 22,
+     "kills": 537,
+     "best": 55,
+     "per": 24.40909090909091
+    }
+   ],
+   "latency": {
+    "n": 86,
+    "median": 0.01666666666666572,
+    "p90": 0.016666666666667496
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": 12.728285404198642,
+    "castN": 86,
+    "redirects": 0
+   },
+   "seconds": 47.35,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent"
+  },
+  {
+   "cls": "caster",
+   "seed": 3,
+   "kills": 1146,
+   "actions": 73,
+   "chainKills": 248,
+   "best": 72,
+   "bestChain": 2,
+   "ups": [
+    "double",
+    "wide"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 5.783333333333005,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.35,
+   "byMaterial": {
+    "chalk": 89,
+    "jelly": 268,
+    "wax": 146,
+    "beadslime": 81,
+    "soap": 269,
+    "kohaku": 154,
+    "sponge": 72,
+    "sand": 67
+   },
+   "byLevel": [
+    {
+     "actions": 17,
+     "kills": 310,
+     "best": 39,
+     "per": 18.235294117647058
+    },
+    {
+     "actions": 19,
+     "kills": 256,
+     "best": 34,
+     "per": 13.473684210526315
+    },
+    {
+     "actions": 23,
+     "kills": 556,
+     "best": 72,
+     "per": 24.17391304347826
+    }
+   ],
+   "latency": {
+    "n": 71,
+    "median": 0.01666666666666572,
+    "p90": 0.016666666666667496
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": 10.390252736823326,
+    "castN": 58,
+    "redirects": 0
+   },
+   "seconds": 46,
+   "state": "result",
+   "skill": "skilled",
+   "finaleKills": 0,
+   "variant": "skilled"
+  },
+  {
+   "cls": "caster",
+   "seed": 3,
+   "kills": 1118,
+   "actions": 133,
+   "chainKills": 377,
+   "best": 49,
+   "bestChain": 1,
+   "ups": [
+    "-",
+    "-"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": null,
+   "bossDefeated": false,
+   "bossHits": 117,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.35,
+   "byMaterial": {
+    "wax": 152,
+    "soap": 268,
+    "jelly": 258,
+    "beadslime": 80,
+    "kohaku": 151,
+    "chalk": 99,
+    "sponge": 69,
+    "sand": 41
+   },
+   "byLevel": [
+    {
+     "actions": 79,
+     "kills": 1092,
+     "best": 49,
+     "per": 13.822784810126583
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    }
+   ],
+   "latency": {
+    "n": 133,
+    "median": 0.01666666666666572,
+    "p90": 0.016666666666667496
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": 8.910245293208892,
+    "castN": 133,
+    "redirects": 0
+   },
+   "seconds": 60.21666666666667,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent-noup"
+  },
+  {
+   "cls": "slasher",
+   "seed": 4,
+   "kills": 820,
+   "actions": 98,
+   "chainKills": 0,
+   "best": 61,
+   "bestChain": 0,
+   "ups": [
+    "wide",
+    "double"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 18.33333333333229,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.36666666666666664,
+   "firstKillT": 1.8999999999999981,
+   "byMaterial": {
+    "soap": 163,
+    "jelly": 193,
+    "beadslime": 72,
+    "kohaku": 116,
+    "chalk": 76,
+    "sand": 29,
+    "wax": 116,
+    "sponge": 55
+   },
+   "byLevel": [
+    {
+     "actions": 22,
+     "kills": 94,
+     "best": 20,
+     "per": 4.2727272727272725
+    },
+    {
+     "actions": 19,
+     "kills": 244,
+     "best": 44,
+     "per": 12.842105263157896
+    },
+    {
+     "actions": 25,
+     "kills": 418,
+     "best": 61,
+     "per": 16.72
+    }
+   ],
+   "latency": {
+    "n": 79,
+    "median": 0.09999999999999432,
+    "p90": 0.1666666666666572
+   },
+   "match": {
+    "slashShiftMean": 33.676186894987005,
+    "slashShifted": 5,
+    "slashN": 39,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 58.55,
+   "state": "result",
+   "skill": "random",
+   "finaleKills": 0,
+   "variant": "random"
+  },
+  {
+   "cls": "slasher",
+   "seed": 4,
+   "kills": 1060,
+   "actions": 77,
+   "chainKills": 0,
+   "best": 56,
+   "bestChain": 0,
+   "ups": [
+    "double",
+    "wave"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 4.616666666666404,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.36666666666666664,
+   "firstKillT": 0.39999999999999997,
+   "byMaterial": {
+    "soap": 220,
+    "jelly": 276,
+    "kohaku": 143,
+    "beadslime": 78,
+    "wax": 142,
+    "sponge": 62,
+    "sand": 47,
+    "chalk": 92
+   },
+   "byLevel": [
+    {
+     "actions": 23,
+     "kills": 251,
+     "best": 22,
+     "per": 10.91304347826087
+    },
+    {
+     "actions": 23,
+     "kills": 272,
+     "best": 27,
+     "per": 11.826086956521738
+    },
+    {
+     "actions": 22,
+     "kills": 516,
+     "best": 56,
+     "per": 23.454545454545453
+    }
+   ],
+   "latency": {
+    "n": 77,
+    "median": 0.03333333333333499,
+    "p90": 0.06666666666666288
+   },
+   "match": {
+    "slashShiftMean": 0,
+    "slashShifted": 0,
+    "slashN": 77,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 44.833333333333336,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent"
+  },
+  {
+   "cls": "slasher",
+   "seed": 4,
+   "kills": 1125,
+   "actions": 73,
+   "chainKills": 0,
+   "best": 55,
+   "bestChain": 0,
+   "ups": [
+    "double",
+    "wave"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 3.8166666666664497,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.6166666666666669,
+   "firstKillT": 0.7000000000000005,
+   "byMaterial": {
+    "beadslime": 98,
+    "jelly": 277,
+    "kohaku": 148,
+    "sand": 56,
+    "wax": 136,
+    "soap": 267,
+    "sponge": 48,
+    "chalk": 95
+   },
+   "byLevel": [
+    {
+     "actions": 22,
+     "kills": 299,
+     "best": 46,
+     "per": 13.590909090909092
+    },
+    {
+     "actions": 24,
+     "kills": 277,
+     "best": 28,
+     "per": 11.541666666666666
+    },
+    {
+     "actions": 19,
+     "kills": 525,
+     "best": 55,
+     "per": 27.63157894736842
+    }
+   ],
+   "latency": {
+    "n": 73,
+    "median": 0.04999999999999716,
+    "p90": 0.08333333333333304
+   },
+   "match": {
+    "slashShiftMean": 0,
+    "slashShifted": 0,
+    "slashN": 54,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 44.03333333333333,
+   "state": "result",
+   "skill": "skilled",
+   "finaleKills": 0,
+   "variant": "skilled"
+  },
+  {
+   "cls": "slasher",
+   "seed": 4,
+   "kills": 908,
+   "actions": 109,
+   "chainKills": 0,
+   "best": 28,
+   "bestChain": 0,
+   "ups": [
+    "-",
+    "-"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": null,
+   "bossDefeated": false,
+   "bossHits": 120,
+   "firstActionT": 0.36666666666666664,
+   "firstKillT": 0.39999999999999997,
+   "byMaterial": {
+    "soap": 224,
+    "jelly": 218,
+    "kohaku": 127,
+    "beadslime": 68,
+    "wax": 109,
+    "sponge": 51,
+    "sand": 45,
+    "chalk": 66
+   },
+   "byLevel": [
+    {
+     "actions": 69,
+     "kills": 849,
+     "best": 28,
+     "per": 12.304347826086957
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    }
+   ],
+   "latency": {
+    "n": 108,
+    "median": 0.03333333333333144,
+    "p90": 0.06666666666666288
+   },
+   "match": {
+    "slashShiftMean": 0,
+    "slashShifted": 0,
+    "slashN": 109,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 60.21666666666667,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 1,
+   "variant": "intent-noup"
+  },
+  {
+   "cls": "crusher",
+   "seed": 4,
+   "kills": 841,
+   "actions": 105,
+   "chainKills": 647,
+   "best": 50,
+   "bestChain": 4,
+   "ups": [
+    "rush",
+    "blast"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 16.833333333332376,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.44999999999999996,
+   "byMaterial": {
+    "kohaku": 119,
+    "jelly": 207,
+    "sand": 36,
+    "beadslime": 71,
+    "soap": 186,
+    "chalk": 71,
+    "wax": 109,
+    "sponge": 42
+   },
+   "byLevel": [
+    {
+     "actions": 24,
+     "kills": 141,
+     "best": 31,
+     "per": 5.875
+    },
+    {
+     "actions": 23,
+     "kills": 253,
+     "best": 43,
+     "per": 11
+    },
+    {
+     "actions": 25,
+     "kills": 391,
+     "best": 50,
+     "per": 15.64
+    }
+   ],
+   "latency": {
+    "n": 82,
+    "median": 0.03333333333333499,
+    "p90": 0.14999999999999147
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": 110.56348037895742,
+    "jabN": 95,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 20
+   },
+   "seconds": 57.05,
+   "state": "result",
+   "skill": "random",
+   "finaleKills": 0,
+   "variant": "random"
+  },
+  {
+   "cls": "crusher",
+   "seed": 4,
+   "kills": 1056,
+   "actions": 104,
+   "chainKills": 841,
+   "best": 80,
+   "bestChain": 3,
+   "ups": [
+    "quake",
+    "blast"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 9.566666666666123,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.44999999999999996,
+   "byMaterial": {
+    "soap": 234,
+    "beadslime": 85,
+    "sand": 51,
+    "jelly": 250,
+    "wax": 136,
+    "kohaku": 141,
+    "chalk": 92,
+    "sponge": 67
+   },
+   "byLevel": [
+    {
+     "actions": 26,
+     "kills": 241,
+     "best": 38,
+     "per": 9.26923076923077
+    },
+    {
+     "actions": 27,
+     "kills": 279,
+     "best": 33,
+     "per": 10.333333333333334
+    },
+    {
+     "actions": 27,
+     "kills": 511,
+     "best": 80,
+     "per": 18.925925925925927
+    }
+   ],
+   "latency": {
+    "n": 97,
+    "median": 0.04999999999999716,
+    "p90": 0.05000000000000249
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": 16.747567550908993,
+    "jabN": 104,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 49.78333333333333,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 6,
+   "variant": "intent"
+  },
+  {
+   "cls": "crusher",
+   "seed": 4,
+   "kills": 1028,
+   "actions": 71,
+   "chainKills": 542,
+   "best": 83,
+   "bestChain": 3,
+   "ups": [
+    "rush",
+    "quake"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 6.766666666666282,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.44999999999999996,
+   "byMaterial": {
+    "kohaku": 139,
+    "jelly": 251,
+    "wax": 137,
+    "beadslime": 91,
+    "sponge": 51,
+    "chalk": 80,
+    "soap": 229,
+    "sand": 50
+   },
+   "byLevel": [
+    {
+     "actions": 20,
+     "kills": 283,
+     "best": 52,
+     "per": 14.15
+    },
+    {
+     "actions": 18,
+     "kills": 263,
+     "best": 57,
+     "per": 14.61111111111111
+    },
+    {
+     "actions": 17,
+     "kills": 408,
+     "best": 83,
+     "per": 24
+    }
+   ],
+   "latency": {
+    "n": 69,
+    "median": 0.06666666666666643,
+    "p90": 0.2499999999999858
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": 6.240120488733579,
+    "jabN": 46,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 46.983333333333334,
+   "state": "result",
+   "skill": "skilled",
+   "finaleKills": 0,
+   "variant": "skilled"
+  },
+  {
+   "cls": "crusher",
+   "seed": 4,
+   "kills": 923,
+   "actions": 117,
+   "chainKills": 647,
+   "best": 56,
+   "bestChain": 3,
+   "ups": [
+    "-",
+    "-"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 15.966666666665759,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.44999999999999996,
+   "byMaterial": {
+    "soap": 226,
+    "beadslime": 72,
+    "sand": 38,
+    "jelly": 214,
+    "wax": 132,
+    "kohaku": 120,
+    "chalk": 74,
+    "sponge": 47
+   },
+   "byLevel": [
+    {
+     "actions": 80,
+     "kills": 893,
+     "best": 56,
+     "per": 11.1625
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    }
+   ],
+   "latency": {
+    "n": 117,
+    "median": 0.04999999999999716,
+    "p90": 0.05000000000000249
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": 2.7099429289125614,
+    "jabN": 117,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 56.18333333333333,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent-noup"
+  },
+  {
+   "cls": "caster",
+   "seed": 4,
+   "kills": 1014,
+   "actions": 111,
+   "chainKills": 732,
+   "best": 56,
+   "bestChain": 4,
+   "ups": [
+    "chain",
+    "double"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": null,
+   "bossDefeated": false,
+   "bossHits": 107,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 2.2999999999999967,
+   "byMaterial": {
+    "beadslime": 69,
+    "soap": 256,
+    "jelly": 247,
+    "wax": 143,
+    "chalk": 78,
+    "sand": 44,
+    "kohaku": 125,
+    "sponge": 52
+   },
+   "byLevel": [
+    {
+     "actions": 24,
+     "kills": 168,
+     "best": 32,
+     "per": 7
+    },
+    {
+     "actions": 21,
+     "kills": 302,
+     "best": 56,
+     "per": 14.380952380952381
+    },
+    {
+     "actions": 17,
+     "kills": 496,
+     "best": 49,
+     "per": 29.176470588235293
+    }
+   ],
+   "latency": {
+    "n": 59,
+    "median": 0.033333333333333215,
+    "p90": 0.31666666666664867
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": 11.305203289476875,
+    "castN": 101,
+    "redirects": 0
+   },
+   "seconds": 60.21666666666667,
+   "state": "result",
+   "skill": "random",
+   "finaleKills": 0,
+   "variant": "random"
+  },
+  {
+   "cls": "caster",
+   "seed": 4,
+   "kills": 1156,
+   "actions": 77,
+   "chainKills": 550,
+   "best": 57,
+   "bestChain": 3,
+   "ups": [
+    "chain",
+    "double"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 9.61666666666612,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.35,
+   "byMaterial": {
+    "wax": 166,
+    "kohaku": 152,
+    "jelly": 278,
+    "soap": 263,
+    "beadslime": 87,
+    "chalk": 97,
+    "sand": 59,
+    "sponge": 54
+   },
+   "byLevel": [
+    {
+     "actions": 26,
+     "kills": 303,
+     "best": 29,
+     "per": 11.653846153846153
+    },
+    {
+     "actions": 16,
+     "kills": 274,
+     "best": 30,
+     "per": 17.125
+    },
+    {
+     "actions": 14,
+     "kills": 558,
+     "best": 57,
+     "per": 39.857142857142854
+    }
+   ],
+   "latency": {
+    "n": 77,
+    "median": 0.01666666666666572,
+    "p90": 0.016666666666667496
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": 8.790994337696443,
+    "castN": 77,
+    "redirects": 0
+   },
+   "seconds": 49.833333333333336,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent"
+  },
+  {
+   "cls": "caster",
+   "seed": 4,
+   "kills": 1147,
+   "actions": 89,
+   "chainKills": 224,
+   "best": 57,
+   "bestChain": 2,
+   "ups": [
+    "wide",
+    "chain"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 13.466666666665901,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.35,
+   "byMaterial": {
+    "chalk": 99,
+    "kohaku": 127,
+    "jelly": 285,
+    "beadslime": 86,
+    "soap": 290,
+    "wax": 141,
+    "sand": 54,
+    "sponge": 65
+   },
+   "byLevel": [
+    {
+     "actions": 18,
+     "kills": 307,
+     "best": 38,
+     "per": 17.055555555555557
+    },
+    {
+     "actions": 19,
+     "kills": 262,
+     "best": 34,
+     "per": 13.789473684210526
+    },
+    {
+     "actions": 18,
+     "kills": 557,
+     "best": 57,
+     "per": 30.944444444444443
+    }
+   ],
+   "latency": {
+    "n": 86,
+    "median": 0.01666666666666572,
+    "p90": 0.016666666666667496
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": 12.761215698384412,
+    "castN": 75,
+    "redirects": 0
+   },
+   "seconds": 53.68333333333333,
+   "state": "result",
+   "skill": "skilled",
+   "finaleKills": 0,
+   "variant": "skilled"
+  },
+  {
+   "cls": "caster",
+   "seed": 4,
+   "kills": 1094,
+   "actions": 134,
+   "chainKills": 345,
+   "best": 50,
+   "bestChain": 1,
+   "ups": [
+    "-",
+    "-"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": null,
+   "bossDefeated": false,
+   "bossHits": 119,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.35,
+   "byMaterial": {
+    "wax": 160,
+    "kohaku": 138,
+    "jelly": 260,
+    "soap": 257,
+    "beadslime": 83,
+    "chalk": 84,
+    "sand": 51,
+    "sponge": 61
+   },
+   "byLevel": [
+    {
+     "actions": 80,
+     "kills": 1061,
+     "best": 50,
+     "per": 13.2625
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    }
+   ],
+   "latency": {
+    "n": 134,
+    "median": 0.01666666666666572,
+    "p90": 0.016666666666667496
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": 9.388131563292436,
+    "castN": 134,
+    "redirects": 0
+   },
+   "seconds": 60.21666666666667,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent-noup"
+  },
+  {
+   "cls": "slasher",
+   "seed": 5,
+   "kills": 836,
+   "actions": 94,
+   "chainKills": 0,
+   "best": 76,
+   "bestChain": 0,
+   "ups": [
+    "double",
+    "wave"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 12.633333333332615,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 1.1166666666666676,
+   "firstKillT": 1.2000000000000006,
+   "byMaterial": {
+    "sponge": 48,
+    "jelly": 191,
+    "soap": 206,
+    "sand": 43,
+    "beadslime": 64,
+    "kohaku": 104,
+    "wax": 105,
+    "chalk": 75
+   },
+   "byLevel": [
+    {
+     "actions": 22,
+     "kills": 135,
+     "best": 33,
+     "per": 6.136363636363637
+    },
+    {
+     "actions": 25,
+     "kills": 219,
+     "best": 30,
+     "per": 8.76
+    },
+    {
+     "actions": 23,
+     "kills": 443,
+     "best": 76,
+     "per": 19.26086956521739
+    }
+   ],
+   "latency": {
+    "n": 79,
+    "median": 0.10000000000000497,
+    "p90": 0.2833333333333172
+   },
+   "match": {
+    "slashShiftMean": 37.81492824139105,
+    "slashShifted": 7,
+    "slashN": 30,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 52.85,
+   "state": "result",
+   "skill": "random",
+   "finaleKills": 0,
+   "variant": "random"
+  },
+  {
+   "cls": "slasher",
+   "seed": 5,
+   "kills": 1112,
+   "actions": 77,
+   "chainKills": 0,
+   "best": 54,
+   "bestChain": 0,
+   "ups": [
+    "double",
+    "wave"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 4.699999999999733,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.36666666666666664,
+   "firstKillT": 0.3833333333333333,
+   "byMaterial": {
+    "jelly": 240,
+    "wax": 145,
+    "sponge": 69,
+    "kohaku": 142,
+    "soap": 275,
+    "beadslime": 82,
+    "chalk": 93,
+    "sand": 66
+   },
+   "byLevel": [
+    {
+     "actions": 23,
+     "kills": 254,
+     "best": 19,
+     "per": 11.043478260869565
+    },
+    {
+     "actions": 23,
+     "kills": 283,
+     "best": 23,
+     "per": 12.304347826086957
+    },
+    {
+     "actions": 22,
+     "kills": 549,
+     "best": 54,
+     "per": 24.954545454545453
+    }
+   ],
+   "latency": {
+    "n": 77,
+    "median": 0.033333333333333215,
+    "p90": 0.06666666666666288
+   },
+   "match": {
+    "slashShiftMean": 0,
+    "slashShifted": 0,
+    "slashN": 77,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 44.916666666666664,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent"
+  },
+  {
+   "cls": "slasher",
+   "seed": 5,
+   "kills": 1107,
+   "actions": 70,
+   "chainKills": 0,
+   "best": 56,
+   "bestChain": 0,
+   "ups": [
+    "wave",
+    "double"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 3.7833333333331183,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.6166666666666669,
+   "firstKillT": 0.7000000000000005,
+   "byMaterial": {
+    "jelly": 242,
+    "soap": 274,
+    "wax": 165,
+    "kohaku": 144,
+    "sponge": 64,
+    "beadslime": 84,
+    "sand": 47,
+    "chalk": 87
+   },
+   "byLevel": [
+    {
+     "actions": 22,
+     "kills": 296,
+     "best": 47,
+     "per": 13.454545454545455
+    },
+    {
+     "actions": 19,
+     "kills": 281,
+     "best": 28,
+     "per": 14.789473684210526
+    },
+    {
+     "actions": 20,
+     "kills": 487,
+     "best": 56,
+     "per": 24.35
+    }
+   ],
+   "latency": {
+    "n": 70,
+    "median": 0.04999999999999716,
+    "p90": 0.08333333333333359
+   },
+   "match": {
+    "slashShiftMean": 0,
+    "slashShifted": 0,
+    "slashN": 55,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 44,
+   "state": "result",
+   "skill": "skilled",
+   "finaleKills": 0,
+   "variant": "skilled"
+  },
+  {
+   "cls": "slasher",
+   "seed": 5,
+   "kills": 921,
+   "actions": 112,
+   "chainKills": 0,
+   "best": 30,
+   "bestChain": 0,
+   "ups": [
+    "-",
+    "-"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": null,
+   "bossDefeated": false,
+   "bossHits": 120,
+   "firstActionT": 0.36666666666666664,
+   "firstKillT": 0.3833333333333333,
+   "byMaterial": {
+    "jelly": 205,
+    "wax": 121,
+    "sponge": 56,
+    "kohaku": 130,
+    "soap": 220,
+    "beadslime": 77,
+    "chalk": 72,
+    "sand": 40
+   },
+   "byLevel": [
+    {
+     "actions": 69,
+     "kills": 872,
+     "best": 30,
+     "per": 12.63768115942029
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    }
+   ],
+   "latency": {
+    "n": 112,
+    "median": 0.03333333333333499,
+    "p90": 0.06666666666666288
+   },
+   "match": {
+    "slashShiftMean": 0,
+    "slashShifted": 0,
+    "slashN": 112,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 60.21666666666667,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent-noup"
+  },
+  {
+   "cls": "crusher",
+   "seed": 5,
+   "kills": 943,
+   "actions": 103,
+   "chainKills": 782,
+   "best": 75,
+   "bestChain": 4,
+   "ups": [
+    "quake",
+    "blast"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 13.883333333332544,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.44999999999999996,
+   "byMaterial": {
+    "jelly": 220,
+    "beadslime": 72,
+    "sand": 43,
+    "wax": 128,
+    "soap": 215,
+    "sponge": 59,
+    "kohaku": 122,
+    "chalk": 84
+   },
+   "byLevel": [
+    {
+     "actions": 24,
+     "kills": 187,
+     "best": 55,
+     "per": 7.791666666666667
+    },
+    {
+     "actions": 26,
+     "kills": 308,
+     "best": 75,
+     "per": 11.846153846153847
+    },
+    {
+     "actions": 24,
+     "kills": 418,
+     "best": 70,
+     "per": 17.416666666666668
+    }
+   ],
+   "latency": {
+    "n": 85,
+    "median": 0.04999999999999716,
+    "p90": 0.06666666666666643
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": 102.1156292040548,
+    "jabN": 98,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 18
+   },
+   "seconds": 54.1,
+   "state": "result",
+   "skill": "random",
+   "finaleKills": 0,
+   "variant": "random"
+  },
+  {
+   "cls": "crusher",
+   "seed": 5,
+   "kills": 1051,
+   "actions": 106,
+   "chainKills": 852,
+   "best": 56,
+   "bestChain": 3,
+   "ups": [
+    "quake",
+    "blast"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 10.466666666666072,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.44999999999999996,
+   "byMaterial": {
+    "kohaku": 124,
+    "chalk": 86,
+    "soap": 271,
+    "wax": 139,
+    "jelly": 246,
+    "sand": 40,
+    "beadslime": 79,
+    "sponge": 66
+   },
+   "byLevel": [
+    {
+     "actions": 26,
+     "kills": 225,
+     "best": 29,
+     "per": 8.653846153846153
+    },
+    {
+     "actions": 27,
+     "kills": 274,
+     "best": 27,
+     "per": 10.148148148148149
+    },
+    {
+     "actions": 27,
+     "kills": 528,
+     "best": 56,
+     "per": 19.555555555555557
+    }
+   ],
+   "latency": {
+    "n": 99,
+    "median": 0.04999999999999716,
+    "p90": 0.05000000000000249
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": 10.27831287473697,
+    "jabN": 106,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 50.68333333333333,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 5,
+   "variant": "intent"
+  },
+  {
+   "cls": "crusher",
+   "seed": 5,
+   "kills": 1015,
+   "actions": 77,
+   "chainKills": 490,
+   "best": 67,
+   "bestChain": 3,
+   "ups": [
+    "rush",
+    "quake"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 8.366666666666191,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.44999999999999996,
+   "byMaterial": {
+    "kohaku": 135,
+    "chalk": 85,
+    "soap": 241,
+    "wax": 126,
+    "jelly": 238,
+    "sponge": 57,
+    "beadslime": 84,
+    "sand": 49
+   },
+   "byLevel": [
+    {
+     "actions": 18,
+     "kills": 237,
+     "best": 64,
+     "per": 13.166666666666666
+    },
+    {
+     "actions": 19,
+     "kills": 286,
+     "best": 41,
+     "per": 15.052631578947368
+    },
+    {
+     "actions": 20,
+     "kills": 472,
+     "best": 67,
+     "per": 23.6
+    }
+   ],
+   "latency": {
+    "n": 73,
+    "median": 0.04999999999999716,
+    "p90": 0.23333333333332007
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": 4.362044236339914,
+    "jabN": 52,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 48.583333333333336,
+   "state": "result",
+   "skill": "skilled",
+   "finaleKills": 0,
+   "variant": "skilled"
+  },
+  {
+   "cls": "crusher",
+   "seed": 5,
+   "kills": 941,
+   "actions": 119,
+   "chainKills": 668,
+   "best": 54,
+   "bestChain": 3,
+   "ups": [
+    "-",
+    "-"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 17.666666666665662,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.44999999999999996,
+   "byMaterial": {
+    "kohaku": 117,
+    "chalk": 83,
+    "soap": 240,
+    "wax": 116,
+    "jelly": 219,
+    "sand": 43,
+    "beadslime": 71,
+    "sponge": 52
+   },
+   "byLevel": [
+    {
+     "actions": 80,
+     "kills": 905,
+     "best": 54,
+     "per": 11.3125
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    }
+   ],
+   "latency": {
+    "n": 118,
+    "median": 0.03333333333333499,
+    "p90": 0.04999999999999982
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": 2.7447129218399784,
+    "jabN": 119,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 57.88333333333333,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent-noup"
+  },
+  {
+   "cls": "caster",
+   "seed": 5,
+   "kills": 949,
+   "actions": 123,
+   "chainKills": 504,
+   "best": 72,
+   "bestChain": 4,
+   "ups": [
+    "wide",
+    "chain"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": null,
+   "bossDefeated": false,
+   "bossHits": 116,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.35,
+   "byMaterial": {
+    "soap": 233,
+    "jelly": 204,
+    "kohaku": 127,
+    "wax": 116,
+    "beadslime": 80,
+    "sand": 49,
+    "sponge": 54,
+    "chalk": 86
+   },
+   "byLevel": [
+    {
+     "actions": 24,
+     "kills": 199,
+     "best": 27,
+     "per": 8.291666666666666
+    },
+    {
+     "actions": 26,
+     "kills": 283,
+     "best": 28,
+     "per": 10.884615384615385
+    },
+    {
+     "actions": 23,
+     "kills": 419,
+     "best": 72,
+     "per": 18.217391304347824
+    }
+   ],
+   "latency": {
+    "n": 78,
+    "median": 0.03333333333333144,
+    "p90": 0.0833333333333286
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": 18.625991114104007,
+    "castN": 118,
+    "redirects": 0
+   },
+   "seconds": 60.21666666666667,
+   "state": "result",
+   "skill": "random",
+   "finaleKills": 0,
+   "variant": "random"
+  },
+  {
+   "cls": "caster",
+   "seed": 5,
+   "kills": 1156,
+   "actions": 77,
+   "chainKills": 561,
+   "best": 57,
+   "bestChain": 3,
+   "ups": [
+    "chain",
+    "double"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 10.033333333332763,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.35,
+   "byMaterial": {
+    "soap": 296,
+    "wax": 152,
+    "kohaku": 152,
+    "chalk": 102,
+    "sponge": 61,
+    "jelly": 254,
+    "beadslime": 86,
+    "sand": 53
+   },
+   "byLevel": [
+    {
+     "actions": 25,
+     "kills": 302,
+     "best": 36,
+     "per": 12.08
+    },
+    {
+     "actions": 16,
+     "kills": 275,
+     "best": 29,
+     "per": 17.1875
+    },
+    {
+     "actions": 14,
+     "kills": 559,
+     "best": 57,
+     "per": 39.92857142857143
+    }
+   ],
+   "latency": {
+    "n": 77,
+    "median": 0.01666666666666572,
+    "p90": 0.016666666666667496
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": 8.224800741491157,
+    "castN": 77,
+    "redirects": 0
+   },
+   "seconds": 50.25,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent"
+  },
+  {
+   "cls": "caster",
+   "seed": 5,
+   "kills": 1092,
+   "actions": 72,
+   "chainKills": 339,
+   "best": 68,
+   "bestChain": 3,
+   "ups": [
+    "double",
+    "chain"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 7.616666666666234,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.35,
+   "byMaterial": {
+    "soap": 238,
+    "chalk": 100,
+    "kohaku": 138,
+    "sponge": 65,
+    "jelly": 256,
+    "beadslime": 82,
+    "wax": 169,
+    "sand": 44
+   },
+   "byLevel": [
+    {
+     "actions": 16,
+     "kills": 309,
+     "best": 35,
+     "per": 19.3125
+    },
+    {
+     "actions": 17,
+     "kills": 246,
+     "best": 38,
+     "per": 14.470588235294118
+    },
+    {
+     "actions": 19,
+     "kills": 498,
+     "best": 68,
+     "per": 26.210526315789473
+    }
+   ],
+   "latency": {
+    "n": 70,
+    "median": 0.01666666666666572,
+    "p90": 0.016666666666667496
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": 8.407320922303573,
+    "castN": 54,
+    "redirects": 0
+   },
+   "seconds": 47.833333333333336,
+   "state": "result",
+   "skill": "skilled",
+   "finaleKills": 0,
+   "variant": "skilled"
+  },
+  {
+   "cls": "caster",
+   "seed": 5,
+   "kills": 1115,
+   "actions": 129,
+   "chainKills": 366,
+   "best": 49,
+   "bestChain": 1,
+   "ups": [
+    "-",
+    "-"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": null,
+   "bossDefeated": false,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.35,
+   "byMaterial": {
+    "soap": 263,
+    "wax": 143,
+    "kohaku": 160,
+    "chalk": 90,
+    "sponge": 63,
+    "jelly": 264,
+    "beadslime": 75,
+    "sand": 57
+   },
+   "byLevel": [
+    {
+     "actions": 79,
+     "kills": 1079,
+     "best": 49,
+     "per": 13.658227848101266
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    }
+   ],
+   "latency": {
+    "n": 129,
+    "median": 0.01666666666666572,
+    "p90": 0.016666666666667496
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": 10.211031743313852,
+    "castN": 129,
+    "redirects": 0
+   },
+   "seconds": 60.21666666666667,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent-noup"
+  },
+  {
+   "cls": "slasher",
+   "seed": 6,
+   "kills": 781,
+   "actions": 98,
+   "chainKills": 0,
+   "best": 57,
+   "bestChain": 0,
+   "ups": [
+    "double",
+    "wide"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 19.66666666666555,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 1.1166666666666676,
+   "firstKillT": 1.5999999999999992,
+   "byMaterial": {
+    "sponge": 44,
+    "sand": 42,
+    "jelly": 185,
+    "soap": 189,
+    "kohaku": 112,
+    "wax": 97,
+    "beadslime": 53,
+    "chalk": 59
+   },
+   "byLevel": [
+    {
+     "actions": 17,
+     "kills": 115,
+     "best": 19,
+     "per": 6.764705882352941
+    },
+    {
+     "actions": 21,
+     "kills": 225,
+     "best": 44,
+     "per": 10.714285714285714
+    },
+    {
+     "actions": 23,
+     "kills": 375,
+     "best": 57,
+     "per": 16.304347826086957
+    }
+   ],
+   "latency": {
+    "n": 73,
+    "median": 0.09999999999999432,
+    "p90": 0.1666666666666572
+   },
+   "match": {
+    "slashShiftMean": 4.668842709255049,
+    "slashShifted": 1,
+    "slashN": 27,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 59.88333333333333,
+   "state": "result",
+   "skill": "random",
+   "finaleKills": 0,
+   "variant": "random"
+  },
+  {
+   "cls": "slasher",
+   "seed": 6,
+   "kills": 1116,
+   "actions": 78,
+   "chainKills": 0,
+   "best": 55,
+   "bestChain": 0,
+   "ups": [
+    "wave",
+    "double"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 4.616666666666404,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.36666666666666664,
+   "firstKillT": 0.39999999999999997,
+   "byMaterial": {
+    "wax": 137,
+    "soap": 270,
+    "jelly": 255,
+    "beadslime": 79,
+    "kohaku": 150,
+    "sponge": 72,
+    "sand": 46,
+    "chalk": 107
+   },
+   "byLevel": [
+    {
+     "actions": 23,
+     "kills": 274,
+     "best": 23,
+     "per": 11.91304347826087
+    },
+    {
+     "actions": 23,
+     "kills": 296,
+     "best": 32,
+     "per": 12.869565217391305
+    },
+    {
+     "actions": 23,
+     "kills": 523,
+     "best": 55,
+     "per": 22.73913043478261
+    }
+   ],
+   "latency": {
+    "n": 78,
+    "median": 0.03333333333333499,
+    "p90": 0.06666666666666288
+   },
+   "match": {
+    "slashShiftMean": 0,
+    "slashShifted": 0,
+    "slashN": 78,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 44.833333333333336,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent"
+  },
+  {
+   "cls": "slasher",
+   "seed": 6,
+   "kills": 1133,
+   "actions": 75,
+   "chainKills": 0,
+   "best": 55,
+   "bestChain": 0,
+   "ups": [
+    "double",
+    "wave"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 3.749999999999787,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.6166666666666669,
+   "firstKillT": 0.7000000000000005,
+   "byMaterial": {
+    "sand": 56,
+    "jelly": 289,
+    "sponge": 67,
+    "soap": 248,
+    "kohaku": 140,
+    "beadslime": 88,
+    "wax": 157,
+    "chalk": 88
+   },
+   "byLevel": [
+    {
+     "actions": 23,
+     "kills": 303,
+     "best": 45,
+     "per": 13.173913043478262
+    },
+    {
+     "actions": 24,
+     "kills": 264,
+     "best": 25,
+     "per": 11
+    },
+    {
+     "actions": 20,
+     "kills": 545,
+     "best": 55,
+     "per": 27.25
+    }
+   ],
+   "latency": {
+    "n": 74,
+    "median": 0.03333333333333144,
+    "p90": 0.0833333333333286
+   },
+   "match": {
+    "slashShiftMean": 0,
+    "slashShifted": 0,
+    "slashN": 61,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 43.96666666666667,
+   "state": "result",
+   "skill": "skilled",
+   "finaleKills": 0,
+   "variant": "skilled"
+  },
+  {
+   "cls": "slasher",
+   "seed": 6,
+   "kills": 957,
+   "actions": 109,
+   "chainKills": 0,
+   "best": 25,
+   "bestChain": 0,
+   "ups": [
+    "-",
+    "-"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": null,
+   "bossDefeated": false,
+   "bossHits": 120,
+   "firstActionT": 0.36666666666666664,
+   "firstKillT": 0.39999999999999997,
+   "byMaterial": {
+    "wax": 116,
+    "soap": 218,
+    "jelly": 253,
+    "beadslime": 68,
+    "kohaku": 135,
+    "sponge": 55,
+    "sand": 41,
+    "chalk": 71
+   },
+   "byLevel": [
+    {
+     "actions": 69,
+     "kills": 882,
+     "best": 25,
+     "per": 12.782608695652174
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    }
+   ],
+   "latency": {
+    "n": 109,
+    "median": 0.033333333333333215,
+    "p90": 0.06666666666666288
+   },
+   "match": {
+    "slashShiftMean": 0,
+    "slashShifted": 0,
+    "slashN": 109,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 60.21666666666667,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent-noup"
+  },
+  {
+   "cls": "crusher",
+   "seed": 6,
+   "kills": 856,
+   "actions": 109,
+   "chainKills": 641,
+   "best": 66,
+   "bestChain": 4,
+   "ups": [
+    "blast",
+    "rush"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 18.866666666665594,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 1.649999999999999,
+   "byMaterial": {
+    "wax": 92,
+    "soap": 212,
+    "sponge": 57,
+    "sand": 45,
+    "jelly": 202,
+    "chalk": 71,
+    "kohaku": 124,
+    "beadslime": 53
+   },
+   "byLevel": [
+    {
+     "actions": 22,
+     "kills": 192,
+     "best": 39,
+     "per": 8.727272727272727
+    },
+    {
+     "actions": 24,
+     "kills": 265,
+     "best": 31,
+     "per": 11.041666666666666
+    },
+    {
+     "actions": 25,
+     "kills": 339,
+     "best": 66,
+     "per": 13.56
+    }
+   ],
+   "latency": {
+    "n": 83,
+    "median": 0.04999999999999716,
+    "p90": 0.21666666666667744
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": 89.36183205870874,
+    "jabN": 96,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 15
+   },
+   "seconds": 59.083333333333336,
+   "state": "result",
+   "skill": "random",
+   "finaleKills": 0,
+   "variant": "random"
+  },
+  {
+   "cls": "crusher",
+   "seed": 6,
+   "kills": 1059,
+   "actions": 110,
+   "chainKills": 811,
+   "best": 75,
+   "bestChain": 4,
+   "ups": [
+    "blast",
+    "quake"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 12.716666666665944,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.44999999999999996,
+   "byMaterial": {
+    "soap": 222,
+    "beadslime": 80,
+    "chalk": 100,
+    "jelly": 270,
+    "sponge": 64,
+    "wax": 148,
+    "sand": 53,
+    "kohaku": 122
+   },
+   "byLevel": [
+    {
+     "actions": 26,
+     "kills": 241,
+     "best": 34,
+     "per": 9.26923076923077
+    },
+    {
+     "actions": 27,
+     "kills": 287,
+     "best": 35,
+     "per": 10.62962962962963
+    },
+    {
+     "actions": 27,
+     "kills": 488,
+     "best": 75,
+     "per": 18.074074074074073
+    }
+   ],
+   "latency": {
+    "n": 102,
+    "median": 0.04999999999999716,
+    "p90": 0.05000000000000249
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": 25.008336757864758,
+    "jabN": 110,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 52.93333333333333,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 7,
+   "variant": "intent"
+  },
+  {
+   "cls": "crusher",
+   "seed": 6,
+   "kills": 1043,
+   "actions": 80,
+   "chainKills": 548,
+   "best": 63,
+   "bestChain": 3,
+   "ups": [
+    "rush",
+    "quake"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 9.449999999999463,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.44999999999999996,
+   "byMaterial": {
+    "jelly": 241,
+    "chalk": 98,
+    "soap": 232,
+    "sand": 47,
+    "sponge": 54,
+    "kohaku": 157,
+    "wax": 139,
+    "beadslime": 75
+   },
+   "byLevel": [
+    {
+     "actions": 19,
+     "kills": 261,
+     "best": 49,
+     "per": 13.736842105263158
+    },
+    {
+     "actions": 18,
+     "kills": 265,
+     "best": 53,
+     "per": 14.722222222222221
+    },
+    {
+     "actions": 19,
+     "kills": 446,
+     "best": 63,
+     "per": 23.473684210526315
+    }
+   ],
+   "latency": {
+    "n": 76,
+    "median": 0.05000000000000249,
+    "p90": 0.23333333333334494
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": 3.135731008879534,
+    "jabN": 54,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 49.666666666666664,
+   "state": "result",
+   "skill": "skilled",
+   "finaleKills": 1,
+   "variant": "skilled"
+  },
+  {
+   "cls": "crusher",
+   "seed": 6,
+   "kills": 899,
+   "actions": 119,
+   "chainKills": 608,
+   "best": 77,
+   "bestChain": 3,
+   "ups": [
+    "-",
+    "-"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 17.666666666665662,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.44999999999999996,
+   "byMaterial": {
+    "soap": 201,
+    "beadslime": 75,
+    "chalk": 75,
+    "jelly": 226,
+    "sponge": 49,
+    "wax": 117,
+    "sand": 56,
+    "kohaku": 100
+   },
+   "byLevel": [
+    {
+     "actions": 80,
+     "kills": 871,
+     "best": 77,
+     "per": 10.8875
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    }
+   ],
+   "latency": {
+    "n": 118,
+    "median": 0.04999999999999716,
+    "p90": 0.0500000000000016
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": 2.499369857311938,
+    "jabN": 119,
+    "castSnapMean": null,
+    "castN": 0,
+    "redirects": 0
+   },
+   "seconds": 57.88333333333333,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent-noup"
+  },
+  {
+   "cls": "caster",
+   "seed": 6,
+   "kills": 943,
+   "actions": 113,
+   "chainKills": 562,
+   "best": 90,
+   "bestChain": 4,
+   "ups": [
+    "chain",
+    "wide"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": null,
+   "bossDefeated": false,
+   "bossHits": 110,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 1.5499999999999994,
+   "byMaterial": {
+    "sponge": 53,
+    "kohaku": 121,
+    "sand": 48,
+    "soap": 226,
+    "jelly": 223,
+    "wax": 132,
+    "chalk": 68,
+    "beadslime": 72
+   },
+   "byLevel": [
+    {
+     "actions": 22,
+     "kills": 203,
+     "best": 46,
+     "per": 9.227272727272727
+    },
+    {
+     "actions": 22,
+     "kills": 277,
+     "best": 59,
+     "per": 12.590909090909092
+    },
+    {
+     "actions": 19,
+     "kills": 422,
+     "best": 90,
+     "per": 22.210526315789473
+    }
+   ],
+   "latency": {
+    "n": 61,
+    "median": 0.03333333333333144,
+    "p90": 0.06666666666666288
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": 15.24776353796763,
+    "castN": 101,
+    "redirects": 0
+   },
+   "seconds": 60.21666666666667,
+   "state": "result",
+   "skill": "random",
+   "finaleKills": 0,
+   "variant": "random"
+  },
+  {
+   "cls": "caster",
+   "seed": 6,
+   "kills": 1156,
+   "actions": 95,
+   "chainKills": 282,
+   "best": 59,
+   "bestChain": 2,
+   "ups": [
+    "wide",
+    "chain"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 14.13333333333253,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.35,
+   "byMaterial": {
+    "soap": 279,
+    "wax": 139,
+    "jelly": 278,
+    "kohaku": 135,
+    "chalk": 109,
+    "beadslime": 88,
+    "sand": 60,
+    "sponge": 68
+   },
+   "byLevel": [
+    {
+     "actions": 25,
+     "kills": 297,
+     "best": 34,
+     "per": 11.88
+    },
+    {
+     "actions": 23,
+     "kills": 280,
+     "best": 30,
+     "per": 12.173913043478262
+    },
+    {
+     "actions": 15,
+     "kills": 559,
+     "best": 59,
+     "per": 37.266666666666666
+    }
+   ],
+   "latency": {
+    "n": 95,
+    "median": 0.01666666666666572,
+    "p90": 0.016666666666667496
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": 14.037430003239656,
+    "castN": 95,
+    "redirects": 0
+   },
+   "seconds": 54.35,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent"
+  },
+  {
+   "cls": "caster",
+   "seed": 6,
+   "kills": 1151,
+   "actions": 67,
+   "chainKills": 338,
+   "best": 77,
+   "bestChain": 3,
+   "ups": [
+    "chain",
+    "double"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": 7.233333333332922,
+   "bossDefeated": true,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.35,
+   "byMaterial": {
+    "jelly": 277,
+    "chalk": 111,
+    "soap": 263,
+    "kohaku": 144,
+    "sponge": 81,
+    "sand": 49,
+    "wax": 144,
+    "beadslime": 82
+   },
+   "byLevel": [
+    {
+     "actions": 17,
+     "kills": 309,
+     "best": 40,
+     "per": 18.176470588235293
+    },
+    {
+     "actions": 15,
+     "kills": 268,
+     "best": 34,
+     "per": 17.866666666666667
+    },
+    {
+     "actions": 19,
+     "kills": 552,
+     "best": 77,
+     "per": 29.05263157894737
+    }
+   ],
+   "latency": {
+    "n": 65,
+    "median": 0.01666666666666572,
+    "p90": 0.016666666666667496
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": 9.880903657494718,
+    "castN": 47,
+    "redirects": 0
+   },
+   "seconds": 47.45,
+   "state": "result",
+   "skill": "skilled",
+   "finaleKills": 0,
+   "variant": "skilled"
+  },
+  {
+   "cls": "caster",
+   "seed": 6,
+   "kills": 1115,
+   "actions": 133,
+   "chainKills": 364,
+   "best": 48,
+   "bestChain": 1,
+   "ups": [
+    "-",
+    "-"
+   ],
+   "bossTime": 36.016666666665905,
+   "bossSecs": null,
+   "bossDefeated": false,
+   "bossHits": 120,
+   "firstActionT": 0.3333333333333333,
+   "firstKillT": 0.35,
+   "byMaterial": {
+    "soap": 247,
+    "wax": 147,
+    "jelly": 290,
+    "kohaku": 145,
+    "chalk": 97,
+    "beadslime": 70,
+    "sand": 45,
+    "sponge": 74
+   },
+   "byLevel": [
+    {
+     "actions": 79,
+     "kills": 1086,
+     "best": 48,
+     "per": 13.746835443037975
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    },
+    {
+     "actions": 0,
+     "kills": 0,
+     "best": 0,
+     "per": null
+    }
+   ],
+   "latency": {
+    "n": 133,
+    "median": 0.01666666666666572,
+    "p90": 0.016666666666667496
+   },
+   "match": {
+    "slashShiftMean": null,
+    "slashShifted": 0,
+    "slashN": 0,
+    "jabDistMean": null,
+    "jabN": 0,
+    "castSnapMean": 9.196739564628352,
+    "castN": 133,
+    "redirects": 0
+   },
+   "seconds": 60.21666666666667,
+   "state": "result",
+   "skill": "intent",
+   "finaleKills": 0,
+   "variant": "intent-noup"
+  }
+ ],
+ "summary": [
+  {
+   "cls": "slasher",
+   "variant": "random",
+   "runs": 6,
+   "kills": 835.8333333333334,
+   "actions": 93.66666666666667,
+   "perAction": 8.97053984472513,
+   "best": 68.16666666666667,
+   "chainKills": 0,
+   "lv0": 5.996028055490971,
+   "lv2": 19.460522199217852,
+   "best0": 24.666666666666668,
+   "best2": 68.16666666666667,
+   "bossDown": 6,
+   "bossSecs": 15.072222222221365,
+   "firstKill": 1.111111111111111,
+   "latency": 0.09999999999999609,
+   "seconds": 55.28888888888889,
+   "slashShift": 27.614267306390403,
+   "jabDist": 0,
+   "castSnap": 0
+  },
+  {
+   "cls": "slasher",
+   "variant": "intent",
+   "runs": 6,
+   "kills": 1076,
+   "actions": 79.33333333333333,
+   "perAction": 13.61176859210567,
+   "best": 54.833333333333336,
+   "chainKills": 0,
+   "lv0": 11.115942028985508,
+   "lv2": 23.481225296442688,
+   "best0": 21.833333333333332,
+   "best2": 54.833333333333336,
+   "bossDown": 6,
+   "bossSecs": 6.019444444444102,
+   "firstKill": 0.3916666666666666,
+   "latency": 0.03611111111111143,
+   "seconds": 46.236111111111114,
+   "slashShift": 0,
+   "jabDist": 0,
+   "castSnap": 0
+  },
+  {
+   "cls": "slasher",
+   "variant": "skilled",
+   "runs": 6,
+   "kills": 1123.6666666666667,
+   "actions": 77.66666666666667,
+   "perAction": 14.583255570074181,
+   "best": 54.666666666666664,
+   "chainKills": 0,
+   "lv0": 13.36133069828722,
+   "lv2": 24.896140350877193,
+   "best0": 46.5,
+   "best2": 54.666666666666664,
+   "bossDown": 6,
+   "bossSecs": 5.061111111110823,
+   "firstKill": 0.7000000000000005,
+   "latency": 0.04722222222222131,
+   "seconds": 45.27777777777777,
+   "slashShift": 0,
+   "jabDist": 0,
+   "castSnap": 0
+  },
+  {
+   "cls": "slasher",
+   "variant": "intent-noup",
+   "runs": 6,
+   "kills": 930,
+   "actions": 110.16666666666667,
+   "perAction": 8.44306167838278,
+   "best": 30.333333333333332,
+   "chainKills": 0,
+   "lv0": 12.562801932367151,
+   "lv2": 0,
+   "best0": 30.333333333333332,
+   "best2": 0,
+   "bossDown": 0,
+   "bossSecs": null,
+   "firstKill": 0.3916666666666666,
+   "latency": 0.033333333333333805,
+   "seconds": 60.216666666666676,
+   "slashShift": 0,
+   "jabDist": 0,
+   "castSnap": 0
+  },
+  {
+   "cls": "crusher",
+   "variant": "random",
+   "runs": 6,
+   "kills": 844.3333333333334,
+   "actions": 103.33333333333333,
+   "perAction": 8.212136810854144,
+   "best": 70,
+   "chainKills": 672.1666666666666,
+   "lv0": 6.69760101010101,
+   "lv2": 16.319323671497585,
+   "best0": 38.833333333333336,
+   "best2": 70,
+   "bossDown": 6,
+   "bossSecs": 15.272222222221354,
+   "firstKill": 0.725,
+   "latency": 0.04166666666666533,
+   "seconds": 55.48888888888889,
+   "slashShift": 0,
+   "jabDist": 97.64807883762928,
+   "castSnap": 0
+  },
+  {
+   "cls": "crusher",
+   "variant": "intent",
+   "runs": 6,
+   "kills": 1032,
+   "actions": 105.33333333333333,
+   "perAction": 9.799322231155482,
+   "best": 62.166666666666664,
+   "chainKills": 791.3333333333334,
+   "lv0": 9.128205128205126,
+   "lv2": 18.45679012345679,
+   "best0": 33,
+   "best2": 62.166666666666664,
+   "bossDown": 6,
+   "bossSecs": 10.633333333332729,
+   "firstKill": 0.45,
+   "latency": 0.04444444444444221,
+   "seconds": 50.849999999999994,
+   "slashShift": 0,
+   "jabDist": 16.39615764138735,
+   "castSnap": 0
+  },
+  {
+   "cls": "crusher",
+   "variant": "skilled",
+   "runs": 6,
+   "kills": 1029,
+   "actions": 76.66666666666667,
+   "perAction": 13.439095952011579,
+   "best": 65.33333333333333,
+   "chainKills": 514.5,
+   "lv0": 13.745760233918128,
+   "lv2": 23.58106377053745,
+   "best0": 57.333333333333336,
+   "best2": 62.333333333333336,
+   "bossDown": 6,
+   "bossSecs": 8.013888888888433,
+   "firstKill": 0.45,
+   "latency": 0.058333333333332384,
+   "seconds": 48.230555555555554,
+   "slashShift": 0,
+   "jabDist": 5.641178334671657,
+   "castSnap": 0
+  },
+  {
+   "cls": "crusher",
+   "variant": "intent-noup",
+   "runs": 6,
+   "kills": 922.1666666666666,
+   "actions": 118.83333333333333,
+   "perAction": 7.760764861500156,
+   "best": 59.333333333333336,
+   "chainKills": 637.1666666666666,
+   "lv0": 11.125,
+   "lv2": 0,
+   "best0": 59.333333333333336,
+   "best2": 0,
+   "bossDown": 6,
+   "bossSecs": 17.39999999999901,
+   "firstKill": 0.45,
+   "latency": 0.04722222222222013,
+   "seconds": 57.61666666666667,
+   "slashShift": 0,
+   "jabDist": 2.8639548121477727,
+   "castSnap": 0
+  },
+  {
+   "cls": "caster",
+   "variant": "random",
+   "runs": 6,
+   "kills": 968.3333333333334,
+   "actions": 114.5,
+   "perAction": 8.472298762565815,
+   "best": 72.83333333333333,
+   "chainKills": 582.5,
+   "lv0": 8.093434343434343,
+   "lv2": 23.122159939490672,
+   "best0": 33.666666666666664,
+   "best2": 72.83333333333333,
+   "bossDown": 1,
+   "bossSecs": 19.866666666665537,
+   "firstKill": 0.9666666666666662,
+   "latency": 0.033333333333332625,
+   "seconds": 60.19444444444446,
+   "slashShift": 0,
+   "jabDist": 0,
+   "castSnap": 14.6970799307978
+  },
+  {
+   "cls": "caster",
+   "variant": "intent",
+   "runs": 6,
+   "kills": 1152.8333333333333,
+   "actions": 83.16666666666667,
+   "perAction": 13.952611440998306,
+   "best": 57.333333333333336,
+   "chainKills": 455.3333333333333,
+   "lv0": 11.865641025641025,
+   "lv2": 36.17810245310245,
+   "best0": 32.666666666666664,
+   "best2": 57.333333333333336,
+   "bossDown": 6,
+   "bossSecs": 9.899999999999437,
+   "firstKill": 0.35000000000000003,
+   "latency": 0.01666666666666572,
+   "seconds": 50.11666666666667,
+   "slashShift": 0,
+   "jabDist": 0,
+   "castSnap": 10.308069826107046
+  },
+  {
+   "cls": "caster",
+   "variant": "skilled",
+   "runs": 6,
+   "kills": 1137.1666666666667,
+   "actions": 75.5,
+   "perAction": 15.176350634673282,
+   "best": 66,
+   "chainKills": 276,
+   "lv0": 18.17898965141612,
+   "lv2": 28.202716331892532,
+   "best0": 38.166666666666664,
+   "best2": 66,
+   "bossDown": 6,
+   "bossSecs": 8.724999999999504,
+   "firstKill": 0.35000000000000003,
+   "latency": 0.01666666666666572,
+   "seconds": 48.94166666666667,
+   "slashShift": 0,
+   "jabDist": 0,
+   "castSnap": 10.570385150251484
+  },
+  {
+   "cls": "caster",
+   "variant": "intent-noup",
+   "runs": 6,
+   "kills": 1107.3333333333333,
+   "actions": 132.33333333333334,
+   "perAction": 8.369449082461346,
+   "best": 49.333333333333336,
+   "chainKills": 359.3333333333333,
+   "lv0": 13.572283755274263,
+   "lv2": 0,
+   "best0": 49.333333333333336,
+   "best2": 0,
+   "bossDown": 0,
+   "bossSecs": null,
+   "firstKill": 0.35000000000000003,
+   "latency": 0.01666666666666572,
+   "seconds": 60.216666666666676,
+   "slashShift": 0,
+   "jabDist": 0,
+   "castSnap": 9.595754747233036
+  }
+ ]
+}

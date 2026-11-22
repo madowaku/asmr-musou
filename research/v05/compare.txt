@@ -1,0 +1,32 @@
+v04 slasher  s1 target hit  15% lat 0.100 no-break 51% ignored 0% kills/input 0.67 kills 96 boss false
+v05 slasher  s1 target hit 100% lat 0.100 no-break 3% ignored 0% kills/input 12.68 kills 1103 boss true
+v04 crusher  s1 target hit   3% lat 0.317 no-break 76% ignored 0% kills/input 0.60 kills 86 boss false
+v05 crusher  s1 target hit 100% lat 0.083 no-break 0% ignored 0% kills/input 10.55 kills 1013 boss true
+v04 caster   s1 target hit  25% lat 0.118 no-break 41% ignored 60% kills/input 1.69 kills 235 boss false
+v05 caster   s1 target hit 100% lat 0.017 no-break 17% ignored 0% kills/input 12.57 kills 1156 boss true
+v04 slasher  s2 target hit   7% lat 0.100 no-break 65% ignored 0% kills/input 0.53 kills 76 boss false
+v05 slasher  s2 target hit 100% lat 0.100 no-break 2% ignored 0% kills/input 12.40 kills 1104 boss true
+v04 crusher  s2 target hit   2% lat 0.300 no-break 81% ignored 0% kills/input 0.58 kills 84 boss false
+v05 crusher  s2 target hit 100% lat 0.083 no-break 3% ignored 0% kills/input 9.69 kills 1037 boss true
+v04 caster   s2 target hit  24% lat 0.118 no-break 41% ignored 60% kills/input 1.69 kills 235 boss false
+v05 caster   s2 target hit 100% lat 0.017 no-break 10% ignored 0% kills/input 13.93 kills 1156 boss true
+v04 slasher  s3 target hit   9% lat 0.067 no-break 61% ignored 0% kills/input 0.61 kills 88 boss false
+v05 slasher  s3 target hit  99% lat 0.083 no-break 7% ignored 0% kills/input 10.78 kills 1089 boss true
+v04 crusher  s3 target hit   2% lat 0.317 no-break 80% ignored 0% kills/input 0.60 kills 86 boss false
+v05 crusher  s3 target hit 100% lat 0.100 no-break 4% ignored 0% kills/input 9.28 kills 1011 boss true
+v04 caster   s3 target hit  24% lat 0.017 no-break 38% ignored 60% kills/input 1.94 kills 279 boss false
+v05 caster   s3 target hit 100% lat 0.017 no-break 7% ignored 0% kills/input 12.70 kills 1156 boss true
+v04 slasher  s4 target hit  20% lat 0.050 no-break 58% ignored 0% kills/input 0.66 kills 90 boss false
+v05 slasher  s4 target hit 100% lat 0.100 no-break 9% ignored 0% kills/input 12.33 kills 1147 boss true
+v04 crusher  s4 target hit   3% lat 0.317 no-break 80% ignored 0% kills/input 0.59 kills 85 boss false
+v05 crusher  s4 target hit 100% lat 0.033 no-break 5% ignored 0% kills/input 9.64 kills 1041 boss true
+v04 caster   s4 target hit  24% lat 0.017 no-break 38% ignored 60% kills/input 1.44 kills 207 boss false
+v05 caster   s4 target hit 100% lat 0.017 no-break 7% ignored 0% kills/input 13.29 kills 1156 boss true
+
+== mean over seeds ==
+v04 slasher  target hit 13% latency 79ms no-break 59% ignored 0% kills/input 0.62 boss 0/4
+v05 slasher  target hit 100% latency 96ms no-break 5% ignored 0% kills/input 12.05 boss 4/4
+v04 crusher  target hit 3% latency 312ms no-break 79% ignored 0% kills/input 0.59 boss 0/4
+v05 crusher  target hit 100% latency 75ms no-break 3% ignored 0% kills/input 9.79 boss 4/4
+v04 caster   target hit 24% latency 68ms no-break 40% ignored 60% kills/input 1.69 boss 0/4
+v05 caster   target hit 100% latency 17ms no-break 10% ignored 0% kills/input 13.12 boss 4/4

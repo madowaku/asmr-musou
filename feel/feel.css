@@ -1,0 +1,11 @@
+/* v0.5 additions over combat/combat.css */
+#combo{font-weight:900;color:#ffe9a8;font-size:16px;min-width:2.5em}
+.upmeter{display:flex;align-items:center;gap:8px;margin-top:6px;font-size:10px;color:var(--sub)}.upmeter div{flex:1;height:4px;border-radius:9px;background:#ffffff1c;overflow:hidden}.upmeter i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ffe7a8,#ffb36b);transition:width .15s}
+.lv{display:flex;gap:6px;margin-top:6px}.lv i{font-style:normal;font-size:10.5px;font-weight:800;color:#1d1838;background:#ffe7a8;border-radius:99px;padding:2px 9px}
+.overlay.up{background:linear-gradient(170deg,#1a1538d8,#120f1fe6)}
+.upcards{display:flex;flex-direction:column;gap:14px;width:100%}
+.upcard{display:flex;flex-direction:column;gap:6px;text-align:left;padding:20px 18px;border-radius:18px;border:1px solid #ffe7a866;background:linear-gradient(120deg,#ffffff1c,#ffffff08);color:#fff;cursor:pointer;min-height:96px}
+.upcard b{font-size:22px;letter-spacing:.1em;color:#ffe9a8}.upcard span{font-size:13px;color:#e7e1ff;line-height:1.6}.upcard:active{transform:scale(.98)}
+.growth{width:100%;font-size:12.5px;color:var(--sub);line-height:1.7;margin-bottom:4px}.growth p{margin:2px 0}.growth b{color:#fff;font-size:15px}
+.next{font-size:12px;color:#ffe7a8;margin:4px 0 12px;line-height:1.6}
+.stats b em{font-style:normal;font-size:12px;margin-left:2px}

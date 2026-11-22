@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ja">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"><meta name="theme-color" content="#120f1f"><link rel="icon" href="data:,">
+<title>ASMR MUSOU · FEEL LAB v0.5</title><link rel="stylesheet" href="combat/combat.css"><link rel="stylesheet" href="feel/feel.css">
+<script defer src="lab/slice.js"></script><script defer src="lab/events.js"></script><script defer src="lab/assets-bundle.js"></script><script defer src="lab/outlines.js"></script><script defer src="lab/profiles.js"></script><script defer src="lab/timing.js"></script><script defer src="lab/assets.js"></script><script defer src="lab/gl.js"></script>
+<script defer src="lab/materials/wax.js"></script><script defer src="lab/materials/jelly.js"></script><script defer src="lab/materials/studies.js"></script>
+<script defer src="lab/audio/dsp.js"></script><script defer src="lab/audio/temporal.js"></script><script defer src="lab/audio/engine.js"></script><script defer src="lab/audio/audio.js"></script><script defer src="lab/caps.js"></script>
+<script defer src="combat/world.js"></script><script defer src="combat/formations.js"></script><script defer src="feel/heroes.js"></script><script defer src="feel/sfx.js"></script><script defer src="feel/game.js"></script>
+</head>
+<body><main id="arena">
+<canvas id="scene" width="720" height="1280" aria-label="戦闘エリア。触った場所を攻撃する"></canvas>
+<div id="pops" aria-hidden="true"></div>
+<div id="hud" hidden>
+  <div class="bar"><div id="time"></div></div>
+  <div class="row"><span id="cls"></span><span class="kills"><b id="kills">0</b> 撃破</span><span id="combo"></span><button id="mute" aria-label="音のオンオフ">🔊</button></div>
+  <div id="upmeter" class="upmeter"><small>次の強化</small><div><i id="upbar"></i></div></div>
+  <div id="lv" class="lv"></div>
+  <div id="banner"></div>
+  <div id="help"></div>
+</div>
+<section id="loading" class="overlay"><p>準備中…</p></section>
+<section id="select" class="overlay" hidden>
+  <div class="eyebrow">ASMR MUSOU · FEEL LAB v0.5</div>
+  <h1>触ったところが、<br>壊れる。</h1>
+  <p class="lead">60秒。考えなくていい。適当でも大量に壊れる。<br>途中で2回、強化を選ぶたびに破壊が大きくなる → 最後は巨大素材ボス。</p>
+  <div class="cards">
+    <button id="pick-slasher" class="card slasher"><b>SLASHER</b><small>大剣士</small><span>スワイプした向きに、群れごと真っ二つ。続けて振るとつながる。</span><em></em></button>
+    <button id="pick-crusher" class="card crusher"><b>CRUSHER</b><small>拳闘士</small><span>タップした敵へ踏み込んで殴る。連打でラッシュ、吹き飛んだ敵が玉突き。</span><em></em></button>
+    <button id="pick-caster" class="card caster"><b>CASTER</b><small>魔法使い</small><span>タップした場所に魔法。長押しで吸い込み、離して一斉に弾けさせる。</span><em></em></button>
+  </div>
+  <p class="how">キャラは自分で敵まで動く。片手・縦画面で。イヤホン推奨。</p>
+</section>
+<section id="upgrade" class="overlay up" hidden>
+  <div class="eyebrow">POWER UP <span id="up-n">1</span>/2</div>
+  <h2>強化を選ぶ</h2>
+  <p class="lead">時間は止まっています。ゆっくり選んでください。</p>
+  <div id="up-cards" class="upcards"></div>
+</section>
+<section id="result" class="overlay" hidden>
+  <div class="eyebrow">RESULT</div><h2 id="r-title">すっきり！</h2>
+  <div id="r-stats" class="stats"></div>
+  <div id="r-growth" class="growth"></div>
+  <p id="r-next" class="next"></p>
+  <button id="again" class="primary">もう一回</button>
+  <div class="switch"><span>同じ戦場でキャラを変える</span><button id="again-slasher">SLASHER</button><button id="again-crusher">CRUSHER</button><button id="again-caster">CASTER</button></div>
+  <div id="r-compare" class="compare"></div>
+  <button id="newfield" class="ghost">別の戦場（敵の出方を変える）</button>
+</section>
+<div id="error" role="alert" hidden></div>
+</main></body></html>

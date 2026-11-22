@@ -1,0 +1,129 @@
+{
+ "slasher": {
+  "firesMidSwipe": true,
+  "basic": {
+   "kind": "slash",
+   "kills": 32,
+   "distToTarget": 20,
+   "latencyMs": {
+    "downToFire": 571,
+    "fireToBreak": 3,
+    "downToBreak": 575
+   }
+  },
+  "tap": {
+   "kind": "spin",
+   "kills": 12,
+   "distToTarget": 0
+  },
+  "hold": {
+   "charging": true,
+   "kind": "bigspin",
+   "kills": 10,
+   "distToTarget": 0
+  }
+ },
+ "crusher": {
+  "basic": {
+   "kind": "jab",
+   "kills": 9,
+   "distToTarget": 1,
+   "latencyMs": {
+    "downToFire": 0,
+    "fireToBreak": 65,
+    "downToBreak": 65
+   }
+  },
+  "mash": {
+   "actions": 5,
+   "combo": 6,
+   "kills": 34
+  },
+  "hold": {
+   "charging": true,
+   "kind": "heavy",
+   "kills": 58,
+   "distToTarget": 0
+  }
+ },
+ "caster": {
+  "basic": {
+   "kind": "burst",
+   "kills": 38,
+   "distToTarget": 3,
+   "latencyMs": {
+    "downToFire": 1,
+    "fireToBreak": 11,
+    "downToBreak": 12
+   }
+  },
+  "drag": {
+   "spells": 3,
+   "kills": 15
+  },
+  "hold": {
+   "charging": true,
+   "kind": "big",
+   "kills": 49,
+   "distToTarget": 0
+  }
+ },
+ "upgrade": {
+  "timeStopped": true,
+  "applied": true,
+  "ups": [
+   "double"
+  ]
+ },
+ "perf": {
+  "caster": {
+   "update": {
+    "avg": 1.98,
+    "p95": 3.9
+   },
+   "draw": {
+    "avg": 4.92,
+    "p95": 7.6
+   },
+   "samples": 544,
+   "avg": 6.9,
+   "p95": 10.5,
+   "max": 14.8,
+   "kills": 351,
+   "t": 14.1
+  },
+  "crusher": {
+   "update": {
+    "avg": 2.08,
+    "p95": 4.3
+   },
+   "draw": {
+    "avg": 4.9,
+    "p95": 7.3
+   },
+   "samples": 515,
+   "avg": 6.99,
+   "p95": 11,
+   "max": 25.2,
+   "kills": 323,
+   "t": 14.1
+  },
+  "slasher": {
+   "update": {
+    "avg": 1.88,
+    "p95": 3.3
+   },
+   "draw": {
+    "avg": 4.97,
+    "p95": 6.9
+   },
+   "samples": 560,
+   "avg": 6.86,
+   "p95": 9.8,
+   "max": 16,
+   "kills": 353,
+   "t": 14.1
+  }
+ }
+}
+PASS: touch-where-you-mean for 3 classes (basic / combo / hold), upgrade overlay, no console errors
