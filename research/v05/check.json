@@ -1,0 +1,883 @@
+{
+ "webgl2": true,
+ "judgement": [
+  {
+   "deg": -175,
+   "enemyBroken": false,
+   "item": "collect"
+  },
+  {
+   "deg": -165,
+   "enemyBroken": false,
+   "item": "collect"
+  },
+  {
+   "deg": -155,
+   "enemyBroken": false,
+   "item": "collect"
+  },
+  {
+   "deg": -145,
+   "enemyBroken": false,
+   "item": "in"
+  },
+  {
+   "deg": -135,
+   "enemyBroken": false,
+   "item": "in"
+  },
+  {
+   "deg": -125,
+   "enemyBroken": false,
+   "item": "in"
+  },
+  {
+   "deg": -115,
+   "enemyBroken": false,
+   "item": "in"
+  },
+  {
+   "deg": -105,
+   "enemyBroken": false,
+   "item": "in"
+  },
+  {
+   "deg": -95,
+   "enemyBroken": false,
+   "item": "in"
+  },
+  {
+   "deg": -85,
+   "enemyBroken": false,
+   "item": "in"
+  },
+  {
+   "deg": -75,
+   "enemyBroken": false,
+   "item": "in"
+  },
+  {
+   "deg": -65,
+   "enemyBroken": false,
+   "item": "in"
+  },
+  {
+   "deg": -55,
+   "enemyBroken": true,
+   "item": "break"
+  },
+  {
+   "deg": -45,
+   "enemyBroken": true,
+   "item": "break"
+  },
+  {
+   "deg": -35,
+   "enemyBroken": true,
+   "item": "break"
+  },
+  {
+   "deg": -25,
+   "enemyBroken": true,
+   "item": "break"
+  },
+  {
+   "deg": -15,
+   "enemyBroken": true,
+   "item": "break"
+  },
+  {
+   "deg": -5,
+   "enemyBroken": true,
+   "item": "break"
+  },
+  {
+   "deg": 5,
+   "enemyBroken": true,
+   "item": "break"
+  },
+  {
+   "deg": 15,
+   "enemyBroken": true,
+   "item": "break"
+  },
+  {
+   "deg": 25,
+   "enemyBroken": true,
+   "item": "break"
+  },
+  {
+   "deg": 35,
+   "enemyBroken": true,
+   "item": "break"
+  },
+  {
+   "deg": 45,
+   "enemyBroken": true,
+   "item": "break"
+  },
+  {
+   "deg": 55,
+   "enemyBroken": true,
+   "item": "break"
+  },
+  {
+   "deg": 65,
+   "enemyBroken": false,
+   "item": "in"
+  },
+  {
+   "deg": 75,
+   "enemyBroken": false,
+   "item": "in"
+  },
+  {
+   "deg": 85,
+   "enemyBroken": false,
+   "item": "in"
+  },
+  {
+   "deg": 95,
+   "enemyBroken": false,
+   "item": "in"
+  },
+  {
+   "deg": 105,
+   "enemyBroken": false,
+   "item": "in"
+  },
+  {
+   "deg": 115,
+   "enemyBroken": false,
+   "item": "in"
+  },
+  {
+   "deg": 125,
+   "enemyBroken": false,
+   "item": "in"
+  },
+  {
+   "deg": 135,
+   "enemyBroken": false,
+   "item": "in"
+  },
+  {
+   "deg": 145,
+   "enemyBroken": false,
+   "item": "in"
+  },
+  {
+   "deg": 155,
+   "enemyBroken": false,
+   "item": "collect"
+  },
+  {
+   "deg": 165,
+   "enemyBroken": false,
+   "item": "collect"
+  },
+  {
+   "deg": 175,
+   "enemyBroken": false,
+   "item": "collect"
+  },
+  {
+   "deg": -62,
+   "enemyBroken": false,
+   "item": "in"
+  },
+  {
+   "deg": -58,
+   "enemyBroken": true,
+   "item": "break"
+  },
+  {
+   "deg": 58,
+   "enemyBroken": true,
+   "item": "break"
+  },
+  {
+   "deg": 62,
+   "enemyBroken": false,
+   "item": "in"
+  },
+  {
+   "deg": -152,
+   "enemyBroken": false,
+   "item": "collect"
+  },
+  {
+   "deg": -148,
+   "enemyBroken": false,
+   "item": "in"
+  },
+  {
+   "deg": 148,
+   "enemyBroken": false,
+   "item": "in"
+  },
+  {
+   "deg": 152,
+   "enemyBroken": false,
+   "item": "collect"
+  }
+ ],
+ "growth": {
+  "out": [
+   {
+    "lv": 0,
+    "half": 59.99999999999999,
+    "reach": 205,
+    "broke70": false
+   },
+   {
+    "lv": 1,
+    "half": 67.5,
+    "reach": 217,
+    "broke70": false
+   },
+   {
+    "lv": 2,
+    "half": 74.99999999999999,
+    "reach": 229,
+    "broke70": true
+   },
+   {
+    "lv": 3,
+    "half": 82.5,
+    "reach": 241,
+    "broke70": true
+   },
+   {
+    "lv": 4,
+    "half": 90,
+    "reach": 253,
+    "broke70": true
+   }
+  ],
+  "afterCollect": 1
+ },
+ "fastSpin": [
+  {
+   "stepDeg": 90,
+   "frames": 8,
+   "kills": 12,
+   "contacts": 0,
+   "alive": 0,
+   "items": 5,
+   "broken": 7,
+   "left": 0,
+   "double": 0
+  },
+  {
+   "stepDeg": 720,
+   "frames": 1,
+   "kills": 12,
+   "contacts": 0,
+   "alive": 0,
+   "items": 12,
+   "broken": 0,
+   "left": 0,
+   "double": 0
+  },
+  {
+   "stepDeg": 37,
+   "frames": 20,
+   "kills": 12,
+   "contacts": 0,
+   "alive": 0,
+   "items": 5,
+   "broken": 7,
+   "left": 0,
+   "double": 0
+  }
+ ],
+ "misc": {
+  "chain": {
+   "chainKills": 1,
+   "waxBroken": true
+  },
+  "contact": {
+   "combo0": 4,
+   "combo": 0,
+   "contacts": 1
+  }
+ },
+ "sim": [
+  {
+   "mode": "main",
+   "seed": 1,
+   "score": 1580,
+   "kills": 112,
+   "chainKills": 38,
+   "maxBurst": 33,
+   "maxCombo": 35,
+   "items": 0,
+   "itemsBroken": 5,
+   "itemsMissed": 7,
+   "contacts": 187,
+   "maxLv": 0,
+   "killsByLv": [
+    112,
+    0,
+    0,
+    0,
+    0
+   ],
+   "firstItemOutcome": "broken",
+   "firstItemT": 16.05000000000037,
+   "spawned": 338,
+   "itemsSpawned": 13,
+   "burstByLv": [
+    33,
+    0,
+    0,
+    0,
+    0
+   ],
+   "bot": "idle",
+   "seconds": 60.02,
+   "state": "result",
+   "finalLv": 0,
+   "leftover": 39
+  },
+  {
+   "mode": "main",
+   "seed": 1,
+   "score": 3560,
+   "kills": 263,
+   "chainKills": 105,
+   "maxBurst": 34,
+   "maxCombo": 93,
+   "items": 3,
+   "itemsBroken": 10,
+   "itemsMissed": 0,
+   "contacts": 43,
+   "maxLv": 3,
+   "killsByLv": [
+    21,
+    20,
+    153,
+    69,
+    0
+   ],
+   "firstItemOutcome": "collected",
+   "firstItemT": 16.116666666667033,
+   "spawned": 338,
+   "itemsSpawned": 13,
+   "burstByLv": [
+    5,
+    4,
+    34,
+    25,
+    0
+   ],
+   "bot": "random",
+   "seconds": 60.02,
+   "state": "result",
+   "finalLv": 3,
+   "leftover": 32
+  },
+  {
+   "mode": "main",
+   "seed": 1,
+   "score": 3950,
+   "kills": 309,
+   "chainKills": 94,
+   "maxBurst": 33,
+   "maxCombo": 309,
+   "items": 4,
+   "itemsBroken": 9,
+   "itemsMissed": 0,
+   "contacts": 0,
+   "maxLv": 4,
+   "killsByLv": [
+    33,
+    13,
+    11,
+    82,
+    170
+   ],
+   "firstItemOutcome": "collected",
+   "firstItemT": 16.116666666667033,
+   "spawned": 338,
+   "itemsSpawned": 13,
+   "burstByLv": [
+    3,
+    3,
+    3,
+    9,
+    33
+   ],
+   "bot": "naive",
+   "seconds": 60.02,
+   "state": "result",
+   "finalLv": 4,
+   "leftover": 29
+  },
+  {
+   "mode": "main",
+   "seed": 1,
+   "score": 4315,
+   "kills": 312,
+   "chainKills": 111,
+   "maxBurst": 38,
+   "maxCombo": 142,
+   "items": 13,
+   "itemsBroken": 0,
+   "itemsMissed": 0,
+   "contacts": 11,
+   "maxLv": 4,
+   "killsByLv": [
+    29,
+    10,
+    9,
+    24,
+    240
+   ],
+   "firstItemOutcome": "collected",
+   "firstItemT": 16.116666666667033,
+   "spawned": 338,
+   "itemsSpawned": 13,
+   "burstByLv": [
+    4,
+    6,
+    3,
+    8,
+    38
+   ],
+   "bot": "skilled",
+   "seconds": 60.02,
+   "state": "result",
+   "finalLv": 4,
+   "leftover": 15
+  },
+  {
+   "mode": "main",
+   "seed": 2,
+   "score": 1500,
+   "kills": 122,
+   "chainKills": 37,
+   "maxBurst": 13,
+   "maxCombo": 14,
+   "items": 1,
+   "itemsBroken": 7,
+   "itemsMissed": 4,
+   "contacts": 186,
+   "maxLv": 1,
+   "killsByLv": [
+    67,
+    55,
+    0,
+    0,
+    0
+   ],
+   "firstItemOutcome": "broken",
+   "firstItemT": 16.05000000000037,
+   "spawned": 356,
+   "itemsSpawned": 13,
+   "burstByLv": [
+    13,
+    13,
+    0,
+    0,
+    0
+   ],
+   "bot": "idle",
+   "seconds": 60.02,
+   "state": "result",
+   "finalLv": 1,
+   "leftover": 48
+  },
+  {
+   "mode": "main",
+   "seed": 2,
+   "score": 3575,
+   "kills": 284,
+   "chainKills": 103,
+   "maxBurst": 44,
+   "maxCombo": 64,
+   "items": 5,
+   "itemsBroken": 8,
+   "itemsMissed": 0,
+   "contacts": 59,
+   "maxLv": 4,
+   "killsByLv": [
+    32,
+    22,
+    43,
+    73,
+    114
+   ],
+   "firstItemOutcome": "broken",
+   "firstItemT": 16.05000000000037,
+   "spawned": 356,
+   "itemsSpawned": 13,
+   "burstByLv": [
+    6,
+    5,
+    8,
+    17,
+    44
+   ],
+   "bot": "random",
+   "seconds": 60.02,
+   "state": "result",
+   "finalLv": 4,
+   "leftover": 13
+  },
+  {
+   "mode": "main",
+   "seed": 2,
+   "score": 4170,
+   "kills": 350,
+   "chainKills": 97,
+   "maxBurst": 51,
+   "maxCombo": 350,
+   "items": 3,
+   "itemsBroken": 10,
+   "itemsMissed": 0,
+   "contacts": 0,
+   "maxLv": 3,
+   "killsByLv": [
+    33,
+    29,
+    202,
+    86,
+    0
+   ],
+   "firstItemOutcome": "collected",
+   "firstItemT": 16.733333333333665,
+   "spawned": 356,
+   "itemsSpawned": 13,
+   "burstByLv": [
+    3,
+    5,
+    31,
+    51,
+    0
+   ],
+   "bot": "naive",
+   "seconds": 60.02,
+   "state": "result",
+   "finalLv": 3,
+   "leftover": 6
+  },
+  {
+   "mode": "main",
+   "seed": 2,
+   "score": 4365,
+   "kills": 339,
+   "chainKills": 96,
+   "maxBurst": 31,
+   "maxCombo": 100,
+   "items": 13,
+   "itemsBroken": 0,
+   "itemsMissed": 0,
+   "contacts": 9,
+   "maxLv": 4,
+   "killsByLv": [
+    26,
+    13,
+    18,
+    24,
+    258
+   ],
+   "firstItemOutcome": "collected",
+   "firstItemT": 16.116666666667033,
+   "spawned": 356,
+   "itemsSpawned": 13,
+   "burstByLv": [
+    3,
+    6,
+    7,
+    8,
+    31
+   ],
+   "bot": "skilled",
+   "seconds": 60.02,
+   "state": "result",
+   "finalLv": 4,
+   "leftover": 7
+  },
+  {
+   "mode": "main",
+   "seed": 3,
+   "score": 1800,
+   "kills": 137,
+   "chainKills": 45,
+   "maxBurst": 14,
+   "maxCombo": 14,
+   "items": 2,
+   "itemsBroken": 7,
+   "itemsMissed": 4,
+   "contacts": 194,
+   "maxLv": 2,
+   "killsByLv": [
+    26,
+    37,
+    74,
+    0,
+    0
+   ],
+   "firstItemOutcome": "broken",
+   "firstItemT": 16.05000000000037,
+   "spawned": 366,
+   "itemsSpawned": 13,
+   "burstByLv": [
+    3,
+    8,
+    14,
+    0,
+    0
+   ],
+   "bot": "idle",
+   "seconds": 60.02,
+   "state": "result",
+   "finalLv": 2,
+   "leftover": 35
+  },
+  {
+   "mode": "main",
+   "seed": 3,
+   "score": 3270,
+   "kills": 249,
+   "chainKills": 87,
+   "maxBurst": 20,
+   "maxCombo": 39,
+   "items": 6,
+   "itemsBroken": 7,
+   "itemsMissed": 0,
+   "contacts": 81,
+   "maxLv": 4,
+   "killsByLv": [
+    28,
+    22,
+    37,
+    43,
+    119
+   ],
+   "firstItemOutcome": "collected",
+   "firstItemT": 18.4666666666669,
+   "spawned": 366,
+   "itemsSpawned": 13,
+   "burstByLv": [
+    6,
+    5,
+    9,
+    20,
+    17
+   ],
+   "bot": "random",
+   "seconds": 60.02,
+   "state": "result",
+   "finalLv": 4,
+   "leftover": 36
+  },
+  {
+   "mode": "main",
+   "seed": 3,
+   "score": 4620,
+   "kills": 351,
+   "chainKills": 123,
+   "maxBurst": 42,
+   "maxCombo": 351,
+   "items": 4,
+   "itemsBroken": 9,
+   "itemsMissed": 0,
+   "contacts": 0,
+   "maxLv": 4,
+   "killsByLv": [
+    49,
+    14,
+    97,
+    52,
+    139
+   ],
+   "firstItemOutcome": "broken",
+   "firstItemT": 16.566666666667007,
+   "spawned": 366,
+   "itemsSpawned": 13,
+   "burstByLv": [
+    4,
+    3,
+    10,
+    21,
+    42
+   ],
+   "bot": "naive",
+   "seconds": 60.02,
+   "state": "result",
+   "finalLv": 4,
+   "leftover": 15
+  },
+  {
+   "mode": "main",
+   "seed": 3,
+   "score": 4380,
+   "kills": 335,
+   "chainKills": 98,
+   "maxBurst": 22,
+   "maxCombo": 124,
+   "items": 12,
+   "itemsBroken": 1,
+   "itemsMissed": 0,
+   "contacts": 8,
+   "maxLv": 4,
+   "killsByLv": [
+    32,
+    11,
+    14,
+    19,
+    259
+   ],
+   "firstItemOutcome": "collected",
+   "firstItemT": 16.116666666667033,
+   "spawned": 366,
+   "itemsSpawned": 13,
+   "burstByLv": [
+    7,
+    4,
+    6,
+    7,
+    22
+   ],
+   "bot": "skilled",
+   "seconds": 60.02,
+   "state": "result",
+   "finalLv": 4,
+   "leftover": 23
+  }
+ ],
+ "stages": [
+  {
+   "stage": "A",
+   "bot": "idle",
+   "score": 30,
+   "kills": 3,
+   "items": 0,
+   "broken": 1,
+   "maxBurst": 1,
+   "lv": 0,
+   "contacts": 0,
+   "seconds": 11.12,
+   "state": "result"
+  },
+  {
+   "stage": "A",
+   "bot": "naive",
+   "score": 30,
+   "kills": 3,
+   "items": 0,
+   "broken": 1,
+   "maxBurst": 1,
+   "lv": 0,
+   "contacts": 0,
+   "seconds": 11.12,
+   "state": "result"
+  },
+  {
+   "stage": "A",
+   "bot": "skilled",
+   "score": 60,
+   "kills": 3,
+   "items": 1,
+   "broken": 0,
+   "maxBurst": 1,
+   "lv": 1,
+   "contacts": 0,
+   "seconds": 11.18,
+   "state": "result"
+  },
+  {
+   "stage": "B",
+   "bot": "idle",
+   "score": 60,
+   "kills": 3,
+   "items": 1,
+   "broken": 0,
+   "maxBurst": 2,
+   "lv": 1,
+   "contacts": 8,
+   "seconds": 12.03,
+   "state": "result"
+  },
+  {
+   "stage": "B",
+   "bot": "naive",
+   "score": 170,
+   "kills": 11,
+   "items": 2,
+   "broken": 0,
+   "maxBurst": 3,
+   "lv": 2,
+   "contacts": 0,
+   "seconds": 12.03,
+   "state": "result"
+  },
+  {
+   "stage": "B",
+   "bot": "skilled",
+   "score": 170,
+   "kills": 11,
+   "items": 2,
+   "broken": 0,
+   "maxBurst": 3,
+   "lv": 2,
+   "contacts": 0,
+   "seconds": 12.03,
+   "state": "result"
+  },
+  {
+   "stage": "C",
+   "bot": "idle",
+   "score": 220,
+   "kills": 16,
+   "items": 0,
+   "broken": 0,
+   "maxBurst": 10,
+   "lv": 0,
+   "contacts": 16,
+   "seconds": 17.6,
+   "state": "result"
+  },
+  {
+   "stage": "C",
+   "bot": "naive",
+   "score": 430,
+   "kills": 32,
+   "items": 1,
+   "broken": 1,
+   "maxBurst": 12,
+   "lv": 1,
+   "contacts": 0,
+   "seconds": 15.73,
+   "state": "result"
+  },
+  {
+   "stage": "C",
+   "bot": "skilled",
+   "score": 435,
+   "kills": 32,
+   "items": 2,
+   "broken": 0,
+   "maxBurst": 15,
+   "lv": 2,
+   "contacts": 0,
+   "seconds": 15.93,
+   "state": "result"
+  }
+ ],
+ "touch": {
+  "halfScreenRight": 180,
+  "quarterScreenLeft": -90,
+  "tap": 0
+ },
+ "perf4x": {
+  "p50": 3.699999988079071,
+  "p95": 5.100000023841858,
+  "max": 66.7000000178814,
+  "bodies": 59,
+  "particles": 88
+ }
+}

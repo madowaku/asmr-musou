@@ -8,7 +8,9 @@
     "bundle:lab": "node tools/bundle-lab-assets.cjs",
     "check": "node --check game.js && node --check audio.js && node --check sprites.js && node --check tests/smoke.mjs && node --check tests/drift-chain.mjs && node --check tests/frame-strips.mjs && node --check tests/perf.mjs && node --check tools/render-sfx.cjs",
     "render:sfx": "node tools/render-sfx.cjs",
-    "test": "node tools/render-sfx.cjs && node tests/smoke.mjs && node tests/drift-chain.mjs && node tests/perf.mjs"
+    "test": "node tools/render-sfx.cjs && node tests/smoke.mjs && node tests/drift-chain.mjs && node tests/perf.mjs",
+    "test:spin": "node tests/spin/check.mjs",
+    "bundle:spin": "python tools/spin/bundle-art.py"
   },
   "devDependencies": {
     "playwright": "1.56.1"

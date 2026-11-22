@@ -92,6 +92,16 @@ T3では旧READMEの「画像未統合・ボスy=560・ピーク正規化・600�
 
 素材の生成方法と出所は [ASSETS.md](ASSETS.md)、全体の方針は [ORCHESTRATOR_BRIEF.md](ORCHESTRATOR_BRIEF.md) を参照。
 
+## SPIN LAB (spin.html) — v0.5 研究
+
+「**前は破壊、背中は回収**」の一つのルールだけで、もう一回遊びたいゲームが成立するかを確かめる研究。中央に立って回るだけ。前方120°に来た素材の敵は自動で斬れ、背面60°で受け取った剣の結晶で剣が育つ（120→180°）。
+- 試遊：`spin.html` を Chrome で直接開く（サーバー不要）。操作は画面のどこでも左右ドラッグ（半画面で180°）。研究モード A/B/C はタイトルから。
+- 人間の評価シート：[docs/v0.5/PLAYTEST_SPIN.md](docs/v0.5/PLAYTEST_SPIN.md)。研究記録（技術検証・ボットの客観データ・不採用案・仕様との食い違い）：[docs/v0.5/SPIN_LAB_LOG.md](docs/v0.5/SPIN_LAB_LOG.md)。
+- 比較用 URL：`?mode=auto`（自動回転＋タップで固定）、`?rot=240`（回転感度）、`?invert=1`（逆向き）。
+- テスト：`node tests/spin/check.mjs`（判定表・成長・高速回転・連鎖・タッチ操作・60秒×ボット・描画性能・既存ページ）、`node tests/spin/shots.mjs`（画面の撮影 → `research/v05/screens`）。
+- 画像：`codex exec -m gpt-6-luna`（内蔵 image_gen）で生成した原画が `assets/spin/src/`。`python tools/spin/bundle-art.py` で切り抜き・縮小して `spin/art-bundle.js` に埋め込む（無い画像は手続き描画で代用）。依頼文は `tasks/CODEX_TASK_SPIN_*.md`。
+- `combat/world.js` と `lab/` を共用し、どちらも変更していない。
+
 ## COMBAT LAB (combat.html) — v0.4 研究
 
 素材破壊に**ゲーム性**を足す研究。3キャラ（SLASHER 大剣士／CRUSHER 拳闘士／CASTER 魔法使い）で、60秒（雑魚の陣形ラッシュ → 巨大素材ボス → 大規模破壊 → 余韻）を戦う。

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ja">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0c0a16"><link rel="icon" href="data:,">
+<title>ASMR MUSOU · SPIN LAB v0.1</title><link rel="stylesheet" href="spin/spin.css">
+<script defer src="lab/slice.js"></script><script defer src="lab/events.js"></script><script defer src="lab/assets-bundle.js"></script><script defer src="lab/outlines.js"></script><script defer src="lab/profiles.js"></script><script defer src="lab/timing.js"></script><script defer src="lab/assets.js"></script><script defer src="lab/gl.js"></script>
+<script defer src="lab/materials/wax.js"></script><script defer src="lab/materials/jelly.js"></script><script defer src="lab/materials/studies.js"></script>
+<script defer src="lab/audio/dsp.js"></script><script defer src="lab/audio/temporal.js"></script><script defer src="lab/audio/engine.js"></script><script defer src="lab/audio/audio.js"></script><script defer src="lab/caps.js"></script>
+<script defer src="combat/world.js"></script>
+<script defer src="spin/art-bundle.js"></script><script defer src="spin/sprites.js"></script><script defer src="spin/sfx.js"></script><script defer src="spin/stages.js"></script><script defer src="spin/game.js"></script>
+</head>
+<body><main id="arena">
+<canvas id="scene" width="720" height="1280" aria-label="円形アリーナ。左右にドラッグして回転。前で斬り、背中で受け取る"></canvas>
+<div id="pops" aria-hidden="true"></div>
+<div id="hud" hidden>
+  <div class="bar"><div id="time"></div></div>
+  <div class="row"><span class="score"><b id="score">0</b> 点</span><span class="kills"><b id="kills">0</b> 撃破</span><span id="lv"></span><button id="mute" aria-label="音のオンオフ">🔊</button></div>
+  <div id="combo"></div>
+  <div id="banner"></div>
+  <div id="help">左右にドラッグして回転 · 前で斬る · 背中で受け取る</div>
+</div>
+<section id="loading" class="overlay"><p>準備中…</p></section>
+<section id="title" class="overlay" hidden>
+  <div class="eyebrow">ASMR MUSOU · SPIN LAB v0.1</div>
+  <h1>前は破壊、<br>背中は回収。</h1>
+  <p class="lead">真ん中で回るだけ。前に来た素材は自動で斬れる。<br>光るアイテムは<b>背中の袋</b>で受け取ると、剣が大きくなる。</p>
+  <button id="play" class="primary">60秒あそぶ</button>
+  <p class="how">操作：画面のどこでも<b>左右にドラッグ</b>＝回転（指を離すと止まる）。イヤホン推奨。</p>
+  <div class="switch"><span>研究モード（固定配置・何度でも）</span><button id="stage-A">A 初めての背中</button><button id="stage-B">B どちらを向く？</button><button id="stage-C">C 破壊のご褒美</button></div>
+</section>
+<section id="result" class="overlay" hidden>
+  <div class="eyebrow" id="r-eyebrow">RESULT</div><h2 id="r-title">すっきり！</h2>
+  <div id="r-score" class="bigscore"></div>
+  <div id="r-stats" class="stats"></div>
+  <p id="r-note" class="lead"></p>
+  <button id="again" class="primary">もう一回</button>
+  <button id="totitle" class="ghost">タイトルへ</button>
+</section>
+<div id="error" role="alert" hidden></div>
+</main></body></html>

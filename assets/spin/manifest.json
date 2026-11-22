@@ -1,0 +1,56 @@
+{
+ "hero": {
+  "source": "assets/spin/src/hero_top.png",
+  "size": [
+   256,
+   256
+  ],
+  "bytes": 51473,
+  "generator": "codex exec -m gpt-6-luna (built-in image_gen)"
+ },
+ "item": {
+  "source": "assets/spin/src/item_crystal.png",
+  "size": [
+   192,
+   192
+  ],
+  "bytes": 33750,
+  "generator": "codex exec -m gpt-6-luna (built-in image_gen)"
+ },
+ "sword": {
+  "source": "assets/spin/src/sword_big.png",
+  "size": [
+   128,
+   384
+  ],
+  "bytes": 30059,
+  "generator": "codex exec -m gpt-6-luna (built-in image_gen)"
+ },
+ "floor": {
+  "source": "assets/spin/src/arena_floor.png",
+  "size": [
+   512,
+   512
+  ],
+  "bytes": 356052,
+  "generator": "codex exec -m gpt-6-luna (built-in image_gen)"
+ },
+ "ice": {
+  "source": "assets/spin/src/ice_body.png",
+  "size": [
+   256,
+   256
+  ],
+  "bytes": 82993,
+  "generator": "codex exec -m gpt-6-luna (built-in image_gen)"
+ },
+ "icex": {
+  "source": "assets/spin/src/ice_xsec.png",
+  "size": [
+   256,
+   256
+  ],
+  "bytes": 122043,
+  "generator": "codex exec -m gpt-6-luna (built-in image_gen)"
+ }
+}
