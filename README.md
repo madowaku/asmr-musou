@@ -95,7 +95,7 @@ T3では旧READMEの「画像未統合・ボスy=560・ピーク正規化・600�
 ## SPIN LAB (spin.html) — v0.5 研究
 
 「**前は破壊、背中は回収**」の一つのルールだけで、もう一回遊びたいゲームが成立するかを確かめる研究。中央に立って回るだけ。前方120°に来た素材の敵は自動で斬れ、背面60°で受け取った剣の結晶で剣が育つ（120→180°）。
-- 試遊：`spin.html` を Chrome で直接開く（サーバー不要）。操作は画面のどこでも左右ドラッグ（半画面で180°）。研究モード A/B/C はタイトルから。
+- 試遊：`spin.html` を Chrome で直接開く（サーバー不要）。スマホ：https://research-v0-5-spin.asmr-musou.pages.dev/spin.html 。操作は画面のどこでも左右ドラッグ（半画面で180°）。研究モード A/B/C はタイトルから。
 - 人間の評価シート：[docs/v0.5/PLAYTEST_SPIN.md](docs/v0.5/PLAYTEST_SPIN.md)。研究記録（技術検証・ボットの客観データ・不採用案・仕様との食い違い）：[docs/v0.5/SPIN_LAB_LOG.md](docs/v0.5/SPIN_LAB_LOG.md)。
 - 比較用 URL：`?mode=auto`（自動回転＋タップで固定）、`?rot=240`（回転感度）、`?invert=1`（逆向き）。
 - テスト：`node tests/spin/check.mjs`（判定表・成長・高速回転・連鎖・タッチ操作・60秒×ボット・描画性能・既存ページ）、`node tests/spin/shots.mjs`（画面の撮影 → `research/v05/screens`）。

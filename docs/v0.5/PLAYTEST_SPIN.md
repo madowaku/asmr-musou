@@ -4,7 +4,7 @@ AI の客観検証（[研究記録](SPIN_LAB_LOG.md)）とは別に、**人間�
 
 ## 開き方
 - PC：`spin.html` を Chrome でダブルクリック（サーバー不要）。マウスで左右にドラッグ。
-- スマホ：研究プレビュー（Cloudflare Pages。公開後に URL を追記）、または同じ Wi-Fi の LAN 試遊（`deploy/README.md`）。
+- スマホ（推奨・Android Chrome）：https://research-v0-5-spin.asmr-musou.pages.dev/spin.html （入口：`/play.html`。比較用 URL は末尾に `?mode=auto` などを付ける）
 - 縦画面・片手で。イヤホン推奨。最初の操作で音が出る。
 
 ## まず説明なしで（最初の1回は、このシートの下を読まずに）
