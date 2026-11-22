@@ -39,11 +39,11 @@
   let hordeLod='book';
   // Researched materials first; the selector's material leads so each study can be tested as a mob.
   function hordeMaterials(){const sel=$('material').value,base=['wax','jelly'];return base.includes(sel)?[sel,...base.filter(m=>m!==sel)]:[sel,...base];}
-  function horde(n=40,clearFirst=true){
+  function horde(n=40,clearFirst=true,materials=null){
     if(clearFirst)clear();n=Math.max(1,Math.min(80,Math.round(n)));const placed=[];
     // 無双 mob: a dense, jittered hex-packed crowd (a scattered field only gave ~8 hits per swipe).
     // Rows fill outward from the screen middle so N=40..80 always forms one thick band a single swipe can rake through.
-    const mats=hordeMaterials(),cell=58,rows=[];for(let k=0;k<14;k++)rows.push(k%2?-(k+1>>1):k>>1);
+    const mats=materials||hordeMaterials(),cell=58,rows=[];for(let k=0;k<14;k++)rows.push(k%2?-(k+1>>1):k>>1);
     let i=0;for(const row of rows){if(i>=n)break;const y=700+row*cell*.86;if(y<330||y>1060)continue;
       for(let col=0;col<12&&i<n;col++){const x=58+col*cell+(row&1?cell/2:0)+(L.random()-.5)*14;if(x>670)continue;const r=23+L.random()*9;
         spawn(mats[i%mats.length],x,y+(L.random()-.5)*14,r,{variant:'grunt',lod:hordeLod});i++;}}
@@ -185,7 +185,7 @@
     const start=performance.now();L.frame++;if(queuedHorde){const inputs=pending.splice(0);horde(queuedHorde);pending.push(...inputs);queuedHorde=0;}if(L.capture.replaying){L.capture.play(renderer,elapsed);requestAnimationFrame(frame);return;}
     if(replenish&&L.time>=refillAt){horde(40,false);if(bodies.length>120)bodies.splice(0,bodies.length-120);refillAt=L.time+.45;}
     const advancing=!paused||stepFrames>0;
-    if(advancing){
+    if(advancing)try{
       for(const s of strokes.values()){if(s.dirty)s.dirty=false;if(!s.pressed&&s.distance<12&&(performance.now()-s.started)>180)press(s);}
       while(pending.length){const s=pending.shift();processStroke(s);if(s.distance<20||s.speed<240)press(s);}
       const realDt=stepFrames>0?1/60:elapsed,dt=realDt*(slow?.25:1);L.time+=dt;
@@ -196,7 +196,7 @@
       punch*=Math.exp(-12*realDt);
       for(const list of [trails,flashes]){let n=0;for(const item of list){item.life-=dt;if(item.life>0)list[n++]=item;}list.length=n;}
       if(stepFrames>0)stepFrames--;
-    }
+    }catch(e){/* never let one bad piece stop the lab; report once */if(!frame.warned){frame.warned=true;console.warn('lab frame error',e);}}
     const drawStart=performance.now();draw();if(advancing)L.capture.sample(renderer);const cost=performance.now()-start;recent.push(cost);if(recent.length>180)recent.shift();
     if(profile){profileSamples.push(cost);profileStages.push({total:cost,update:drawStart-start,draw:performance.now()-drawStart,bodies:bodies.length,particles:particles.length});profileLoad.minBodies=Math.min(profileLoad.minBodies,bodies.length);profileLoad.maxBodies=Math.max(profileLoad.maxBodies,bodies.length);profileLoad.maxParticles=Math.max(profileLoad.maxParticles,particles.length);}
     if(ms-hudAt>250){hudAt=ms;const sorted=recent.slice().sort((a,b)=>a-b),avg=recent.reduce((a,b)=>a+b,0)/recent.length,fps=frameIntervals.length/frameIntervals.reduce((a,b)=>a+b,0);$('metrics').textContent=`${fps.toFixed(0)} fps · JS ${avg.toFixed(2)} / p95 ${sorted[Math.floor(sorted.length*.95)].toFixed(2)} ms · ${particles.length} 粒 · ${bodies.length} 片`;$('status').textContent=cutCount?`${cutCount} CUT${cutCount>1?'S':''} · ${bodies.length} PIECES`:'';}

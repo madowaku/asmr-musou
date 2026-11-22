@@ -12,7 +12,7 @@
       emit(name, params) { for (const fn of handlers.get(name) || []) fn(params || {}); }
     };
   }
-  let context, processor, engine, enabled = true, master = .65, error = '', cpu = 0, cpuMax = 0, initMs = 0;
+  let recordDest = null, context, processor, engine, enabled = true, master = .65, error = '', cpu = 0, cpuMax = 0, initMs = 0;
   const times = [];
   async function init() {
     try {
@@ -29,7 +29,10 @@
           const elapsed = performance.now() - at; cpu += (elapsed - cpu) * .08; cpuMax = Math.max(cpuMax, elapsed);
           times.push(elapsed); if (times.length > 300) times.shift();
         };
-        processor.connect(context.destination); initMs = performance.now() - start;
+        processor.connect(context.destination);
+        // Also feed a MediaStream so the lab's MediaRecorder can capture sound with the 9:16 video.
+        try { recordDest = context.createMediaStreamDestination(); processor.connect(recordDest); } catch (_) { recordDest = null; }
+        initMs = performance.now() - start;
       }
       await context.resume(); error = ''; return context.state === 'running';
     } catch (e) {
@@ -65,6 +68,7 @@
     unlock() { return init(); },
     toggle() { enabled = !enabled; if (engine) engine.setEnabled(enabled); return enabled; },
     get context() { return context; },
+    captureStream() { return recordDest ? recordDest.stream : null; },
     planWave: LAB.AudioTemporal.planWave,
     setEnabled(value) { enabled = !!value; if (engine) engine.setEnabled(enabled); },
     setMaster(value) { if (!Number.isFinite(value)) return; master = Math.max(0, Math.min(1, value)); if (engine) engine.setMaster(master); },

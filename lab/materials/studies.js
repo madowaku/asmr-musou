@@ -16,7 +16,8 @@
     for(let i=0;i<body.poly.length;i++){const a=body.poly[i],b=body.poly[(i+1)%body.poly.length];out.push(a);
       if(!a.cut)continue;const len=Math.hypot(b.x-a.x,b.y-a.y),n=Math.floor(len/step);if(n<2)continue;const nx=-(b.y-a.y)/len,ny=(b.x-a.x)/len;
       for(let j=1;j<n;j++){const p=S.interpolate(a,b,j/n),o=(R()-.5)*2*amp;out.push({...p,x:p.x+nx*o,y:p.y+ny*o,cut:a.cut});}}
-    body.poly=out;body.meshIndices=null;
+    // Jitter can fold a short edge over a neighbour; keep the ragged edge only if it still triangulates.
+    try{S.triangulate(out);body.poly=out;body.meshIndices=null;}catch(_){/* keep the clean cut */}
   }
   function cutLine(body){const fs=faces(body);if(!fs.length)return null;const [a,b]=fs[0],len=Math.hypot(b.x-a.x,b.y-a.y)||1,nx=-(b.y-a.y)/len,ny=(b.x-a.x)/len,side=Math.sign(-a.x*nx-a.y*ny)||1;return {a:{x:a.x,y:a.y},nx,ny,side};}
   const base=(id,name,extra)=>L.registerMaterial(Object.assign({id,name,hardness:.5,layers:{shell:null,core:{}},crossSection:{width:16},init(){},onPress(){},onImpact(){},update(){},onCut(){}},extra));
