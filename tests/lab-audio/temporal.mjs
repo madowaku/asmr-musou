@@ -72,7 +72,7 @@ for (const material of D.MATERIALS) {
     return M.metrics(R.renderScenario({ duration: plan.duration + .1, events: [{ at: 0, name: 'wave', params: { kills } }] }, bank).channels);
   });
   const delta = measured[1].momentary400LUFS - measured[0].momentary400LUFS;
-  assert(delta > 2 && delta <= 8, material + ' 1->40 budget');
+  console.log('budget', material, delta.toFixed(2)); assert(delta > 2 && delta <= 8, material + ' 1->40 budget');
   assert(measured[1].high9kPct <= 3 && measured[1].peakDb <= -1);
   report.allMaterialBudgets.push({ material, delta });
 }

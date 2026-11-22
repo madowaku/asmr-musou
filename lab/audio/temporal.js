@@ -44,17 +44,23 @@
     });
     // Overlapping grains turn into a material bed at high tiers, never a fixed
     // eight-grain cloud with sqrt(N) gain. Density/width/duration do the work.
-    if (t.bed) for (let at = .025, i = 0; at < end; at += tier === 'flood' ? .008 : .014, i++) {
-      const k = kills[i % n]; add('grain_' + k.material, at, t.bed * 2.3, (i % 2 ? 1 : -1) * t.width, -2, 0, 'texture');
-    }
+    // R2c: exponential (Poisson) gaps instead of a fixed 8/14 ms step, which read as a buzz/metronome.
+    if (t.bed) { const mean = tier === 'flood' ? .008 : .014; for (let at = .025 + random() * mean, i = 0; at < end; at += mean * (-Math.log(1 - random() * .98)), i++) {
+      const k = kills[Math.floor(random() * n)]; add('grain_' + k.material, at, t.bed * 2.3 * (.5 + random() * .7), (random() * 2 - 1) * t.width, -2 + (random() - .5) * 3, 0, 'texture');
+    } }
     if (n >= 13) add(material + '_accent', end, 1.48, 0, 0, 0, 'accent');
     const count = Math.round(3 + Math.log2(n) * 8 + n * .55);
+    // R2c: collapse = decaying-rate Poisson process (iid draws from a truncated exponential, so density
+    // falls off over the tail) + bounce clusters (re-impacts at shrinking intervals, quieter), heavy-tailed
+    // loudness, and fragment size -> pitch. Replaces stratified near-even spacing (a click train).
+    const action = P[material].waveTexture.grain, tau = .42, norm = 1 - Math.exp(-1 / tau);
     for (let i = 0; i < count; i++) {
-      const u = (i + .12 + random() * .76) / count, at = tailStart + (u ** 1.18) * tailDuration;
-      const action = P[material].waveTexture.grain;
-      add(material + '_' + action, at, (.24 + Math.log2(n) * .035) * (1 - u * .78), (random() * 2 - 1) * t.width, (random() - .5) * 4, .032, 'collapse');
+      const u = -tau * Math.log(1 - random() * norm), at = tailStart + u * tailDuration, size = random() ** 1.4;
+      const gain = (.24 + Math.log2(n) * .035) * (1 - u * .7) * (.35 + 1.1 * size ** 1.8), pitch = (.5 - size) * 7 + (random() - .5) * 1.5, pan = (random() * 2 - 1) * t.width;
+      add(material + '_' + action, at, gain, pan, pitch, .032, 'collapse');
+      if (random() < .55) { let gap = .045 + random() * .03, g = gain * .42, when = at; for (let b = 0; b < 1 + (random() < .4 ? 1 : 0); b++) { when += gap; add(material + '_' + action, when, g, pan, pitch + 1 + random(), .028, 'bounce'); gap *= .62; g *= .45; } }
     }
-    if (material === 'sand' || material === 'chalk') for (let at = tailStart; at < tailStart + tailDuration; at += .018) {
+    if (material === 'sand' || material === 'chalk') for (let at = tailStart; at < tailStart + tailDuration; at += .010 + random() * .018) {
       const u = (at - tailStart) / tailDuration;
       add('grain_' + material, at, (.40 + .10 * Math.log2(n)) * (1 - u) ** .65, (random() * 2 - 1) * t.width, -2, 0, 'flow-tail');
     }

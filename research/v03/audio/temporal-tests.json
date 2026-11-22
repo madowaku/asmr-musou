@@ -158,67 +158,67 @@
       "n": 3,
       "waveMs": 60,
       "material": "wax",
-      "maxActive": 3,
+      "maxActive": 7,
       "dropped": 0
     },
     {
       "n": 10,
       "waveMs": 191.42857142857144,
       "material": "wax",
-      "maxActive": 11,
+      "maxActive": 10,
       "dropped": 0
     },
     {
       "n": 20,
       "waveMs": 295.83333333333337,
       "material": "wax",
-      "maxActive": 9,
+      "maxActive": 12,
       "dropped": 0
     },
     {
       "n": 40,
       "waveMs": 450,
       "material": "wax",
-      "maxActive": 13,
+      "maxActive": 22,
       "dropped": 0
     }
   ],
   "allMaterialBudgets": [
     {
       "material": "wax",
-      "delta": 6.284599403570752
+      "delta": 6.422955291213309
     },
     {
       "material": "jelly",
-      "delta": 5.8426638037475485
+      "delta": 5.7986294780390075
     },
     {
       "material": "soap",
-      "delta": 5.380778409192416
+      "delta": 5.725305506330901
     },
     {
       "material": "sand",
-      "delta": 2.3223802964625264
+      "delta": 2.3725578031769565
     },
     {
       "material": "sponge",
-      "delta": 4.476471399199703
+      "delta": 4.459276103140542
     },
     {
       "material": "chalk",
-      "delta": 4.909624052966709
+      "delta": 4.969338734255082
     },
     {
       "material": "beadslime",
-      "delta": 7.724722973267966
+      "delta": 7.946647325024081
     },
     {
       "material": "kohaku",
-      "delta": 6.330120552023999
+      "delta": 6.350545652098582
     },
     {
       "material": "bubble",
-      "delta": 6.881824330092261
+      "delta": 6.921990880280539
     }
   ]
 }

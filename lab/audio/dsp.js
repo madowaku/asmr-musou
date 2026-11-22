@@ -124,7 +124,7 @@
     if (m === 'soap') {
       if (a === 'cut') noise(0, cfg.duration, 1100, 3800, 1.6, .11, 42);
       else if (a === 'crumble') ticks(14, .19, 850, 2600, 1);
-      else { modal(0, 1100 + random() * 300, .0035, 1); modal(0, 2300, .002, .45); noise(0, .018, 900, 3100, .4, .005); }
+      else { /* R2c: cube size -> pitch over ~2.3 octaves with an inharmonic 2nd mode (was a fixed ~1.1-1.4k + 2.3k line: a clock) */ const f = 600 * Math.pow(5, random()); modal(0, f, .0026 + random() * .002, 1); modal(0, f * (2.1 + random() * .8), .0016 + random() * .001, .32 + random() * .2); noise(0, .018, f * .8, Math.min(6000, f * 2.8), .4, .005); }
     }
     if (m === 'sand') noise(0, cfg.duration, 3200, 6900, 1, a === 'grain' ? .2 : .05);
     if (m === 'sponge') {
