@@ -1,0 +1,93 @@
+"""R0-C: derived art only. Pillow/numpy; marching squares + closed RDP outlines.
+Run before bundle-lab-assets.cjs. Originals are read, hashed, never overwritten.
+"""
+from pathlib import Path
+import hashlib, json, math
+import numpy as np
+from PIL import Image, ImageDraw, ImageFilter
+
+ROOT = Path(__file__).resolve().parents[1]
+SRC = ROOT / 'assets/v03'
+OUT = SRC / 'bundle'
+
+def rdp(p, eps):
+    if len(p) < 3: return p
+    a, b = np.array(p[0]), np.array(p[-1])
+    d = b-a
+    t = np.clip((np.array(p)-a) @ d / max(float(d@d), 1e-12), 0, 1)
+    dist = np.linalg.norm(np.array(p)-a-t[:,None]*d, axis=1)
+    i = int(np.argmax(dist))
+    return rdp(p[:i+1], eps)[:-1]+rdp(p[i:], eps) if dist[i] > eps else [p[0],p[-1]]
+
+def contour(alpha):
+    # One pixel safety expansion protects opaque edge texels after simplification.
+    mask = np.array(Image.fromarray(alpha).filter(ImageFilter.MaxFilter(3))) > 32
+    a = np.pad(mask, 1).astype(np.uint8)
+    cases = a[:-1,:-1] + 2*a[:-1,1:] + 4*a[1:,1:] + 8*a[1:,:-1]
+    table = {1:[(3,0)],2:[(0,1)],3:[(3,1)],4:[(1,2)],5:[(3,0),(1,2)],6:[(0,2)],7:[(3,2)],8:[(2,3)],9:[(2,0)],10:[(0,1),(2,3)],11:[(2,1)],12:[(1,3)],13:[(1,0)],14:[(0,3)]}
+    graph = {}
+    for y,x in zip(*np.where((cases != 0)&(cases != 15))):
+        pts = [(2*x+1,2*y),(2*x+2,2*y+1),(2*x+1,2*y+2),(2*x,2*y+1)]
+        for i,j in table[int(cases[y,x])]:
+            p,q = pts[i],pts[j]
+            graph.setdefault(p,[]).append(q); graph.setdefault(q,[]).append(p)
+    loops=[]
+    while graph:
+        first=next(iter(graph)); p=first; prev=None; ring=[]
+        while p in graph:
+            ring.append((p[0]/2-.5,p[1]/2-.5))
+            links=graph.pop(p); nxt=next((q for q in links if q!=prev),first)
+            prev,p=p,nxt
+        loops.append(ring)
+    ring=max(loops,key=len)
+    far=max(range(len(ring)),key=lambda i: (ring[i][0]-ring[0][0])**2+(ring[i][1]-ring[0][1])**2)
+    best=None
+    for eps in np.linspace(.2,4,160):
+        poly=rdp(ring[:far+1],eps)[:-1]+rdp(ring[far:]+ring[:1],eps)[:-1]
+        if 32<=len(poly)<=64:
+            best=poly
+            if len(poly)<=48: break
+    if best is None: raise RuntimeError('Cannot simplify silhouette to 32-64 vertices')
+    signed=sum(best[i][0]*best[(i+1)%len(best)][1]-best[(i+1)%len(best)][0]*best[i][1] for i in range(len(best)))
+    if signed<0: best.reverse()
+    return best
+
+outlines={}; manifest={}; sheet=Image.new('RGB',(1280,1440),'#101823'); draw=ImageDraw.Draw(sheet)
+for i,p in enumerate(sorted((SRC/'body').glob('*.png'))):
+    im=Image.open(p).convert('RGBA'); alpha=np.array(im)[:,:,3]; poly=contour(alpha)
+    mask=Image.new('L',im.size); ImageDraw.Draw(mask).polygon(poly,fill=255)
+    opaque=alpha>=250; coverage=float(np.count_nonzero(opaque&(np.array(mask)>0))/np.count_nonzero(opaque))
+    assert coverage>=.95,(p.name,coverage)
+    outlines[p.stem]={'points':[[round(x/im.width,6),round(y/im.height,6)] for x,y in poly],'coverage':coverage,'vertices':len(poly),'sourceSHA256':hashlib.sha256(p.read_bytes()).hexdigest()}
+    dest=OUT/'body'/p.name; dest.parent.mkdir(parents=True,exist_ok=True)
+    im.convert('RGBa').resize((256,256),Image.Resampling.LANCZOS).convert('RGBA').save(dest,optimize=True)
+    x=(i%4)*320;y=(i//4)*360
+    sheet.paste(im.resize((300,300)),(x+10,y+40),im.resize((300,300)))
+    line=[(x+10+u*300/512,y+40+v*300/512) for u,v in poly]
+    draw.line(line+[line[0]],fill='#5affc1',width=2)
+    draw.text((x+12,y+10),f'{p.stem} | {len(poly)}v | {coverage:.2%}',fill='white')
+for p in sorted((SRC/'xsec').glob('*.png')):
+    im=Image.open(p).convert('RGB')
+    if p.stem=='wax_shell': im=im.crop((0,40,512,224)) # Excludes the y~265 seam entirely.
+    dest=OUT/'xsec'/p.name;dest.parent.mkdir(parents=True,exist_ok=True)
+    im.resize((256,256),Image.Resampling.LANCZOS).save(dest,optimize=True)
+    manifest[str(p.relative_to(SRC))]={'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'crop':[0,40,512,224] if p.stem=='wax_shell' else None}
+# One atlas, including three curved shell chips cut from the seam-free texture.
+atlas=Image.new('RGBA',(512,512)); slots={}
+shell=Image.open(OUT/'xsec/wax_shell.png').convert('RGBA')
+items=[]
+for k in range(3):
+    chip=Image.new('RGBA',(128,128));mask=Image.new('L',(128,128));d=ImageDraw.Draw(mask)
+    outer=[(18+92*t,58-30*math.sin(t*math.pi)+k*7) for t in np.linspace(0,1,20)]
+    inner=[(18+92*t,66-12*math.sin(t*math.pi)+k*7) for t in np.linspace(1,0,20)]
+    d.polygon(outer+inner,fill=255);chip.paste(shell.resize((128,128)),(0,0),mask)
+    ImageDraw.Draw(chip).line(outer,fill='#ffdde9',width=3)
+    items.append((f'wax_chip_{k}',chip))
+items += [(p.stem,Image.open(p).convert('RGBA')) for p in sorted((SRC/'fx').glob('*.png'))]
+for i,(name,im) in enumerate(items):
+    slots[name]=i;atlas.paste(im.resize((128,128)),(i%4*128,i//4*128))
+(OUT/'fx').mkdir(parents=True,exist_ok=True);atlas.save(OUT/'fx/atlas.png',optimize=True)
+(ROOT/'lab/outlines.js').write_text('/* Generated by tools/prepare-lab-assets.py; normalized sprite-space coordinates. */\nwindow.LAB.outlines = '+json.dumps(outlines,separators=(',',':'))+';\nwindow.LAB.fxSlots = '+json.dumps(slots)+';\n',encoding='utf-8')
+(OUT/'manifest.json').write_text(json.dumps({'bodies':outlines,'xsec':manifest,'fxSlots':slots},indent=2)+'\n',encoding='utf-8')
+frames=ROOT/'research/v03/frames';frames.mkdir(parents=True,exist_ok=True);sheet.save(frames/'outlines.png')
+print(json.dumps({'bodies':len(outlines),'minimumCoverage':min(o['coverage'] for o in outlines.values()),'vertices':[o['vertices'] for o in outlines.values()],'derivedBytes':sum(p.stat().st_size for p in OUT.rglob('*.png'))}))

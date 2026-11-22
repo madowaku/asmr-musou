@@ -1,7 +1,7 @@
 /* Read-only on assets/v03; no runtime fetch, so textures also work under file://. */
 'use strict';
 const fs=require('node:fs'),path=require('node:path');
-const root=path.resolve(__dirname,'..'),source=path.join(root,'assets/v03'),out={};
+const root=path.resolve(__dirname,'..'),source=path.join(root,'assets/v03/bundle'),out={};
 function walk(dir){for(const item of fs.readdirSync(dir,{withFileTypes:true}).sort((a,b)=>a.name.localeCompare(b.name))){const full=path.join(dir,item.name);if(item.isDirectory())walk(full);else if(/\.png$/i.test(item.name)){const key=path.relative(source,full).replaceAll('\\','/').replace(/\.png$/i,'');out[key]='data:image/png;base64,'+fs.readFileSync(full).toString('base64');}}}
 if(fs.existsSync(source))walk(source);
 fs.mkdirSync(path.join(root,'lab'),{recursive:true});

@@ -13,7 +13,7 @@
     if(!core){g.save();g.translate(91,54);g.rotate(-.4);const shine=g.createRadialGradient(0,0,0,0,0,58);shine.addColorStop(0,jelly?'#e4fffacc':'#fff9dc99');shine.addColorStop(1,'#ffffff00');g.scale(1,.27);g.fillStyle=shine;g.fillRect(-60,-60,120,120);g.restore();}
     return c;
   }
-  L.textureNames={}; // Optional slot -> bundle key aliases, e.g. wax_body -> body/wax_boss.
+  L.textureNames={wax_body:'body/wax_boss',jelly_body:'body/jelly_boss',wax_core:'xsec/wax'};
   L.tex=name=>{const key=L.textureNames[name]||name;if(!sources.has(key))sources.set(key,placeholder(name));return sources.get(key);};
   L.assetStatus={bundled:0,failed:[],ready:false};
   L.loadAssets=async()=>{

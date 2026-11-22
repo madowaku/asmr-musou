@@ -37,29 +37,21 @@
     id:'jelly',name:'ゼリー',hardness:.16,layers:{shell:null,core:{translucency:.7}},
     crossSection:{width:14,gloss:.95,translucency:.7,rim:'#d4fff2'},
     init:build,
-    onCut(body,cut){for(const child of cut.children)impulse(child,Math.min(520,260+cut.speed*.08));for(const face of cut.faces)for(let i=0;i<4;i++){const t=L.random();L.addParticle({x:face.a.x+(face.b.x-face.a.x)*t,y:face.a.y+(face.b.y-face.a.y)*t,kind:1,size:2+L.random()*4,vx:(L.random()-.5)*100,vy:-50-L.random()*90,color:[.3,1,.86,.85]});}},
+    onCut(body,cut){for(const child of cut.children)impulse(child,Math.min(520,260+cut.speed*.08));for(const face of cut.faces)for(let i=0;i<4;i++){const t=L.random();L.addParticle({x:face.a.x+(face.b.x-face.a.x)*t,y:face.a.y+(face.b.y-face.a.y)*t,kind:L.fxSlots.sponge_drop,size:4+L.random()*6,vx:(L.random()-.5)*100,vy:-50-L.random()*90,color:[.8,.64,1,.85]});}},
     onPress(body,hit){for(const p of body.soft.points){const weight=Math.exp(-S.dist2(p,hit)/(body.radius*body.radius*.5));p.vy+=90*weight;}body.soft.age=0;body.soft.sleeping=false;},
-    onImpact(body,impact){for(const p of body.soft.points)p.vy-=Math.min(130,impact.speed*.3)*(p.ry>0?1:.25);body.soft.age=0;body.soft.sleeping=false;},
+    onImpact(body,impact){for(const p of body.soft.points)p.vy-=Math.min(130,impact.speed*.3)*(p.ry>0?1:.25);/* Landing re-excites only part of the envelope so repeated bounces settle instead of restarting at full amplitude. */const soft=body.soft,back=Math.min(.35,impact.speed/1400);soft.age=soft.sleeping?Math.max(soft.age,.45):Math.max(0,soft.age-back);soft.sleeping=false;},
     update(dt,body){
-      const soft=body.soft,points=soft.points;if(!dt||soft.sleeping)return;
-      const steps=Math.max(1,Math.ceil(dt/(1/120))),h=dt/steps;
-      for(let sub=0;sub<steps;sub++){
-        let cx=0,cy=0;for(const p of points){p.ox=p.x;p.oy=p.y;cx+=p.x;cy+=p.y;}cx/=points.length;cy/=points.length;
-        let dot=0,cross=0;for(const p of points){dot+=p.qx*(p.x-cx)+p.qy*(p.y-cy);cross+=p.qx*(p.y-cy)-p.qy*(p.x-cx);}
-        const theta=Math.atan2(cross,dot),c=Math.cos(theta),s=Math.sin(theta),damping=Math.exp(-6*h);
-        for(const p of points){
-          // Translation/rotation are owned by body physics; soft mode is elastic.
-          const gx=(soft.cx+c*p.qx-s*p.qy)*.92+p.rx*.08,gy=(soft.cy+s*p.qx+c*p.qy)*.92+p.ry*.08;
-          // Force-form goal matching avoids the excess numerical damping of
-          // position projection followed by velocity reconstruction.
-          const stiffness=p.face?1200:2600;
-          p.vx=(p.vx+(gx-p.ox)*stiffness*h)*damping;p.vy=(p.vy+(gy-p.oy)*stiffness*h)*damping;
-          p.x=p.ox+p.vx*h;p.y=p.oy+p.vy*h;
-        }
+      const soft=body.soft;if(!dt||soft.sleeping)return;soft.age+=dt;soft.eventClock+=dt;
+      const t=soft.age,post=L.timing.duration('jelly','post'),envelope=Math.exp(-t/(post*.62)),stretch=Math.sin(t*2*Math.PI*3.4)*.17*envelope;
+      let sum=0,count=0;
+      for(const p of soft.points){
+        const wave=p.face?Math.sin(p.rx/27-t*25)*Math.min(18,body.radius*.14)*envelope:0;
+        p.x=p.rx*(1+stretch);p.y=p.ry/(1+stretch)+wave;
+        if(p.face){sum+=(p.x-p.rx)**2+(p.y-p.ry)**2;count++;}
       }
-      let sum=0,count=0;for(const p of points)if(p.face){sum+=(p.x-p.rx)**2+(p.y-p.ry)**2;count++;}soft.amplitude=count?Math.sqrt(sum/count):0;soft.age+=dt;soft.eventClock+=dt;
-      if(points.every(p=>p.vx*p.vx+p.vy*p.vy<.0004&&(p.x-p.rx)**2+(p.y-p.ry)**2<.0001)){soft.sleeping=true;for(const p of points){p.x=p.rx;p.y=p.ry;p.vx=p.vy=0;}soft.amplitude=0;}
-      if(soft.eventClock>=.05&&soft.amplitude>.1){soft.eventClock=0;L.events.emit('wobble',{material:'jelly',bodyId:body.id,speed:0,length:0,area:body.area,x:body.x,y:body.y,frequency:soft.frequency,amplitude:soft.amplitude});}
+      soft.amplitude=count?Math.sqrt(sum/count):0;soft.frequency=3.4;
+      if(t>2.6){soft.sleeping=true;for(const p of soft.points){p.x=p.rx;p.y=p.ry;}soft.amplitude=0;}
+      if(soft.eventClock>=.04&&soft.amplitude>.1){soft.eventClock=0;L.events.emit('wobble',{material:'jelly',bodyId:body.id,x:body.x,y:body.y,area:body.area,frequency:soft.frequency,freq:soft.frequency,amplitude:soft.amplitude,amp:Math.min(1,soft.amplitude/18)});}
     }
   });
 })(window.LAB);

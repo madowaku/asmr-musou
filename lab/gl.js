@@ -10,24 +10,14 @@
   void main(){gl_Position=vec4(aPos/vec2(720.,1280.)*vec2(2.,-2.)+vec2(-1.,1.),0.,1.);vUV=aUV;vColor=aColor;vExtra=aExtra;}`;
   const FS=`#version 300 es
   precision highp float;
-  in vec2 vUV; in vec4 vColor; in vec4 vExtra; uniform sampler2D uTex; uniform float uTime;
+  in vec2 vUV; in vec4 vColor; in vec4 vExtra; uniform sampler2D uTex; uniform float uTime; uniform float uDebug;
   out vec4 outColor;
   void main(){
     float mode=vExtra.x;vec4 c=vColor;
-    if(mode<.5)c*=texture(uTex,vUV);
-    else if(mode>1.5&&mode<2.5){
-      float rim=1.-smoothstep(.14,.22,vUV.y);
-      vec3 cream=mix(vec3(.79,.57,.33),vec3(1.,.94,.73),smoothstep(1.,.1,vUV.y));
-      cream+=.018*sin(vUV.x*175.);
-      c.rgb=mix(cream,vec3(.83,.46,.22),rim);
-      c.rgb+=vec3(.36,.29,.19)*exp(-pow((vUV.y-.065)*40.,2.));
-    }else if(mode>2.5&&mode<3.5){
-      float spec=exp(-pow((vUV.y-.09)*28.,2.));
-      float ripple=sin(vUV.x*34.+uTime*28.)*.04*vExtra.y;
-      c.rgb=mix(vec3(.08,.52,.58),vec3(.55,1.,.87),1.-vUV.y)+spec*.6;
-      c.rgb+=vec3(-.1,.12,.15)*sin(vUV.y*8.+ripple*8.);
-      c.a=.88;
-    }else if(mode>3.5){float d=length(vUV*2.-1.);c.a*=exp(-d*d*4.)*(1.-smoothstep(.7,1.,d));}
+    if(mode<.5){c*=texture(uTex,vUV);if(c.a<.03)discard;}
+    else if(mode>1.5&&mode<3.5){c*=texture(uTex,fract(vUV));c.rgb*=1.06-.22*vExtra.y;if(mode>2.5){c.rgb=mix(c.rgb,vec3(.68,.54,.86),.17);c.rgb+=.35*exp(-pow((vExtra.y-.12)*19.,2.));c.a=.96;}}
+    else if(mode>3.5){float d=length(vUV*2.-1.);c.a*=exp(-d*d*4.)*(1.-smoothstep(.7,1.,d));}
+    if(uDebug>0.){if(mode<.5)c=vec4(0.,0.,1.,1.);else if(mode>1.5&&mode<3.5)c=vec4(1.,0.,0.,1.);else discard;}
     outColor=c;
   }`;
   const PVS=`#version 300 es
@@ -37,14 +27,8 @@
   out vec2 vP;out vec4 vC;out float vKind;
   void main(){float c=cos(aTransform.w),s=sin(aTransform.w);vec2 p=mat2(c,s,-s,c)*aCorner*aTransform.z+aTransform.xy;gl_Position=vec4(p/vec2(720.,1280.)*vec2(2.,-2.)+vec2(-1.,1.),0.,1.);vP=aCorner;vC=aColor;vKind=aKind.x;}`;
   const PFS=`#version 300 es
-  precision highp float;in vec2 vP;in vec4 vC;in float vKind;out vec4 outColor;
-  void main(){vec4 c=vC;
-    if(vKind<.5){if(abs(vP.x)+abs(vP.y)*.7>1.)discard;c.rgb*=.84+.18*vP.x-.16*vP.y;}
-    else if(vKind<1.5){vec2 p=vP*vec2(1.15,.8);float d=length(p);if(d>1.)discard;c.a*=1.-smoothstep(.7,1.,d);c.rgb+=.4*exp(-length(p-vec2(-.3,-.3))*8.);}
-    else if(vKind<2.5){if(dot(vP,vP)>1.)discard;}
-    else{c.rgb*=vP.y<-.2?1.2:(vP.x>0.?.7:1.);}
-    outColor=c;
-  }`;
+  precision highp float;in vec2 vP;in vec4 vC;in float vKind;uniform sampler2D uAtlas;out vec4 outColor;
+  void main(){float k=floor(vKind+.5);vec2 uv=(vec2(mod(k,4.),floor(k/4.))+(vP+1.)*.5)/4.;vec4 c=texture(uAtlas,uv)*vC;if(c.a<.02)discard;outColor=c;}`;
   const POSTVS=`#version 300 es
   precision highp float;out vec2 vUV;
   void main(){vec2 p=vec2(float((gl_VertexID<<1)&2),float(gl_VertexID&2));vUV=p;gl_Position=vec4(p*2.-1.,0.,1.);}`;
@@ -60,7 +44,7 @@
     if(!gl)throw new Error('WebGL2 が必要です。このブラウザーでは利用できません。');
     function shader(type,source){const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(s));return s;}
     function program(vs,fs){const p=gl.createProgram(),v=shader(gl.VERTEX_SHADER,vs),f=shader(gl.FRAGMENT_SHADER,fs);gl.attachShader(p,v);gl.attachShader(p,f);gl.linkProgram(p);if(!gl.getProgramParameter(p,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(p));gl.deleteShader(v);gl.deleteShader(f);return p;}
-    const prog=program(VS,FS),pprog=program(PVS,PFS),post=program(POSTVS,POSTFS),textures=new Map(),batches=new Map(),surface=new Batch(),solid=new Batch(),glow=new Batch();
+    const prog=program(VS,FS),pprog=program(PVS,PFS),post=program(POSTVS,POSTFS),textures=new Map(),batches=new Map(),caps=new Map(),surface=new Batch(),solid=new Batch(),glow=new Batch();
     const vao=gl.createVertexArray(),buffer=gl.createBuffer();gl.bindVertexArray(vao);gl.bindBuffer(gl.ARRAY_BUFFER,buffer);
     for(const [i,n,offset]of [[0,2,0],[1,2,8],[2,4,16],[3,4,32]]){gl.enableVertexAttribArray(i);gl.vertexAttribPointer(i,n,gl.FLOAT,false,48,offset);}
     const pvao=gl.createVertexArray(),quad=gl.createBuffer(),instances=gl.createBuffer();
@@ -70,7 +54,8 @@
     let instanceData=new Float32Array(2048*10);
     const target=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,target);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,720,1280,0,gl.RGBA,gl.UNSIGNED_BYTE,null);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
     const fbo=gl.createFramebuffer();gl.bindFramebuffer(gl.FRAMEBUFFER,fbo);gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,target,0);if(gl.checkFramebufferStatus(gl.FRAMEBUFFER)!==gl.FRAMEBUFFER_COMPLETE)throw new Error('Incomplete scene framebuffer');
-    const timeLoc=gl.getUniformLocation(prog,'uTime'),punchLoc=gl.getUniformLocation(post,'uPunch'),slowLoc=gl.getUniformLocation(post,'uSlow');
+    let debug=false,lastInstances=0,lastTime=0,lastPunch=0,lastSlow=false;
+    const debugLoc=gl.getUniformLocation(prog,'uDebug'),timeLoc=gl.getUniformLocation(prog,'uTime'),punchLoc=gl.getUniformLocation(post,'uPunch'),slowLoc=gl.getUniformLocation(post,'uSlow');
     function texture(name){const source=L.tex(name);let cached=textures.get(name);if(cached&&cached.source===source)return cached.tex;const tex=cached?cached.tex:gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,tex);gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,false);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,source);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);textures.set(name,{source,tex});return tex;}
     function batch(name){if(!batches.has(name))batches.set(name,new Batch());return batches.get(name);}
     function triangle(b,a,c,d,color,mode=1,energy=0){for(const p of [a,c,d])b.vertex(p.x,p.y,p.u||0,p.v||0,color,mode,energy);}
@@ -78,20 +63,28 @@
     function drawBatch(b,tex){if(!b.n)return;gl.bindVertexArray(vao);gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,b.data.subarray(0,b.n),gl.DYNAMIC_DRAW);if(tex)gl.bindTexture(gl.TEXTURE_2D,tex);gl.drawArrays(gl.TRIANGLES,0,b.n/12);}
     return {
       gl,
-      begin(){for(const b of batches.values())b.n=0;surface.n=solid.n=glow.n=0;},
+      setDebug(value){debug=value;},
+      pixels(){const p=new Uint8Array(720*1280*4);gl.bindFramebuffer(gl.FRAMEBUFFER,fbo);gl.readPixels(0,0,720,1280,gl.RGBA,gl.UNSIGNED_BYTE,p);gl.bindFramebuffer(gl.FRAMEBUFFER,null);return p;},
+      snapshot(){const copy=b=>b.data.slice(0,b.n),s={batches:[...batches].map(([k,b])=>[k,copy(b)]),caps:[...caps].map(([k,b])=>[k,copy(b)]),solid:copy(solid),glow:copy(glow),instances:instanceData.slice(0,lastInstances),time:lastTime,punch:lastPunch,slow:lastSlow};s.bytes=[...s.batches,...s.caps].reduce((n,[,v])=>n+v.byteLength,0)+s.solid.byteLength+s.glow.byteLength+s.instances.byteLength;return s;},
+      restore(s,zoom=0){this.begin();const put=(b,v)=>{if(b.data.length<v.length)b.data=new Float32Array(v.length);b.data.set(v);b.n=v.length;};for(const [k,v] of s.batches)put(batch(k),v);for(const [k,v] of s.caps){if(!caps.has(k))caps.set(k,new Batch());put(caps.get(k),v);}put(solid,s.solid);put(glow,s.glow);this.render([],s.time,s.punch+zoom,true,s.instances);},
+      begin(){for(const b of [...batches.values(),...caps.values()])b.n=0;surface.n=solid.n=glow.n=0;},
       mesh(name,vertices,indices,color=[1,1,1,1]){const b=batch(name);for(const i of indices){const p=vertices[i];b.vertex(p.x,p.y,p.u,p.v,color,0);}},
+      cap(name,vertices,indices,mode=2,color=[1,1,1,1]){if(!caps.has(name))caps.set(name,new Batch());const b=caps.get(name);for(const i of indices){const p=vertices[i];b.vertex(p.x,p.y,p.x/128,p.y/128,color,mode,p.shade||0);}},
+      flash(a,b,width,color){line(a,b,width,color,glow);},
       polygon(name,vertices,color=[1,1,1,1]){this.mesh(name,vertices,L.slice.triangulate(vertices),color);},
       line,
       ribbon(a,b,width,color){const dx=b.x-a.x,dy=b.y-a.y,len=Math.hypot(dx,dy);if(len<.1)return;const nx=-dy/len*width,ny=dx/len*width,mx=a.x+dx*.72,my=a.y+dy*.72,p={x:mx+nx,y:my+ny},q={x:mx-nx,y:my-ny};triangle(solid,a,p,b,color);triangle(solid,a,b,q,color);},
-      face(a,b,width,material,energy=0){const dx=b.x-a.x,dy=b.y-a.y,len=Math.hypot(dx,dy);if(len<.1)return;const w=Math.min(width,len*.55),nx=-dy/len*w,ny=dx/len*w,outerA={x:a.x,y:a.y,u:0,v:0},outerB={x:b.x,y:b.y,u:len/150,v:0},innerA={x:a.x+nx,y:a.y+ny,u:0,v:1},innerB={x:b.x+nx,y:b.y+ny,u:len/150,v:1};const mode=material==='wax'?2:3;triangle(surface,outerA,outerB,innerB,[1,1,1,1],mode,energy);triangle(surface,outerA,innerB,innerA,[1,1,1,1],mode,energy);},
+      face(a,b,width,material){const dx=b.x-a.x,dy=b.y-a.y,len=Math.hypot(dx,dy);if(len<.1)return;const w=Math.min(width,len*.4),nx=-dy/len*w,ny=dx/len*w,pts=[{x:a.x,y:a.y,shade:0},{x:b.x,y:b.y,shade:0},{x:b.x+nx,y:b.y+ny,shade:1},{x:a.x+nx,y:a.y+ny,shade:1}];this.cap('xsec/'+material,pts,[0,1,2,0,2,3],material==='jelly'?3:2);line(a,b,material==='wax'?3:1.4,material==='wax'?[1,.66,.79,1]:[1,.9,1,.8]);},
       glow(x,y,r,color){const a={x:x-r,y:y-r,u:0,v:0},b={x:x+r,y:y-r,u:1,v:0},c={x:x+r,y:y+r,u:1,v:1},d={x:x-r,y:y+r,u:0,v:1};triangle(glow,a,b,c,color,4);triangle(glow,a,c,d,color,4);},
-      render(particles,time,punch,slow){
-        gl.bindFramebuffer(gl.FRAMEBUFFER,fbo);gl.viewport(0,0,720,1280);gl.clearColor(.039,.071,.091,1);gl.clear(gl.COLOR_BUFFER_BIT);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.useProgram(prog);gl.uniform1f(timeLoc,time);
-        for(const [name,b]of batches)drawBatch(b,texture(name));drawBatch(surface);drawBatch(solid);
+      render(particles,time,punch,slow,replayInstances=null){
+        gl.bindFramebuffer(gl.FRAMEBUFFER,fbo);gl.viewport(0,0,720,1280);gl.clearColor(.039,.071,.091,1);gl.clear(gl.COLOR_BUFFER_BIT);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.useProgram(prog);gl.uniform1f(timeLoc,time);gl.uniform1f(debugLoc,debug?1:0);
+        for(const [name,b]of batches)drawBatch(b,texture(name));for(const [name,b]of caps)drawBatch(b,texture(name));if(!debug){drawBatch(surface);drawBatch(solid);}
         if(particles.length*10>instanceData.length)instanceData=new Float32Array(2**Math.ceil(Math.log2(particles.length*10)));
         let n=0;for(const p of particles){instanceData[n++]=p.x;instanceData[n++]=p.y;instanceData[n++]=p.size;instanceData[n++]=p.angle;instanceData[n++]=p.color[0];instanceData[n++]=p.color[1];instanceData[n++]=p.color[2];instanceData[n++]=Math.min(1,p.life/.2)*p.color[3];instanceData[n++]=p.kind;instanceData[n++]=0;}
-        if(n){gl.useProgram(pprog);gl.bindVertexArray(pvao);gl.bindBuffer(gl.ARRAY_BUFFER,instances);gl.bufferData(gl.ARRAY_BUFFER,instanceData.subarray(0,n),gl.DYNAMIC_DRAW);gl.drawArraysInstanced(gl.TRIANGLES,0,6,n/10);}
-        gl.useProgram(prog);gl.blendFunc(gl.SRC_ALPHA,gl.ONE);drawBatch(glow);
+        if(replayInstances){if(instanceData.length<replayInstances.length)instanceData=new Float32Array(replayInstances.length);instanceData.set(replayInstances);n=replayInstances.length;}
+        lastInstances=n;lastTime=time;lastPunch=punch;lastSlow=slow;
+        if(n&&!debug){gl.useProgram(pprog);gl.bindTexture(gl.TEXTURE_2D,texture('fx/atlas'));gl.bindVertexArray(pvao);gl.bindBuffer(gl.ARRAY_BUFFER,instances);gl.bufferData(gl.ARRAY_BUFFER,instanceData.subarray(0,n),gl.DYNAMIC_DRAW);gl.drawArraysInstanced(gl.TRIANGLES,0,6,n/10);}
+        gl.useProgram(prog);gl.blendFunc(gl.SRC_ALPHA,gl.ONE);if(!debug)drawBatch(glow);
         gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.viewport(0,0,canvas.width,canvas.height);gl.disable(gl.BLEND);gl.useProgram(post);gl.bindVertexArray(null);gl.bindTexture(gl.TEXTURE_2D,target);gl.uniform1f(punchLoc,punch);gl.uniform1f(slowLoc,slow?1:0);gl.drawArrays(gl.TRIANGLES,0,3);
       }
     };
