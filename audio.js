@@ -8,8 +8,11 @@
     ice_crack: [.24, .72], ice_shatter: [.66, .72], squish_creak: [1.2, .48],
     squish_pop: [.44, .85], boss_layer_1: [.36, .82], boss_layer_2: [.43, .84],
     boss_layer_3: [.51, .86], boss_core: [.36, .80], boss_final: [1.5, .85],
-    slash_finisher: [.65, .60]
+    slash_finisher: [.65, .60], boss_thud: [.24, .8]
   };
+  const LEVELS = { wax_crack: -21, bubble_pop: -21, ice_crack: -21, jelly_wobble: -21, boss_core: -21,
+    boss_final: -17, squish_creak: -26, slash_finisher: -24, boss_thud: -21 };
+  const targetDB = name => LEVELS[name] === undefined ? -19 : LEVELS[name];
   function seeded(seed) {
     let s = seed >>> 0;
     return function () { s += 0x6D2B79F5; let t = Math.imul(s ^ s >>> 15, 1 | s); t ^= t + Math.imul(t ^ t >>> 7, 61 | t); return ((t ^ t >>> 14) >>> 0) / 4294967296; };
@@ -43,23 +46,29 @@
       }
     }
     function crackles(count, span, low, high, amp) {
-      grain(0, high, .0018, amp * 1.8, .012);
+      grain(0, high, .0018, amp * 2.4, .012);
       for (let j = 0; j < count; j++) {
-        const at = (j + rand() * .7) / count * span;
-        grain(at, low + rand() * (high - low), .001 + rand() * .003, amp * (1 - at / (span * 1.5)), .028);
+        const at = .009 + (j + rand() * .7) / count * span;
+        grain(at, low + rand() * (high - low), .001 + rand() * .003, amp * .26 * (1 - at / (span * 1.5)), .028);
       }
     }
-    function wet(amp, duration, offset = 0, low = 180) {
+    function wet(amp, duration, offset = 0, low = 650) {
       let lp = 0, bp = 0, phase = 0;
       const start = Math.round(offset * sampleRate), count = Math.min(data.length - start, Math.round(duration * sampleRate));
       for (let i = 0; i < count; i++) {
         const t = i / sampleRate, k = t / duration;
-        const formant = 2 * Math.sin(Math.PI * (low + 950 * Math.exp(-k * 5)) / sampleRate);
+        const formant = 2 * Math.sin(Math.PI * (low + 1750 * Math.exp(-k * 4)) / sampleRate);
         bp += formant * ((rand() * 2 - 1) - lp - .65 * bp);
         lp += formant * bp;
         phase += TAU * (60 + 110 * Math.exp(-k * 9)) / sampleRate;
         const env = Math.min(1, t / .0015) * Math.exp(-k * 5) * Math.min(1, (duration - t) / .02);
-        data[start + i] += amp * env * (lp * .65 + Math.sin(phase) * .32);
+        data[start + i] += amp * env * (bp * .8 + Math.sin(phase) * .035);
+      }
+      // Dense wet microbubbles: rapidly rising 700–3500 Hz resonances.
+      const grains = Math.ceil(duration * 180);
+      for (let j = 0; j < grains; j++) {
+        const at = j / grains * duration, hz = 1200 + rand() * 2300;
+        modal(offset + at, hz, .002 + rand() * .004, amp * .18 * Math.exp(-at / duration * 3), .025, -.40);
       }
     }
     if (name === 'wax_crack') crackles(2 + Math.floor(rand() * 4), .03, 2000, 6000, 1);
@@ -68,10 +77,11 @@
       if (name === 'wax_kill') wet(.9, .30, .035);
     }
     if (name === 'bubble_pop') {
-      for (let i = 0; i < sampleRate * .0012; i++) data[i] += (rand() * 2 - 1) * .7 * Math.exp(-i / 12);
-      modal(0, 400 + rand() * 280, .012, 1, .07, .9);
+      // The plastic snap is <3 ms; the much smaller plip supplies pitch.
+      grain(0, 3100 + variation * 650, .00065, 3.5, .0028);
+      modal(.001, 1050 + variation * 210, .006, .20, .055, .75);
     }
-    if (name === 'jelly_wobble' || name === 'boss_core') wet(1, SPECS[name][0], 0, 120);
+    if (name === 'jelly_wobble' || name === 'boss_core') wet(1, SPECS[name][0]);
     if (name === 'jelly_splat' || name === 'squish_pop') {
       wet(1.2, SPECS[name][0]);
       crackles(6, .038, 700, 2400, .35);
@@ -83,13 +93,14 @@
       if (name === 'ice_shatter') for (let i = 0; i < 12; i++) modal(.015 + rand() * .29, 2200 + rand() * 4900, .025 + rand() * .04, .06);
     }
     if (name === 'squish_creak') {
-      let lp = 0, lp2 = 0, phase = 0;
+      let lp = 0, bp = 0;
       for (let i = 0; i < data.length; i++) {
         const t = i / sampleRate;
-        lp += .065 * ((rand() * 2 - 1) - lp); lp2 += .065 * (lp - lp2);
-        phase += TAU * (98 + 25 * Math.sin(TAU * t / 1.2)) / sampleRate;
-        data[i] = (lp2 * 1.4 + Math.sin(phase) * .035) * (.65 + .35 * Math.sin(TAU * t * 9) ** 2);
+        const f = 2 * Math.sin(Math.PI * (1400 + 650 * Math.sin(TAU * t / 1.2)) / sampleRate);
+        bp += f * ((rand() * 2 - 1) - lp - .8 * bp); lp += f * bp;
+        data[i] = bp * (.65 + .35 * Math.sin(TAU * t * 9) ** 2);
       }
+      for (let i = 0; i < 170; i++) modal(i / 170 * 1.18, 1200 + rand() * 2200, .004, .16, .024, -.4);
       // Equal-power seam blend; a long loop with no abrupt sample discontinuity.
       const overlap = Math.round(.04 * sampleRate);
       for (let i = 0; i < overlap; i++) {
@@ -99,36 +110,64 @@
     }
     if (name.startsWith('boss_layer_')) {
       const layer = Number(name.slice(-1));
-      crackles(15 + layer * 5, .10 + layer * .035, 700 / layer, 4500 / (layer * .7), 1);
-      wet(.25 + layer * .15, .23 + layer * .05, 0, 160 / layer);
-      modal(0, 170 / layer, .045 + layer * .01, .30);
+      crackles(15 + layer * 5, .10 + layer * .035, 900, 4700 - layer * 450, 1);
+      wet(.25 + layer * .15, .23 + layer * .05);
+      modal(0, 170 / layer, .045 + layer * .01, .06);
     }
     if (name === 'boss_final') {
-      wet(.75, .38);
-      [261.626, 329.628, 391.995, 493.883].forEach((hz, i) => {
-        modal(.003, hz, .38 + i * .04, .095, 1.49);
-        modal(.006, hz * 2, .24 + i * .02, .028, 1.4);
+      wet(.75, .38); crackles(28, .23, 1100, 3500, .7);
+      [523.251, 659.255, 783.991, 987.767].forEach((hz, i) => {
+        modal(.003, hz / tuning, .43 + i * .025, .22, 1.49);
+        modal(.006, hz * 2 / tuning, .32 + i * .02, .035, 1.4);
       });
       for (let i = 0; i < 10; i++) modal(.03 + i * .055, 1046.5 * [1, 1.25, 1.5, 1.875][i % 4], .075, .014);
     }
+    if (name === 'boss_thud') {
+      modal(0, 160, .04, .22, .23, .6);
+      [660, 910, 1320].forEach(hz => modal(0, hz, .022, .30, .22, .25));
+      wet(.22, .13);
+    }
     if (name === 'slash_finisher') [1046.5, 1318.5, 1568, 2093].forEach((hz, i) => modal(i * .035, hz, .08, .12));
-    // Remove DC, fade edges, then peak-normalize with material-specific trims.
+    // Fast attack + controlled sustain: secondary grains never bury the fracture.
+    const fracture = name !== 'squish_creak' && name !== 'slash_finisher';
+    if (fracture && name !== 'bubble_pop') {
+      grain(0, name.startsWith('ice') ? 4800 : 2600, .0015, 2.8, .009);
+    }
+    if (fracture) {
+      let headPower = 0;
+      const window = Math.round(sampleRate * .001);
+      for (let i = 0; i < Math.round(sampleRate * .006); i++) {
+        let p = 0; for (let j = 0; j < window; j++) p += data[i + j] ** 2;
+        headPower = Math.max(headPower, p / window);
+      }
+      const ceiling = Math.sqrt(headPower) * .72;
+      for (let i = Math.round(sampleRate * .006); i < data.length; i++) {
+        const blend = Math.min(1, (i / sampleRate - .006) / .002);
+        data[i] += (ceiling * Math.tanh(data[i] / ceiling) - data[i]) * blend;
+      }
+    }
+    // Remove DC, fade edges, RMS150 normalize through a gentle saturation ceiling.
     let mean = 0;
     for (let i = 0; i < data.length; i++) mean += data[i];
     mean /= data.length;
     const click = /^(wax_|ice_|bubble_|boss_layer)/.test(name);
     const attack = Math.max(1, Math.round(sampleRate * (click ? .00006 : .0015)));
     const tail = Math.round(sampleRate * .008);
-    let peak = 0;
     for (let i = 0; i < data.length; i++) {
       data[i] = (data[i] - mean) * Math.min(1, i / attack) * Math.min(1, (data.length - 1 - i) / tail);
-      peak = Math.max(peak, Math.abs(data[i]));
     }
-    const scale = Math.pow(10, -6 / 20) * SPECS[name][1] / (peak || 1);
-    for (let i = 0; i < data.length; i++) data[i] *= scale;
+    const count150 = Math.round(sampleRate * .15), measured = Math.min(count150, data.length);
+    const ceiling = Math.pow(10, -3.1 / 20), targetPower = Math.pow(10, targetDB(name) / 10);
+    let lo = 0, hi = 100;
+    for (let step = 0; step < 24; step++) {
+      const gain = (lo + hi) / 2; let power = 0;
+      for (let i = 0; i < measured; i++) power += (ceiling * Math.tanh(data[i] * gain / ceiling)) ** 2;
+      if (power / count150 < targetPower) lo = gain; else hi = gain;
+    }
+    for (let i = 0; i < data.length; i++) data[i] = ceiling * Math.tanh(data[i] * (lo + hi) / 2 / ceiling);
     return data;
   }
-  const DSP = { SPECS, variations: 3, seeded, render };
+  const DSP = { SPECS, variations: 3, seeded, render, targetDB };
   if (typeof module !== 'undefined' && module.exports) module.exports = DSP;
   if (typeof window === 'undefined') return;
   const ASMR = root.ASMR = root.ASMR || {};

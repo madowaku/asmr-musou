@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
-import { mkdir } from 'node:fs/promises';
+import { mkdir, mkdtemp, cp, rm } from 'node:fs/promises';
+import os from 'node:os';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import path from 'node:path';
 import { chromium } from 'playwright';
@@ -38,11 +39,11 @@ try {
     for (let v = 0; v < 3; v++) {
       const a = DSP.render(name, v), b = DSP.render(name, v); assert.deepEqual(a, b);
       let peak = 0, power = 0; for (const value of a) { assert(Number.isFinite(value)); peak = Math.max(peak, Math.abs(value)); power += value * value; }
-      assert(peak > .01 && peak < 10 ** (-1 / 20)); assert(power > .001);
+      assert(peak > .01 && peak <= 10 ** (-3 / 20)); assert(power > .001);
     }
     assert.notDeepEqual(DSP.render(name, 0), DSP.render(name, 1));
   }
-  ok('48 deterministic, distinct, finite, non-silent synthetic buffers; peaks below -1 dBFS');
+  ok('51 deterministic, distinct, finite, non-silent synthetic buffers; peaks below -3 dBFS');
   const context = await browser.newContext({ viewport: { width: 412, height: 915 }, deviceScaleFactor: 1, offline: true });
   await context.addInitScript(() => {
     window.__vibrations = [];
@@ -51,9 +52,19 @@ try {
   const page = await context.newPage(); observe(page); await page.goto(url);
   assert(await page.locator('#menu').isVisible()); assert.equal((await stats(page)).ready, false);
   await screenshot(page, 'title'); await page.locator('#start').click();
-  assert.equal((await state(page)).state, 'play'); assert.equal((await stats(page)).rendered, 48);
+  assert.equal((await state(page)).state, 'play'); assert.equal((await stats(page)).rendered, 51);
+  const art = await page.evaluate(() => __asmrTest.artStats());
+  assert(art.settled); assert.equal(art.scales, 10); assert(Object.values(art.states).every(s => s === 'ready'));
   const first = await state(page); assert(first.enemies.some(e => e.type === 'wax')); assert.equal(first.enemies.filter(e => e.type === 'bubble').length, 3);
-  assert(first.enemies.length <= 8); await screenshot(page, 'play'); ok('file:// offline menu → gesture starts audio and guaranteed opening group');
+  assert(first.enemies.length <= 8); await page.waitForTimeout(250); await screenshot(page, 'play'); ok('file:// offline menu → gesture starts audio and guaranteed opening group');
+  await page.evaluate(() => __asmrTest.showcase()); await screenshot(page, 'sprites_states');
+  const shown = await state(page); assert.deepEqual(shown.enemies.map(e => e.sprite), ['wax_0', 'wax_1', 'wax_2', 'bubble_0', 'jelly_0', 'ice_0', 'ice_1']);
+  const edge = shown.enemies[0];
+  assert.equal(await page.evaluate(e => __asmrTest.hitAt(e.x + e.r * 1.04, e.y), edge), false);
+  assert.equal(await page.evaluate(e => __asmrTest.hitAt(e.x + e.r * .90, e.y), edge), true);
+  assert((await state(page)).enemies[0].glint > 0); await screenshot(page, 'sprite_fracture');
+  await page.waitForTimeout(100); assert.equal((await state(page)).enemies[0].glint, 0);
+  ok('10 sprites cached once; state mapping, visible hit edge and 60ms fracture flash');
 
   await clear(page); const wax = await spawn(page, 'wax');
   for (const stage of [1, 2]) { assert(await hit(page, wax)); assert.equal((await state(page)).enemies.find(e => e.id === wax).stage, stage); }
@@ -99,23 +110,25 @@ try {
 
   await page.evaluate(() => __asmrTest.start()); const bossKills = (await state(page)).kills;
   const boss = await bossReady(page); let s = await state(page);
-  assert(s.enemies.every(e => e.type === 'boss')); assert(s.kills - bossKills >= 7); assert.equal(boss.y, 560);
+  assert(s.enemies.every(e => e.type === 'boss')); assert(s.kills - bossKills >= 7); assert.equal(boss.y, 640);
+  assert.equal(boss.r, 150); assert.equal(boss.sprite, 'boss_0'); assert((await stats(page)).started.boss_thud >= 1);
   await page.waitForTimeout(950); await screenshot(page, 'boss_act1');
   for (let i = 1; i <= 9; i++) {
     await hit(page, boss.id); s = await state(page); const b = s.enemies.find(e => e.id === boss.id);
     assert.equal(b.stage, i); assert.equal(b.layer, Math.floor(i / 3));
     if (i % 3 === 0) { assert(s.freeze > .10 && s.freeze <= .18); await page.waitForTimeout(210); }
+    if (i === 3) { assert.equal(b.sprite, 'boss_1'); await page.waitForTimeout(400); await screenshot(page, 'boss_damaged'); }
   }
-  assert.equal((await state(page)).enemies[0].act, 2); await page.waitForTimeout(850); await screenshot(page, 'boss_core');
+  assert.equal((await state(page)).enemies[0].act, 2); assert.equal((await state(page)).enemies[0].sprite, 'boss_2'); await page.waitForTimeout(850); await screenshot(page, 'boss_core');
   for (let i = 0; i < 4; i++) await hit(page, boss.id);
   s = await state(page); assert(s.bossDefeated); assert(s.slow > 0); assert(!s.enemies.some(e => e.type === 'boss'));
   await page.waitForTimeout(140); await screenshot(page, 'boss_final');
   for (const name of ['boss_layer_1', 'boss_layer_2', 'boss_layer_3', 'boss_core', 'boss_final']) assert((await stats(page)).started[name] >= 1);
-  ok('32s boss clears small enemies, parks at 560; 3×3 shell → 4-tap core → final slow-mo');
+  ok('32s boss clears small enemies, lands at 640 with thud; 3×3 shell → 4-tap core → final slow-mo');
 
   await page.evaluate(() => __asmrTest.start()); const heldBoss = await bossReady(page);
   for (let i = 0; i < 9; i++) await hit(page, heldBoss.id);
-  point = await screenPoint(page, 360, 560); await page.mouse.move(point.x, point.y); await page.mouse.down(); await page.waitForTimeout(650); await page.mouse.up();
+  point = await screenPoint(page, 360, 640); await page.mouse.move(point.x, point.y); await page.mouse.down(); await page.waitForTimeout(650); await page.mouse.up();
   assert((await state(page)).bossDefeated); ok('one real hold defeats exposed boss core');
 
   await page.locator('#sound').click(); const muted = (await stats(page)).started;
@@ -139,12 +152,36 @@ try {
     await page.evaluate(t => __asmrTest.skipTo(t), time); const before = await state(page); await page.waitForTimeout(1550);
     const after = await state(page); assert(after.enemies.length <= cap); assert(after.particles <= 600);
     for (const e of after.enemies) {
-      assert(e.y >= 340, 'no target parked under HUD');
+      assert(e.y >= 300, 'no target parked under HUD');
       const previous = before.enemies.find(p => p.id === e.id); if (previous) assert(e.y <= previous.y && previous.y - e.y < 100, 'continuous drift, no teleport');
     }
   }
   ok('wave density caps 8/10/12, HUD clearance, continuous upward drift and particle bound');
+  assert.equal((await page.evaluate(() => __asmrTest.artStats())).scales, 10, 'no per-frame rescaling');
+  await page.goto(url + '&debug=1'); await page.locator('#start').click(); await page.evaluate(() => __asmrTest.showcase());
+  await screenshot(page, 'hitbox_debug');
   await context.close();
+
+  // Real missing file in a disposable file:// fixture, not a mocked Image result.
+  const fixture = await mkdtemp(path.join(os.tmpdir(), 'asmr-missing-'));
+  try {
+    for (const file of ['index.html', 'style.css', 'audio.js', 'sprites.js', 'game.js']) await cp(path.join(root, file), path.join(fixture, file));
+    await mkdir(path.join(fixture, 'assets/art'), { recursive: true });
+    for (const key of Object.keys(art.states)) if (key !== 'wax_1') await cp(path.join(root, 'assets/art', key + '.png'), path.join(fixture, 'assets/art', key + '.png'));
+    const missing = await browser.newPage({ offline: true, viewport: { width: 412, height: 915 } }), warnings = [], resourceErrors = [];
+    missing.on('pageerror', e => errors.push(String(e)));
+    missing.on('console', m => { if (m.type() === 'warning') warnings.push(m.text()); if (m.type() === 'error') resourceErrors.push(m.text()); });
+    await missing.goto(pathToFileURL(path.join(fixture, 'index.html')).href); await missing.locator('#start').click();
+    await clear(missing); const id = await spawn(missing, 'wax'); await hit(missing, id); await missing.waitForTimeout(200);
+    assert.equal((await missing.evaluate(() => __asmrTest.artStats())).states.wax_1, 'fallback');
+    assert.equal(warnings.filter(w => w.includes('wax_1')).length, 1);
+    assert(resourceErrors.every(e => e.includes('net::ERR_FILE_NOT_FOUND')), 'only intentional browser missing-resource diagnostic');
+    await screenshot(missing, 'missing_sprite_fallback'); await hit(missing, id); assert.equal((await state(missing)).enemies[0].sprite, 'wax_2');
+    await missing.close(); ok('missing wax_1 PNG: one warning, procedural damaged state, next sprite state works');
+  } finally {
+    assert.equal(path.dirname(fixture), path.resolve(os.tmpdir())); assert(path.basename(fixture).startsWith('asmr-missing-'));
+    await rm(fixture, { recursive: true, force: true });
+  }
 
   for (const viewport of [{ width: 360, height: 640 }, { width: 412, height: 915 }]) {
     const mobile = await browser.newContext({ viewport, hasTouch: true, isMobile: true, deviceScaleFactor: 1, offline: true });
@@ -152,7 +189,7 @@ try {
     const id = await spawn(p, 'wax'); point = await screenPoint(p, 360, 650);
     for (const stage of [1, 2]) { await p.touchscreen.tap(point.x, point.y); assert.equal((await state(p)).enemies.find(e => e.id === id).stage, stage); }
     await p.touchscreen.tap(point.x, point.y); assert(!(await state(p)).enemies.some(e => e.id === id));
-    await p.evaluate(() => __asmrTest.start()); await screenshot(p, 'mobile_' + viewport.width);
+    await p.evaluate(() => __asmrTest.start()); await p.waitForTimeout(250); await screenshot(p, 'mobile_' + viewport.width);
     const box = await p.locator('#shell').boundingBox(); assert(box.x >= 0 && box.y >= 0 && box.width <= viewport.width && box.height <= viewport.height + 1);
     await p.setViewportSize({ width: 915, height: 412 }); assert(await p.locator('.rotate-message').isVisible());
     await p.setViewportSize(viewport); assert(!(await p.locator('.rotate-message').isVisible())); await mobile.close();

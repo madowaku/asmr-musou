@@ -37,18 +37,22 @@ def spectrogram(x, sr, n_fft=512, hop=64):
 
 rows = []
 files = sorted(glob.glob(os.path.join(wav_dir, "*.wav")))
-print(f"{'file':34s} {'dur_ms':>7s} {'peak':>6s} {'rms':>6s} {'crest':>6s} {'atk_ms':>6s} {'cent_Hz':>8s} {'>9k%':>5s}")
+print(f"{'file':34s} {'dur_ms':>7s} {'peak':>6s} {'RMS150':>7s} {'phone%':>7s} {'2-8k%':>7s} {'peak_ms':>7s} {'cent_Hz':>8s} {'>9k%':>5s}")
 for f in files:
     sr, x = load(f)
     peak = float(np.max(np.abs(x))) if len(x) else 0
-    rms = float(np.sqrt(np.mean(x ** 2))) if len(x) else 0
-    env = np.abs(x)
-    atk = int(np.argmax(env >= 0.9 * peak)) / sr * 1000 if peak > 0 else 0
+    n150 = round(sr * .15)
+    rms = float(np.sqrt(np.sum(x[:n150] ** 2) / n150)) if len(x) else 0
+    window = round(sr * .001)
+    power_windows = np.convolve(x.astype(np.float64) ** 2, np.ones(window), mode='valid')
+    atk = int(np.argmax(power_windows)) / sr * 1000 if peak > 0 else 0
     spec = np.abs(np.fft.rfft(x)) ** 2
     freqs = np.fft.rfftfreq(len(x), 1 / sr)
     cent = float((spec * freqs).sum() / max(spec.sum(), 1e-12))
     hi = float(spec[freqs > 9000].sum() / max(spec.sum(), 1e-12) * 100)
-    print(f"{os.path.basename(f):34s} {len(x)/sr*1000:7.0f} {db(peak):6.1f} {db(rms):6.1f} {db(peak)-db(rms):6.1f} {atk:6.1f} {cent:8.0f} {hi:5.1f}")
+    phone = float(spec[(freqs >= 500) & (freqs <= 8000)].sum() / max(spec.sum(), 1e-12) * 100)
+    snap = float(spec[(freqs >= 2000) & (freqs <= 8000)].sum() / max(spec.sum(), 1e-12) * 100)
+    print(f"{os.path.basename(f):34s} {len(x)/sr*1000:7.0f} {db(peak):6.1f} {db(rms):7.1f} {phone:7.1f} {snap:7.1f} {atk:7.2f} {cent:8.0f} {hi:5.1f}")
     rows.append((os.path.basename(f), sr, x))
 
 # contact sheet: each row = name + waveform + spectrogram (0-16 kHz, 0-1.6 s)

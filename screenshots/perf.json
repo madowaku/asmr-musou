@@ -1,0 +1,14 @@
+{
+  "scenario": "10s continuous pointer swipes; 12 enemies + boss replenished each frame (inside measured time); audio ON",
+  "chrome": "158.0.8127.36",
+  "throttle": 4,
+  "durationMs": 10139,
+  "frames": 731,
+  "swipes": 36,
+  "maxParticles": 360,
+  "minEnemies": 13,
+  "averageMs": 3.968262654322769,
+  "p95Ms": 5.600000008940697,
+  "maxMs": 32.20000000298023,
+  "scope": "performance.now around update+draw in rAF; excludes GPU raster/compositing and pointer dispatch; CPU approximation, not Android hardware proof"
+}

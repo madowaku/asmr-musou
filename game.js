@@ -2,29 +2,43 @@
   'use strict';
   const canvas = document.querySelector('#game'), ctx = canvas.getContext('2d', { alpha: false });
   const $ = id => document.getElementById(id);
-  const W = 720, H = 1280, TOTAL = 45, TAU = Math.PI * 2, MAX_PARTICLES = 600;
+  const W = 720, H = 1280, TOTAL = 45, TAU = Math.PI * 2, MAX_PARTICLES = 360, PLAY_TOP = 300;
   const seed = Number(new URLSearchParams(location.search).get('seed')) || 937;
   const ASMR = window.ASMR, audio = ASMR.createAudio(seed);
   let random = ASMR.AudioDSP.seeded(seed);
   const rnd = (a, b) => a + random() * (b - a);
   const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
   const COLORS = { wax: ['#ffe0e9', '#f49fc1', '#ae5788'], bubble: ['#e4fff5', '#73ded2', '#2c9ba8'], jelly: ['#e8d8ff', '#b39aee', '#7659bc'], ice: ['#e5f8ff', '#8ac9f4', '#557cbf'], boss: ['#fff2cf', '#efbc91', '#bd7f97'] };
-  // Future art: loaded Images by material/stage. Boss: shell_0_0..shell_2_2, core_0..core_3.
-  const SPRITES = ASMR.SPRITES = ASMR.SPRITES || {};
-  const enemies = [], particles = [], texts = [], ripples = [], strokes = [], pending = [];
+  const art = ASMR.art, debug = new URLSearchParams(location.search).get('debug') === '1';
+  let artReady = false;
+  $('start').disabled = true;
+  art.ready.then(() => {
+    artReady = true; $('start').disabled = false;
+    for (const type of ['bubble', 'wax', 'jelly']) {
+      const sprite = art.get({ type, stage: 0, r: art.radii[type] });
+      if (!sprite) continue;
+      const icon = document.createElement('canvas'); icon.width = icon.height = sprite.size;
+      icon.getContext('2d').drawImage(sprite.surface, 0, 0); document.querySelector('.decor').appendChild(icon);
+    }
+  });
+  const DEBRIS = { wax: '#f69cbb', bubble: '#9ae8cd', jelly: '#c6a3ed', ice: '#b5e5ff', boss: '#edb44f' };
+  const enemies = [], particles = [], texts = [], ripples = [], strokes = [], pending = [], flashes = [];
+  let profiling = false;
+  const frameTimes = [];
+  let profileMinEnemies = Infinity;
   const pointers = new Map();
   let state = 'menu', elapsed = 0, clock = 0, score = 0, kills = 0, combo = 0, maxCombo = 0;
   let uid = 1, lastKill = -5, spawnClock = 0, bossSpawned = false, bossDefeated = false;
   let wave = 1, freeze = 0, slow = 0, punch = 0, shake = 0, lastFrame = 0, soundOn = true, hudClock = 0;
   let lastStroke = { hits: 0, pitches: [] };
   function createEnemy(type, x, y, stationary = false) {
-    const r = type === 'boss' ? 128 : type === 'bubble' ? 45 : type === 'jelly' ? 59 : type === 'ice' ? 51 : 56;
+    const r = art.radii[type];
     return { id: uid++, type, x, y, r, stage: 0, act: type === 'boss' ? 1 : 0, layer: 0,
       vx: stationary ? 0 : rnd(-9, 9), vy: stationary ? 0 : -rnd(28, 48), phase: rnd(0, TAU),
-      jiggle: 0, velocity: 0, pressure: 0, glint: 0, dead: false, queued: false, entering: false, owner: null };
+      jiggle: 0, velocity: 0, pressure: 0, glint: 0, age: stationary ? 1 : 0, stationary, dead: false, queued: false, entering: false, owner: null };
   }
   function addEnemy(type, x, y, stationary = false) { const e = createEnemy(type, x, y, stationary); enemies.push(e); return e; }
-  function burst(e, count, power, shape, color = COLORS[e.type][0]) {
+  function burst(e, count, power, shape, color = DEBRIS[e.type]) {
     count = Math.min(count, MAX_PARTICLES - particles.length);
     for (let i = 0; i < count; i++) {
       const a = rnd(0, TAU), speed = rnd(power * .25, power), life = rnd(.45, 1.05);
@@ -64,7 +78,8 @@
   // Sole damage transition: art, debris, sound, ripple and hit-stop share this call.
   function fracture(e, stage, cause = 'tap', pitch = 0) {
     if (!e || e.dead || stage <= e.stage) return false;
-    e.stage = Math.min(stage, endStage(e)); e.queued = false; e.glint = .22; e.velocity = -5; e.jiggle = -.12;
+    const before = { ...e };
+    e.stage = Math.min(stage, endStage(e)); e.queued = false; e.glint = .06; e.velocity = -5; e.jiggle = -.12;
     let name, killed = e.stage === endStage(e), layerBreak = false;
     if (e.type === 'boss') {
       e.layer = Math.min(3, Math.floor(e.stage / 3)); e.act = killed ? 3 : e.stage >= 9 ? 2 : 1;
@@ -83,8 +98,9 @@
     if (cause === 'curtain') name = 'bubble_pop';
     audio.play(name, { pitch });
     if (killed) {
+      flashes.push({ ...before, glint: .06 });
       e.dead = true; e.owner = null; e.pressure = 0; award(e);
-      burst(e, e.type === 'boss' ? 110 : 24, e.type === 'boss' ? 420 : 225, e.type === 'ice' ? 'shard' : 'drop', e.type === 'wax' || e.type === 'boss' ? '#f6b7d4' : COLORS[e.type][0]);
+      burst(e, e.type === 'boss' ? 110 : 24, e.type === 'boss' ? 420 : 225, e.type === 'ice' ? 'shard' : 'drop', e.type === 'boss' ? '#f4b6a9' : DEBRIS[e.type]);
       if (e.type === 'boss') {
         bossDefeated = true; freeze = 0; slow = Math.max(slow, .45); burst(e, 70, 510, 'glitter', '#fff2b6'); popup(W / 2, 380, 'BOSS DOWN!', '#fff3b8', 1.7);
       } else if (cause !== 'curtain') popup(e.x, e.y - e.r, cause === 'hold' ? 'むぎゅっ' : { wax: 'パリッ', bubble: 'プチッ', jelly: 'ぷちゅっ', ice: 'パリン' }[e.type], COLORS[e.type][0]);
@@ -100,12 +116,21 @@
     return fracture(e, cause === 'hold' && (e.type !== 'boss' || e.act === 2) ? endStage(e) : e.stage + 1, cause, pitch);
   }
   function targetAt(x, y) {
-    if (y < 340) return null;
+    if (y < PLAY_TOP) return null;
     for (let i = enemies.length - 1; i >= 0; i--) {
-      const e = enemies[i]; if (!e.dead && !e.queued && !e.entering && e.y - e.r >= 340 && Math.hypot(x - e.x, y - e.y) < e.r * 1.12) return e;
+      const e = enemies[i]; if (!e.dead && !e.queued && !e.entering && e.y - e.r >= PLAY_TOP && inside(e, x, y)) return e;
     }
     return null;
   }
+  function shape(e) {
+    const sy = clamp(1 - e.pressure * .38 + e.jiggle, .52, 1.3);
+    return { sx: 1 + (1 - sy) * .87, sy, angle: Math.sin(clock * 12 + e.phase) * e.pressure * .024 };
+  }
+  function local(e, x, y) {
+    const { sx, sy, angle } = shape(e), dx = x - e.x, dy = y - e.y;
+    return { x: (dx * Math.cos(angle) + dy * Math.sin(angle)) / sx, y: (-dx * Math.sin(angle) + dy * Math.cos(angle)) / sy };
+  }
+  function inside(e, x, y) { const p = local(e, x, y); return Math.hypot(p.x, p.y) <= e.r * .98; }
   function releaseTarget(p) {
     if (p.target && p.target.owner === p.id) {
       p.target.jiggle = clamp(p.target.jiggle - p.target.pressure * .38, -.4, .3);
@@ -119,11 +144,12 @@
   }
   const pentatonic = n => Math.min(24, Math.floor(n / 5) * 12 + [0, 2, 4, 7, 9][n % 5]);
   function slash(p, x1, y1, x2, y2) {
-    const dx = x2 - x1, dy = y2 - y1, length2 = dx * dx + dy * dy, hits = [];
+    const hits = [];
     for (const e of enemies) {
       if (e.dead || e.queued || e.entering || p.hit.has(e.id)) continue;
-      const t = clamp(((e.x - x1) * dx + (e.y - y1) * dy) / (length2 || 1), 0, 1);
-      if (e.y - e.r >= 340 && Math.hypot(e.x - x1 - t * dx, e.y - y1 - t * dy) < e.r) hits.push({ e, t });
+      const a = local(e, x1, y1), b = local(e, x2, y2), dx = b.x - a.x, dy = b.y - a.y;
+      const t = clamp((-a.x * dx - a.y * dy) / (dx * dx + dy * dy || 1), 0, 1);
+      if (e.y - e.r >= PLAY_TOP && Math.hypot(a.x + t * dx, a.y + t * dy) <= e.r * .98) hits.push({ e, t });
     }
     hits.sort((a, b) => a.t - b.t);
     for (const { e } of hits) { const pitch = pentatonic(p.hit.size); if (strike(e, 'slash', pitch)) { p.hit.add(e.id); p.pitches.push(pitch); } }
@@ -163,15 +189,16 @@
   window.addEventListener('blur', cancelPointers);
   document.addEventListener('visibilitychange', () => { if (document.hidden) cancelPointers(); lastFrame = 0; });
   function begin() {
+    if (!artReady) return;
     audio.stopAll();
     if (!audio.init()) { soundOn = false; audio.setEnabled(false); $('sound').textContent = '🔇'; $('sound').title = '音声を開始できませんでした。タップして再試行'; }
-    cancelPointers(); enemies.length = particles.length = texts.length = ripples.length = strokes.length = pending.length = 0;
+    cancelPointers(); enemies.length = particles.length = texts.length = ripples.length = strokes.length = pending.length = flashes.length = 0;
     random = ASMR.AudioDSP.seeded(seed); elapsed = clock = score = kills = combo = maxCombo = 0;
     uid = 1; lastKill = -5; spawnClock = 1; bossSpawned = bossDefeated = false; wave = 1;
     freeze = slow = punch = shake = lastFrame = 0; lastStroke = { hits: 0, pitches: [] }; state = 'play';
     $('menu').classList.add('hidden'); $('result').classList.add('hidden'); $('hud').classList.remove('hidden');
-    addEnemy('wax', 355, 560); addEnemy('wax', 140, 470); addEnemy('bubble', 245, 790); addEnemy('bubble', 350, 835);
-    addEnemy('bubble', 455, 790); addEnemy('jelly', 165, 1060); addEnemy('jelly', 565, 1010); refreshHUD();
+    addEnemy('wax', 355, 590); addEnemy('wax', 140, 425); addEnemy('bubble', 230, 805); addEnemy('bubble', 360, 860);
+    addEnemy('bubble', 490, 805); addEnemy('jelly', 160, 1110); addEnemy('jelly', 560, 1080); refreshHUD();
   }
   function finish() {
     if (state !== 'play') return; state = 'result'; cancelPointers(); pending.length = texts.length = strokes.length = 0; freeze = slow = 0;
@@ -205,9 +232,17 @@
   function compact(list, tick) { let n = 0; for (let i = 0; i < list.length; i++) if (tick(list[i])) list[n++] = list[i]; list.length = n; }
   function spawnDrifter() {
     const types = bossDefeated ? ['bubble', 'jelly'] : wave === 1 ? ['wax', 'bubble', 'jelly'] : ['wax', 'bubble', 'jelly', 'ice'];
-    const type = types[Math.floor(rnd(0, types.length))], side = rnd(0, 1);
-    const e = addEnemy(type, side < .6 ? rnd(90, 630) : side < .8 ? -65 : W + 65, side < .6 ? H + 65 : rnd(440, 1060));
-    if (side >= .6) { e.vx = side < .8 ? rnd(25, 45) : -rnd(25, 45); e.vy = -rnd(8, 22); }
+    const type = types[Math.floor(rnd(0, types.length))], side = rnd(0, 1), r = art.radii[type];
+    let best, clearance = -Infinity;
+    for (let i = 0; i < 20; i++) {
+      const x = side < .6 ? rnd(85, 635) : side < .8 ? r + 12 : W - r - 12;
+      const y = side < .6 ? rnd(990, 1150) : rnd(440, 1150);
+      const gap = Math.min(...enemies.filter(e => !e.dead).map(e => Math.hypot(x - e.x, y - e.y) - .85 * (r + e.r)));
+      if (gap > clearance) { clearance = gap; best = { x, y }; }
+    }
+    if (clearance < 0) return;
+    const e = addEnemy(type, best.x, best.y);
+    if (side >= .6) { e.vx = side < .8 ? rnd(10, 22) : -rnd(10, 22); e.vy = -rnd(14, 26); }
   }
   function update(dt) {
     clock += dt; const stopped = freeze > 0;
@@ -216,6 +251,7 @@
     punch *= Math.exp(-dt * 14); shake *= Math.exp(-dt * 20);
     compact(particles, p => { p.life -= sim; p.x += p.vx * sim; p.y += p.vy * sim; p.vy += (p.shape === 'drop' ? 260 : 530) * sim; p.angle += p.spin * sim; return p.life > 0; });
     compact(texts, t => { t.life -= dt; t.y -= dt * 25; return t.life > 0; });
+    compact(flashes, e => (e.glint -= dt) > 0);
     compact(ripples, r => (r.life -= dt) > 0); compact(strokes, s => (s.life -= dt) > 0);
     if (state !== 'play') return;
     elapsed = Math.min(TOTAL, elapsed + dt); checkTime(); if (state !== 'play') { refreshHUD(); return; }
@@ -231,14 +267,23 @@
     let live = 0;
     for (const e of enemies) {
       if (e.dead) continue; if (e.type !== 'boss') live++;
+      e.age += dt;
       if (e.entering) {
-        e.y += (560 - e.y) * Math.min(1, enemySim * 7);
-        if (clock >= e.entryEnd && e.y > 551) { e.entering = false; e.y = 560; }
+        const t = clamp((clock - e.entryStart) / (e.entryEnd - e.entryStart), 0, 1);
+        e.y = 285 + (640 - 285) * t * t;
+        if (t === 1) { e.entering = false; e.y = 640; e.jiggle = -.30; e.velocity = 2; audio.play('boss_thud'); ripple(e, true); requestStop(.06, true); }
       } else if (e.owner === null && e.type !== 'boss') { e.x += e.vx * enemySim; e.y += e.vy * enemySim; }
       e.velocity += (-170 * e.jiggle - 13 * e.velocity) * enemySim;
       e.jiggle = clamp(e.jiggle + e.velocity * enemySim, -.40, .30); e.glint = Math.max(0, e.glint - dt);
     }
-    compact(enemies, e => !e.dead && (e.type === 'boss' || (e.y > 340 + e.r && e.y < H + 150 && e.x > -150 && e.x < W + 150)));
+    // Gentle lateral separation; upward drift remains continuous and predictable.
+    for (let i = 0; i < enemies.length; i++) for (let j = i + 1; j < enemies.length; j++) {
+      const a = enemies[i], b = enemies[j];
+      if (a.dead || b.dead || a.stationary || b.stationary || a.owner !== null || b.owner !== null) continue;
+      const dy = a.y - b.y, distance = Math.hypot(a.x - b.x, dy), gap = .85 * (a.r + b.r) - distance;
+      if (gap > 0) { const push = Math.min(gap * .5, enemySim * 35) * (a.x > b.x ? 1 : -1); a.x = clamp(a.x + push, a.r, W - a.r); b.x = clamp(b.x - push, b.r, W - b.r); }
+    }
+    compact(enemies, e => !e.dead && (e.type === 'boss' || (e.y > PLAY_TOP + e.r && e.y < H + 150 && e.x > -150 && e.x < W + 150)));
     spawnClock -= dt; const cap = bossDefeated ? 6 : wave === 1 ? 8 : wave === 2 ? 10 : 12;
     if ((!bossSpawned || bossDefeated) && spawnClock <= 0 && live < cap) { spawnDrifter(); spawnClock = bossDefeated ? 1.2 : .7; }
     hudClock -= dt; if (hudClock <= 0) { refreshHUD(); hudClock = .1; }
@@ -312,14 +357,26 @@
     shine(); face(); cracks((e.stage % 3) * 3);
   }
   const DRAW = { wax: drawWax, bubble: drawBubble, jelly: drawJelly, ice: drawIce, boss: drawBoss };
-  function drawEnemy(e) {
-    const stageKey = e.type === 'boss' ? e.act === 1 ? `shell_${e.layer}_${e.stage % 3}` : `core_${e.stage - 9}` : e.stage;
-    const sprite = SPRITES[e.type] && SPRITES[e.type][stageKey]; ctx.save(); ctx.translate(e.x, e.y);
-    if (e.type !== 'boss') ctx.globalAlpha = clamp((e.y - 340 - e.r) / 70, 0, 1);
-    const pressure = e.pressure, jiggle = e.jiggle;
-    const squash = clamp(1 - pressure * .38 + jiggle, .52, 1.3);
-    ctx.scale(e.r * (1 + (1 - squash) * .87), e.r * squash); ctx.rotate(Math.sin(clock * 12 + e.phase) * pressure * .024);
-    if (sprite && sprite.complete && sprite.naturalWidth) ctx.drawImage(sprite, -1.12, -1.12, 2.24, 2.24); else DRAW[e.type](e); ctx.restore();
+  function drawEnemy(e, flashOnly = false) {
+    if (!artReady) return;
+    const sprite = art.get(e), { sx, sy, angle } = shape(e), pressure = e.pressure;
+    ctx.save(); ctx.translate(e.x, e.y); ctx.rotate(angle); ctx.scale(sx, sy);
+    if (e.type !== 'boss') ctx.globalAlpha = clamp((e.y - PLAY_TOP - e.r) / 40, 0, 1) * Math.min(1, e.age / .18);
+    if (flashOnly) ctx.globalAlpha *= e.glint / .06;
+    if (sprite) {
+      ctx.drawImage(sprite.surface, -sprite.size / 2, -sprite.size / 2);
+      if (e.glint > 0) {
+        ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha *= .65 * e.glint / .06;
+        ctx.drawImage(sprite.white, -sprite.size / 2, -sprite.size / 2);
+      }
+    } else { ctx.save(); ctx.scale(e.r, e.r); DRAW[e.type](e); ctx.restore(); }
+    ctx.restore();
+    if (debug && !flashOnly) {
+      ctx.save(); ctx.translate(e.x, e.y); ctx.rotate(angle); ctx.scale(sx, sy);
+      ctx.strokeStyle = '#77ffae'; ctx.lineWidth = 1.5; circle(0, 0, e.r * .98); ctx.stroke();
+      ctx.fillStyle = '#d8ffeb'; ctx.font = '16px monospace'; ctx.textAlign = 'center';
+      ctx.fillText(art.key(e) + ' r=' + e.r, 0, e.r + 24); ctx.restore();
+    }
     if (pressure > .03) {
       ctx.save(); ctx.strokeStyle = '#fff0c47a'; ctx.lineWidth = 3; circle(e.x, e.y, e.r * 1.34); ctx.stroke(); ctx.strokeStyle = '#ffe6ae'; ctx.lineWidth = 5;
       ctx.beginPath(); ctx.arc(e.x, e.y, e.r * 1.34, -Math.PI / 2, -Math.PI / 2 + pressure * TAU); ctx.stroke(); ctx.restore();
@@ -358,29 +415,56 @@
       ctx.textAlign = 'center'; ctx.strokeStyle = '#29233c'; ctx.lineWidth = 6; ctx.strokeText(t.word, t.x, t.y); ctx.fillStyle = t.color; ctx.fillText(t.word, t.x, t.y); ctx.restore();
     }
   }
-  const preview = [createEnemy('wax', 150, 640, true), createEnemy('bubble', 550, 640, true), createEnemy('jelly', 195, 920, true), createEnemy('ice', 530, 945, true)];
   function draw() {
     ctx.drawImage(backdrop, 0, 0); ctx.save(); const zoom = 1 + punch;
     ctx.translate(W / 2 + Math.sin(clock * 83) * shake, 630 + Math.cos(clock * 67) * shake * .5); ctx.scale(zoom, zoom); ctx.translate(-W / 2, -630);
-    if (state === 'menu' || state === 'result') for (const e of preview) drawEnemy(e);
-    else {
+    if (state === 'play') {
       for (const e of enemies) if (!e.dead) drawEnemy(e);
       ctx.fillStyle = '#c9e1ed7a'; ctx.font = '20px system-ui'; ctx.textAlign = 'center';
       ctx.fillText(bossSpawned && !bossDefeated ? '殻はタップで。芯は、長押し。' : 'タップで割る  ·  なぞる  ·  長押しでむぎゅっ', W / 2, 1215);
     }
+    for (const e of flashes) drawEnemy(e, true);
     effects(); ctx.restore();
   }
-  function frame(ms) { const dt = lastFrame ? Math.max(0, (ms - lastFrame) / 1000) : 0; lastFrame = ms; update(dt); draw(); requestAnimationFrame(frame); }
+  function frame(ms) {
+    const dt = lastFrame ? Math.max(0, (ms - lastFrame) / 1000) : 0; lastFrame = ms;
+    const before = profiling ? performance.now() : 0;
+    update(dt);
+    if (profiling) { window.__asmrTest.heavyScene(); profileMinEnemies = Math.min(profileMinEnemies, enemies.filter(e => !e.dead).length); }
+    draw();
+    if (profiling && frameTimes.length < 4000) frameTimes.push(performance.now() - before);
+    requestAnimationFrame(frame);
+  }
   requestAnimationFrame(frame);
   window.__asmrTest = {
     getState: () => ({ state, score, kills, combo, maxCombo, elapsed, wave, bossSpawned, bossDefeated, freeze, slow,
       particles: particles.length, pending: pending.length, pointers: pointers.size, lastStroke,
       enemies: enemies.filter(e => !e.dead).map(e => ({ id: e.id, type: e.type, stage: e.stage, act: e.act, layer: e.layer, hp: endStage(e) - e.stage,
-        x: e.x, y: e.y, pressure: e.pressure, jiggle: e.jiggle, entering: e.entering })) }),
+        x: e.x, y: e.y, r: e.r, sprite: art.key(e), pressure: e.pressure, jiggle: e.jiggle, glint: e.glint, entering: e.entering })) }),
     start: begin, hitAt: (x, y) => strike(targetAt(x, y)),
     spawn: (type, x, y) => { if (!DRAW[type] || type === 'boss') throw new Error('Use skipTo(32) for the boss'); return addEnemy(type, x, y, true).id; },
-    clear: () => { cancelPointers(); enemies.length = pending.length = particles.length = texts.length = ripples.length = strokes.length = 0; freeze = slow = 0; spawnClock = 60; },
+    clear: () => { cancelPointers(); enemies.length = pending.length = particles.length = texts.length = ripples.length = strokes.length = flashes.length = 0; freeze = slow = 0; spawnClock = 60; },
     skipTo: seconds => { elapsed = clamp(seconds, 0, TOTAL); checkTime(); refreshHUD(); }, end: finish, audioStats: () => audio.stats(),
-    testAudioBurst: () => { for (const name of Object.keys(ASMR.AudioDSP.SPECS)) for (let i = 0; i < 6; i++) audio.play(name); }, cancelInput: cancelPointers
+    testAudioBurst: () => { for (const name of Object.keys(ASMR.AudioDSP.SPECS)) for (let i = 0; i < 6; i++) audio.play(name); }, cancelInput: cancelPointers,
+    artStats: () => art.stats(),
+    profile: active => { profiling = active; if (active) { frameTimes.length = 0; profileMinEnemies = Infinity; } return frameTimes.slice(); },
+    profileLoad: () => ({ minEnemies: profileMinEnemies }),
+    // Deterministic fixtures still use the live draw/fracture/input paths.
+    showcase: () => {
+      window.__asmrTest.clear();
+      const states = [['wax', 0], ['wax', 1], ['wax', 2], ['bubble', 0], ['jelly', 0], ['ice', 0], ['ice', 1]];
+      states.forEach(([type, stage], i) => {
+        const e = addEnemy(type, 160 + (i % 3) * 200, 450 + Math.floor(i / 3) * 280, true);
+        e.stage = stage; e.layer = Math.floor(stage / 3); e.act = type === 'boss' ? stage >= 9 ? 2 : 1 : 0;
+      });
+    },
+    heavyScene: () => {
+      const types = ['wax', 'jelly', 'ice', 'bubble'];
+      for (let slot = 0; slot < 12; slot++) if (!enemies.some(e => !e.dead && e.perfSlot === slot)) {
+        const e = addEnemy(types[slot % 4], 100 + (slot % 4) * 172, 440 + Math.floor(slot / 4) * 300, true); e.perfSlot = slot;
+      }
+      if (!enemies.some(e => !e.dead && e.type === 'boss')) addEnemy('boss', 360, 640, true);
+      bossSpawned = true; spawnClock = 60;
+    }
   };
 })();
