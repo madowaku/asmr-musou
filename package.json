@@ -4,7 +4,7 @@
   "private": true,
   "description": "ASMR MUSOU - tactile 45-second stress-relief browser game",
   "scripts": {
-    "test:lab": "node tests/lab/check.mjs && node tests/lab/slice.mjs && node tests/lab/assets.mjs && node tests/lab/browser.mjs && node tests/lab/frames.mjs && node tests/lab/perf.mjs",
+    "test:lab": "node tests/lab/check.mjs && node tests/lab/slice.mjs && node tests/lab/assets.mjs && node tests/lab/browser.mjs && node tests/lab/frames.mjs && node tests/lab/material-frames.mjs && node tests/lab/perf.mjs",
     "bundle:lab": "node tools/bundle-lab-assets.cjs",
     "check": "node --check game.js && node --check audio.js && node --check sprites.js && node --check tests/smoke.mjs && node --check tests/drift-chain.mjs && node --check tests/frame-strips.mjs && node --check tests/perf.mjs && node --check tools/render-sfx.cjs",
     "render:sfx": "node tools/render-sfx.cjs",

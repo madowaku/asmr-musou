@@ -15,9 +15,10 @@
   void main(){
     float mode=vExtra.x;vec4 c=vColor;
     if(mode<.5){c*=texture(uTex,vUV);if(c.a<.03)discard;}
-    else if(mode>1.5&&mode<3.5){c*=texture(uTex,fract(vUV));c.rgb*=1.06-.22*vExtra.y;if(mode>2.5){/* jelly cut face: depth-tinted translucent gel, wet edge line, travelling glossy sheen (was opaque -> read as paper) */float depth=clamp(vExtra.y,0.,1.);vec3 gel=mix(vec3(.86,.74,1.),vec3(.47,.27,.78),depth*.85);c.rgb=mix(c.rgb,gel,.55);c.rgb+=.55*exp(-pow((depth-.06)*16.,2.));float sheen=pow(max(0.,sin((vUV.x*1.3+vUV.y)*4.2-uTime*1.7)),18.);c.rgb+=sheen*.42*(1.-depth*.6);c.a=mix(.62,.86,depth)+sheen*.12;}}
+    else if(mode>1.5&&mode<3.5){c*=texture(uTex,fract(vUV));c.rgb*=1.06-.22*vExtra.y;if(mode>2.5){/* jelly cut face: depth-tinted translucent gel, wet edge line, travelling glossy sheen (was opaque -> read as paper) */float depth=clamp(vExtra.y,0.,1.);vec3 gel=mix(c.rgb*1.12,c.rgb*.5,depth*.85);c.rgb=mix(c.rgb,gel,.55);c.rgb+=.55*exp(-pow((depth-.06)*16.,2.));float sheen=pow(max(0.,sin((vUV.x*1.3+vUV.y)*4.2-uTime*1.7)),18.);c.rgb+=sheen*.42*(1.-depth*.6);c.a=mix(.62,.86,depth)+sheen*.12;}}
+    else if(mode>4.5){/* dissolving skin (sand): vExtra.y = px beyond the crumble front; ragged grain-sized edge with a lighter dry rim */c*=texture(uTex,vUV);vec2 g=floor(vUV*180.);float h=fract(sin(dot(g,vec2(12.9898,78.233)))*43758.5453);float e=vExtra.y+(h-.5)*9.;if(c.a<.03||e<0.)discard;c.rgb*=mix(1.18,1.,smoothstep(0.,7.,e));}
     else if(mode>3.5){float d=length(vUV*2.-1.);c.a*=exp(-d*d*4.)*(1.-smoothstep(.7,1.,d));}
-    if(uDebug>0.){if(mode<.5)c=vec4(0.,0.,1.,1.);else if(mode>1.5&&mode<3.5)c=vec4(1.,0.,0.,1.);else discard;}
+    if(uDebug>0.){if(mode<.5||mode>4.5)c=vec4(0.,0.,1.,1.);else if(mode>1.5&&mode<3.5)c=vec4(1.,0.,0.,1.);else discard;}
     outColor=c;
   }`;
   const PVS=`#version 300 es
@@ -68,7 +69,7 @@
       snapshot(){const copy=b=>b.data.slice(0,b.n),s={batches:[...batches].map(([k,b])=>[k,copy(b)]),caps:[...caps].map(([k,b])=>[k,copy(b)]),solid:copy(solid),glow:copy(glow),instances:instanceData.slice(0,lastInstances),time:lastTime,punch:lastPunch,slow:lastSlow};s.bytes=[...s.batches,...s.caps].reduce((n,[,v])=>n+v.byteLength,0)+s.solid.byteLength+s.glow.byteLength+s.instances.byteLength;return s;},
       restore(s,zoom=0){this.begin();const put=(b,v)=>{if(b.data.length<v.length)b.data=new Float32Array(v.length);b.data.set(v);b.n=v.length;};for(const [k,v] of s.batches)put(batch(k),v);for(const [k,v] of s.caps){if(!caps.has(k))caps.set(k,new Batch());put(caps.get(k),v);}put(solid,s.solid);put(glow,s.glow);this.render([],s.time,s.punch+zoom,true,s.instances);},
       begin(){for(const b of [...batches.values(),...caps.values()])b.n=0;surface.n=solid.n=glow.n=0;},
-      mesh(name,vertices,indices,color=[1,1,1,1]){const b=batch(name);for(const i of indices){const p=vertices[i];b.vertex(p.x,p.y,p.u,p.v,color,0);}},
+      mesh(name,vertices,indices,color=[1,1,1,1],mode=0){const b=batch(name);for(const i of indices){const p=vertices[i];b.vertex(p.x,p.y,p.u,p.v,color,mode,p.e||0);}},
       cap(name,vertices,indices,mode=2,color=[1,1,1,1]){if(!caps.has(name))caps.set(name,new Batch());const b=caps.get(name);for(const i of indices){const p=vertices[i];b.vertex(p.x,p.y,p.x/128,p.y/128,color,mode,p.shade||0);}},
       flash(a,b,width,color){line(a,b,width,color,glow);},
       polygon(name,vertices,color=[1,1,1,1]){this.mesh(name,vertices,L.slice.triangulate(vertices),color);},

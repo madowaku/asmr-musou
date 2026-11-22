@@ -4,7 +4,7 @@
   let renderer;
   try{await L.loadAssets();renderer=L.createRenderer(canvas);}catch(e){$('error').hidden=false;$('error').textContent=e.message;return;}
   L.renderer=renderer;L.time=0;L.frame=0;
-  const config=L.config={maxDepth:3,minPieceArea:8,maxBodies:240,maxParticles:1200,gravity:720};
+  const config=L.config={maxDepth:3,minPieceArea:8,maxBodies:240,maxParticles:1600,gravity:720},FLOOR=L.FLOOR;
   const bodies=[],particles=[],strokes=new Map(),pending=[],trails=[],flashes=[],fractures=[],accents=[];
   let capMode=null,onlyBody=null,queuedHorde=0;
   let nextId=1,nextStroke=1,cutId=0,paused=false,stepFrames=0,slow=false,wire=false,freeze=0,punch=0,previous=0,hudAt=0,cutCount=0,lastCut=null;
@@ -17,9 +17,9 @@
     const points=b.soft?b.soft.points:b.poly,c=Math.cos(b.angle),s=Math.sin(b.angle);
     if(!b.world)b.world=points.map(()=>({x:0,y:0,u:0,v:0,cut:null}));
     for(let i=0;i<points.length;i++){let p=points[i];
-      if(b.pressing){const amount=Math.min(1,b.pressing.age/b.pressing.duration);p={...p,x:p.x*(1+amount*.16),y:p.y*(1-amount*.23)};}
+      if(b.pressing){const amount=Math.min(1,b.pressing.age/b.pressing.duration),k=L.materials[b.material].squash||1;p={...p,x:p.x*(1+amount*.16*k),y:p.y*(1-Math.min(.8,amount*.23*k))};}
       if(b.dent){const d=(p.x-b.dent.x)*b.dent.nx+(p.y-b.dent.y)*b.dent.ny,weight=Math.exp(-d*d/900);p={...p,x:p.x-b.dent.nx*weight*9,y:p.y-b.dent.ny*weight*9};}
-      p=L.cap.skin(b,p);const w=b.world[i];w.x=b.x+p.x*c-p.y*s;w.y=b.y+p.x*s+p.y*c;w.u=p.u;w.v=p.v;w.cut=i<b.poly.length?b.poly[i].cut:null;}
+      const d=b.dissolve;p=L.cap.skin(b,p);const w=b.world[i];w.x=b.x+p.x*c-p.y*s;w.y=b.y+p.x*s+p.y*c;w.u=p.u;w.v=p.v;w.cut=i<b.poly.length?b.poly[i].cut:null;w.e=d?d.side*((points[i].x-d.a.x)*d.nx+(points[i].y-d.a.y)*d.ny)-d.front:0;}
     return b.world;
   }
   function currentPoly(b){return worldVertices(b).slice(0,b.poly.length);}
@@ -49,7 +49,7 @@
         spawn(mats[i%mats.length],x,y+(L.random()-.5)*14,r,{variant:'grunt',lod:hordeLod});i++;}}
     $('hint').textContent='群れを、一振りでまとめて斬る。';
   }
-  function clear(){bodies.length=particles.length=trails.length=flashes.length=pending.length=fractures.length=accents.length=0;L.capture.reset();strokes.clear();freeze=punch=cutCount=0;lastCut=null;L.events.clear();$('status').textContent='';}
+  function clear(){for(const h of L.clearHooks)h();bodies.length=particles.length=trails.length=flashes.length=pending.length=fractures.length=accents.length=0;L.capture.reset();strokes.clear();freeze=punch=cutCount=0;lastCut=null;L.events.clear();$('status').textContent='';}
   L.addParticle=p=>{const particle={x:0,y:0,vx:0,vy:0,size:3,angle:L.random()*6.28,spin:(L.random()-.5)*12,life:.65+L.random()*.35,kind:0,color:[1,1,1,1],...p};if(particles.length>=config.maxParticles){particles[particleCursor++%config.maxParticles]=particle;}else particles.push(particle);};
   function nearPath(body,path){const radius=body.radius+(body.soft?Math.max(8,body.soft.amplitude*2):0);for(let i=1;i<path.length;i++){const a=path[i-1],b=path[i],dx=b.x-a.x,dy=b.y-a.y,den=dx*dx+dy*dy,t=den?Math.max(0,Math.min(1,((body.x-a.x)*dx+(body.y-a.y)*dy)/den)):0;if((body.x-a.x-dx*t)**2+(body.y-a.y-dy*t)**2<=radius*radius)return true;}return false;}
   function boundsOverlap(poly,path){let minX=Infinity,minY=Infinity,maxX=-Infinity,maxY=-Infinity;for(const p of path){minX=Math.min(minX,p.x);minY=Math.min(minY,p.y);maxX=Math.max(maxX,p.x);maxY=Math.max(maxY,p.y);}return poly.some(p=>p.x>=minX&&p.x<=maxX&&p.y>=minY&&p.y<=maxY)||!(Math.max(...poly.map(p=>p.x))<minX||Math.min(...poly.map(p=>p.x))>maxX||Math.max(...poly.map(p=>p.y))<minY||Math.min(...poly.map(p=>p.y))>maxY);}
@@ -73,6 +73,10 @@
     punch=Math.max(punch,body.lod==='strip'?.008:.018);flashes.push({a:faces[0]?.a||first,b:faces[0]?.b||last,life:.034,material:body.material});cutCount++;if(profile)profileLoad.cuts++;
     lastCut={id,sourceId:body.id,rootId:body.rootId,pieces:children.length,faces,frame:L.frame,speed:stroke.speed,time:L.time};
   }
+  // Material-initiated fracture (e.g. brittle chalk snapping again a moment after the blade).
+  L.split=(body,line,speed=900)=>{if(!bodies.includes(body)||body.depth>=config.maxDepth)return false;const id='cut-'+(++cutId),r=S.splitPath(currentPoly(body),line,{minArea:config.minPieceArea,cutId:id});if(!r.cut)return false;r.id=id;fracture(body,r,{id:nextStroke++,points:line,speed},line);return true;};
+  L.removeBody=b=>{b.removed=true;};
+  L.bodies=bodies;
   function processStroke(stroke){
     const begin=performance.now(),hits=[],paths=new Map();if(stroke.points.length<2)return;
     for(const body of bodies.slice()){
@@ -143,15 +147,19 @@
   document.addEventListener('visibilitychange',()=>{strokes.clear();previous=0;});
   function physics(dt){
     let n=0;for(const b of bodies){
-      if(b.active&&!b.queued){b.vy+=config.gravity*dt;b.x+=b.vx*dt;b.y+=b.vy*dt;b.angle+=b.spin*dt;b.vx*=Math.exp(-.3*dt);
+      if(b.active&&!b.queued&&!b.removed){b.vy+=config.gravity*(b.gScale??1)*dt;b.x+=b.vx*dt;b.y+=b.vy*dt;b.angle+=b.spin*dt;b.vx*=Math.exp(-.3*dt);
         if(b.boss){const c=Math.cos(b.angle),s=Math.sin(b.angle);let bottom=-Infinity;for(const p of b.poly)bottom=Math.max(bottom,b.y+p.x*s+p.y*c);
           if(bottom>1080&&b.vy>0){const speed=b.vy;b.y-=bottom-1080;if(!b.bounced){b.vy*=-.23;b.spin*=.35;b.bounced=true;}else{b.vy=0;b.spin=0;b.vx*=.65;}
             if(speed>30){L.events.emit('impact',{material:b.material,x:b.x,y:1080,speed,area:b.area});L.materials[b.material].onImpact(b,{speed,x:b.x,y:1080});}}
         }
       }
-      if(b.y-b.radius<1400&&(!b.active||b.age<12))bodies[n++]=b;
+      if(!b.removed&&b.y-b.radius<1400&&(!b.active||b.age<12))bodies[n++]=b;
     }bodies.length=n;
-    n=0;for(const p of particles){p.life-=dt;if(p.life<=0)continue;p.vy+=620*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.angle+=p.spin*dt;particles[n++]=p;}particles.length=n;
+    n=0;for(const p of particles){p.life-=dt;if(p.life<=0)continue;p.vy+=(p.g??620)*dt;if(p.drag){const k=Math.exp(-p.drag*dt);p.vx*=k;p.vy*=k;}p.x+=p.vx*dt;p.y+=p.vy*dt;p.angle+=p.spin*dt;
+      // Floor contact: debris bounces and *sounds* (physics-driven collapse tail instead of a synthetic click train).
+      if(p.floor&&p.y>FLOOR&&p.vy>0){p.y=FLOOR;if(p.onLand&&p.onLand(p)===false)continue;if(p.vy>70){const e=Math.min(1,p.vy/700);p.bounces=(p.bounces||0)+1;if(p.sound&&p.bounces<=3)L.events.emit('impact',{material:p.sound,energy:e*(p.bounces===1?1:.45),size:p.size/10,x:p.x,y:p.y,speed:p.vy});p.vy*=-(p.bounce??.3);p.vx*=.62;p.spin*=.5;}else{p.vy=0;p.vx*=Math.exp(-6*dt);p.spin*=Math.exp(-6*dt);}}
+      particles[n++]=p;}particles.length=n;
+    for(const hook of L.updateHooks)hook(dt);
   }
   function draw(){
     renderer.begin();
@@ -161,11 +169,12 @@
     for(let pass=0;pass<2;pass++)for(const b of bodies){
       if((pass===0)===!!b.active)continue;
       if(onlyBody&&b.id!==onlyBody)continue;const world=worldVertices(b);
-      renderer.mesh(b.baseTexture||b.material+'_body',world,b.meshIndices);
+      renderer.mesh(b.baseTexture||b.material+'_body',world,b.meshIndices,b.tint||[1,1,1,1],b.dissolve?5:0);
       if(L.materials[b.material].draw)L.materials[b.material].draw(renderer,b);
       L.cap.draw(renderer,b);
       if(wire){for(let i=0;i<b.meshIndices.length;i+=3)for(let j=0;j<3;j++)renderer.line(world[b.meshIndices[i+j]],world[b.meshIndices[i+(j+1)%3]],.8,[.8,1,.4,.35]);for(let i=0;i<b.poly.length;i++)renderer.line(world[i],world[(i+1)%b.poly.length],b.poly[i].cut?2.5:1,b.poly[i].cut?[1,.4,.3,1]:[.8,1,.7,.7]);}
     }
+    for(const hook of L.drawHooks)hook(renderer);
     for(const t of trails){const a=Math.min(1,t.life/(t.total||.2));renderer.ribbon(t.a,t.b,Math.max(.7,3.3*a),[.85,1,.9,a*.68]);}
     for(const f of flashes){renderer.flash(f.a,f.b,12,[1,.83,.94,Math.min(1,f.life/.02)*.35]);renderer.flash(f.a,f.b,3,[1,1,1,Math.min(1,f.life/.02)]);}
     for(const a of accents)if(a.age>=0&&a.age<.65){const cx=(a.from.x+a.to.x)/2,cy=(a.from.y+a.to.y)/2,theta=Math.atan2(a.to.y-a.from.y,a.to.x-a.from.x),len=Math.hypot(a.to.x-a.from.x,a.to.y-a.from.y)*.5;let prev=null;for(let i=0;i<=48;i++){const t=i/48*Math.PI*2,x=Math.cos(t)*(len+50*a.age),y=Math.sin(t)*(12+135*a.age),p={x:cx+x*Math.cos(theta)-y*Math.sin(theta),y:cy+x*Math.sin(theta)+y*Math.cos(theta)};if(prev)renderer.flash(prev,p,2.5,[.94,.95,1,(1-a.age/.65)*.35]);prev=p;}}
@@ -197,7 +206,8 @@
   $('spawn').onclick=()=>{spawn($('material').value,360,620,140);};
   $('horde').onclick=()=>horde(Number($('count').value));
   $('reset').onclick=()=>{clear();spawn($('material').value);};
-  $('material').onchange=()=>{clear();spawn($('material').value);$('hint').textContent=$('material').value==='wax'?'すっと斬る。そっと触れて、殻を割る。':'斬った面から、ぷるぷるが伝わる。';};
+  const HINTS={wax:'すっと斬る。そっと押して、殻を割る。',jelly:'斬った面から、ぷるぷるが伝わる。',soap:'ショリッと斬れて、角から崩れる。',sand:'一刀両断。サラサラ崩れて、山になる。',sponge:'長押しで、じゅわっと絞る。',chalk:'ポキッ。粉が舞う。',beadslime:'糸を引いて、ぷつっ。粒がこぼれる。',kohaku:'シャリッ。中は宝石。'};
+  $('material').onchange=()=>{clear();spawn($('material').value);$('hint').textContent=HINTS[$('material').value]||'';};
   $('slow').onclick=()=>{slow=!slow;setButton('slow',slow);};
   $('pause').onclick=()=>{paused=!paused;setButton('pause',paused);};
   $('step').onclick=()=>{paused=true;stepFrames=1;setButton('pause',true);};

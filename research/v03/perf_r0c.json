@@ -2,64 +2,64 @@
   "scenario": "40 scattered mixed wax/jelly grunts; a scripted serpentine swipe every 850ms; scheduled visual waves, book/strip caps, sprite debris and replay capture included in rAF; horde setup included in rAF",
   "chrome": "158.0.8127.36",
   "throttle": 4,
-  "durationMs": 10444,
+  "durationMs": 10491,
   "swipes": 12,
-  "frames": 746,
-  "averageMs": 6.495040214672964,
-  "p95Ms": 7.700000002980232,
-  "maxMs": 104,
+  "frames": 745,
+  "averageMs": 5.723087248526164,
+  "p95Ms": 6.700000002980232,
+  "maxMs": 103.20000000298023,
   "minBodies": 42,
   "maxBodies": 77,
   "maxParticles": 268,
   "cuts": 426,
-  "inputWorkMaxMs": 51.20000000298023,
+  "inputWorkMaxMs": 52.5,
   "scope": "JS frame work including queued cut processing; excludes browser pointer dispatch, GPU completion, compositor and actual device latency",
   "targetP95Ms": 8,
   "stages": {
     "update": {
-      "avg": 1.6733243966390237,
-      "p95": 2,
-      "max": 80.19999998807907
+      "avg": 1.7798657721321054,
+      "p95": 2.1000000089406967,
+      "max": 77.40000000596046
     },
     "draw": {
-      "avg": 4.846782842166622,
-      "p95": 6.700000002980232,
-      "max": 24
+      "avg": 3.9561073824863304,
+      "p95": 5.5,
+      "max": 25.799999997019768
     }
   },
   "slowestFrames": [
     {
-      "total": 104,
-      "update": 80.19999998807907,
-      "draw": 24,
+      "total": 103.20000000298023,
+      "update": 77.40000000596046,
+      "draw": 25.799999997019768,
       "bodies": 43,
       "particles": 20
     },
     {
-      "total": 55.599999994039536,
-      "update": 52,
-      "draw": 3.7999999970197678,
+      "total": 57.5,
+      "update": 51.599999994039536,
+      "draw": 5.9000000059604645,
       "bodies": 43,
       "particles": 20
     },
     {
-      "total": 49.400000005960464,
-      "update": 47.1000000089407,
-      "draw": 2.2999999970197678,
+      "total": 57,
+      "update": 54.20000000298023,
+      "draw": 2.7999999970197678,
       "bodies": 42,
       "particles": 12
     },
     {
-      "total": 47.599999994039536,
-      "update": 45.599999994039536,
-      "draw": 2.1000000089406967,
+      "total": 56.900000005960464,
+      "update": 53.900000005960464,
+      "draw": 3,
       "bodies": 42,
       "particles": 12
     },
     {
-      "total": 47.599999994039536,
-      "update": 45.5,
-      "draw": 2.0999999940395355,
+      "total": 51.5,
+      "update": 46.6000000089407,
+      "draw": 4.899999991059303,
       "bodies": 43,
       "particles": 20
     }
