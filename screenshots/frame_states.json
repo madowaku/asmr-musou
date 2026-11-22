@@ -1,0 +1,490 @@
+{
+  "method": "Chrome file://, clock.install + pauseAt, real pointer taps, first rAF + 33ms steps",
+  "wax": [
+    {
+      "label": "Tap 1 · 16 ms",
+      "deathBeats": [],
+      "particleFx": [
+        "sparkle"
+      ],
+      "bloom": 0,
+      "softRings": 0
+    },
+    {
+      "label": "Tap 1 · 49 ms",
+      "deathBeats": [],
+      "particleFx": [
+        "sparkle"
+      ],
+      "bloom": 0,
+      "softRings": 0
+    },
+    {
+      "label": "Tap 1 · 82 ms",
+      "deathBeats": [],
+      "particleFx": [
+        "sparkle"
+      ],
+      "bloom": 0,
+      "softRings": 0
+    },
+    {
+      "label": "Tap 1 · 115 ms",
+      "deathBeats": [],
+      "particleFx": [
+        "sparkle"
+      ],
+      "bloom": 0,
+      "softRings": 0
+    },
+    {
+      "label": "Tap 1 · 148 ms",
+      "deathBeats": [],
+      "particleFx": [
+        "sparkle"
+      ],
+      "bloom": 0,
+      "softRings": 0
+    },
+    {
+      "label": "Tap 1 · 181 ms",
+      "deathBeats": [],
+      "particleFx": [
+        "sparkle"
+      ],
+      "bloom": 0,
+      "softRings": 0
+    },
+    {
+      "label": "Tap 2 · 16 ms",
+      "deathBeats": [],
+      "particleFx": [
+        "sparkle",
+        "chip_wax_a",
+        "chip_wax_c",
+        "chip_wax_b"
+      ],
+      "bloom": 0,
+      "softRings": 0
+    },
+    {
+      "label": "Tap 2 · 49 ms",
+      "deathBeats": [],
+      "particleFx": [
+        "sparkle",
+        "chip_wax_a",
+        "chip_wax_c",
+        "chip_wax_b"
+      ],
+      "bloom": 0,
+      "softRings": 0
+    },
+    {
+      "label": "Tap 2 · 82 ms",
+      "deathBeats": [],
+      "particleFx": [
+        "sparkle",
+        "chip_wax_a",
+        "chip_wax_c",
+        "chip_wax_b"
+      ],
+      "bloom": 0,
+      "softRings": 0
+    },
+    {
+      "label": "Tap 2 · 115 ms",
+      "deathBeats": [],
+      "particleFx": [
+        "sparkle",
+        "chip_wax_a",
+        "chip_wax_c",
+        "chip_wax_b"
+      ],
+      "bloom": 0,
+      "softRings": 0
+    },
+    {
+      "label": "Tap 2 · 148 ms",
+      "deathBeats": [],
+      "particleFx": [
+        "sparkle",
+        "chip_wax_a",
+        "chip_wax_c",
+        "chip_wax_b"
+      ],
+      "bloom": 0,
+      "softRings": 0
+    },
+    {
+      "label": "Tap 2 · 181 ms",
+      "deathBeats": [],
+      "particleFx": [
+        "sparkle",
+        "chip_wax_a",
+        "chip_wax_c",
+        "chip_wax_b"
+      ],
+      "bloom": 0,
+      "softRings": 0
+    },
+    {
+      "label": "Tap 3 · 16 ms",
+      "deathBeats": [
+        {
+          "type": "wax",
+          "phase": "core-bulge",
+          "age": 0.016,
+          "duration": 0.09
+        }
+      ],
+      "particleFx": [
+        "sparkle",
+        "chip_wax_a",
+        "chip_wax_c",
+        "chip_wax_b"
+      ],
+      "bloom": 0,
+      "softRings": 0
+    },
+    {
+      "label": "Tap 3 · 49 ms",
+      "deathBeats": [
+        {
+          "type": "wax",
+          "phase": "core-bulge",
+          "age": 0.048,
+          "duration": 0.09
+        }
+      ],
+      "particleFx": [
+        "chip_wax_a",
+        "chip_wax_c",
+        "chip_wax_b",
+        "sparkle"
+      ],
+      "bloom": 0,
+      "softRings": 0
+    },
+    {
+      "label": "Tap 3 · 82 ms",
+      "deathBeats": [
+        {
+          "type": "wax",
+          "phase": "core-bulge",
+          "age": 0.08,
+          "duration": 0.09
+        }
+      ],
+      "particleFx": [
+        "chip_wax_a",
+        "chip_wax_c",
+        "chip_wax_b",
+        "sparkle"
+      ],
+      "bloom": 0,
+      "softRings": 0
+    },
+    {
+      "label": "Tap 3 · 115 ms",
+      "deathBeats": [],
+      "particleFx": [
+        "chip_wax_a",
+        "chip_wax_c",
+        "chip_wax_b",
+        "sparkle",
+        "drop_cream",
+        "drop_pink"
+      ],
+      "bloom": 0,
+      "softRings": 1
+    },
+    {
+      "label": "Tap 3 · 148 ms",
+      "deathBeats": [],
+      "particleFx": [
+        "chip_wax_a",
+        "chip_wax_c",
+        "chip_wax_b",
+        "sparkle",
+        "drop_cream",
+        "drop_pink"
+      ],
+      "bloom": 0,
+      "softRings": 1
+    },
+    {
+      "label": "Tap 3 · 181 ms",
+      "deathBeats": [],
+      "particleFx": [
+        "chip_wax_a",
+        "chip_wax_c",
+        "chip_wax_b",
+        "sparkle",
+        "drop_cream",
+        "drop_pink"
+      ],
+      "bloom": 0,
+      "softRings": 1
+    }
+  ],
+  "boss": [
+    {
+      "label": "Final · 16 ms",
+      "deathBeats": [
+        {
+          "type": "boss",
+          "phase": "core-bulge",
+          "age": 0.016,
+          "duration": 0.14
+        }
+      ],
+      "particleFx": [
+        "sparkle",
+        "chunk_boss_a",
+        "chunk_boss_b",
+        "chunk_boss_c"
+      ],
+      "bloom": 0.384,
+      "softRings": 0
+    },
+    {
+      "label": "Final · 49 ms",
+      "deathBeats": [
+        {
+          "type": "boss",
+          "phase": "core-bulge",
+          "age": 0.048,
+          "duration": 0.14
+        }
+      ],
+      "particleFx": [
+        "sparkle",
+        "chunk_boss_a",
+        "chunk_boss_b",
+        "chunk_boss_c"
+      ],
+      "bloom": 0.352,
+      "softRings": 0
+    },
+    {
+      "label": "Final · 82 ms",
+      "deathBeats": [
+        {
+          "type": "boss",
+          "phase": "core-bulge",
+          "age": 0.08,
+          "duration": 0.14
+        }
+      ],
+      "particleFx": [
+        "sparkle",
+        "chunk_boss_a",
+        "chunk_boss_b",
+        "chunk_boss_c"
+      ],
+      "bloom": 0.31999999999999995,
+      "softRings": 0
+    },
+    {
+      "label": "Final · 115 ms",
+      "deathBeats": [
+        {
+          "type": "boss",
+          "phase": "core-bulge",
+          "age": 0.112,
+          "duration": 0.14
+        }
+      ],
+      "particleFx": [
+        "sparkle",
+        "chunk_boss_a",
+        "chunk_boss_b",
+        "chunk_boss_c"
+      ],
+      "bloom": 0.2879999999999999,
+      "softRings": 0
+    },
+    {
+      "label": "Final · 148 ms",
+      "deathBeats": [],
+      "particleFx": [
+        "sparkle",
+        "chunk_boss_a",
+        "chunk_boss_b",
+        "chunk_boss_c",
+        "drop_peach"
+      ],
+      "bloom": 0.2559999999999999,
+      "softRings": 1
+    },
+    {
+      "label": "Final · 181 ms",
+      "deathBeats": [],
+      "particleFx": [
+        "sparkle",
+        "chunk_boss_a",
+        "chunk_boss_b",
+        "chunk_boss_c",
+        "drop_peach"
+      ],
+      "bloom": 0.22399999999999987,
+      "softRings": 1
+    },
+    {
+      "label": "Final · 214 ms",
+      "deathBeats": [],
+      "particleFx": [
+        "sparkle",
+        "chunk_boss_a",
+        "chunk_boss_b",
+        "chunk_boss_c",
+        "drop_peach"
+      ],
+      "bloom": 0.19199999999999984,
+      "softRings": 1
+    },
+    {
+      "label": "Final · 247 ms",
+      "deathBeats": [],
+      "particleFx": [
+        "sparkle",
+        "chunk_boss_a",
+        "chunk_boss_b",
+        "chunk_boss_c",
+        "drop_peach"
+      ],
+      "bloom": 0.1599999999999998,
+      "softRings": 1
+    },
+    {
+      "label": "Final · 280 ms",
+      "deathBeats": [],
+      "particleFx": [
+        "sparkle",
+        "chunk_boss_a",
+        "chunk_boss_b",
+        "chunk_boss_c",
+        "drop_peach"
+      ],
+      "bloom": 0.12799999999999978,
+      "softRings": 1
+    },
+    {
+      "label": "Final · 313 ms",
+      "deathBeats": [],
+      "particleFx": [
+        "sparkle",
+        "chunk_boss_a",
+        "chunk_boss_b",
+        "chunk_boss_c",
+        "drop_peach"
+      ],
+      "bloom": 0.09599999999999978,
+      "softRings": 1
+    },
+    {
+      "label": "Final · 346 ms",
+      "deathBeats": [],
+      "particleFx": [
+        "sparkle",
+        "chunk_boss_a",
+        "chunk_boss_b",
+        "chunk_boss_c",
+        "drop_peach"
+      ],
+      "bloom": 0.06399999999999978,
+      "softRings": 1
+    },
+    {
+      "label": "Final · 379 ms",
+      "deathBeats": [],
+      "particleFx": [
+        "sparkle",
+        "chunk_boss_a",
+        "chunk_boss_b",
+        "chunk_boss_c",
+        "drop_peach"
+      ],
+      "bloom": 0.03199999999999978,
+      "softRings": 1
+    },
+    {
+      "label": "Final · 412 ms",
+      "deathBeats": [],
+      "particleFx": [
+        "sparkle",
+        "chunk_boss_a",
+        "chunk_boss_b",
+        "chunk_boss_c",
+        "drop_peach"
+      ],
+      "bloom": 0,
+      "softRings": 1
+    },
+    {
+      "label": "Final · 445 ms",
+      "deathBeats": [],
+      "particleFx": [
+        "sparkle",
+        "chunk_boss_a",
+        "chunk_boss_b",
+        "chunk_boss_c",
+        "drop_peach"
+      ],
+      "bloom": 0,
+      "softRings": 1
+    },
+    {
+      "label": "Final · 478 ms",
+      "deathBeats": [],
+      "particleFx": [
+        "sparkle",
+        "chunk_boss_a",
+        "chunk_boss_b",
+        "chunk_boss_c",
+        "drop_peach"
+      ],
+      "bloom": 0,
+      "softRings": 1
+    },
+    {
+      "label": "Final · 511 ms",
+      "deathBeats": [],
+      "particleFx": [
+        "sparkle",
+        "chunk_boss_a",
+        "chunk_boss_b",
+        "chunk_boss_c",
+        "drop_peach"
+      ],
+      "bloom": 0,
+      "softRings": 1
+    },
+    {
+      "label": "Final · 544 ms",
+      "deathBeats": [],
+      "particleFx": [
+        "sparkle",
+        "chunk_boss_a",
+        "chunk_boss_b",
+        "chunk_boss_c",
+        "drop_peach"
+      ],
+      "bloom": 0,
+      "softRings": 0
+    },
+    {
+      "label": "Final · 577 ms",
+      "deathBeats": [],
+      "particleFx": [
+        "sparkle",
+        "chunk_boss_a",
+        "chunk_boss_b",
+        "chunk_boss_c",
+        "drop_peach"
+      ],
+      "bloom": 0,
+      "softRings": 0
+    }
+  ]
+}

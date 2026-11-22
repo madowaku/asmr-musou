@@ -1,0 +1,70 @@
+[
+  {
+    "id": "wax_alt_attempt1",
+    "prompt": "Use case: precise-object-edit. ONE separate square production sprite for ASMR MUSOU, alternate damage state wax_2_alt.\nImage 1 is the EDIT TARGET: approved damaged wax_2 raw sprite. Image 2 is the IDENTITY AND REGISTRATION reference wax_0. Preserve their exact body center, size, slightly tall round silhouette, framing, front camera angle, two dark plum oval eyes and U smile, face size and positions, strawberry-pink glossy candy-wax shell color, upper-left studio lighting and clean unoutlined toy-render style.\nChange ONLY the exposed interior visible inside the THREE LARGE existing broken-shell gaps (upper-right, left/lower-left, lower-right). Turn those currently pink soft interior areas into clearly different WARM MILKY WHITE / SOFT MATTE CREAM MOCHI, pale ivory around #fff4dc. Gentle broad rounded squashy bulges through the missing shell areas, soft powdery smooth mochi surface, subdued diffuse highlights only, NO shiny plastic highlights on cream. Shell remains glossy strawberry-pink around the cream with wafer-thin broken pale rim edges. Keep the central pink face-bearing shell patch and facial features unchanged. The cream areas must be unmistakably cream versus pink at only 80 px. Approximately 40 percent of visible body shows cream.\nAbsolutely preserve original overall silhouette envelope, exact source canvas coordinates and full body framing. Do not enlarge, recenter, rotate, move or redraw face. Do not add detached fragments, droplets, cracks over eyes, limbs, extra face, floor or shadows outside body.\nREAL transparent RGBA background, no checkerboard artwork or colored background, no text, no watermark. Retain generous existing transparent margins. Output same square composition as supplied images.",
+    "references": [
+      "assets/art/src/wax_2_attempt1.png",
+      "assets/art/src/wax_0_attempt1.png"
+    ],
+    "tool": "tools.image_gen__imagegen",
+    "date": "2026-11-22",
+    "status": "adopted",
+    "source": "assets/art/src/t4_wax_alt_attempt1.png"
+  },
+  {
+    "id": "wax_chips_attempt1",
+    "prompt": "Use case: stylized-concept. Production game debris sprite sheet for ASMR MUSOU. Square image with a strict invisible 2 by 2 equal-square grid. Exactly THREE isolated objects: top-left, top-right, bottom-left; bottom-right cell ENTIRELY EMPTY. Each object centered in its own cell, fitting within the central 72 percent of that cell, generous transparent gutters. No labels, grid lines, borders, text or extra objects.\nStyle: premium tactile toy macro 2.5D render, simple clean silhouette, no black ink outline. Soft studio key light UPPER LEFT, broad white glints and a subtle lower-right colored shade. Bright candy pastels. High contrast readable shapes when individually reduced to 16–40 pixels and displayed on navy #2a2647. Object floats freely, no floor, no cast ground shadow. REAL transparent RGBA background with clean alpha cutouts, no baked checkerboard, no background color.\nFamily: thin strawberry-pink glossy candy-WAX SHELL FRAGMENTS, matching a pink wax-coated round squishy toy. NOT gems, not petals, not solid pink chunks. Thin curved shell surface with a clearly visible delicate WHITE BROKEN RIM HIGHLIGHT. Outside pink #f797b3, inner shell pale pink, all surfaces subtly waxy. Each piece should show its thin cross-section and concave-curved form.\nTop-left: one broad curved crescent-shaped shell chip with a sharp uneven snapped edge facing viewer.\nTop-right: one squat irregular four-sided curved shell flake, slightly bent, white broken rim along lower front edge.\nBottom-left: one irregular triangular curled shell chip with a small corner curling upward and white snapped rim.\nThree DIFFERENT simple silhouettes, only a single connected fragment per cell, no tiny loose bits, no faces.",
+    "references": [],
+    "tool": "tools.image_gen__imagegen",
+    "date": "2026-11-22",
+    "status": "rejected",
+    "source": "assets/art/src/t4_wax_chips_attempt1.png"
+  },
+  {
+    "id": "boss_chunks_attempt1",
+    "prompt": "Use case: stylized-concept. Production game debris sprite sheet for ASMR MUSOU. Square image with a strict invisible 2 by 2 equal-square grid. Exactly THREE isolated objects: top-left, top-right, bottom-left; bottom-right cell ENTIRELY EMPTY. Each object centered in its own cell, fitting within the central 72 percent of that cell, generous transparent gutters. No labels, grid lines, borders, text or extra objects.\nStyle: premium tactile toy macro 2.5D render, simple clean silhouette, no black ink outline. Soft studio key light UPPER LEFT, broad white glints and a subtle lower-right colored shade. Bright candy pastels. High contrast readable shapes when individually reduced to 16–40 pixels and displayed on navy #2a2647. Object floats freely, no floor, no cast ground shadow. REAL transparent RGBA background with clean alpha cutouts, no baked checkerboard, no background color.\nFamily: THICK GOLDEN-PEACH layered WAX SHELL CHUNKS, broken from a round golden peach toy boss. Thick curved coating fragments with THREE visibly separate stacked layers on their large viewer-facing broken edge: top golden apricot #ffd17e, middle pale peach #ffc5a7, bottom soft pink #f5adc6. Broad colored stepped bands, visible at 24 px, substantial thickness, not a thin flake. Glossy smooth outer surface and waxy cut surfaces.\nTop-left: one chunky curved triangular wedge, wide stepped cross-section facing front.\nTop-right: one squat trapezoidal curved chunk, thick 3-layer broken edge at bottom and right.\nBottom-left: one thick bent crescent chunk, three layers visible across broad inner broken edge.\nOne connected fragment per cell, simple distinct silhouettes, no faces, no loose specks.",
+    "references": [],
+    "tool": "tools.image_gen__imagegen",
+    "date": "2026-11-22",
+    "status": "adopted",
+    "source": "assets/art/src/t4_boss_chunks_attempt1.png"
+  },
+  {
+    "id": "ice_shards_attempt1",
+    "prompt": "Use case: stylized-concept. Production game debris sprite sheet for ASMR MUSOU. Square image with a strict invisible 2 by 2 equal-square grid. Exactly THREE isolated objects: top-left, top-right, bottom-left; bottom-right cell ENTIRELY EMPTY. Each object centered in its own cell, fitting within the central 72 percent of that cell, generous transparent gutters. No labels, grid lines, borders, text or extra objects.\nStyle: premium tactile toy macro 2.5D render, simple clean silhouette, no black ink outline. Soft studio key light UPPER LEFT, broad white glints and a subtle lower-right colored shade. Bright candy pastels. High contrast readable shapes when individually reduced to 16–40 pixels and displayed on navy #2a2647. Object floats freely, no floor, no cast ground shadow. REAL transparent RGBA background with clean alpha cutouts, no baked checkerboard, no background color.\nFamily: sharp pale-blue translucent ICE SHARDS matching a bright icy-blue candy-crystal toy. Clean 3D glassy facets, pale cyan #a6e0f5 and snowy-white upper-left highlights, richer cyan thin edge. Real subtle transparency in interior facets; readable bright silhouette on dark background. Keep 2–3 large facets per shard, no complex cracks, no snowy dust or glow.\nTop-left: one broad asymmetrical triangular wedge shard, wide base, sharp long tip tilted upper-right.\nTop-right: one narrow diagonal spear-like shard with sharp tip and angular broken base, clearly slimmer than first.\nBottom-left: one squat diamond/trapezoid fractured shard, short thick beveled form, distinct from first two.\nEach is one connected fragment with crisp angular outline, no faces, no loose bits.",
+    "references": [],
+    "tool": "tools.image_gen__imagegen",
+    "date": "2026-11-22",
+    "status": "adopted",
+    "source": "assets/art/src/t4_ice_shards_attempt1.png"
+  },
+  {
+    "id": "goo_drops_attempt1",
+    "prompt": "Use case: stylized-concept. Production game debris sprite sheet for ASMR MUSOU. Square image with a strict invisible 2 by 2 equal-square grid. Exactly THREE isolated objects: top-left, top-right, bottom-left; bottom-right cell ENTIRELY EMPTY. Each object centered in its own cell, fitting within the central 72 percent of that cell, generous transparent gutters. No labels, grid lines, borders, text or extra objects.\nStyle: premium tactile toy macro 2.5D render, simple clean silhouette, no black ink outline. Soft studio key light UPPER LEFT, broad white glints and a subtle lower-right colored shade. Bright candy pastels. High contrast readable shapes when individually reduced to 16–40 pixels and displayed on navy #2a2647. Object floats freely, no floor, no cast ground shadow. REAL transparent RGBA background with clean alpha cutouts, no baked checkerboard, no background color.\nFamily: small glossy soft GOO DROPLETS from pastel squishy toys. Exactly one connected droplet per occupied cell. Smooth plump liquid gel material, gentle translucence, large white upper-left reflection for readability at 24 pixels. NO face, no attached tiny droplets, no splatter, no floor. Simple bulb with softly curved pointed tip and round plump base.\nTop-left: LAVENDER jelly goo droplet #c3a0e8, tip gently leaning right.\nTop-right: MINT goo droplet #b0e5cd, tip gently leaning left.\nBottom-left: PEACH goo droplet #ffc5ad, rounded upright tear shape with short point.\nKeep saturation bright pastel and all three similar perceived size and gloss.",
+    "references": [],
+    "tool": "tools.image_gen__imagegen",
+    "date": "2026-11-22",
+    "status": "adopted",
+    "source": "assets/art/src/t4_goo_drops_attempt1.png"
+  },
+  {
+    "id": "sparkle_attempt1",
+    "prompt": "Use case: stylized-concept. ONE production game FX sprite for ASMR MUSOU: a single soft FOUR-POINT STAR GLINT. Simple slim concave four-point sparkle, long vertical points and slightly shorter horizontal points, pointed ends, tiny compact white-hot center fading into pale warm gold #fff1c2 at edges. Clean luminous shape with a VERY small soft translucent edge, no large cloudy halo. It must read as one crisp simple glint when shown at 16 or 24 pixels on navy #2a2647. Center exactly on square canvas, star occupies about 72 percent canvas, ample transparent margin. REAL transparent RGBA background. No additional stars, no circles, no rings, no particles, no lens-flare streaks, no face, no text, no ground or backdrop, no baked checkerboard. Premium gentle tactile toy effects palette, soft white and pale gold only.",
+    "references": [],
+    "tool": "tools.image_gen__imagegen",
+    "date": "2026-11-22",
+    "status": "adopted",
+    "source": "assets/art/src/t4_sparkle_attempt1.png"
+  },
+  {
+    "id": "wax_chips_attempt2",
+    "prompt": "Use case: background-extraction. Edit the supplied THREE pink curved wax shell fragments sprite sheet. Preserve the three objects exactly: their pink glossy material, white broken edge rims, curved thin forms, arrangement, size, orientations, highlights and shading on the OBJECTS.\nREMOVE ALL surrounding gray-white haze and background between and outside the fragments. Absolutely clean REAL transparent RGBA background, alpha zero everywhere outside the three hard physical silhouettes, no glow, no shadows, no floor, no mist, no light bloom, no checkerboard art. Retain only the physical pink fragments and their thin white rims. No detached specks. Bottom-right quadrant must be fully transparent. Three separated clean alpha cutouts, each entirely inside its existing quadrant. No text or labels.",
+    "references": [
+      "assets/art/src/t4_wax_chips_attempt1.png"
+    ],
+    "tool": "tools.image_gen__imagegen",
+    "date": "2026-11-22",
+    "status": "adopted",
+    "source": "assets/art/src/t4_wax_chips_attempt2.png"
+  }
+]

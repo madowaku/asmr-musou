@@ -1,0 +1,65 @@
+[
+  {
+    "id": "wax_alt_attempt1",
+    "tool": "tools.image_gen__imagegen",
+    "date": "2026-11-22",
+    "generated_path": "$CODEX_HOME\\generated_images\\01a200ac-2dcf-7620-b0a3-c0064213f44d\\exec-5099e1d9-1ca2-4446-8407-4212ab785c2b.png",
+    "copied_path": "assets/art/src/t4_wax_alt_attempt1.png",
+    "sha256": "fb4c785ef414808f85b103d48574e1b0281b291a0873d701b4e0bf5937987764",
+    "byte_identical": true
+  },
+  {
+    "id": "wax_chips_attempt1",
+    "tool": "tools.image_gen__imagegen",
+    "date": "2026-11-22",
+    "generated_path": "$CODEX_HOME\\generated_images\\01a200ac-2dcf-7620-b0a3-c0064213f44d\\exec-d52463e9-1755-4570-aed1-5fd441d697bb.png",
+    "copied_path": "assets/art/src/t4_wax_chips_attempt1.png",
+    "sha256": "ce1c0133a0065cd5577c92c6135c0b00566f6437d2bcdfa8349394be723bd6e2",
+    "byte_identical": true
+  },
+  {
+    "id": "boss_chunks_attempt1",
+    "tool": "tools.image_gen__imagegen",
+    "date": "2026-11-22",
+    "generated_path": "$CODEX_HOME\\generated_images\\01a200ac-2dcf-7620-b0a3-c0064213f44d\\exec-e8161fa5-6bf2-4b95-bb47-db4d63708b4a.png",
+    "copied_path": "assets/art/src/t4_boss_chunks_attempt1.png",
+    "sha256": "4b7d4443f3c44277f283828d0383506de527a6d4bf34f97c50118221444af8b3",
+    "byte_identical": true
+  },
+  {
+    "id": "ice_shards_attempt1",
+    "tool": "tools.image_gen__imagegen",
+    "date": "2026-11-22",
+    "generated_path": "$CODEX_HOME\\generated_images\\01a200ac-2dcf-7620-b0a3-c0064213f44d\\exec-5b474833-3c74-469b-af6c-bc6ab89a3cd7.png",
+    "copied_path": "assets/art/src/t4_ice_shards_attempt1.png",
+    "sha256": "b041ff02bd4e79cd85c87e4e67386a34d8f9d12d41f13fce9cf7b04ec819df54",
+    "byte_identical": true
+  },
+  {
+    "id": "goo_drops_attempt1",
+    "tool": "tools.image_gen__imagegen",
+    "date": "2026-11-22",
+    "generated_path": "$CODEX_HOME\\generated_images\\01a200ac-2dcf-7620-b0a3-c0064213f44d\\exec-9f566e81-8674-4e3d-988d-25aa10eeb3ca.png",
+    "copied_path": "assets/art/src/t4_goo_drops_attempt1.png",
+    "sha256": "b4e629b1431655eead62eebc07195b40060e197f5485bd9fca5e19932ef51d37",
+    "byte_identical": true
+  },
+  {
+    "id": "sparkle_attempt1",
+    "tool": "tools.image_gen__imagegen",
+    "date": "2026-11-22",
+    "generated_path": "$CODEX_HOME\\generated_images\\01a200ac-2dcf-7620-b0a3-c0064213f44d\\exec-75b7fa83-658c-4780-ba9c-cd011ccb5a43.png",
+    "copied_path": "assets/art/src/t4_sparkle_attempt1.png",
+    "sha256": "f5f1a25cdf70ae27ee728b980beed5b0b5468e20f2a2c25d4aa687a564a83a4f",
+    "byte_identical": true
+  },
+  {
+    "id": "wax_chips_attempt2",
+    "tool": "tools.image_gen__imagegen",
+    "date": "2026-11-22",
+    "generated_path": "$CODEX_HOME\\generated_images\\01a200ac-2dcf-7620-b0a3-c0064213f44d\\exec-e81f16b6-43d7-4883-b9f4-43fe081b322b.png",
+    "copied_path": "assets/art/src/t4_wax_chips_attempt2.png",
+    "sha256": "2c79f00aea55708ac9bdc6fff8f1cb8fdb76cde3bbc3c762af003fcbc60c5786",
+    "byte_identical": true
+  }
+]

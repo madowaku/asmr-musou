@@ -1,0 +1,14 @@
+{
+  "name": "asmr-musou",
+  "version": "0.2.0",
+  "private": true,
+  "description": "ASMR MUSOU - tactile 45-second stress-relief browser game",
+  "scripts": {
+    "check": "node --check game.js && node --check audio.js && node --check sprites.js && node --check tests/smoke.mjs && node --check tests/drift-chain.mjs && node --check tests/frame-strips.mjs && node --check tests/perf.mjs && node --check tools/render-sfx.cjs",
+    "render:sfx": "node tools/render-sfx.cjs",
+    "test": "node tools/render-sfx.cjs && node tests/smoke.mjs && node tests/drift-chain.mjs && node tests/perf.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.56.1"
+  }
+}

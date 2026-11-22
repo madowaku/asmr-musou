@@ -1,0 +1,1293 @@
+{
+  "sprites": {
+    "chip_wax_a": {
+      "source": "chip_wax_a.png",
+      "source_mode": "RGBA",
+      "source_size": [
+        627,
+        627
+      ],
+      "matting": "native alpha retained; no chroma key",
+      "removed_disconnected_or_low_alpha_pixels": 0,
+      "edge_inset_source_px": 2,
+      "edge_softening_source_px": 0.35,
+      "clean_bbox": [
+        42,
+        136,
+        571,
+        548
+      ],
+      "sheet": "t4_wax_chips_attempt2.png",
+      "sheet_crop_box": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "tile_corner_alpha_before_low_alpha_cleanup": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "framing": {
+        "center_tile_px": [
+          306.5,
+          342.0
+        ],
+        "extent_tile_px": 529,
+        "margin_fraction": 0.08
+      },
+      "verification": {
+        "format": "PNG",
+        "mode": "RGBA",
+        "size": [
+          128,
+          128
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "outer_border_transparent": true,
+        "bbox": [
+          8,
+          20,
+          120,
+          108
+        ],
+        "minimum_margin_px": 8,
+        "alpha_percentiles_inside_support": [
+          16.0,
+          253.0,
+          253.0,
+          253.0,
+          255.0
+        ],
+        "sha256": "3309a7236ea91e05b5124ddb14081e4cce9400c12e8761e83d52ef005643ca78",
+        "bytes": 10187,
+        "pass": true,
+        "alpha128_bbox": [
+          10,
+          22,
+          118,
+          106
+        ]
+      },
+      "source_sha256": "2c79f00aea55708ac9bdc6fff8f1cb8fdb76cde3bbc3c762af003fcbc60c5786",
+      "final_path": "assets/art/fx/chip_wax_a.png"
+    },
+    "chip_wax_b": {
+      "source": "chip_wax_b.png",
+      "source_mode": "RGBA",
+      "source_size": [
+        627,
+        627
+      ],
+      "matting": "native alpha retained; no chroma key",
+      "removed_disconnected_or_low_alpha_pixels": 0,
+      "edge_inset_source_px": 2,
+      "edge_softening_source_px": 0.35,
+      "clean_bbox": [
+        49,
+        189,
+        558,
+        498
+      ],
+      "sheet": "t4_wax_chips_attempt2.png",
+      "sheet_crop_box": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "tile_corner_alpha_before_low_alpha_cleanup": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "framing": {
+        "center_tile_px": [
+          303.5,
+          343.5
+        ],
+        "extent_tile_px": 509,
+        "margin_fraction": 0.08
+      },
+      "verification": {
+        "format": "PNG",
+        "mode": "RGBA",
+        "size": [
+          128,
+          128
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "outer_border_transparent": true,
+        "bbox": [
+          8,
+          29,
+          120,
+          99
+        ],
+        "minimum_margin_px": 8,
+        "alpha_percentiles_inside_support": [
+          16.0,
+          253.0,
+          253.0,
+          253.0,
+          255.0
+        ],
+        "sha256": "f090d5d0a60f5296442e25c661e21e3376c551a08a2529c9ba3b444d2abfb143",
+        "bytes": 11459,
+        "pass": true,
+        "alpha128_bbox": [
+          10,
+          32,
+          118,
+          96
+        ]
+      },
+      "source_sha256": "2c79f00aea55708ac9bdc6fff8f1cb8fdb76cde3bbc3c762af003fcbc60c5786",
+      "final_path": "assets/art/fx/chip_wax_b.png"
+    },
+    "chip_wax_c": {
+      "source": "chip_wax_c.png",
+      "source_mode": "RGBA",
+      "source_size": [
+        627,
+        627
+      ],
+      "matting": "native alpha retained; no chroma key",
+      "removed_disconnected_or_low_alpha_pixels": 0,
+      "edge_inset_source_px": 2,
+      "edge_softening_source_px": 0.35,
+      "clean_bbox": [
+        74,
+        93,
+        574,
+        514
+      ],
+      "sheet": "t4_wax_chips_attempt2.png",
+      "sheet_crop_box": [
+        0,
+        627,
+        627,
+        1254
+      ],
+      "tile_corner_alpha_before_low_alpha_cleanup": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "framing": {
+        "center_tile_px": [
+          324.0,
+          303.5
+        ],
+        "extent_tile_px": 500,
+        "margin_fraction": 0.08
+      },
+      "verification": {
+        "format": "PNG",
+        "mode": "RGBA",
+        "size": [
+          128,
+          128
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "outer_border_transparent": true,
+        "bbox": [
+          8,
+          17,
+          120,
+          111
+        ],
+        "minimum_margin_px": 8,
+        "alpha_percentiles_inside_support": [
+          16.0,
+          253.0,
+          253.0,
+          253.0,
+          255.0
+        ],
+        "sha256": "3b5126ab3f70c40bb05653e54e14ce76c614505d7aa13cc3f23bc2d42dad825a",
+        "bytes": 10126,
+        "pass": true,
+        "alpha128_bbox": [
+          11,
+          19,
+          118,
+          109
+        ]
+      },
+      "source_sha256": "2c79f00aea55708ac9bdc6fff8f1cb8fdb76cde3bbc3c762af003fcbc60c5786",
+      "final_path": "assets/art/fx/chip_wax_c.png"
+    },
+    "chunk_boss_a": {
+      "source": "chunk_boss_a.png",
+      "source_mode": "RGBA",
+      "source_size": [
+        627,
+        627
+      ],
+      "matting": "native alpha retained; no chroma key",
+      "removed_disconnected_or_low_alpha_pixels": 0,
+      "edge_inset_source_px": 2,
+      "edge_softening_source_px": 0.35,
+      "clean_bbox": [
+        66,
+        66,
+        545,
+        574
+      ],
+      "sheet": "t4_boss_chunks_attempt1.png",
+      "sheet_crop_box": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "tile_corner_alpha_before_low_alpha_cleanup": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "framing": {
+        "center_tile_px": [
+          305.5,
+          320.0
+        ],
+        "extent_tile_px": 508,
+        "margin_fraction": 0.08
+      },
+      "verification": {
+        "format": "PNG",
+        "mode": "RGBA",
+        "size": [
+          128,
+          128
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "outer_border_transparent": true,
+        "bbox": [
+          11,
+          8,
+          117,
+          120
+        ],
+        "minimum_margin_px": 8,
+        "alpha_percentiles_inside_support": [
+          16.0,
+          253.0,
+          253.0,
+          253.0,
+          255.0
+        ],
+        "sha256": "f379d3cdf207aec878f197ce74df09f15494c17effc7f0c225e4ec7a11486b2d",
+        "bytes": 16787,
+        "pass": true,
+        "alpha128_bbox": [
+          14,
+          10,
+          114,
+          117
+        ]
+      },
+      "source_sha256": "4b7d4443f3c44277f283828d0383506de527a6d4bf34f97c50118221444af8b3",
+      "final_path": "assets/art/fx/chunk_boss_a.png"
+    },
+    "chunk_boss_b": {
+      "source": "chunk_boss_b.png",
+      "source_mode": "RGBA",
+      "source_size": [
+        627,
+        627
+      ],
+      "matting": "native alpha retained; no chroma key",
+      "removed_disconnected_or_low_alpha_pixels": 0,
+      "edge_inset_source_px": 2,
+      "edge_softening_source_px": 0.35,
+      "clean_bbox": [
+        38,
+        146,
+        553,
+        546
+      ],
+      "sheet": "t4_boss_chunks_attempt1.png",
+      "sheet_crop_box": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "tile_corner_alpha_before_low_alpha_cleanup": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "framing": {
+        "center_tile_px": [
+          295.5,
+          346.0
+        ],
+        "extent_tile_px": 515,
+        "margin_fraction": 0.08
+      },
+      "verification": {
+        "format": "PNG",
+        "mode": "RGBA",
+        "size": [
+          128,
+          128
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "outer_border_transparent": true,
+        "bbox": [
+          8,
+          20,
+          120,
+          108
+        ],
+        "minimum_margin_px": 8,
+        "alpha_percentiles_inside_support": [
+          16.0,
+          253.0,
+          253.0,
+          253.0,
+          255.0
+        ],
+        "sha256": "9fcad58ba36ea2d42c8f0d0e0dbcbd797779863dba903eb3c979e281f77e98ec",
+        "bytes": 14108,
+        "pass": true,
+        "alpha128_bbox": [
+          11,
+          22,
+          118,
+          106
+        ]
+      },
+      "source_sha256": "4b7d4443f3c44277f283828d0383506de527a6d4bf34f97c50118221444af8b3",
+      "final_path": "assets/art/fx/chunk_boss_b.png"
+    },
+    "chunk_boss_c": {
+      "source": "chunk_boss_c.png",
+      "source_mode": "RGBA",
+      "source_size": [
+        627,
+        627
+      ],
+      "matting": "native alpha retained; no chroma key",
+      "removed_disconnected_or_low_alpha_pixels": 0,
+      "edge_inset_source_px": 2,
+      "edge_softening_source_px": 0.35,
+      "clean_bbox": [
+        65,
+        84,
+        567,
+        560
+      ],
+      "sheet": "t4_boss_chunks_attempt1.png",
+      "sheet_crop_box": [
+        0,
+        627,
+        627,
+        1254
+      ],
+      "tile_corner_alpha_before_low_alpha_cleanup": [
+        0,
+        1,
+        0,
+        0
+      ],
+      "framing": {
+        "center_tile_px": [
+          316.0,
+          322.0
+        ],
+        "extent_tile_px": 502,
+        "margin_fraction": 0.08
+      },
+      "verification": {
+        "format": "PNG",
+        "mode": "RGBA",
+        "size": [
+          128,
+          128
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "outer_border_transparent": true,
+        "bbox": [
+          8,
+          11,
+          120,
+          117
+        ],
+        "minimum_margin_px": 8,
+        "alpha_percentiles_inside_support": [
+          16.0,
+          253.0,
+          253.0,
+          253.0,
+          255.0
+        ],
+        "sha256": "aae3a0e591a32b897a54282f476502900c9cbb0fe066780bc5b88ae30058362f",
+        "bytes": 14073,
+        "pass": true,
+        "alpha128_bbox": [
+          10,
+          13,
+          118,
+          115
+        ]
+      },
+      "source_sha256": "4b7d4443f3c44277f283828d0383506de527a6d4bf34f97c50118221444af8b3",
+      "final_path": "assets/art/fx/chunk_boss_c.png"
+    },
+    "shard_ice_a": {
+      "source": "shard_ice_a.png",
+      "source_mode": "RGBA",
+      "source_size": [
+        627,
+        627
+      ],
+      "matting": "native alpha retained; no chroma key",
+      "removed_disconnected_or_low_alpha_pixels": 0,
+      "edge_inset_source_px": 2,
+      "edge_softening_source_px": 0.35,
+      "clean_bbox": [
+        54,
+        85,
+        609,
+        574
+      ],
+      "sheet": "t4_ice_shards_attempt1.png",
+      "sheet_crop_box": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "tile_corner_alpha_before_low_alpha_cleanup": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "framing": {
+        "center_tile_px": [
+          331.5,
+          329.5
+        ],
+        "extent_tile_px": 555,
+        "margin_fraction": 0.08
+      },
+      "verification": {
+        "format": "PNG",
+        "mode": "RGBA",
+        "size": [
+          128,
+          128
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "outer_border_transparent": true,
+        "bbox": [
+          8,
+          15,
+          120,
+          114
+        ],
+        "minimum_margin_px": 8,
+        "alpha_percentiles_inside_support": [
+          16.0,
+          252.0,
+          253.0,
+          253.0,
+          255.0
+        ],
+        "sha256": "f4a50c696c2b439b9539310ab0b269072652012f5b77640aade7ccbf9a7facc9",
+        "bytes": 10200,
+        "pass": true,
+        "alpha128_bbox": [
+          11,
+          17,
+          117,
+          111
+        ]
+      },
+      "source_sha256": "b041ff02bd4e79cd85c87e4e67386a34d8f9d12d41f13fce9cf7b04ec819df54",
+      "final_path": "assets/art/fx/shard_ice_a.png"
+    },
+    "shard_ice_b": {
+      "source": "shard_ice_b.png",
+      "source_mode": "RGBA",
+      "source_size": [
+        627,
+        627
+      ],
+      "matting": "native alpha retained; no chroma key",
+      "removed_disconnected_or_low_alpha_pixels": 0,
+      "edge_inset_source_px": 2,
+      "edge_softening_source_px": 0.35,
+      "clean_bbox": [
+        167,
+        84,
+        532,
+        583
+      ],
+      "sheet": "t4_ice_shards_attempt1.png",
+      "sheet_crop_box": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "tile_corner_alpha_before_low_alpha_cleanup": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "framing": {
+        "center_tile_px": [
+          349.5,
+          333.5
+        ],
+        "extent_tile_px": 499,
+        "margin_fraction": 0.08
+      },
+      "verification": {
+        "format": "PNG",
+        "mode": "RGBA",
+        "size": [
+          128,
+          128
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "outer_border_transparent": true,
+        "bbox": [
+          23,
+          9,
+          105,
+          120
+        ],
+        "minimum_margin_px": 8,
+        "alpha_percentiles_inside_support": [
+          16.0,
+          251.0,
+          252.0,
+          253.0,
+          255.0
+        ],
+        "sha256": "016a9c5e5dafb02d26af0fe557e438f6e69eda59421b92d46768731a6a50fdc2",
+        "bytes": 6651,
+        "pass": true,
+        "alpha128_bbox": [
+          25,
+          12,
+          102,
+          117
+        ]
+      },
+      "source_sha256": "b041ff02bd4e79cd85c87e4e67386a34d8f9d12d41f13fce9cf7b04ec819df54",
+      "final_path": "assets/art/fx/shard_ice_b.png"
+    },
+    "shard_ice_c": {
+      "source": "shard_ice_c.png",
+      "source_mode": "RGBA",
+      "source_size": [
+        627,
+        627
+      ],
+      "matting": "native alpha retained; no chroma key",
+      "removed_disconnected_or_low_alpha_pixels": 0,
+      "edge_inset_source_px": 2,
+      "edge_softening_source_px": 0.35,
+      "clean_bbox": [
+        78,
+        149,
+        564,
+        508
+      ],
+      "sheet": "t4_ice_shards_attempt1.png",
+      "sheet_crop_box": [
+        0,
+        627,
+        627,
+        1254
+      ],
+      "tile_corner_alpha_before_low_alpha_cleanup": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "framing": {
+        "center_tile_px": [
+          321.0,
+          328.5
+        ],
+        "extent_tile_px": 486,
+        "margin_fraction": 0.08
+      },
+      "verification": {
+        "format": "PNG",
+        "mode": "RGBA",
+        "size": [
+          128,
+          128
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "outer_border_transparent": true,
+        "bbox": [
+          8,
+          22,
+          120,
+          106
+        ],
+        "minimum_margin_px": 8,
+        "alpha_percentiles_inside_support": [
+          17.0,
+          253.0,
+          253.0,
+          253.0,
+          255.0
+        ],
+        "sha256": "a0e2d1a488a02651ce3b3334d6b1b1b5e004ca5c56c1fee9a5a15eb8b49608ae",
+        "bytes": 11390,
+        "pass": true,
+        "alpha128_bbox": [
+          11,
+          25,
+          117,
+          103
+        ]
+      },
+      "source_sha256": "b041ff02bd4e79cd85c87e4e67386a34d8f9d12d41f13fce9cf7b04ec819df54",
+      "final_path": "assets/art/fx/shard_ice_c.png"
+    },
+    "drop_jelly": {
+      "source": "drop_jelly.png",
+      "source_mode": "RGBA",
+      "source_size": [
+        627,
+        627
+      ],
+      "matting": "native alpha retained; no chroma key",
+      "removed_disconnected_or_low_alpha_pixels": 0,
+      "edge_inset_source_px": 2,
+      "edge_softening_source_px": 0.35,
+      "clean_bbox": [
+        142,
+        113,
+        523,
+        580
+      ],
+      "sheet": "t4_goo_drops_attempt1.png",
+      "sheet_crop_box": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "tile_corner_alpha_before_low_alpha_cleanup": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "framing": {
+        "center_tile_px": [
+          332.5,
+          346.5
+        ],
+        "extent_tile_px": 467,
+        "margin_fraction": 0.08
+      },
+      "verification": {
+        "format": "PNG",
+        "mode": "RGBA",
+        "size": [
+          128,
+          128
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "outer_border_transparent": true,
+        "bbox": [
+          18,
+          8,
+          110,
+          120
+        ],
+        "minimum_margin_px": 8,
+        "alpha_percentiles_inside_support": [
+          17.0,
+          253.0,
+          253.0,
+          253.0,
+          255.0
+        ],
+        "sha256": "e227ae7fc8de41164c9706974d24826153023dc0105ae84a83311d9b15ef3031",
+        "bytes": 12362,
+        "pass": true,
+        "alpha128_bbox": [
+          20,
+          10,
+          108,
+          118
+        ]
+      },
+      "source_sha256": "b4e629b1431655eead62eebc07195b40060e197f5485bd9fca5e19932ef51d37",
+      "final_path": "assets/art/fx/drop_jelly.png"
+    },
+    "drop_mint": {
+      "source": "drop_mint.png",
+      "source_mode": "RGBA",
+      "source_size": [
+        627,
+        627
+      ],
+      "matting": "native alpha retained; no chroma key",
+      "removed_disconnected_or_low_alpha_pixels": 0,
+      "edge_inset_source_px": 2,
+      "edge_softening_source_px": 0.35,
+      "clean_bbox": [
+        91,
+        119,
+        474,
+        577
+      ],
+      "sheet": "t4_goo_drops_attempt1.png",
+      "sheet_crop_box": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "tile_corner_alpha_before_low_alpha_cleanup": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "framing": {
+        "center_tile_px": [
+          282.5,
+          348.0
+        ],
+        "extent_tile_px": 458,
+        "margin_fraction": 0.08
+      },
+      "verification": {
+        "format": "PNG",
+        "mode": "RGBA",
+        "size": [
+          128,
+          128
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "outer_border_transparent": true,
+        "bbox": [
+          17,
+          8,
+          111,
+          120
+        ],
+        "minimum_margin_px": 8,
+        "alpha_percentiles_inside_support": [
+          16.0,
+          253.0,
+          253.0,
+          253.0,
+          255.0
+        ],
+        "sha256": "650e705a00062beff424fb3ba709e9872937203172a4d3b7e3f0e828f781de36",
+        "bytes": 13019,
+        "pass": true,
+        "alpha128_bbox": [
+          19,
+          10,
+          109,
+          118
+        ]
+      },
+      "source_sha256": "b4e629b1431655eead62eebc07195b40060e197f5485bd9fca5e19932ef51d37",
+      "final_path": "assets/art/fx/drop_mint.png"
+    },
+    "drop_peach": {
+      "source": "drop_peach.png",
+      "source_mode": "RGBA",
+      "source_size": [
+        627,
+        627
+      ],
+      "matting": "native alpha retained; no chroma key",
+      "removed_disconnected_or_low_alpha_pixels": 0,
+      "edge_inset_source_px": 2,
+      "edge_softening_source_px": 0.35,
+      "clean_bbox": [
+        140,
+        86,
+        533,
+        554
+      ],
+      "sheet": "t4_goo_drops_attempt1.png",
+      "sheet_crop_box": [
+        0,
+        627,
+        627,
+        1254
+      ],
+      "tile_corner_alpha_before_low_alpha_cleanup": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "framing": {
+        "center_tile_px": [
+          336.5,
+          320.0
+        ],
+        "extent_tile_px": 468,
+        "margin_fraction": 0.08
+      },
+      "verification": {
+        "format": "PNG",
+        "mode": "RGBA",
+        "size": [
+          128,
+          128
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "outer_border_transparent": true,
+        "bbox": [
+          17,
+          8,
+          111,
+          120
+        ],
+        "minimum_margin_px": 8,
+        "alpha_percentiles_inside_support": [
+          17.0,
+          253.0,
+          253.0,
+          253.0,
+          255.0
+        ],
+        "sha256": "d9c1f7f29ece5b94fb9567b3ace5f7d544f175f083097759b799257c018d72ca",
+        "bytes": 11910,
+        "pass": true,
+        "alpha128_bbox": [
+          19,
+          10,
+          109,
+          118
+        ]
+      },
+      "source_sha256": "b4e629b1431655eead62eebc07195b40060e197f5485bd9fca5e19932ef51d37",
+      "final_path": "assets/art/fx/drop_peach.png"
+    },
+    "sparkle": {
+      "source": "sparkle.png",
+      "source_mode": "RGBA",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "matting": "native alpha retained; no chroma key",
+      "removed_disconnected_or_low_alpha_pixels": 0,
+      "edge_inset_source_px": 2,
+      "edge_softening_source_px": 0.35,
+      "clean_bbox": [
+        322,
+        193,
+        931,
+        1036
+      ],
+      "sheet": "t4_sparkle_attempt1.png",
+      "sheet_crop_box": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "tile_corner_alpha_before_low_alpha_cleanup": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "framing": {
+        "center_tile_px": [
+          626.5,
+          614.5
+        ],
+        "extent_tile_px": 843,
+        "margin_fraction": 0.08
+      },
+      "verification": {
+        "format": "PNG",
+        "mode": "RGBA",
+        "size": [
+          128,
+          128
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "outer_border_transparent": true,
+        "bbox": [
+          25,
+          10,
+          103,
+          118
+        ],
+        "minimum_margin_px": 10,
+        "alpha_percentiles_inside_support": [
+          16.0,
+          183.0,
+          253.0,
+          253.0,
+          255.0
+        ],
+        "sha256": "fe4516b5fc09ef8e029cf405d7d588a0bc3e3ec83ed630d00ccf83d831c41d0d",
+        "bytes": 3813,
+        "pass": true,
+        "alpha128_bbox": [
+          29,
+          19,
+          99,
+          109
+        ]
+      },
+      "source_sha256": "f5f1a25cdf70ae27ee728b980beed5b0b5468e20f2a2c25d4aa687a564a83a4f",
+      "final_path": "assets/art/fx/sparkle.png"
+    },
+    "wax_2_alt": {
+      "source": "t4_wax_alt_attempt1.png",
+      "source_mode": "RGBA",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "matting": "native alpha retained; no chroma key",
+      "removed_disconnected_or_low_alpha_pixels": 10154,
+      "edge_inset_source_px": 2,
+      "edge_softening_source_px": 0.35,
+      "clean_bbox": [
+        120,
+        138,
+        1132,
+        1159
+      ],
+      "source_sha256": "fb4c785ef414808f85b103d48574e1b0281b291a0873d701b4e0bf5937987764",
+      "framing": {
+        "reference": "wax_0",
+        "center_source_px": [
+          622.0,
+          648.5
+        ],
+        "shared_extent_source_px": 1023.0,
+        "margin_fraction": 0.06
+      },
+      "verification": {
+        "format": "PNG",
+        "mode": "RGBA",
+        "size": [
+          384,
+          384
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "outer_border_transparent": true,
+        "bbox": [
+          24,
+          21,
+          363,
+          363
+        ],
+        "minimum_margin_px": 21,
+        "alpha_percentiles_inside_support": [
+          16.0,
+          253.0,
+          253.0,
+          253.0,
+          255.0
+        ],
+        "sha256": "0dce5c8eb80d833b159a5a7fcb93be04f8e0fa32a3c2e152e9255c08313068c8",
+        "bytes": 131390,
+        "pass": true,
+        "alpha128_bbox": [
+          27,
+          24,
+          360,
+          360
+        ]
+      },
+      "face_registration": {
+        "wax_0": {
+          "dark_face_pixel_count": 1578,
+          "centroid": [
+            191.9467680608365,
+            192.70088719898607
+          ],
+          "bbox": [
+            128,
+            167,
+            255,
+            222
+          ],
+          "centroid_delta_vs_wax_0_at_384_px": 0.0
+        },
+        "wax_1": {
+          "dark_face_pixel_count": 1589,
+          "centroid": [
+            191.6702328508496,
+            192.80113278791694
+          ],
+          "bbox": [
+            128,
+            167,
+            255,
+            222
+          ],
+          "centroid_delta_vs_wax_0_at_384_px": 0.2941443531033544
+        },
+        "wax_2": {
+          "dark_face_pixel_count": 1634,
+          "centroid": [
+            191.66156670746633,
+            192.6609547123623
+          ],
+          "bbox": [
+            128,
+            167,
+            255,
+            223
+          ],
+          "centroid_delta_vs_wax_0_at_384_px": 0.2879833596792107
+        },
+        "wax_2_alt": {
+          "dark_face_pixel_count": 1648,
+          "centroid": [
+            191.84162621359224,
+            192.8106796116505
+          ],
+          "bbox": [
+            128,
+            167,
+            255,
+            223
+          ],
+          "centroid_delta_vs_wax_0_at_384_px": 0.15201704483580575
+        }
+      },
+      "final_path": "assets/art/alt/wax_2_alt.png"
+    }
+  },
+  "deliverables": [
+    {
+      "path": "assets/art/fx/chip_wax_a.png",
+      "sha256": "3309a7236ea91e05b5124ddb14081e4cce9400c12e8761e83d52ef005643ca78",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "path": "assets/art/fx/chip_wax_b.png",
+      "sha256": "f090d5d0a60f5296442e25c661e21e3376c551a08a2529c9ba3b444d2abfb143",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "path": "assets/art/fx/chip_wax_c.png",
+      "sha256": "3b5126ab3f70c40bb05653e54e14ce76c614505d7aa13cc3f23bc2d42dad825a",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "path": "assets/art/fx/chunk_boss_a.png",
+      "sha256": "f379d3cdf207aec878f197ce74df09f15494c17effc7f0c225e4ec7a11486b2d",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "path": "assets/art/fx/chunk_boss_b.png",
+      "sha256": "9fcad58ba36ea2d42c8f0d0e0dbcbd797779863dba903eb3c979e281f77e98ec",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "path": "assets/art/fx/chunk_boss_c.png",
+      "sha256": "aae3a0e591a32b897a54282f476502900c9cbb0fe066780bc5b88ae30058362f",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "path": "assets/art/fx/drop_jelly.png",
+      "sha256": "e227ae7fc8de41164c9706974d24826153023dc0105ae84a83311d9b15ef3031",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "path": "assets/art/fx/drop_mint.png",
+      "sha256": "650e705a00062beff424fb3ba709e9872937203172a4d3b7e3f0e828f781de36",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "path": "assets/art/fx/drop_peach.png",
+      "sha256": "d9c1f7f29ece5b94fb9567b3ace5f7d544f175f083097759b799257c018d72ca",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "path": "assets/art/fx/fx_sheet.png",
+      "sha256": "baedc787e1c5c1e583ecf846ff285cf20aae680e6ac3a0e1605c5566febbc7f1",
+      "size": [
+        896,
+        1070
+      ]
+    },
+    {
+      "path": "assets/art/fx/shard_ice_a.png",
+      "sha256": "f4a50c696c2b439b9539310ab0b269072652012f5b77640aade7ccbf9a7facc9",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "path": "assets/art/fx/shard_ice_b.png",
+      "sha256": "016a9c5e5dafb02d26af0fe557e438f6e69eda59421b92d46768731a6a50fdc2",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "path": "assets/art/fx/shard_ice_c.png",
+      "sha256": "a0e2d1a488a02651ce3b3334d6b1b1b5e004ca5c56c1fee9a5a15eb8b49608ae",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "path": "assets/art/fx/sparkle.png",
+      "sha256": "fe4516b5fc09ef8e029cf405d7d588a0bc3e3ec83ed630d00ccf83d831c41d0d",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "path": "assets/art/alt/wax_2_alt.png",
+      "sha256": "0dce5c8eb80d833b159a5a7fcb93be04f8e0fa32a3c2e152e9255c08313068c8",
+      "size": [
+        384,
+        384
+      ]
+    },
+    {
+      "path": "assets/art/alt/wax_compare.png",
+      "sha256": "e996af0220b3cb7f9db579504d527184e273a504a4912ec25086ff01205d61e7",
+      "size": [
+        1664,
+        634
+      ]
+    }
+  ],
+  "existing_png_preservation": true,
+  "visual_review": {
+    "fx_native_and_16_24_40": "passed; families, colors, rims and shapes readable on #2a2647",
+    "wax_native_and_80": "passed; cream core clearly contrasts with glossy pink shell; same group crop",
+    "wax_recommendation": "wax_2_alt.png",
+    "limitations": "Static contact-sheet inspection only. No game integration, animation, human playtest or device test. Ice transmission is mostly baked optical shading, native support alpha median 252-253/255."
+  }
+}
