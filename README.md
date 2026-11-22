@@ -14,4 +14,4 @@ Pages build command (set in the Pages project, not in the game branches):
 ```
 
 Output directory: `dist`. Production branch: `main` (stable). Preview branches: `feat/v0.2-tactile` (dev),
-`research/v0.3-materials` (research).
+`research/v0.3-materials` (research), `research/v0.4-combat` (combat lab).
