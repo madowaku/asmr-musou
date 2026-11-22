@@ -164,11 +164,11 @@ try {
     await page.evaluate(t => __asmrTest.skipTo(t), time); const before = await state(page); await page.waitForTimeout(1550);
     const after = await state(page); assert(after.enemies.length <= cap); assert(after.particles <= 360);
     for (const e of after.enemies) {
-      assert(e.y >= 300, 'no target parked under HUD');
-      const previous = before.enemies.find(p => p.id === e.id); if (previous) assert(e.y <= previous.y && previous.y - e.y < 100, 'continuous drift, no teleport');
+      assert(e.x >= e.r && e.x <= 720 - e.r && e.y >= 300 + e.r * .6 && e.y <= 1280 - e.r * .4, 'target inside play bounds');
+      const previous = before.enemies.find(p => p.id === e.id); if (previous) assert(Math.hypot(e.x - previous.x, e.y - previous.y) < 100, 'continuous wander, no teleport');
     }
   }
-  ok('wave density caps 8/10/12, HUD clearance, continuous upward drift and particle bound');
+  ok('wave density caps 8/10/12, play bounds, continuous wander and particle bound');
   assert.equal((await page.evaluate(() => __asmrTest.artStats())).scales, 10, 'no per-frame rescaling');
   assert.equal((await page.evaluate(() => __asmrTest.artStats())).fxScales, 66, 'no per-frame FX rescaling');
   await page.goto(url + '&debug=1'); await page.locator('#start').click(); await page.evaluate(() => __asmrTest.showcase());

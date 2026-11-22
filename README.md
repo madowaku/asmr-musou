@@ -15,10 +15,10 @@
 ## 素材と45秒の流れ
 
 - ロウ：3タップ。ツヤのある丸い殻 → 白い亀裂 → 殻が落ちてクリームの芯 → 芯が90ms膨らんで飛散。長押しなら一度で潰せる。
-- プチプチ：1タップで破裂。155px以内でつながる泡を40–70ms刻みで連鎖させる。
+- プチプチ：1タップで破裂。中心間距離3.6×半径（泡58なら208.8）以内でつながる泡をBFSでたどり、40–70ms刻みで連鎖させる。3体以上の空きがある追加出現では85%の確率で3〜5体の密な群れを試みる。隣同士は直径の92.5%間隔、既存の敵とは半径の和の85%以上を空け、空きがなければ通常の単体出現を試す。
 - ゼリー：低いしずく形。最初のタップでバネ振動とむにゅ音、次のタップか長押しで潰れる。
 - 氷：角ばった結晶。1タップで白い亀裂、2タップで破片と響き。
-- 小敵は最大8 / 10 / 12体。半径はロウ64 / 泡58 / ゼリー62 / 氷60（720×1280座標）。開始時から下部にも配置し、追加は下部 `y=990–1150` または左右 `y=440–1150` に短くフェードインして上昇する。空き位置を選び、近づいた小敵を穏やかに左右へ離す。プレイ領域の上端は `y=300`、HUD手前でフェードアウトする。
+- 小敵は最大8 / 10 / 12体。半径はロウ64 / 泡58 / ゼリー62 / 氷60（720×1280座標）。開幕7体は最初の8秒、または触れるまで小さく揺れるだけで待つ。その後は10〜22 u/sを基準に揺れながら漂い、端と近隣の敵を見て滑らかに進路を変える。中心の範囲は `x=[r,720−r]`、`y=[300+0.6r,1280−0.4r]`。上端でも透明化・削除されず、タップできる。密度は出現上限で制御し、未破壊の敵は退場させない。単体の追加は下部 `y=990–1150` または左右 `y=440–1150`、泡の群れはプレイ領域の空きに短くフェードインする。
 - 32秒でボス。残る小敵を得点つきの連続ポップで消し、追加出現を停止。半径190、中央 `y=660` へ`y=515` からHUD下で短く落下し、着地で潰れと低音＋中域のthud。殻3層（各3ヒット）→ 芯（4タップまたは長押し1回）→ 大きな解放。殻への長押しは1ヒット。
 - 撃破後は軽いボーナス敵。45秒で結果へ進む。ボス未撃破の減点はない。
 
@@ -66,8 +66,9 @@ node tools/render-sfx.cjs
 python tools/analyze_sfx.py assets_audio_preview screenshots/sfx_spectrograms.png
 ```
 
-- `npm test` は **SFXゲート → smoke → perf** の順で実行する。Node + Playwright、`chromium.launch({ channel: 'chrome', headless: true })`、通信を無効にした `file://` を使う。Python版 `tests/smoke.py` は `tests/smoke.mjs` に置き換えた。
+- `npm test` は **SFXゲート → smoke → drift-chain → perf** の順で実行する。Node + Playwright、`chromium.launch({ channel: 'chrome', headless: true })` を使用。smoke / perf は通信を無効にした `file://`、drift-chain は自動起動・終了するループバックHTTPサーバーを使う。Python版 `tests/smoke.py` は `tests/smoke.mjs` に置き換えた。
 - メニュー、音声の初期化、素材段階、泡の連鎖間隔、実マウスのスワイプ・長押し・早離し、ボスの全段階、ミュート、声数上限、45秒終了・再挑戦を確認。360×640 / 412×915 は mobile + hasTouch の `touchscreen.tap` と回転を確認。console/page errorと外部通信は0件を要求。
+- `tests/drift-chain.mjs` は375×812・HTTPで、開幕ロウの8秒実時間生存と20秒無入力の全フレーム（ID・位置・境界・消失）を検証。開幕群への実タッチ1回で3体が0.3秒以内に破裂し、seed=1の通常45秒を泡のみの実タッチで進めて3体以上の連鎖が3回以上起きることを確認する。自然出現群の大きさ・密着・重なりと密度上限もチェック。補助の仮想時計テストでは四辺・角からの復帰、待機の早期解除、上端へのタップ、200単位のBFS接続と220単位の非接続を確認する。`drift-chain.json` に集計、`play.png` / `swipe.png` に同サイズの実プレイ画面を保存する。
 - `screenshots/` に title / play / swipe / hold / boss_act1 / boss_damaged / boss_core / boss_final / result、wax_core・モバイル画像、全小敵状態のsprites_states、hitbox_debug、sprite_fracture、missing_sprite_fallback / missing_fx_fallback、soundboardのPC・モバイル画像を保存。実ファイルを欠落させた一時コピーでも進行と1回の警告を検証する（Chrome自身の意図したERR_FILE_NOT_FOUND診断は別扱い）。
 - `screenshots/wax_frames.png` は3タップ×6フレーム、`boss_final_frames.png` は最終破断18フレーム（6列×3行）。`tests/frame-strips.mjs` で `page.clock.install()` / `pauseAt()`、実マウスタップ後の最初の描画から `runFor(33)` 刻みで取得。ラベルの時刻は入力からの進行時間。`frame_states.json` に同時刻の芯タイマー・FX・bloom・ringを保存。
 - `assets_audio_preview/synth_<name>_<1..3>.wav` に48kHz・16bit・monoの全51音を書き出す。ゲームはこのWAVを読み込まず、同じDSPをブラウザで実行する。
@@ -76,13 +77,16 @@ python tools/analyze_sfx.py assets_audio_preview screenshots/sfx_spectrograms.pn
 - `tests/perf.mjs` はCDPの `Emulation.setCPUThrottlingRate {rate:4}` で10秒の連続スワイプ。各フレーム12小敵＋ボスを補充し、音ON・破片込みの `update+draw` を `performance.now()` で測る。補充処理も計測内。p95<8msを要求し、フレーム数・平均・p95・最大・最少敵数・最大粒子数を `screenshots/perf.json` に保存する。GPU描画完了・イベント処理・実機FPSの測定ではない。
 - T3最終計測（Chrome 158、4×CPU、10.14秒、731フレーム・36スワイプ）: 平均3.97ms / p95 5.60ms / 最大32.20ms。全フレーム13体以上、粒子最大360。p95目標は達成、単発の最大値は16.7msを超える。
 - T5最終計測（Chrome 158.0.8127.36、4×CPU、10.26秒、739フレーム・31スワイプ）: 平均4.44ms / p95 **6.40ms < 8ms** / 最大8.50ms。最少13敵・粒子最大360。`npm run check` と `npm test`（51音のSFXゲート・smoke 20項目・perf）PASS。FX欠落、90ms芯、popup非重複、soundboardも検証。
-- テスト用 `window.__asmrTest` に getState（stage/act含む）、hitAt、spawn、skipTo、end、audioStats 等。`?seed=1` で素材配置と音の変化を再現可能。長押し・タッチは実入力で検証。
+- T6最終計測（Chrome 158.0.8127.36、4×CPU、10.05秒、716フレーム・28スワイプ）: 平均4.55ms / p95 **6.50ms < 8ms** / 最大48.90ms。最少13敵・粒子最大350。`npm run check` と `npm test`（51音・smoke 20項目・HTTPのT6回帰・perf）PASS。開幕ロウの実時間8秒生存、20秒・1508フレームで消失0、開幕3泡120ms、通常45秒の泡だけタップで3体以上の連鎖19回を確認。単発の最大フレーム時間は16.7msを超えており、Android実機の滑らかさを保証する測定ではない。
+- テスト用 `window.__asmrTest` に getState（stage/act/queued/resting含む）、hitAt、spawn、skipTo、end、audioStats 等。`trace(true)` で描画フレームごとのID・座標と破壊・連鎖イベントを採取し、`trace(false)` で回収・停止する（通常プレイとperfでは無効）。`spawn(type,x,y,false)` は移動する検証用の敵。`?seed=1` で素材配置と音の変化を再現可能。長押し・タッチは実入力で検証。
 
 ## 残る確認
 
 自動テストは人間の試遊・耳チェックを代用しない。Android実機の60fps、熱、入力遅延、振動、スピーカー／イヤホンでの音量・快適さは未検証。初回のDSP生成時間も実機で確認が必要。音源単体の検査は全ミックスの音圧・聴感を保証しない。4倍CPU制限もAndroid実機の代用ではなく、最大フレーム時間のスパイクは別に記録する。亀裂は白線で補強済み。90msの芯の膨らみが実機の連打でも伝わるかは人間の試遊で確認する。公開は行っていない。
 
 `ORCHESTRATOR_BRIEF.md` 冒頭の「v0.1」「Python smoke」「リアルタイム仮音」は出発点の記述。このv0.2では本READMEのNodeテスト・事前生成DSPを採用している。ゼリーは今回の具体的な操作仕様（1回目で揺れ、次のタップで潰す）に従っている。
+
+T6では実機試遊に基づく指示を優先し、旧READMEの155px連鎖・上昇移動・HUD手前のフェード退場と、smokeの上昇方向限定の期待値を更新。ボスの32秒登場・得点つき連続ポップ・殻と芯・ボーナス移行は維持。
 
 T3では旧READMEの「画像未統合・ボスy=560・ピーク正規化・600粒子」を今回の指示に沿って更新。`assets/ART_LOG.md` のT2範囲外の記述は履歴として維持。各画像節の `Tool: undefined` / `Date: undefined` は元ログの欠落で、冒頭のimage_gen・制作日2026-11-22という記録を参照しているが、個別実行日時は未確認。
 

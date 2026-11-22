@@ -1,0 +1,65 @@
+{
+  "viewport": "375x812",
+  "protocol": "http",
+  "seed": 1,
+  "waxAtEightSeconds": {
+    "id": 2,
+    "x": 147.06162050942123,
+    "y": 417.19269807387656,
+    "elapsed": 8.656499999999978
+  },
+  "idle": {
+    "seconds": 20.100700000000078,
+    "frames": 1508,
+    "removals": 0
+  },
+  "openingChainMs": 120,
+  "run": {
+    "elapsed": 45,
+    "wallSeconds": 45.08424099999999,
+    "taps": 26,
+    "chainEvents": 19,
+    "chainSizes": [
+      3,
+      4,
+      4,
+      4,
+      4,
+      4,
+      3,
+      4,
+      4,
+      3,
+      3,
+      4,
+      4,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
+    ],
+    "spawnGroupSizes": [
+      3,
+      4,
+      4,
+      4,
+      4,
+      4,
+      3,
+      4,
+      4,
+      3,
+      3,
+      4,
+      4,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
+    ]
+  }
+}

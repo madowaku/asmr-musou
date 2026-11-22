@@ -33,10 +33,12 @@
   let uid = 1, lastKill = -5, spawnClock = 0, bossSpawned = false, bossDefeated = false;
   let wave = 1, freeze = 0, slow = 0, punch = 0, shake = 0, lastFrame = 0, soundOn = true, hudClock = 0;
   let lastStroke = { hits: 0, pitches: [] };
+  let trace = null;
   function createEnemy(type, x, y, stationary = false) {
     const r = art.radii[type];
+    const heading = rnd(0, TAU), speed = rnd(10, 22);
     return { id: uid++, type, x, y, r, stage: 0, act: type === 'boss' ? 1 : 0, layer: 0,
-      vx: stationary ? 0 : rnd(-9, 9), vy: stationary ? 0 : -rnd(28, 48), phase: rnd(0, TAU),
+      vx: 0, vy: 0, heading, speed, phase: rnd(0, TAU), motionTime: 0, opening: false, touched: false,
       jiggle: 0, velocity: 0, pressure: 0, glint: 0, crackFlash: 0, crack: null, age: stationary ? 1 : 0, stationary, dead: false, queued: false, entering: false, owner: null };
   }
   function addEnemy(type, x, y, stationary = false) { const e = createEnemy(type, x, y, stationary); enemies.push(e); return e; }
@@ -105,15 +107,17 @@
   function chainFrom(e) {
     const chain = [e]; let at = clock;
     for (let n = 0; n < chain.length; n++) for (const other of enemies) {
-      if (other.type === 'bubble' && !other.dead && !other.queued && other !== e && Math.hypot(other.x - chain[n].x, other.y - chain[n].y) < 155) {
+      if (other.type === 'bubble' && !other.dead && !other.queued && other !== e && Math.hypot(other.x - chain[n].x, other.y - chain[n].y) <= 3.6 * chain[n].r) {
         at += rnd(.04, .07); queue(other, at, 'chain', Math.min(12, chain.length * 2)); chain.push(other);
       }
     }
+    if (trace) trace.chains.push({ at: clock, ids: chain.map(e => e.id) });
   }
   function endStage(e) { return e.type === 'wax' ? 3 : e.type === 'ice' || e.type === 'jelly' ? 2 : e.type === 'boss' ? 13 : 1; }
   // Sole damage transition: art, debris, sound, ripple and hit-stop share this call.
   function fracture(e, stage, cause = 'tap', pitch = 0, contact = e) {
     if (!e || e.dead || stage <= e.stage) return false;
+    e.touched = true;
     const tap = local(e, contact.x, contact.y);
     const before = { ...e };
     e.stage = Math.min(stage, endStage(e)); e.queued = false; e.glint = .06; e.velocity = -5; e.jiggle = -.12;
@@ -140,6 +144,7 @@
     if (killed) {
       if (e.type !== 'jelly') flashes.push({ ...before, glint: .06 });
       e.dead = true; e.owner = null; e.pressure = 0; award(e);
+      if (trace) trace.destroyed.push({ id: e.id, at: clock, cause, type: e.type });
       if (['wax', 'jelly', 'boss'].includes(e.type)) {
         const duration = e.type === 'wax' ? JUICE.waxBulge : e.type === 'jelly' ? JUICE.jellyPuddle : JUICE.bossBulge;
         deathBeats.push({ ...e, age: 0, duration, phase: e.type === 'jelly' ? 'puddle' : 'core-bulge' });
@@ -165,7 +170,7 @@
   function targetAt(x, y) {
     if (y < PLAY_TOP) return null;
     for (let i = enemies.length - 1; i >= 0; i--) {
-      const e = enemies[i]; if (!e.dead && !e.queued && !e.entering && e.y - e.r >= PLAY_TOP && inside(e, x, y)) return e;
+      const e = enemies[i]; if (!e.dead && !e.queued && !e.entering && inside(e, x, y)) return e;
     }
     return null;
   }
@@ -196,7 +201,7 @@
       if (e.dead || e.queued || e.entering || p.hit.has(e.id)) continue;
       const a = local(e, x1, y1), b = local(e, x2, y2), dx = b.x - a.x, dy = b.y - a.y;
       const t = clamp((-a.x * dx - a.y * dy) / (dx * dx + dy * dy || 1), 0, 1);
-      if (e.y - e.r >= PLAY_TOP && Math.hypot(a.x + t * dx, a.y + t * dy) <= e.r * .98) hits.push({ e, t });
+      if (y1 + t * (y2 - y1) >= PLAY_TOP && Math.hypot(a.x + t * dx, a.y + t * dy) <= e.r * .98) hits.push({ e, t });
     }
     hits.sort((a, b) => a.t - b.t);
     for (const { e, t } of hits) { const pitch = pentatonic(p.hit.size); if (strike(e, 'slash', pitch, { x: x1 + (x2 - x1) * t, y: y1 + (y2 - y1) * t })) { p.hit.add(e.id); p.pitches.push(pitch); p.lastHit = { x: e.x, y: e.y - e.r }; } }
@@ -207,7 +212,7 @@
     const point = pos(ev), target = targetAt(point.x, point.y);
     const p = { id: ev.pointerId, x: point.x, y: point.y, startX: point.x, startY: point.y, start: clock, drag: false, done: false,
       target: target && target.owner === null ? target : null, hit: new Set(), pitches: [], creak: null, stroke: { points: [{ x: point.x, y: point.y, at: clock }], life: .4 } };
-    if (p.target) p.target.owner = p.id; pointers.set(p.id, p);
+    if (p.target) { p.target.owner = p.id; p.target.touched = true; } pointers.set(p.id, p);
   }
   function move(ev) {
     const p = pointers.get(ev.pointerId); if (state !== 'play' || !p) return;
@@ -242,10 +247,13 @@
     cancelPointers(); enemies.length = particles.length = texts.length = ripples.length = strokes.length = pending.length = flashes.length = deathBeats.length = 0;
     random = ASMR.AudioDSP.seeded(seed); elapsed = clock = score = kills = combo = maxCombo = 0;
     uid = 1; lastKill = -5; spawnClock = 1; bossSpawned = bossDefeated = false; wave = 1;
+    trace = null;
     freeze = slow = punch = shake = bloom = lastFrame = 0; lastStroke = { hits: 0, pitches: [] }; state = 'play';
     $('menu').classList.add('hidden'); $('result').classList.add('hidden'); $('hud').classList.remove('hidden');
-    addEnemy('wax', 355, 590); addEnemy('wax', 140, 425); addEnemy('bubble', 230, 805); addEnemy('bubble', 360, 860);
-    addEnemy('bubble', 490, 805); addEnemy('jelly', 160, 1110); addEnemy('jelly', 560, 1080); refreshHUD();
+    addEnemy('wax', 355, 590); addEnemy('wax', 140, 425); addEnemy('bubble', 253, 805); addEnemy('bubble', 360, 824);
+    addEnemy('bubble', 467, 805); addEnemy('jelly', 160, 1110); addEnemy('jelly', 560, 1080);
+    for (const e of enemies) e.opening = true;
+    refreshHUD();
   }
   function finish() {
     if (state !== 'play') return; state = 'result'; cancelPointers(); pending.length = texts.length = strokes.length = 0; freeze = slow = 0;
@@ -277,7 +285,22 @@
     for (const p of pointers.values()) { audio.stop(p.creak); p.creak = null; }
   });
   function compact(list, tick) { let n = 0; for (let i = 0; i < list.length; i++) if (tick(list[i])) list[n++] = list[i]; list.length = n; }
-  function spawnDrifter() {
+  function spawnBubbleGroup(slots) {
+    const r = art.radii.bubble, count = Math.min(slots, Math.floor(rnd(3, 6)));
+    const radius = 1.85 * r / (2 * Math.sin(Math.PI / count)), angle = rnd(0, TAU);
+    const offsets = Array.from({ length: count }, (_, i) => ({ x: Math.cos(angle + i * TAU / count) * radius, y: Math.sin(angle + i * TAU / count) * radius }));
+    for (let attempt = 0; attempt < 36; attempt++) {
+      const x = rnd(r + radius + 12, W - r - radius - 12), y = rnd(430 + radius, 1150 - radius);
+      if (offsets.some(p => enemies.some(e => !e.dead && Math.hypot(x + p.x - e.x, y + p.y - e.y) < .85 * (r + e.r)))) continue;
+      // A shared heading keeps a newly arrived cluster together as it wanders.
+      const heading = rnd(0, TAU), speed = rnd(10, 22), phase = rnd(0, TAU);
+      for (const p of offsets) { const e = addEnemy('bubble', x + p.x, y + p.y); e.heading = heading; e.speed = speed; e.phase = phase; }
+      return true;
+    }
+    return false;
+  }
+  function spawnDrifter(slots) {
+    if (slots >= 3 && rnd(0, 1) < .85 && spawnBubbleGroup(slots)) return;
     const types = bossDefeated ? ['bubble', 'jelly'] : wave === 1 ? ['wax', 'bubble', 'jelly'] : ['wax', 'bubble', 'jelly', 'ice'];
     const type = types[Math.floor(rnd(0, types.length))], side = rnd(0, 1), r = art.radii[type];
     let best, clearance = -Infinity;
@@ -288,8 +311,37 @@
       if (gap > clearance) { clearance = gap; best = { x, y }; }
     }
     if (clearance < 0) return;
-    const e = addEnemy(type, best.x, best.y);
-    if (side >= .6) { e.vx = side < .8 ? rnd(10, 22) : -rnd(10, 22); e.vy = -rnd(14, 26); }
+    addEnemy(type, best.x, best.y);
+  }
+  function openingRest(e) { return e.opening && !e.touched && elapsed < 8; }
+  function wander(e, dt) {
+    if (e.stationary || e.owner !== null || !dt) return;
+    const t = e.motionTime, rest = openingRest(e);
+    e.motionTime += dt;
+    // Integrate the bob's difference, not an accumulated displacement. Opening
+    // toys stay within a few units of their starting position until touched.
+    const bobX = 3 * (Math.sin(e.motionTime * .9 + e.phase) - Math.sin(t * .9 + e.phase));
+    const bobY = 4 * (Math.sin(e.motionTime * 1.2 + e.phase) - Math.sin(t * 1.2 + e.phase));
+    const minY = PLAY_TOP + e.r * .6, maxY = H - e.r * .4, margin = 100;
+    const edge = (p, low, high) => 36 * (Math.max(0, 1 - (p - low) / margin) ** 2 - Math.max(0, 1 - (high - p) / margin) ** 2);
+    let tx = 0, ty = 0;
+    if (!rest) {
+      const heading = e.heading + .4 * Math.sin(t * .18 + e.phase);
+      tx = Math.cos(heading) * e.speed + edge(e.x, e.r, W - e.r);
+      ty = Math.sin(heading) * e.speed + edge(e.y, minY, maxY);
+      for (const other of enemies) {
+        if (other === e || other.dead || other.type === 'boss') continue;
+        const dx = e.x - other.x, dy = e.y - other.y, distance = Math.hypot(dx, dy), gap = .85 * (e.r + other.r) - distance;
+        if (gap > 0) { const push = Math.min(35, gap * 2); tx += dx / (distance || 1) * push; ty += dy / (distance || 1) * push; }
+      }
+    }
+    const ease = 1 - Math.exp(-dt * 3);
+    e.vx += (tx - e.vx) * ease; e.vy += (ty - e.vy) * ease;
+    // Outward speed tends smoothly to zero at the bounds while steering turns
+    // inward. No position clamps, hard bounces, wrapping, or on-screen culling.
+    const step = (delta, p, low, high) => delta * Math.min(1, Math.max(0, delta < 0 ? p - low : high - p) / 50);
+    e.x += step(e.vx * dt + bobX, e.x, e.r, W - e.r);
+    e.y += step(e.vy * dt + bobY, e.y, minY, maxY);
   }
   function update(dt) {
     clock += dt; const stopped = freeze > 0;
@@ -335,20 +387,13 @@
         const t = clamp((clock - e.entryStart) / (e.entryEnd - e.entryStart), 0, 1);
         e.y = 515 + (660 - 515) * t * t;
         if (t === 1) { e.entering = false; e.y = 660; e.jiggle = -.30; e.velocity = 2; audio.play('boss_thud'); ripple(e, true); requestStop(.06, true); }
-      } else if (e.owner === null && e.type !== 'boss') { e.x += e.vx * enemySim; e.y += e.vy * enemySim; }
+      } else if (e.type !== 'boss') wander(e, enemySim);
       e.velocity += (-170 * e.jiggle - 13 * e.velocity) * enemySim;
       e.jiggle = clamp(e.jiggle + e.velocity * enemySim, -.40, .30); e.glint = Math.max(0, e.glint - dt); e.crackFlash = Math.max(0, e.crackFlash - dt);
     }
-    // Gentle lateral separation; upward drift remains continuous and predictable.
-    for (let i = 0; i < enemies.length; i++) for (let j = i + 1; j < enemies.length; j++) {
-      const a = enemies[i], b = enemies[j];
-      if (a.dead || b.dead || a.stationary || b.stationary || a.owner !== null || b.owner !== null) continue;
-      const dy = a.y - b.y, distance = Math.hypot(a.x - b.x, dy), gap = .85 * (a.r + b.r) - distance;
-      if (gap > 0) { const push = Math.min(gap * .5, enemySim * 35) * (a.x > b.x ? 1 : -1); a.x = clamp(a.x + push, a.r, W - a.r); b.x = clamp(b.x - push, b.r, W - b.r); }
-    }
-    compact(enemies, e => !e.dead && (e.type === 'boss' || (e.y > PLAY_TOP + e.r && e.y < H + 150 && e.x > -150 && e.x < W + 150)));
+    compact(enemies, e => !e.dead);
     spawnClock -= dt; const cap = bossDefeated ? 6 : wave === 1 ? 8 : wave === 2 ? 10 : 12;
-    if ((!bossSpawned || bossDefeated) && spawnClock <= 0 && live < cap) { spawnDrifter(); spawnClock = bossDefeated ? 1.2 : .7; }
+    if ((!bossSpawned || bossDefeated) && spawnClock <= 0 && live < cap) { spawnDrifter(cap - live); spawnClock = bossDefeated ? 1.2 : .7; }
     hudClock -= dt; if (hudClock <= 0) { refreshHUD(); hudClock = .1; }
   }
   // Cached background/gradients; no per-object shadows in the render loop.
@@ -439,7 +484,7 @@
     if (!artReady) return;
     const sprite = art.get(e), { sx, sy, angle } = shape(e), pressure = e.pressure;
     ctx.save(); ctx.translate(e.x, e.y); ctx.rotate(angle); ctx.scale(sx, sy);
-    if (e.type !== 'boss') ctx.globalAlpha = clamp((e.y - PLAY_TOP - e.r) / 40, 0, 1) * Math.min(1, e.age / .18);
+    if (e.type !== 'boss') ctx.globalAlpha = Math.min(1, e.age / .18);
     if (flashOnly) ctx.globalAlpha *= e.glint / .06;
     if (sprite) {
       if (flashOnly) {
@@ -556,6 +601,7 @@
     update(dt);
     if (profiling) { window.__asmrTest.heavyScene(); profileMinEnemies = Math.min(profileMinEnemies, enemies.filter(e => !e.dead).length); }
     draw();
+    if (trace && trace.frames.length < 10000) trace.frames.push({ at: clock, elapsed, enemies: enemies.filter(e => !e.dead).map(e => ({ id: e.id, type: e.type, x: e.x, y: e.y, r: e.r })) });
     if (profiling && frameTimes.length < 4000) frameTimes.push(performance.now() - before);
     requestAnimationFrame(frame);
   }
@@ -567,9 +613,10 @@
       popups: texts.map(t => ({ word: t.word, size: t.size, life: t.life, ...popupBox(t) })),
       particleFx: [...new Set(particles.map(p => p.fx))], softRings: ripples.filter(r => r.soft).length,
       enemies: enemies.filter(e => !e.dead).map(e => ({ id: e.id, type: e.type, stage: e.stage, act: e.act, layer: e.layer, hp: endStage(e) - e.stage,
-        x: e.x, y: e.y, r: e.r, sprite: art.key(e), pressure: e.pressure, jiggle: e.jiggle, glint: e.glint, crack: e.crack, crackFlash: e.crackFlash, entering: e.entering })) }),
+        x: e.x, y: e.y, r: e.r, sprite: art.key(e), pressure: e.pressure, jiggle: e.jiggle, glint: e.glint, crack: e.crack, crackFlash: e.crackFlash, entering: e.entering, queued: e.queued, resting: openingRest(e) })) }),
     start: begin, hitAt: (x, y) => strike(targetAt(x, y), 'tap', 0, { x, y }),
-    spawn: (type, x, y) => { if (!DRAW[type] || type === 'boss') throw new Error('Use skipTo(32) for the boss'); return addEnemy(type, x, y, true).id; },
+    spawn: (type, x, y, stationary = true) => { if (!DRAW[type] || type === 'boss') throw new Error('Use skipTo(32) for the boss'); return addEnemy(type, x, y, stationary).id; },
+    trace: active => { if (active) trace = { frames: [], destroyed: [], chains: [] }; else { const result = trace; trace = null; return result; } },
     clear: () => { cancelPointers(); enemies.length = pending.length = particles.length = texts.length = ripples.length = strokes.length = flashes.length = deathBeats.length = 0; freeze = slow = bloom = 0; spawnClock = 60; },
     skipTo: seconds => { elapsed = clamp(seconds, 0, TOTAL); checkTime(); refreshHUD(); }, end: finish, audioStats: () => audio.stats(),
     testAudioBurst: () => { for (const name of Object.keys(ASMR.AudioDSP.SPECS)) for (let i = 0; i < 6; i++) audio.play(name); }, cancelInput: cancelPointers,
