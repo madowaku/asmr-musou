@@ -1,0 +1,114 @@
+{
+  "distinctGrains": 128,
+  "stops": [
+    {
+      "name": "flow",
+      "explicit": true,
+      "peakAfter50ms": 3.456059473179144e-20
+    },
+    {
+      "name": "flow",
+      "explicit": false,
+      "peakAfter50ms": 9.877491713439213e-9
+    },
+    {
+      "name": "crack_grow",
+      "explicit": true,
+      "peakAfter50ms": 9.463544984588136e-22
+    },
+    {
+      "name": "crack_grow",
+      "explicit": false,
+      "peakAfter50ms": 1.1233343144567698e-9
+    },
+    {
+      "name": "wobble",
+      "explicit": true,
+      "peakAfter50ms": 8.692738952212906e-20
+    },
+    {
+      "name": "wobble",
+      "explicit": false,
+      "peakAfter50ms": 1.049287678966948e-8
+    },
+    {
+      "name": "press",
+      "explicit": true,
+      "peakAfter50ms": 2.3081497563076232e-20
+    },
+    {
+      "name": "press",
+      "explicit": false,
+      "peakAfter50ms": 1.3260755160615645e-8
+    }
+  ],
+  "crackLowGrains": 4,
+  "crackHighGrains": 58,
+  "materialHordes": [
+    {
+      "material": "wax",
+      "delta": 2.934328174122296,
+      "high9kPct": 0.09097479921939666,
+      "maxActive": 24,
+      "dropped": 0
+    },
+    {
+      "material": "jelly",
+      "delta": 4.911319558985188,
+      "high9kPct": 0.012991289578361234,
+      "maxActive": 24,
+      "dropped": 0
+    },
+    {
+      "material": "soap",
+      "delta": 3.0384061282577335,
+      "high9kPct": 0.07081597046915776,
+      "maxActive": 24,
+      "dropped": 0
+    },
+    {
+      "material": "sand",
+      "delta": 2.2319314972093345,
+      "high9kPct": 0.35565153998840565,
+      "maxActive": 24,
+      "dropped": 2
+    },
+    {
+      "material": "sponge",
+      "delta": 3.256185426132223,
+      "high9kPct": 0.11200041745374957,
+      "maxActive": 24,
+      "dropped": 0
+    },
+    {
+      "material": "chalk",
+      "delta": 4.144502850744299,
+      "high9kPct": 0.025015230427575037,
+      "maxActive": 21,
+      "dropped": 0
+    },
+    {
+      "material": "beadslime",
+      "delta": 4.563987706752975,
+      "high9kPct": 0.016647502936353385,
+      "maxActive": 24,
+      "dropped": 0
+    },
+    {
+      "material": "kohaku",
+      "delta": 2.6458087589204524,
+      "high9kPct": 0.22557036562698887,
+      "maxActive": 24,
+      "dropped": 0
+    }
+  ],
+  "forcedLimiterPeakDb": -2.1477143002721237,
+  "wobble2": {
+    "at2Hz": 0.5339323758276586,
+    "at8Hz": 0.0010827196514190895
+  },
+  "wobble8": {
+    "at2Hz": 0.0009919700458204384,
+    "at8Hz": 0.3495419717847764
+  }
+}
