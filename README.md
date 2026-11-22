@@ -92,10 +92,14 @@ T3では旧READMEの「画像未統合・ボスy=560・ピーク正規化・600�
 
 素材の生成方法と出所は [ASSETS.md](ASSETS.md)、全体の方針は [ORCHESTRATOR_BRIEF.md](ORCHESTRATOR_BRIEF.md) を参照。
 
-## ASMR素材研究所 (lab.html)
+## ASMR素材研究所 (lab.html) — v0.3 研究
 
-`lab.html` を Chrome で直接開く。v0.2とは独立したWebGL2実験場で、ロウの殻の亀裂・剥離、軌跡どおりの切断、ゼリーの切断面の振動を試せる。マウス・タッチ・ペン対応。下部に素材、追加、群れ（標準40体）、¼スロー、一時停止、1コマ送り、線表示、音、リセットがある。キーは `1/2`, `N`, `H`, `S`, `Space`, `.`, `D`, `R`。群れは斜めに密集した2列で、左上から右下への長い一振りを測るための配置。
+`lab.html` を Chrome で直接開く（file:// で動く。WebGL2 が必要）。v0.2 とは独立した実験場で、方向性は [DIRECTION_v0.3.md](docs/v0.3/DIRECTION_v0.3.md)、時間構造の設計は [ASMR_TEMPORAL_STRUCTURE.md](docs/v0.3/ASMR_TEMPORAL_STRUCTURE.md)。
 
-`npm run test:lab` で構文・幾何・file://画像バンドル・ブラウザー挙動・33msフレームストリップ・4倍CPU性能測定を実行する。結果は `research/v03/`、採否・失敗例・API・残課題は [R0A研究ログ](docs/v0.3/research_log/R0A.md)。画面の音は仮の `synth_lab_click`。人間の試遊やASMR音響の評価を済ませたものではない。
-
-画像なしでも手続きテクスチャで動く。`npm run bundle:lab` は **assets/v03 内を変更せず**、全PNG（サブフォルダーを含む）を `lab/assets-bundle.js` へbase64埋め込みする。キーは拡張子なしの相対パス。`LAB.tex('wax_body')` / `jelly_body` / `wax_core` が描画スロットで、別名は `LAB.textureNames.wax_body = 'body/wax_boss'` のように指定する。生成アートを採用するときは、テクスチャ名だけでなく余白と輪郭・UVの整合も合わせること。R0-Aのコミットは空のバンドルを含み、検証画像は手続きテクスチャで統一している。並行制作中のアート・本格音声は別途統合する。
+- **8素材**：ロウ、ゼリー、石鹸、砂、吸水スポンジ、チョーク、粒入りスライム、琥珀糖。素材ごとに予兆→解放→余韻の時間構造がある（例：スポンジは長押しで絞る、砂は長く崩れ続ける）。
+- **斬撃**：指の軌跡どおりに切断され、切った瞬間に断面（内部）が見える。群れには刃の吸い寄せが効き、ジグザグの一振りで20体以上を倒せる。
+- **音**：素材と連動した合成音（`synth_*`。録音ではない）。撃破数に応じて「破断の波」の質感が変わる。最初のタップで音が有効になる。試聴は `lab-audio.html`。
+- **操作**：素材の選択、1体を置く、群れ（N体）、¼スロー、一時停止、1コマ送り、線表示、音、録画（R：9:16 WebM、音あり）、直前のカットの¼リプレイ（L）。
+- **テスト**：`npm run test:lab`（幾何、アセット、ブラウザー、コマ送り、全素材のコマ送り、CPU 4倍の性能）、`node tests/lab-audio/run.mjs`（音響ゲート）。
+- **デモ動画の再録画**：`node tools/lab/record-demo.mjs` → `research/v03/video/`。
+- **研究記録**：`docs/v0.3/research_log/`（R0A, R0B_art, R1_materials, R2_audio, DIRECTOR_REVIEW）。不採用案や失敗も記録している。
