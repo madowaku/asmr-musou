@@ -1,0 +1,68 @@
+{
+ "slasher": {
+  "flick": {
+   "moved": 443,
+   "dir": -66,
+   "action": true
+  },
+  "special": {
+   "aiming": true,
+   "charged": true,
+   "well": false,
+   "action": true
+  },
+  "tap": {
+   "action": true,
+   "manaSpent": null
+  }
+ },
+ "crusher": {
+  "flick": {
+   "moved": 452,
+   "dir": -66,
+   "action": true
+  },
+  "special": {
+   "aiming": true,
+   "charged": true,
+   "well": false,
+   "action": true
+  },
+  "tap": {
+   "action": true,
+   "manaSpent": null
+  }
+ },
+ "caster": {
+  "flick": {
+   "moved": 355,
+   "dir": -66,
+   "action": true
+  },
+  "special": {
+   "aiming": true,
+   "charged": false,
+   "well": true,
+   "action": true
+  },
+  "tap": {
+   "action": true,
+   "manaSpent": 2
+  }
+ },
+ "perf": {
+  "update": {
+   "avg": 1.66,
+   "p95": 3.699999988079071
+  },
+  "draw": {
+   "avg": 3.8,
+   "p95": 6.5999999940395355
+  },
+  "samples": 552,
+  "avg": 5.46,
+  "p95": 9.200000017881393,
+  "max": 20.099999994039536,
+  "kills": 164
+ }
+}

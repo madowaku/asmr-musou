@@ -6,8 +6,11 @@
   const S=L.slice;
   const W=L.world={bodies:[],particles:[],flashes:[],trails:[],rings:[],texts:[],freeze:0,punch:0,cutCount:0,cutId:0,nextId:1,stroke:1};
   L.bodies=W.bodies;L.time=0;L.frame=0;L.FLOOR=1236;
+  // Combat-only: the book-open cap is shown at the cut moment, then closes by 0.8 s as the piece tumbles away.
+  // (Pieces are numerous in combat; drawing every cap for its whole life was the main draw cost.) Lab is untouched.
+  {const base=L.cap.thetaAt.bind(L.cap);L.cap.thetaAt=age=>base(age)*(age<.45?1:Math.max(0,1-(age-.45)/.35));}
   const config=L.config={maxDepth:3,minPieceArea:10,maxBodies:260,maxParticles:1500,gravity:760};
-  let particleCursor=0;
+  let particleCursor=0;const TMP={x:0,y:0,u:0,v:0};
   L.worldPoint=(b,p)=>{const c=Math.cos(b.angle),s=Math.sin(b.angle);return {x:b.x+p.x*c-p.y*s,y:b.y+p.x*s+p.y*c};};
   L.localPoint=(b,p)=>{const c=Math.cos(b.angle),s=Math.sin(b.angle),x=p.x-b.x,y=p.y-b.y;return {x:x*c+y*s,y:-x*s+y*c};};
   L.addParticle=p=>{const q={x:0,y:0,vx:0,vy:0,size:3,angle:L.random()*6.28,spin:(L.random()-.5)*12,life:.65+L.random()*.35,kind:0,color:[1,1,1,1],...p};if(W.particles.length>=config.maxParticles)W.particles[particleCursor++%config.maxParticles]=q;else W.particles.push(q);};
@@ -21,7 +24,7 @@
     for(let i=0;i<pts.length;i++){let p=pts[i],px=p.x,py=p.y;
       if(b.pressing){const a=Math.min(1,b.pressing.age/b.pressing.duration),k=L.materials[b.material].squash||1;px*=1+a*.16*k;py*=1-Math.min(.8,a*.23*k);}
       if(sq){px*=1+sq*.35;py*=1-sq*.3;}
-      const q=L.cap.skin(b,{x:px,y:py,u:p.u,v:p.v}),w=b.world[i];
+      let q;if(b.cap){TMP.x=px;TMP.y=py;TMP.u=p.u;TMP.v=p.v;q=L.cap.skin(b,TMP);}else{TMP.x=px;TMP.y=py;TMP.u=p.u;TMP.v=p.v;q=TMP;}const w=b.world[i]; // no per-vertex allocation
       w.x=b.x+q.x*c-q.y*s;w.y=b.y+q.x*s+q.y*c;w.u=q.u;w.v=q.v;w.cut=i<b.poly.length?b.poly[i].cut:null;w.e=d?d.side*((p.x-d.a.x)*d.nx+(p.y-d.a.y)*d.ny)-d.front:0;}
     b.wx=b.x;b.wy=b.y;b.wa=b.angle;b.dirty=false;return b.world;
   }

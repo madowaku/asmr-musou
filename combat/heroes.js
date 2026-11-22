@@ -6,7 +6,7 @@
 (function(L){
   'use strict';
   const C=L.combat,W=L.world,S=L.slice,R=()=>L.random();
-  const FIELD={x0:28,x1:692,y0:250,y1:1200};
+  const FIELD={x0:60,x1:660,y0:250,y1:1190};
   const clampP=p=>({x:Math.max(FIELD.x0,Math.min(FIELD.x1,p.x)),y:Math.max(FIELD.y0,Math.min(FIELD.y1,p.y))});
   function segDist(p,a,b){const dx=b.x-a.x,dy=b.y-a.y,d=dx*dx+dy*dy||1,t=Math.max(0,Math.min(1,((p.x-a.x)*dx+(p.y-a.y)*dy)/d));return Math.hypot(p.x-a.x-dx*t,p.y-a.y-dy*t);}
   C.segDist=segDist;C.FIELD=FIELD;C.clampP=clampP;
@@ -26,7 +26,7 @@
   C.createHero=cls=>({cls,x:360,y:1010,vx:0,vy:0,dash:null,face:0,mana:6,manaMax:6,manaT:0,recoil:0,charge:0,aim:null,hitSet:new Set(),action:0,bob:0});
   function startDash(h,pts,speed,opt={}){
     const path=pts.map(clampP);let len=0;for(let i=1;i<path.length;i++)len+=Math.hypot(path[i].x-path[i-1].x,path[i].y-path[i-1].y);
-    h.dash={path,i:1,speed,charged:!!opt.charged,kind:opt.kind||'dash',len};h.hitSet=new Set();h.action++;C.newAction(h);
+    h.dash={path,i:1,speed,charged:!!opt.charged,kind:opt.kind||'dash',len};h.lastKind=h.dash.kind;h.hitSet=new Set();h.action++;C.newAction(h);
   }
   C.flick=(h,rel)=>{ // rel: stroke points relative to its first point (screen px, logical)
     if(h.dash)return false;const k=h.cls==='caster'?1.2:h.cls==='slasher'?1.5:1.65;const pts=[{x:h.x,y:h.y},...rel.slice(1).map(p=>({x:h.x+p.x*k,y:h.y+p.y*k}))];
@@ -77,7 +77,7 @@
     C.hit(e,()=>W.cut(e,[{x:e.x-ux*e.radius*3,y:e.y-uy*e.radius*3+(segSide(e,a,b))},{x:e.x+ux*e.radius*3,y:e.y+uy*e.radius*3+(segSide(e,a,b))}],2600,{push:{x:ux*260,y:uy*260},action:h.action,cause:'slash'}),h);
   }
   function segSide(e,a,b){return 0;}
-  function spin(h){h.action++;C.newAction(h);h.spin=.32;W.rings.push({x:h.x,y:h.y,r0:40,r1:170,life:.3,total:.3,w:6,color:[.85,.97,1],alpha:.8});C.sfx('spin',h);
+  function spin(h){h.lastKind='tap';h.action++;C.newAction(h);h.spin=.32;W.rings.push({x:h.x,y:h.y,r0:40,r1:170,life:.3,total:.3,w:6,color:[.85,.97,1],alpha:.8});C.sfx('spin',h);
     for(const e of W.enemies()){const dx=e.x-h.x,dy=e.y-h.y,d=Math.hypot(dx,dy);if(d>170+e.radius*.6)continue;
       if(C.locked(e))continue;if(C.MAT[e.material].armor&&e.hp>1){e.hp--;e.squash=.6;C.sfx('clink',e);continue;}
       const tx=-dy/(d||1),ty=dx/(d||1);C.hit(e,()=>W.cut(e,[{x:e.x-tx*e.radius*3,y:e.y-ty*e.radius*3},{x:e.x+tx*e.radius*3,y:e.y+ty*e.radius*3}],1800,{push:{x:dx/(d||1)*220,y:dy/(d||1)*220},action:h.action,cause:'spin'}),h,d/170*.09);}
@@ -91,7 +91,7 @@
     const hard=C.MAT[e.material].hard;e.flying=true;e.drift=null;e.flyT=1.6;e.vx=ux*(charged?2500:1650);e.vy=uy*(charged?2500:1650);e.spin=(R()-.5)*14;e.squash=.7;
     e.proj={energy:(charged?3.8:2.05)*(.6+hard*.5),owner:h.action,gen:0,hits:0};C.markAction(h.action,e);
   }
-  function pound(h){h.action++;C.newAction(h);W.freeze=Math.max(W.freeze,.05);W.punch=Math.max(W.punch,.035);C.sfx('pound',h);
+  function pound(h){h.lastKind='tap';h.action++;C.newAction(h);W.freeze=Math.max(W.freeze,.05);W.punch=Math.max(W.punch,.035);C.sfx('pound',h);
     W.rings.push({x:h.x,y:h.y,r0:30,r1:180,life:.35,total:.35,w:9,color:[1,.8,.55],alpha:.7});
     for(const e of W.enemies()){const dx=e.x-h.x,dy=e.y-h.y,d=Math.hypot(dx,dy);if(d>180+e.radius*.5)continue;
       if(C.locked(e))continue;
@@ -101,7 +101,7 @@
   // CASTER: gust (setup, no break), chain lightning through wet materials, gravity well implosion.
   function gust(h,e,a,b){const dx=b.x-a.x,dy=b.y-a.y,len=Math.hypot(dx,dy)||1;if(C.locked(e)||e.bossPart)return;e.flying=true;e.drift=null;e.flyT=.55;e.vx=dx/len*520;e.vy=dy/len*520;e.spin=(R()-.5)*2;e.proj=null;}
   function lightning(h){
-    if(h.mana<2)return C.denied(h);const en=W.enemies().filter(e=>!C.locked(e));if(!en.length)return false;h.mana-=2;h.action++;C.newAction(h);
+    if(h.mana<2)return C.denied(h);const en=W.enemies().filter(e=>!C.locked(e));if(!en.length)return false;h.mana-=2;h.lastKind='tap';h.action++;C.newAction(h);
     let first=null,best=1e9;for(const e of en){const d=Math.hypot(e.x-h.x,e.y-h.y);if(d<best&&d<560){best=d;first=e;}}if(!first){h.mana+=2;return false;}
     C.sfx('zap',h);const visited=new Set([first.id]),queue=[{e:first,from:{x:h.x,y:h.y-40},t:0}];let hops=0;
     while(queue.length&&hops<60){const q=queue.shift();hops++;C.later(q.t,()=>{C.bolt(q.from,q.e);const arcs=q.e.bossPart&&q.e.bossLayer===2?2:1;for(let k=0;k<arcs;k++)C.hit(q.e,()=>W.shatter(q.e,1100,{action:h.action,cause:'zap',stop:.012}),h,k*.12);});
@@ -109,7 +109,7 @@
       const near=en.filter(o=>!visited.has(o.id)&&Math.hypot(o.x-q.e.x,o.y-q.e.y)<o.radius+q.e.radius+115).sort((p,r)=>Math.hypot(p.x-q.e.x,p.y-q.e.y)-Math.hypot(r.x-q.e.x,r.y-q.e.y)).slice(0,3);
       for(const o of near){visited.add(o.id);queue.push({e:o,from:{x:q.e.x,y:q.e.y},t:q.t+.045});}}
     return true;}
-  function gravity(h,p){h.action++;C.newAction(h);C.sfx('well',h);const id=h.action;
+  function gravity(h,p){h.lastKind='well';h.action++;C.newAction(h);C.sfx('well',h);const id=h.action;
     C.wells.push({x:p.x,y:p.y,t:0,pull:.85,r:300,core:130,action:id});return true;}
   C.updateWells=dt=>{
     for(const w of C.wells){w.t+=dt;const en=W.enemies();

@@ -19,7 +19,8 @@
   C.newAction=h=>{if(G.form&&!G.form.cleared)G.form.actions++;G.actions.set(h.action,{id:h.action,cls:G.cls,kills:0,chainMax:0,chainKills:0,t0:G.t,last:G.t,form:G.form?G.form.def.id:'boss',reported:false});G.stats.actions++;};
   C.markAction=()=>{};
   // Every break goes through here: delayed, idempotent, boss layers and multi-hit core.
-  C.hit=(e,fn,h,delay=0,gen=0)=>{const run=()=>{if(e.removed||e.active||!W.bodies.includes(e))return;
+  // Break budget: at most 4 fractures per frame; extra breaks roll into the next frames (a natural wave, and no spike frames).
+  C.hit=(e,fn,h,delay=0,gen=0)=>{const run=()=>{if(e.removed||e.active||!W.bodies.includes(e))return;if(G.breaks>=4){C.later(.001,run);return;}G.breaks++;
       if(e.bossPart&&e.hp>1){e.hp--;e.squash=1;e.pressing={age:0,duration:.18,done:()=>{}};L.events.emit('strain',{material:e.material,amount:.8,rate:3,x:e.x});C.sfx('pound',e);W.rings.push({x:e.x,y:e.y,r0:e.radius*.8,r1:e.radius*1.25,life:.2,total:.2,w:5,color:[1,.9,1]});return;}
       e.chainGen=gen;fn();};
     if(delay>0)C.later(delay,run);else run();};
@@ -61,7 +62,7 @@
 
   // ---------- simulation step ----------
   function step(dt){
-    if(G.state!=='play')return;
+    if(G.state!=='play')return;G.breaks=0;
     const scale=G.slow>0?.3:1;G.slow=Math.max(0,G.slow-dt);const sdt=dt*scale;G.t+=sdt;L.time=G.t;L.frame++;
     for(let i=G.later.length-1;i>=0;i--)if(G.later[i].at<=G.t){const q=G.later.splice(i,1)[0];q.fn();}
     C.updateHero(G.hero,sdt);C.updateWells(sdt);W.advance(sdt);
@@ -107,16 +108,23 @@
   function banner(name,hint,par){if(G.headless)return;$('banner').innerHTML=`<b>${name}</b><span>${hint}</span>`+(par?`<i>目安 ${par} 手</i>`:'');$('banner').classList.remove('show');void $('banner').offsetWidth;$('banner').classList.add('show');}
   function showHelp(){const c=CLASSES[G.cls];$('help').innerHTML=`<span>${c.flick}</span><span>${c.hold}</span><span>${c.tap}</span>`;}
   function hud(){if(G.state!=='play')return;$('time').style.width=Math.max(0,100-G.t/60*100)+'%';$('kills').textContent=G.stats.kills;const h=G.hero;if(h.cls==='caster')$('mana').innerHTML='◆'.repeat(h.mana)+'<em>'+'◇'.repeat(h.manaMax-h.mana)+'</em>';}
+  // Personal bests per class (per-viewer convenience; storage may be unavailable → the game still works).
+  const BEST_KEY='asmr-combat-best-v04';function loadBest(){try{return JSON.parse(localStorage.getItem(BEST_KEY)||'{}');}catch(_){return {};}}function saveBest(b){try{localStorage.setItem(BEST_KEY,JSON.stringify(b));}catch(_){}}
+  function bestLine(c){const b=loadBest()[c];return b?`自己ベスト ${b.kills} 撃破 · 一手 ${b.best}`:'';}
+  function refreshSelectBests(){for(const c of Object.keys(CLASSES)){const el=document.querySelector('#pick-'+c+' em');if(el)el.textContent=bestLine(c);}}
   function showResult(){const s=G.stats;$('hud').hidden=true;$('result').hidden=false;
+    const all=loadBest(),prevB=all[s.cls]||{kills:0,best:0,perfect:0},rec={kills:s.kills>prevB.kills,best:s.best>prevB.best,perfect:s.perfect>prevB.perfect};
+    all[s.cls]={kills:Math.max(prevB.kills,s.kills),best:Math.max(prevB.best,s.best),perfect:Math.max(prevB.perfect,s.perfect)};saveBest(all);refreshSelectBests();
+    const nw=k=>rec[k]&&(prevB.kills||prevB.best)?'<i>NEW</i>':'';
     $('r-title').textContent=s.bossDefeated?'すっきり！':'おつかれさま';
-    $('r-stats').innerHTML=`<div><small>撃破</small><b>${s.kills}</b></div><div><small>一手の最大</small><b>${s.best}</b></div><div><small>連鎖撃破</small><b>${s.chainKills}</b></div><div><small>PERFECT</small><b>${s.perfect}/${s.formsSeen}</b></div><div><small>手数</small><b>${s.actions}</b></div><div><small>一手あたり</small><b>${(s.kills/Math.max(1,s.actions)).toFixed(1)}</b></div>`;
+    $('r-stats').innerHTML=`<div><small>撃破</small><b>${s.kills}</b>${nw('kills')}</div><div><small>一手の最大</small><b>${s.best}</b>${nw('best')}</div><div><small>連鎖撃破</small><b>${s.chainKills}</b></div><div><small>PERFECT</small><b>${s.perfect}/${s.formsSeen}</b>${nw('perfect')}</div><div><small>手数</small><b>${s.actions}</b></div><div><small>一手あたり</small><b>${(s.kills/Math.max(1,s.actions)).toFixed(1)}</b></div>`;
     const same=G.history.filter(r=>r.seed===G.seed);$('r-compare').innerHTML=same.length>1?'<p>同じ戦場での比較</p>'+same.map(r=>`<div>${CLASSES[r.cls].name}<span>${r.kills} 撃破 · 最大 ${r.best} · 連鎖 ${r.chainKills}</span></div>`).join(''):'';}
   for(const k of Object.keys(CLASSES)){$('pick-'+k).onclick=()=>{L.audio?.init?.();start(k,G.seed);};$('again-'+k).onclick=()=>{L.audio?.init?.();start(k,G.seed);};}
   $('again').onclick=()=>{L.audio?.init?.();start(G.cls,G.seed);};$('newfield').onclick=()=>{L.audio?.init?.();start(G.cls,(G.seed*7919+13)%100000);};
   $('mute').onclick=()=>{C.muted=!C.muted;L.audio?.setEnabled?.(!C.muted);$('mute').textContent=C.muted?'🔇':'🔊';};
 
   // ---------- loop ----------
-  let prev=0;function frame(ms){const dt=prev?Math.min(.05,(ms-prev)/1000):1/60;prev=ms;const t0=performance.now();step(dt);if(G.state!=='select')draw();hud();C.frameMs=performance.now()-t0;requestAnimationFrame(frame);}
+  let prev=0;function frame(ms){const dt=prev?Math.min(.05,(ms-prev)/1000):1/60;prev=ms;const t0=performance.now();step(dt);const t1=performance.now();if(G.state!=='select')draw();hud();const t2=performance.now();C.frameMs=t2-t0;C.updMs=t1-t0;C.drawMs=t2-t1;requestAnimationFrame(frame);}
   requestAnimationFrame(frame);
 
   // ---------- bots (AI objective verification) ----------
@@ -162,5 +170,5 @@
       hero:()=>G.hero,C,
     }
   };
-  $('loading').hidden=true;$('select').hidden=false;
+  refreshSelectBests();$('loading').hidden=true;$('select').hidden=false;
 })(window.LAB);
