@@ -94,6 +94,8 @@ T3では旧READMEの「画像未統合・ボスy=560・ピーク正規化・600�
 
 ## ASMR素材研究所 (lab.html) — v0.3 研究
 
+**試遊する人へ**：[試遊ガイドと評価シート](docs/v0.3/PLAYTEST_GUIDE.md)／研究のまとめは [REPORT_v0.3_lab.md](REPORT_v0.3_lab.md)。
+
 `lab.html` を Chrome で直接開く（file:// で動く。WebGL2 が必要）。v0.2 とは独立した実験場で、方向性は [DIRECTION_v0.3.md](docs/v0.3/DIRECTION_v0.3.md)、時間構造の設計は [ASMR_TEMPORAL_STRUCTURE.md](docs/v0.3/ASMR_TEMPORAL_STRUCTURE.md)。
 
 - **8素材**：ロウ、ゼリー、石鹸、砂、吸水スポンジ、チョーク、粒入りスライム、琥珀糖。素材ごとに予兆→解放→余韻の時間構造がある（例：スポンジは長押しで絞る、砂は長く崩れ続ける）。
