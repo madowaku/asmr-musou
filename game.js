@@ -22,7 +22,9 @@
     }
   });
   const DEBRIS = { wax: '#f69cbb', bubble: '#9ae8cd', jelly: '#c6a3ed', ice: '#b5e5ff', boss: '#edb44f' };
-  const enemies = [], particles = [], texts = [], ripples = [], strokes = [], pending = [], flashes = [];
+  const enemies = [], particles = [], texts = [], ripples = [], strokes = [], pending = [], flashes = [], deathBeats = [];
+  const JUICE = { crackFlash: .25, waxBulge: .09, jellyPuddle: .08, bossBulge: .14, bloom: .4, popupCap: 6 };
+  let bloom = 0;
   let profiling = false;
   const frameTimes = [];
   let profileMinEnemies = Infinity;
@@ -35,23 +37,57 @@
     const r = art.radii[type];
     return { id: uid++, type, x, y, r, stage: 0, act: type === 'boss' ? 1 : 0, layer: 0,
       vx: stationary ? 0 : rnd(-9, 9), vy: stationary ? 0 : -rnd(28, 48), phase: rnd(0, TAU),
-      jiggle: 0, velocity: 0, pressure: 0, glint: 0, age: stationary ? 1 : 0, stationary, dead: false, queued: false, entering: false, owner: null };
+      jiggle: 0, velocity: 0, pressure: 0, glint: 0, crackFlash: 0, crack: null, age: stationary ? 1 : 0, stationary, dead: false, queued: false, entering: false, owner: null };
   }
   function addEnemy(type, x, y, stationary = false) { const e = createEnemy(type, x, y, stationary); enemies.push(e); return e; }
-  function burst(e, count, power, shape, color = DEBRIS[e.type]) {
+  function burst(e, count, power, shape, color = DEBRIS[e.type], variant) {
     count = Math.min(count, MAX_PARTICLES - particles.length);
     for (let i = 0; i < count; i++) {
       const a = rnd(0, TAU), speed = rnd(power * .25, power), life = rnd(.45, 1.05);
-      const radius = e.r * (shape === 'chunk' ? rnd(.75, 1.02) : e.type === 'boss' ? rnd(.2, 1.05) : rnd(.1, .65));
+      const radius = e.r * (shape === 'chunk' ? rnd(.75, 1.02) : e.type === 'boss' ? rnd(.2, .85) : variant ? rnd(.45, .9) : rnd(.1, .65));
+      const sizes = shape === 'chunk' && e.type === 'boss' ? art.bossSizes : art.fxSizes;
+      const fx = variant || (shape === 'glitter' ? 'sparkle' : shape === 'chunk' ? (e.type === 'boss' ? 'chunk_boss_' : 'chip_wax_') + 'abc'[Math.floor(rnd(0, 3))]
+        : shape === 'shard' ? 'shard_ice_' + 'abc'[Math.floor(rnd(0, 3))] : e.type === 'bubble' ? 'drop_mint' : e.type === 'jelly' ? 'drop_jelly' : 'drop_peach');
+      const size = sizes[Math.floor(rnd(0, sizes.length))];
       particles.push({ x: e.x + Math.cos(a) * radius, y: e.y + Math.sin(a) * radius, vx: Math.cos(a) * speed, vy: Math.sin(a) * speed - 100,
-        life, max: life, size: shape === 'chunk' ? rnd(8, Math.min(25, e.r * .28)) : rnd(3, 11), color, shape, angle: rnd(0, TAU), spin: rnd(-7, 7) });
+        life, max: life, size, color, shape, fx, sprite: art.getFx(fx, size), angle: rnd(0, TAU), spin: rnd(-7, 7) });
     }
   }
-  function popup(x, y, word, color = '#fff3d9', life = .8) {
-    if (texts.length >= 24) texts.shift(); texts.push({ x, y, word, color, life, max: life });
+  function glintAt(x, y) {
+    if (particles.length >= MAX_PARTICLES) return;
+    particles.push({ x, y, vx: 0, vy: 0, life: .25, max: .25, size: 26, color: '#fff9df', shape: 'glitter', fx: 'sparkle', sprite: art.getFx('sparkle', 26), angle: .2, spin: 2, anchored: true });
+  }
+  const popupBox = t => ({ left: t.x - t.width / 2, right: t.x + t.width / 2, top: t.y - t.size - 5, bottom: t.y + 9 });
+  function popup(x, y, word, color = '#fff3d9', life = .8, size = 29) {
+    if (texts.length >= JUICE.popupCap) texts.shift();
+    // Fade the oldest before it needs to be evicted by the next arrival.
+    if (texts.length >= JUICE.popupCap - 1) texts[0].life = Math.min(texts[0].life, .12);
+    ctx.font = `800 ${size}px system-ui`;
+    const width = ctx.measureText(word).width + 12;
+    const t = { x: clamp(x, width / 2 + 12, W - width / 2 - 12), y, word, color, life, max: life, size, width };
+    for (let pass = 0; pass < JUICE.popupCap; pass++) {
+      const box = popupBox(t), other = texts.find(p => {
+        const b = popupBox(p); return box.left < b.right + 12 && box.right > b.left - 12 && Math.abs(t.y - p.y) < Math.max(60, (size + p.size) / 2 + 18);
+      });
+      if (!other) break; t.y = other.y - Math.max(60, size + 22);
+    }
+    // Keep a burst of labels below the HUD; all labels drift at the same speed.
+    if (t.y < PLAY_TOP + size) { const shift = PLAY_TOP + size - t.y; for (const p of texts) p.y += shift; t.y += shift; }
+    texts.push(t);
   }
   function ripple(e, big = false) {
     if (ripples.length >= 40) ripples.shift(); ripples.push({ x: e.x, y: e.y, r: e.r * .7, life: .35, big, color: COLORS[e.type][0] });
+  }
+  function softRing(e) {
+    if (ripples.length >= 40) ripples.shift();
+    ripples.push({ x: e.x, y: e.y, r: e.r * .55, life: .4, max: .4, soft: true, big: e.type === 'boss', color: e.type === 'wax' ? '#fff4dc' : COLORS[e.type][0] });
+  }
+  function splat(e) {
+    if (e.type === 'wax') {
+      burst(e, 16, 290, 'drop', '#fff4dc', 'drop_cream'); burst(e, 9, 280, 'drop', '#f6b2d1', 'drop_pink');
+    } else burst(e, e.type === 'boss' ? 90 : 28, e.type === 'boss' ? 480 : 240, 'drop');
+    if (e.type === 'boss') burst(e, 48, 510, 'glitter', '#fff2b6');
+    softRing(e);
   }
   function requestStop(seconds, boss = false) {
     freeze = Math.max(freeze, seconds); punch = Math.max(punch, boss ? .025 : .015); shake = Math.max(shake, boss ? 8 : 2.5);
@@ -76,10 +112,14 @@
   }
   function endStage(e) { return e.type === 'wax' ? 3 : e.type === 'ice' || e.type === 'jelly' ? 2 : e.type === 'boss' ? 13 : 1; }
   // Sole damage transition: art, debris, sound, ripple and hit-stop share this call.
-  function fracture(e, stage, cause = 'tap', pitch = 0) {
+  function fracture(e, stage, cause = 'tap', pitch = 0, contact = e) {
     if (!e || e.dead || stage <= e.stage) return false;
+    const tap = local(e, contact.x, contact.y);
     const before = { ...e };
     e.stage = Math.min(stage, endStage(e)); e.queued = false; e.glint = .06; e.velocity = -5; e.jiggle = -.12;
+    if ((e.type === 'wax' || e.type === 'ice') && e.stage === 1) {
+      e.crack = { x: tap.x, y: tap.y }; e.crackFlash = JUICE.crackFlash; glintAt(contact.x, contact.y);
+    }
     let name, killed = e.stage === endStage(e), layerBreak = false;
     if (e.type === 'boss') {
       e.layer = Math.min(3, Math.floor(e.stage / 3)); e.act = killed ? 3 : e.stage >= 9 ? 2 : 1;
@@ -90,7 +130,7 @@
       }
       if (e.stage === 9) e.velocity = -7;
     } else if (e.type === 'wax') {
-      name = ['wax_crack', 'wax_break', 'wax_kill'][e.stage - 1]; if (e.stage >= 2 && cause !== 'curtain') burst(e, killed ? 24 : 15, 225, 'chunk');
+      name = ['wax_crack', 'wax_break', 'wax_kill'][e.stage - 1]; if (e.stage >= 2 && cause !== 'curtain') burst(e, killed ? 12 : 10, 225, 'chunk');
     } else if (e.type === 'bubble') name = 'bubble_pop';
     else if (e.type === 'jelly') name = killed ? 'jelly_splat' : 'jelly_wobble';
     else name = killed ? 'ice_shatter' : 'ice_crack';
@@ -98,22 +138,29 @@
     if (cause === 'curtain') name = 'bubble_pop';
     audio.play(name, { pitch });
     if (killed) {
-      flashes.push({ ...before, glint: .06 });
+      if (e.type !== 'jelly') flashes.push({ ...before, glint: .06 });
       e.dead = true; e.owner = null; e.pressure = 0; award(e);
-      burst(e, e.type === 'boss' ? 110 : 24, e.type === 'boss' ? 420 : 225, e.type === 'ice' ? 'shard' : 'drop', e.type === 'boss' ? '#f4b6a9' : DEBRIS[e.type]);
+      if (['wax', 'jelly', 'boss'].includes(e.type)) {
+        const duration = e.type === 'wax' ? JUICE.waxBulge : e.type === 'jelly' ? JUICE.jellyPuddle : JUICE.bossBulge;
+        deathBeats.push({ ...e, age: 0, duration, phase: e.type === 'jelly' ? 'puddle' : 'core-bulge' });
+      } else {
+        burst(e, 24, 225, e.type === 'ice' ? 'shard' : 'drop');
+        if (e.type === 'ice') glintAt(e.x, e.y);
+      }
       if (e.type === 'boss') {
-        bossDefeated = true; freeze = 0; slow = Math.max(slow, .45); burst(e, 70, 510, 'glitter', '#fff2b6'); popup(W / 2, 380, 'BOSS DOWN!', '#fff3b8', 1.7);
+        bossDefeated = true; freeze = 0; slow = Math.max(slow, .45); bloom = JUICE.bloom;
+        burst(e, 38, 460, 'chunk'); popup(W / 2, 380, 'BOSS DOWN!', '#fff3b8', 1.7, 48);
       } else if (cause !== 'curtain') popup(e.x, e.y - e.r, cause === 'hold' ? 'むぎゅっ' : { wax: 'パリッ', bubble: 'プチッ', jelly: 'ぷちゅっ', ice: 'パリン' }[e.type], COLORS[e.type][0]);
       if (e.type === 'bubble' && cause !== 'chain' && cause !== 'curtain') chainFrom(e);
     } else burst(e, 5, 100, e.type === 'ice' ? 'shard' : 'glitter');
-    ripple(e, layerBreak || killed);
+    if (!killed || !['wax', 'jelly', 'boss'].includes(e.type)) ripple(e, layerBreak || killed);
     if (e.type === 'boss' && killed) { punch = Math.max(punch, .025); shake = Math.max(shake, 6); }
     else requestStop(layerBreak ? .18 : killed ? .07 : .04, layerBreak);
     vibrate(e.type === 'boss' && (layerBreak || killed)); return true;
   }
-  function strike(e, cause = 'tap', pitch = 0) {
+  function strike(e, cause = 'tap', pitch = 0, contact = e) {
     if (state !== 'play' || !e || e.dead || e.queued || e.entering) return false;
-    return fracture(e, cause === 'hold' && (e.type !== 'boss' || e.act === 2) ? endStage(e) : e.stage + 1, cause, pitch);
+    return fracture(e, cause === 'hold' && (e.type !== 'boss' || e.act === 2) ? endStage(e) : e.stage + 1, cause, pitch, contact);
   }
   function targetAt(x, y) {
     if (y < PLAY_TOP) return null;
@@ -152,7 +199,7 @@
       if (e.y - e.r >= PLAY_TOP && Math.hypot(a.x + t * dx, a.y + t * dy) <= e.r * .98) hits.push({ e, t });
     }
     hits.sort((a, b) => a.t - b.t);
-    for (const { e } of hits) { const pitch = pentatonic(p.hit.size); if (strike(e, 'slash', pitch)) { p.hit.add(e.id); p.pitches.push(pitch); } }
+    for (const { e, t } of hits) { const pitch = pentatonic(p.hit.size); if (strike(e, 'slash', pitch, { x: x1 + (x2 - x1) * t, y: y1 + (y2 - y1) * t })) { p.hit.add(e.id); p.pitches.push(pitch); p.lastHit = { x: e.x, y: e.y - e.r }; } }
   }
   function down(ev) {
     if (state !== 'play' || pointers.size >= 2 || (ev.pointerType === 'mouse' && ev.button !== 0)) return;
@@ -175,10 +222,10 @@
   function up(ev, cancelled = false) {
     const p = pointers.get(ev.pointerId); if (!p) return; ev.preventDefault();
     if (state === 'play' && !cancelled) {
-      if (!p.drag && !p.done && clock - p.start < .18) strike(p.target);
+      if (!p.drag && !p.done && clock - p.start < .18) strike(p.target, 'tap', 0, { x: p.startX, y: p.startY });
       if (p.drag) {
         lastStroke = { hits: p.hit.size, pitches: p.pitches.slice() };
-        if (p.hit.size >= 3) { audio.play('slash_finisher'); popup(clamp(p.x, 140, W - 140), clamp(p.y - 70, 340, 1130), `×${p.hit.size} SLASH`, '#cbfff2'); }
+        if (p.hit.size >= 3) { audio.play('slash_finisher'); popup(p.lastHit.x, p.lastHit.y - 65, `×${p.hit.size} SLASH`, '#cbfff2', .9, 36); }
       }
     }
     releaseTarget(p); pointers.delete(p.id); if (canvas.hasPointerCapture(ev.pointerId)) canvas.releasePointerCapture(ev.pointerId);
@@ -192,10 +239,10 @@
     if (!artReady) return;
     audio.stopAll();
     if (!audio.init()) { soundOn = false; audio.setEnabled(false); $('sound').textContent = '🔇'; $('sound').title = '音声を開始できませんでした。タップして再試行'; }
-    cancelPointers(); enemies.length = particles.length = texts.length = ripples.length = strokes.length = pending.length = flashes.length = 0;
+    cancelPointers(); enemies.length = particles.length = texts.length = ripples.length = strokes.length = pending.length = flashes.length = deathBeats.length = 0;
     random = ASMR.AudioDSP.seeded(seed); elapsed = clock = score = kills = combo = maxCombo = 0;
     uid = 1; lastKill = -5; spawnClock = 1; bossSpawned = bossDefeated = false; wave = 1;
-    freeze = slow = punch = shake = lastFrame = 0; lastStroke = { hits: 0, pitches: [] }; state = 'play';
+    freeze = slow = punch = shake = bloom = lastFrame = 0; lastStroke = { hits: 0, pitches: [] }; state = 'play';
     $('menu').classList.add('hidden'); $('result').classList.add('hidden'); $('hud').classList.remove('hidden');
     addEnemy('wax', 355, 590); addEnemy('wax', 140, 425); addEnemy('bubble', 230, 805); addEnemy('bubble', 360, 860);
     addEnemy('bubble', 490, 805); addEnemy('jelly', 160, 1110); addEnemy('jelly', 560, 1080); refreshHUD();
@@ -208,7 +255,7 @@
   function enterBoss() {
     bossSpawned = true; let at = clock; pending.length = 0;
     for (const e of enemies) if (!e.dead && e.type !== 'boss') { e.queued = false; at += rnd(.04, .07); queue(e, at, 'curtain', pentatonic(pending.length)); }
-    cancelPointers(); const boss = addEnemy('boss', W / 2, 285, true);
+    cancelPointers(); const boss = addEnemy('boss', W / 2, 515, true);
     boss.entering = true; boss.entryStart = clock; boss.entryEnd = Math.max(at + .08, clock + .85);
     popup(W / 2, 1020, '最後は、大きく。', '#ffdfb5', 1.3);
   }
@@ -248,15 +295,31 @@
     clock += dt; const stopped = freeze > 0;
     freeze = Math.max(0, freeze - dt); slow = Math.max(0, slow - dt);
     const sim = stopped ? 0 : Math.min(dt, .033) * (slow > 0 ? .18 : 1);
+    const fxDt = Math.min(dt, .033) * (slow > 0 ? .18 : 1);
+    const airDrag = Math.exp(-fxDt * .6);
+    bloom = Math.max(0, bloom - dt);
     punch *= Math.exp(-dt * 14); shake *= Math.exp(-dt * 20);
-    compact(particles, p => { p.life -= sim; p.x += p.vx * sim; p.y += p.vy * sim; p.vy += (p.shape === 'drop' ? 260 : 530) * sim; p.angle += p.spin * sim; return p.life > 0; });
+    compact(particles, p => {
+      p.life -= fxDt;
+      if (!p.anchored) { p.x += p.vx * fxDt; p.y += p.vy * fxDt; p.vx *= airDrag; p.vy = p.vy * airDrag + (p.shape === 'drop' ? 260 : 530) * fxDt; }
+      p.angle += p.spin * fxDt; return p.life > 0;
+    });
+    // These short visual beats use wall time, independent of hit-stop and slow-mo.
+    compact(deathBeats, e => { e.age += dt; if (e.age < e.duration) return true; splat(e); return false; });
     compact(texts, t => { t.life -= dt; t.y -= dt * 25; return t.life > 0; });
     compact(flashes, e => (e.glint -= dt) > 0);
     compact(ripples, r => (r.life -= dt) > 0); compact(strokes, s => (s.life -= dt) > 0);
     if (state !== 'play') return;
     elapsed = Math.min(TOTAL, elapsed + dt); checkTime(); if (state !== 'play') { refreshHUD(); return; }
     // Stagger and pressure use real time, even during hit-stop.
-    compact(pending, event => { if (event.at > clock) return true; fracture(event.e, endStage(event.e), event.cause, event.pitch); return false; });
+    // A late frame must not collapse several chain pops into one audio transient.
+    let overdue = 0;
+    compact(pending, event => {
+      event.at += overdue;
+      if (event.at > clock) return true;
+      overdue += Math.max(0, clock - event.at);
+      fracture(event.e, endStage(event.e), event.cause, event.pitch); return false;
+    });
     for (const p of pointers.values()) {
       const e = p.target; if (p.drag || p.done || !e || e.dead) { audio.stop(p.creak); continue; }
       const age = clock - p.start; e.pressure = clamp(age / .55, 0, 1);
@@ -270,11 +333,11 @@
       e.age += dt;
       if (e.entering) {
         const t = clamp((clock - e.entryStart) / (e.entryEnd - e.entryStart), 0, 1);
-        e.y = 285 + (640 - 285) * t * t;
-        if (t === 1) { e.entering = false; e.y = 640; e.jiggle = -.30; e.velocity = 2; audio.play('boss_thud'); ripple(e, true); requestStop(.06, true); }
+        e.y = 515 + (660 - 515) * t * t;
+        if (t === 1) { e.entering = false; e.y = 660; e.jiggle = -.30; e.velocity = 2; audio.play('boss_thud'); ripple(e, true); requestStop(.06, true); }
       } else if (e.owner === null && e.type !== 'boss') { e.x += e.vx * enemySim; e.y += e.vy * enemySim; }
       e.velocity += (-170 * e.jiggle - 13 * e.velocity) * enemySim;
-      e.jiggle = clamp(e.jiggle + e.velocity * enemySim, -.40, .30); e.glint = Math.max(0, e.glint - dt);
+      e.jiggle = clamp(e.jiggle + e.velocity * enemySim, -.40, .30); e.glint = Math.max(0, e.glint - dt); e.crackFlash = Math.max(0, e.crackFlash - dt);
     }
     // Gentle lateral separation; upward drift remains continuous and predictable.
     for (let i = 0; i < enemies.length; i++) for (let j = i + 1; j < enemies.length; j++) {
@@ -318,8 +381,8 @@
       circle(0, 0, 1); ctx.fillStyle = fills.wax; ctx.fill(); ctx.strokeStyle = '#ffdae8'; ctx.lineWidth = .14; ctx.stroke();
       circle(0, 0, .86); ctx.strokeStyle = '#e580ad'; ctx.lineWidth = .025; ctx.stroke(); shine(); if (e.stage === 1) cracks(4);
     } else {
-      ctx.fillStyle = '#ef9cbc'; ctx.beginPath(); ctx.ellipse(0, .08, .88, .93, 0, 0, TAU); ctx.fill();
-      ctx.fillStyle = '#f8b9d0'; ctx.beginPath(); ctx.ellipse(-.22, -.18, .46, .39, -.3, 0, TAU); ctx.fill();
+      ctx.fillStyle = '#fff4dc'; ctx.beginPath(); ctx.ellipse(0, .08, .88, .93, 0, 0, TAU); ctx.fill();
+      ctx.fillStyle = '#fffcef'; ctx.beginPath(); ctx.ellipse(-.22, -.18, .46, .39, -.3, 0, TAU); ctx.fill();
       ctx.strokeStyle = '#ffe0ec'; ctx.lineWidth = .14;
       for (const a of [0.1, 2.1, 3.65]) { ctx.beginPath(); ctx.arc(0, 0, 1, a, a + .42); ctx.stroke(); }
     }
@@ -357,6 +420,21 @@
     shine(); face(); cracks((e.stage % 3) * 3);
   }
   const DRAW = { wax: drawWax, bubble: drawBubble, jelly: drawJelly, ice: drawIce, boss: drawBoss };
+  function crackOverlay(e) {
+    if (!e.crack || e.stage !== 1) return;
+    ctx.save(); circle(0, 0, e.r * .89); ctx.clip();
+    ctx.globalAlpha *= e.crackFlash > 0 ? 1 : .7; ctx.strokeStyle = '#fff';
+    ctx.lineWidth = e.crackFlash > 0 ? 2.8 : 1.6; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    for (let i = 0; i < 5; i++) {
+      const a = i * TAU / 5 + .3, dx = Math.cos(a), dy = Math.sin(a), r = e.r;
+      const x = e.crack.x, y = e.crack.y;
+      ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + dx * r * .25 - dy * 5, y + dy * r * .25 + dx * 5);
+      ctx.lineTo(x + dx * r * .52, y + dy * r * .52); ctx.lineTo(x + dx * r * 1.8 - dy * 12, y + dy * r * 1.8 + dx * 12); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(x + dx * r * .52, y + dy * r * .52);
+      ctx.lineTo(x + dx * r * .67 + dy * 12, y + dy * r * .67 - dx * 12); ctx.stroke();
+    }
+    ctx.restore();
+  }
   function drawEnemy(e, flashOnly = false) {
     if (!artReady) return;
     const sprite = art.get(e), { sx, sy, angle } = shape(e), pressure = e.pressure;
@@ -364,12 +442,18 @@
     if (e.type !== 'boss') ctx.globalAlpha = clamp((e.y - PLAY_TOP - e.r) / 40, 0, 1) * Math.min(1, e.age / .18);
     if (flashOnly) ctx.globalAlpha *= e.glint / .06;
     if (sprite) {
-      ctx.drawImage(sprite.surface, -sprite.size / 2, -sprite.size / 2);
-      if (e.glint > 0) {
+      if (flashOnly) {
+        ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha *= .65;
+        ctx.drawImage(sprite.white, -sprite.size / 2, -sprite.size / 2);
+      } else ctx.drawImage(sprite.surface, -sprite.size / 2, -sprite.size / 2);
+      if (!flashOnly && e.glint > 0) {
+        ctx.save();
         ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha *= .65 * e.glint / .06;
         ctx.drawImage(sprite.white, -sprite.size / 2, -sprite.size / 2);
+        ctx.restore();
       }
     } else { ctx.save(); ctx.scale(e.r, e.r); DRAW[e.type](e); ctx.restore(); }
+    if (!flashOnly) crackOverlay(e);
     ctx.restore();
     if (debug && !flashOnly) {
       ctx.save(); ctx.translate(e.x, e.y); ctx.rotate(angle); ctx.scale(sx, sy);
@@ -381,6 +465,33 @@
       ctx.save(); ctx.strokeStyle = '#fff0c47a'; ctx.lineWidth = 3; circle(e.x, e.y, e.r * 1.34); ctx.stroke(); ctx.strokeStyle = '#ffe6ae'; ctx.lineWidth = 5;
       ctx.beginPath(); ctx.arc(e.x, e.y, e.r * 1.34, -Math.PI / 2, -Math.PI / 2 + pressure * TAU); ctx.stroke(); ctx.restore();
     }
+  }
+  const cream = ctx.createRadialGradient(-.28, -.4, .02, 0, 0, 1);
+  cream.addColorStop(0, '#fffef2'); cream.addColorStop(.65, '#fff4dc'); cream.addColorStop(1, '#e9c8ab');
+  function drawDeathBeat(e) {
+    const t = clamp(e.age / e.duration, 0, 1);
+    ctx.save(); ctx.translate(e.x, e.y);
+    if (e.type === 'jelly') {
+      const flatten = 1 - (1 - t) ** 2;
+      ctx.translate(0, e.r * .38 * flatten); ctx.scale(1 + .48 * flatten, 1 - .74 * flatten);
+      const sprite = art.get(e);
+      if (sprite) ctx.drawImage(sprite.surface, -sprite.size / 2, -sprite.size / 2);
+      else { ctx.scale(e.r, e.r); drawJelly(); }
+    } else {
+      const scale = 1 + .18 * t, squash = Math.sin(t * Math.PI) * .16;
+      ctx.scale(e.r * .84 * scale * (1 + squash), e.r * .84 * scale * (1 - squash * .6));
+      if (e.type === 'boss') {
+        const sprite = art.get({ ...e, act: 2 });
+        if (sprite) ctx.drawImage(sprite.surface, -1.1, -1.1, 2.2, 2.2);
+        else { ctx.fillStyle = fills.wax; circle(0, 0, 1); ctx.fill(); face(); }
+      } else {
+        ctx.fillStyle = cream; ctx.beginPath(); ctx.moveTo(0, -.96);
+        ctx.bezierCurveTo(.55, -1.08, 1.02, -.52, .96, .08); ctx.bezierCurveTo(1.13, .79, .5, 1.02, 0, .91);
+        ctx.bezierCurveTo(-.61, 1.12, -1.12, .58, -.96, -.02); ctx.bezierCurveTo(-1.02, -.61, -.48, -1.02, 0, -.96); ctx.fill();
+        ctx.save(); ctx.scale(.75, .75); face(); ctx.restore();
+      }
+    }
+    ctx.restore();
   }
   function ribbon(stroke) {
     const points = stroke.points, n = points.length; if (n < 2) return;
@@ -396,22 +507,32 @@
     for (let i = 1; i < n - 1; i++) ctx.quadraticCurveTo(points[i].x, points[i].y, (points[i].x + points[i + 1].x) / 2, (points[i].y + points[i + 1].y) / 2);
     ctx.lineTo(points[n - 1].x, points[n - 1].y); ctx.stroke(); ctx.restore();
   }
-  function effects() {
+  function drawParticles() {
     for (const p of particles) {
-      ctx.save(); ctx.globalAlpha = clamp(p.life / .3, 0, 1); ctx.fillStyle = p.color; ctx.translate(p.x, p.y); ctx.rotate(p.angle); const s = p.size;
-      if (p.shape === 'chunk' || p.shape === 'shard') {
+      ctx.save(); ctx.globalAlpha = clamp(p.life / (p.max * .3), 0, 1); ctx.fillStyle = p.color; ctx.translate(p.x, p.y); ctx.rotate(p.angle); const s = p.size / 2;
+      const sprite = p.sprite;
+      if (sprite) ctx.drawImage(sprite.surface, -s, -s);
+      else if (p.shape === 'chunk' || p.shape === 'shard') {
         ctx.beginPath(); ctx.moveTo(-s, -s * .7); ctx.lineTo(s * .8, -s * .3); ctx.lineTo(s * .2, s); ctx.lineTo(-s * .65, s * .5); ctx.closePath(); ctx.fill();
         if (p.shape === 'chunk') { ctx.strokeStyle = '#fff5e8'; ctx.lineWidth = 2; ctx.stroke(); }
       } else if (p.shape === 'glitter') { ctx.fillRect(-s * .14, -s, s * .28, s * 2); ctx.fillRect(-s, -s * .14, s * 2, s * .28); }
       else { ctx.beginPath(); ctx.ellipse(0, 0, s, s * .65, 0, 0, TAU); ctx.fill(); } ctx.restore();
     }
+  }
+  function effects() {
     for (const r of ripples) {
-      ctx.save(); ctx.globalAlpha = r.life / .35; ctx.strokeStyle = r.color; ctx.lineWidth = (r.big ? 7 : 3) * r.life / .35;
-      circle(r.x, r.y, r.r + (1 - r.life / .35) * 85); ctx.stroke(); ctx.restore();
+      const t = r.life / (r.max || .35);
+      ctx.save(); ctx.strokeStyle = r.color;
+      if (r.soft) {
+        // Three concentric strokes make a soft edge without per-particle shadowBlur.
+        circle(r.x, r.y, r.r + (1 - t) * (r.big ? 230 : 100));
+        for (const width of [18, 10, 4]) { ctx.globalAlpha = t * .12; ctx.lineWidth = width * t; ctx.stroke(); }
+      } else { ctx.globalAlpha = t; ctx.lineWidth = (r.big ? 7 : 3) * t; circle(r.x, r.y, r.r + (1 - t) * 85); ctx.stroke(); }
+      ctx.restore();
     }
     for (const s of strokes) ribbon(s);
     for (const t of texts) {
-      ctx.save(); ctx.globalAlpha = clamp(t.life / .25, 0, 1); ctx.font = `800 ${t.word === 'BOSS DOWN!' ? 48 : 29}px system-ui`;
+      ctx.save(); ctx.globalAlpha = clamp(t.life / .25, 0, 1); ctx.font = `800 ${t.size}px system-ui`;
       ctx.textAlign = 'center'; ctx.strokeStyle = '#29233c'; ctx.lineWidth = 6; ctx.strokeText(t.word, t.x, t.y); ctx.fillStyle = t.color; ctx.fillText(t.word, t.x, t.y); ctx.restore();
     }
   }
@@ -423,8 +544,11 @@
       ctx.fillStyle = '#c9e1ed7a'; ctx.font = '20px system-ui'; ctx.textAlign = 'center';
       ctx.fillText(bossSpawned && !bossDefeated ? '殻はタップで。芯は、長押し。' : 'タップで割る  ·  なぞる  ·  長押しでむぎゅっ', W / 2, 1215);
     }
+    drawParticles();
+    for (const e of deathBeats) drawDeathBeat(e);
     for (const e of flashes) drawEnemy(e, true);
     effects(); ctx.restore();
+    if (bloom > 0) { ctx.save(); ctx.fillStyle = '#fff6e5'; ctx.globalAlpha = .23 * (bloom / JUICE.bloom) ** 2; ctx.fillRect(0, 0, W, H); ctx.restore(); }
   }
   function frame(ms) {
     const dt = lastFrame ? Math.max(0, (ms - lastFrame) / 1000) : 0; lastFrame = ms;
@@ -438,12 +562,15 @@
   requestAnimationFrame(frame);
   window.__asmrTest = {
     getState: () => ({ state, score, kills, combo, maxCombo, elapsed, wave, bossSpawned, bossDefeated, freeze, slow,
-      particles: particles.length, pending: pending.length, pointers: pointers.size, lastStroke,
+      particles: particles.length, pending: pending.length, pointers: pointers.size, lastStroke, bloom,
+      deathBeats: deathBeats.map(e => ({ type: e.type, phase: e.phase, age: e.age, duration: e.duration })),
+      popups: texts.map(t => ({ word: t.word, size: t.size, life: t.life, ...popupBox(t) })),
+      particleFx: [...new Set(particles.map(p => p.fx))], softRings: ripples.filter(r => r.soft).length,
       enemies: enemies.filter(e => !e.dead).map(e => ({ id: e.id, type: e.type, stage: e.stage, act: e.act, layer: e.layer, hp: endStage(e) - e.stage,
-        x: e.x, y: e.y, r: e.r, sprite: art.key(e), pressure: e.pressure, jiggle: e.jiggle, glint: e.glint, entering: e.entering })) }),
-    start: begin, hitAt: (x, y) => strike(targetAt(x, y)),
+        x: e.x, y: e.y, r: e.r, sprite: art.key(e), pressure: e.pressure, jiggle: e.jiggle, glint: e.glint, crack: e.crack, crackFlash: e.crackFlash, entering: e.entering })) }),
+    start: begin, hitAt: (x, y) => strike(targetAt(x, y), 'tap', 0, { x, y }),
     spawn: (type, x, y) => { if (!DRAW[type] || type === 'boss') throw new Error('Use skipTo(32) for the boss'); return addEnemy(type, x, y, true).id; },
-    clear: () => { cancelPointers(); enemies.length = pending.length = particles.length = texts.length = ripples.length = strokes.length = flashes.length = 0; freeze = slow = 0; spawnClock = 60; },
+    clear: () => { cancelPointers(); enemies.length = pending.length = particles.length = texts.length = ripples.length = strokes.length = flashes.length = deathBeats.length = 0; freeze = slow = bloom = 0; spawnClock = 60; },
     skipTo: seconds => { elapsed = clamp(seconds, 0, TOTAL); checkTime(); refreshHUD(); }, end: finish, audioStats: () => audio.stats(),
     testAudioBurst: () => { for (const name of Object.keys(ASMR.AudioDSP.SPECS)) for (let i = 0; i < 6; i++) audio.play(name); }, cancelInput: cancelPointers,
     artStats: () => art.stats(),
@@ -456,6 +583,7 @@
       states.forEach(([type, stage], i) => {
         const e = addEnemy(type, 160 + (i % 3) * 200, 450 + Math.floor(i / 3) * 280, true);
         e.stage = stage; e.layer = Math.floor(stage / 3); e.act = type === 'boss' ? stage >= 9 ? 2 : 1 : 0;
+        if (stage === 1 && (type === 'wax' || type === 'ice')) e.crack = { x: -e.r * .3, y: -e.r * .25 };
       });
     },
     heavyScene: () => {
@@ -463,7 +591,7 @@
       for (let slot = 0; slot < 12; slot++) if (!enemies.some(e => !e.dead && e.perfSlot === slot)) {
         const e = addEnemy(types[slot % 4], 100 + (slot % 4) * 172, 440 + Math.floor(slot / 4) * 300, true); e.perfSlot = slot;
       }
-      if (!enemies.some(e => !e.dead && e.type === 'boss')) addEnemy('boss', 360, 640, true);
+      if (!enemies.some(e => !e.dead && e.type === 'boss')) addEnemy('boss', 360, 660, true);
       bossSpawned = true; spawnClock = 60;
     }
   };

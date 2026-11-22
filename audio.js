@@ -173,7 +173,7 @@
   const ASMR = root.ASMR = root.ASMR || {};
   ASMR.AudioDSP = DSP;
   ASMR.createAudio = function (seed = 1) {
-    let ac, master, compressor, shelf, enabled = true, ready = false;
+    let ac, master, compressor, shelf, enabled = true, ready = false, volume = .55;
     const bank = {}, voices = [], started = {}, events = [], rand = seeded(seed);
     let maxActive = 0, stolen = 0;
     function stop(voice) {
@@ -192,7 +192,7 @@
           compressor.threshold.value = -18; compressor.ratio.value = 4;
           compressor.knee.value = 12; compressor.attack.value = .003; compressor.release.value = .12;
           shelf = ac.createBiquadFilter(); shelf.type = 'highshelf'; shelf.frequency.value = 9000; shelf.gain.value = -3;
-          master = ac.createGain(); master.gain.value = enabled ? .55 : 0;
+          master = ac.createGain(); master.gain.value = enabled ? volume : 0;
           compressor.connect(shelf).connect(master).connect(ac.destination);
           for (const name of Object.keys(SPECS)) {
             bank[name] = [];
@@ -215,16 +215,17 @@
       if (same >= 4) { stop(oldest); stolen++; }
       if (voices.length >= 16) { stop(voices[0]); stolen++; }
       const source = ac.createBufferSource(), gain = ac.createGain();
-      source.buffer = bank[name][Math.floor(rand() * DSP.variations)];
+      const variation = Number.isInteger(options.variation) ? Math.max(0, Math.min(DSP.variations - 1, options.variation)) : Math.floor(rand() * DSP.variations);
+      source.buffer = bank[name][variation];
       const pitch = options.pitch || 0;
-      source.playbackRate.value = Math.pow(2, pitch / 12) * (.97 + rand() * .06);
+      source.playbackRate.value = Math.pow(2, pitch / 12) * (options.exact ? 1 : .97 + rand() * .06);
       source.loop = !!options.loop;
       gain.gain.value = options.gain === undefined ? 1 : options.gain;
       source.connect(gain).connect(compressor);
       const voice = { name, source, gain, stopped: false };
       voices.push(voice); maxActive = Math.max(maxActive, voices.length);
       started[name] = (started[name] || 0) + 1;
-      events.push({ name, pitch, rate: source.playbackRate.value, at: ac.currentTime });
+      events.push({ name, variation, pitch, rate: source.playbackRate.value, at: ac.currentTime });
       if (events.length > 256) events.shift();
       source.onended = () => { const i = voices.indexOf(voice); if (i >= 0) voices.splice(i, 1); source.disconnect(); gain.disconnect(); };
       source.start(ac.currentTime); // Fracture transient: no look-ahead / pre-delay.
@@ -239,12 +240,17 @@
       },
       setEnabled(value) {
         enabled = value;
-        if (master) master.gain.setValueAtTime(enabled ? .55 : 0, ac.currentTime);
+        if (master) master.gain.setValueAtTime(enabled ? volume : 0, ac.currentTime);
         if (!enabled) stopAll();
+      },
+      setVolume(value) {
+        if (!Number.isFinite(value)) return;
+        volume = Math.max(0, Math.min(1, value));
+        if (master) master.gain.setTargetAtTime(enabled ? volume : 0, ac.currentTime, .015);
       },
       stats() {
         const perSoundActive = {}; for (const v of voices) perSoundActive[v.name] = (perSoundActive[v.name] || 0) + 1;
-        return { ready, enabled, active: voices.length, perSoundActive, maxActive, stolen, started: { ...started }, events: events.slice(), rendered: ready ? Object.keys(bank).length * DSP.variations : 0 };
+        return { ready, enabled, volume, active: voices.length, perSoundActive, maxActive, stolen, started: { ...started }, events: events.slice(), rendered: ready ? Object.keys(bank).length * DSP.variations : 0 };
       }
     };
   };

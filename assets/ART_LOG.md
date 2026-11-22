@@ -1,5 +1,7 @@
 # ASMR MUSOU enemy art / T2
 
+T5実行マッピング追記: wax stage 2は `art/alt/wax_2_alt.png` を採用。旧 `art/wax_2.png` と以下のT2生成履歴は保持。現在の統合・FXマッピングは末尾のT5節を参照。
+
 制作日: 2026-11-22。担当範囲: `assets/art/` とこの `assets/ART_LOG.md` のみ。
 
 ## 制作結果
@@ -255,6 +257,8 @@ Use case: precise-object-edit. ONE separate square production sprite for ASMR MU
 
 ## T4
 
+T5実行マッピング追記: 下記のFX13点とwax代替案をゲームへ統合済み。T4当時の「ASSETS ONLY / 未統合」は制作時点の履歴。元画像・最終PNGへの変更なし。
+
 制作日: 2026-11-22。依頼範囲: debris/FX sprites + wax_2 alternative（ASSETS ONLY）。担当は `art/fx/`、`art/alt/`、`art/src/` の新規ファイルと、このT4節の追記のみ。ゲームへの組み込みとコミットは行っていない。他作業者によるゲーム・音・tests・tools・README/ASSETS等の変更には触れていない。
 
 ### 制作結果・推奨
@@ -426,3 +430,48 @@ Use case: background-extraction. Edit the supplied THREE pink curved wax shell f
 REMOVE ALL surrounding gray-white haze and background between and outside the fragments. Absolutely clean REAL transparent RGBA background, alpha zero everywhere outside the three hard physical silhouettes, no glow, no shadows, no floor, no mist, no light bloom, no checkerboard art. Retain only the physical pink fragments and their thin white rims. No detached specks. Bottom-right quadrant must be fully transparent. Three separated clean alpha cutouts, each entirely inside its existing quadrant. No text or labels.
 ```
 
+
+
+## T5 — director frame-by-frame polish
+
+2026-11-22。T4の採用済み画像をclassic script / 相対Image URLで統合。新規画像生成・外部素材・有料サービス・公開なし。
+
+### 現在のマッピング
+
+- wax stage 2: `art/alt/wax_2_alt.png`。T2の元版は保持し、実行時には読まない。
+- wax shell: `art/fx/chip_wax_a/b/c.png`。
+- boss layer / final remaining shell: `art/fx/chunk_boss_a/b/c.png`。
+- ice: `art/fx/shard_ice_a/b/c.png`。
+- jelly / bubble / boss core: `art/fx/drop_jelly.png` / `drop_mint.png` / `drop_peach.png`。
+- glints / glitter: `art/fx/sparkle.png`。
+- wax cream / pink drops: `drop_peach.png` のキャッシュに72% source-atopでクリーム / ピンクを着色。PNGは未変更。
+- cream core / branching cracks / soft ring / warm bloom: game.jsの手続き描画。画像の新規生成とは扱わない。
+
+敵10枚を通常半径に事前拡縮（boss r190 / cache418px）。FX13枚は18/26/36/46px、boss chunksは58/70pxも事前生成。派生色も含めFXキャッシュ66枚。失敗した画像だけ手続き描画、ファイルごと警告1回。MAX_PARTICLES=360を維持。
+
+### フレーム観察と修正
+
+`tests/frame-strips.mjs` がChrome / file:// / offlineで本物のpointer tapを送る。`page.clock.install()` と `pauseAt()`、最初の16ms後に描画を取得し、以後 `page.clock.runFor(33)` ごとに保存。スクリーンショット自体は改変せず、別ページのCanvasで切り出し・配置・時刻ラベルのみ。`screenshots/wax_frames.png` と `boss_final_frames.png` は各6列×3行、同時の状態を `frame_states.json` に保存。
+
+1. 初回wax strip: 殻片が芯の前を覆い、クリームとピンクのしずくが中央で重なった。殻片を芯より後ろへ描き、stage 2のchipsを15→10、killのchipsを24→12に減らした。しずくは30→25個、半径45–90%から飛ばし、速度を増した。再撮影では49–82msのクリーム芯と115msからの飛散を区別できる。
+2. boss strip: 16msの白い解放、49–115msの柔らかな芯、148ms以降のpeach + sparkle + layered chunks、400msで消える暖白色bloomと一度だけ広がるリングを確認。芯の手前を隠す殻片も同じ描画順修正で解消。BOSS DOWN!を維持。
+3. jellyの追加静止画: 古い本体の残像が潰れた本体に重なり、二重の顔に見えた。jellyの旧本体残像を外し、80msの間に早めに扁平化する曲線へ変更。他素材の撃破残像も元の顔を重ねず白マスクのみとした。
+4. swipe画像: プチッと36pxのSLASHが別の行で読める。実際の3-hit swipeと同一点8連続killの両方で、popup bbox非重複・上限6・古い文字の早いフェードを検証。
+5. iceの持続亀裂、ボス通常時のHUD余白、soundboardのPC・390px幅も目視確認。
+
+### 文書との相違と扱い
+
+- 旧README「素材と45秒の流れ」のピンク芯・boss r150/y640、およびASSETSの旧実行マッピングはT5の明示指示に従いcream alt・r190/y660に更新。現在のコードと一致。
+- T2の採用表のwax_2.pngと「ゲームへの組み込みは範囲外」、T4「推奨・未統合」は当時の生成記録として保持。現在は本T5マッピングを採用。T2での読みやすさ評価も履歴であり、今回のディレクター評価を優先した。
+- ORCHESTRATOR_BRIEF.md「現在の出発点」のv0.1 / tests/smoke.py / 仮音という記述は履歴として保持。現在のREADMEと既存のv0.2コード・Node smoke・事前生成DSPを継続。
+- ART_LOGのT2各画像のTool / Date: undefinedは、既存の欠落を推測で埋めず保持。個別実行日時は未確認。
+
+### 残る弱点
+
+クリーム芯は手続き描画で、生成画像の殻より表面の細部が少ない。90msの読みやすさ、音との気持ちよさ、AndroidのFPS・熱・振動・実スピーカー／イヤホンは人間の試遊待ち。フレーム検証・音声数値ゲートは耳チェックを代用しない。perfはupdate+drawのCPU時間でありGPU完了や実機FPSを含まない。
+
+### 最終自動検証
+
+T5最終計測（Chrome 158.0.8127.36、4×CPU、10.26秒、739フレーム・31スワイプ）: 平均4.44ms / p95 **6.40ms < 8ms** / 最大8.50ms。最少13敵・粒子最大360。`npm run check` と `npm test`（51音のSFXゲート・smoke 20項目・perf）PASS。FX欠落、90ms芯、popup非重複、soundboardも検証。
+
+file:// / offline、Chrome channel、外部HTTP要求0、console/page error 0（欠落fixtureの意図したリソースエラーは別）。PCと360×640・412×915のタッチ、390px幅のsoundboardを確認。

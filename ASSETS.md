@@ -1,30 +1,48 @@
 # Asset provenance
 
+T5ではT4のFX13枚とクリーム芯altを統合（現行マッピングは下記）。
+
 T3ではdirector採用済みの `assets/art/` の10枚をゲームに統合。原画像・採用PNGは変更せず、実行時に必要サイズへキャッシュして使用します。新しい画像生成や有料サービスの利用はありません。
 
-- キャラクター：OpenAI image_gen生成のRGBA PNG。背景、粒子、画像欠落時のキャラクター：game.js 内の手続き描画。
+- キャラクター：OpenAI image_gen生成のRGBA PNG。背景、クリーム芯、画像欠落時のキャラクターと粒子：game.js 内の手続き描画。
 - サウンド：`audio.js` 内のオリジナル手続きDSP（下記）。実録ではありません。
 - 外部録音・ストック素材：なし。生成画像の出所・利用条件の記録は [assets/ART_LOG.md](assets/ART_LOG.md) を参照（CC0素材とは扱わない）。
 
 今後の生成素材を追加するときは、ファイル名・生成方法・生成日時・生成プロンプト・採用/不採用・商用利用条件・帰属表示要否を記録すること。
 
-## 採用画像の実行経路 — T3
+## 採用画像の実行経路 — T3 / T5
 
 `sprites.js` がclassic scriptとして `audio.js` と `game.js` の間に読み込まれ、`new Image()` と相対srcでロード。fetch・XHR・ES modules・外部ライブラリは不要、file://で動作する。全画像のload/error確定後に開始可能。失敗した状態だけ元の手続き描画を使用し、ファイルごと1回だけconsole.warnを出す。
 
 | 状態 | 採用ファイル | 半径 / キャッシュ辺 px |
 |---|---|---:|
-| wax stage 0/1/2 | wax_0/1/2.png | 64 / 141 |
+| wax stage 0/1 | wax_0/1.png | 64 / 141 |
+| wax stage 2（T5採用） | alt/wax_2_alt.png | 64 / 141 |
 | bubble | bubble_0.png | 58 / 128 |
 | jelly（変形共通） | jelly_0.png | 62 / 136 |
 | ice stage 0/1 | ice_0/1.png | 60 / 132 |
-| boss act1・未破壊 | boss_0.png | 150 / 330 |
-| boss act1・1層以上破壊 | boss_1.png | 150 / 330 |
-| boss act2・芯 | boss_2.png | 150 / 330 |
+| boss act1・未破壊 | boss_0.png | 190 / 418 |
+| boss act1・1層以上破壊 | boss_1.png | 190 / 418 |
+| boss act2・芯 | boss_2.png | 190 / 418 |
 
 384×384 RGBAを約2.2×hit radiusのoffscreen canvasへ一度だけ縮小。白いalphaマスクも一度だけ生成し、破断時60msの加算フラッシュに使用。pressure/jiggle/boingを同じ変形行列で適用。小敵状態・ボス各状態・debug hit circle・欠落時のスクリーンショットで目視確認済み。描画結果と当たり判定は同じ変形を使うが、凹凸は円で近似する。
 
 `assets/ART_LOG.md` の冒頭にはimage_genと制作日2026-11-22が記録されている一方、個別節のTool/Dateにはundefinedが残る。個別実行日時を推定で埋めず、T2の履歴を維持した。生成プロンプト・参照画像・処理・hashは同ログと `assets/art/generation_manifest.json` / `verification.json` を参照。
+
+## T5 FXの実行マッピング
+
+T4で生成済みの13枚を統合。原画像・採用PNGは変更しない。新規の画像生成・外部サービス利用なし。生成記録と条件はART_LOGのT4を継承する。
+
+| 演出 | ファイル（assets/art/fx/） |
+|---|---|
+| ロウ殻 | chip_wax_a/b/c.png |
+| ボス層・最終の残り殻 | chunk_boss_a/b/c.png |
+| 氷 | shard_ice_a/b/c.png |
+| ゼリー / 泡 / ボス芯 | drop_jelly / drop_mint / drop_peach.png |
+| キラキラ・タップ点の光 | sparkle.png |
+| ロウのクリーム・ピンクしずく | drop_peach.pngを実行時キャッシュに72% source-atop着色（#fff4dc / #f6b2d1） |
+
+各128pxのFXを18/26/36/46pxへ事前縮小、ボス殻のみ58/70pxも使用。FXキャッシュ66枚、敵キャッシュ10枚。ランタイムで粒子ごとのリサイズはしない。欠落ファイルごと1回警告し、その粒子は手続き描画にフォールバック。芯の90msのクリームblob、亀裂、柔らかなリングと暖白色bloomはgame.jsの手続き描画。T2のwax_2.pngは原版として保持し、ゲームでは使わない。
 
 ## synth_* SFX v3 — 2026-11-22
 

@@ -5,6 +5,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import path from 'node:path';
 import { chromium } from 'playwright';
 import DSP from '../audio.js';
+import { frameStrips } from './frame-strips.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const shots = path.join(root, 'screenshots');
@@ -55,10 +56,12 @@ try {
   assert.equal((await state(page)).state, 'play'); assert.equal((await stats(page)).rendered, 51);
   const art = await page.evaluate(() => __asmrTest.artStats());
   assert(art.settled); assert.equal(art.scales, 10); assert(Object.values(art.states).every(s => s === 'ready'));
+  assert.equal(Object.keys(art.fx).length, 13); assert(Object.values(art.fx).every(s => s === 'ready')); assert.equal(art.fxScales, 66);
+  assert.equal(art.sources.wax_2_alt, 'assets/art/alt/wax_2_alt.png');
   const first = await state(page); assert(first.enemies.some(e => e.type === 'wax')); assert.equal(first.enemies.filter(e => e.type === 'bubble').length, 3);
   assert(first.enemies.length <= 8); await page.waitForTimeout(250); await screenshot(page, 'play'); ok('file:// offline menu → gesture starts audio and guaranteed opening group');
   await page.evaluate(() => __asmrTest.showcase()); await screenshot(page, 'sprites_states');
-  const shown = await state(page); assert.deepEqual(shown.enemies.map(e => e.sprite), ['wax_0', 'wax_1', 'wax_2', 'bubble_0', 'jelly_0', 'ice_0', 'ice_1']);
+  const shown = await state(page); assert.deepEqual(shown.enemies.map(e => e.sprite), ['wax_0', 'wax_1', 'wax_2_alt', 'bubble_0', 'jelly_0', 'ice_0', 'ice_1']);
   const edge = shown.enemies[0];
   assert.equal(await page.evaluate(e => __asmrTest.hitAt(e.x + e.r * 1.04, e.y), edge), false);
   assert.equal(await page.evaluate(e => __asmrTest.hitAt(e.x + e.r * .90, e.y), edge), true);
@@ -76,10 +79,12 @@ try {
   await clear(page); const bubbles = [];
   for (const x of [250, 360, 470]) bubbles.push(await spawn(page, 'bubble', x, 720));
   const beforeChain = (await stats(page)).events.length; const beforeKills = (await state(page)).kills;
-  await hit(page, bubbles[0]); await page.waitForTimeout(250);
+  await page.evaluate(id => new Promise(resolve => requestAnimationFrame(() => {
+    const e = __asmrTest.getState().enemies.find(e => e.id === id); resolve(__asmrTest.hitAt(e.x, e.y));
+  })), bubbles[0]); await page.waitForTimeout(250);
   assert.equal((await state(page)).kills - beforeKills, 3);
   const pops = (await stats(page)).events.slice(beforeChain).filter(e => e.name === 'bubble_pop'); assert.equal(pops.length, 3);
-  for (let i = 1; i < pops.length; i++) assert(pops[i].at - pops[i - 1].at >= .025 && pops[i].at - pops[i - 1].at < .12, 'separate staggered pop voices');
+  for (let i = 1; i < pops.length; i++) assert(pops[i].at - pops[i - 1].at >= .025 && pops[i].at - pops[i - 1].at < .12, 'separate staggered pop voices: ' + JSON.stringify(pops));
   ok('bubble rolls through two neighbours in separate staggered fracture frames');
 
   await clear(page); const swipeIds = [];
@@ -90,6 +95,13 @@ try {
   assert(!swipe.enemies.some(e => swipeIds.includes(e.id))); assert((await stats(page)).started.slash_finisher >= 1);
   const notes = (await stats(page)).events.filter(e => e.name === 'bubble_pop').slice(-3); assert.deepEqual(notes.map(e => e.pitch), [0, 2, 4]);
   await screenshot(page, 'swipe'); ok('real mouse stroke hits 3 targets once with C D E pitch steps + finisher');
+  const labels = swipe.popups; assert(labels.length >= 4 && labels.length <= 6);
+  for (let i = 0; i < labels.length; i++) for (let j = i + 1; j < labels.length; j++) {
+    const a = labels[i], b = labels[j];
+    assert(a.right <= b.left || a.left >= b.right || a.bottom <= b.top || a.top >= b.bottom, `${a.word} overlaps ${b.word}`);
+  }
+  const slashLabel = labels.find(t => t.word.includes('SLASH')); assert(slashLabel.size > 29); assert(slashLabel.bottom < 710 - 58);
+  ok('3-hit swipe popup bounds are disjoint; larger SLASH above the last hit');
 
   await clear(page); const jellyTap = await spawn(page, 'jelly'); await hit(page, jellyTap);
   assert.equal((await state(page)).enemies.find(e => e.id === jellyTap).stage, 1); await page.waitForTimeout(100);
@@ -110,8 +122,8 @@ try {
 
   await page.evaluate(() => __asmrTest.start()); const bossKills = (await state(page)).kills;
   const boss = await bossReady(page); let s = await state(page);
-  assert(s.enemies.every(e => e.type === 'boss')); assert(s.kills - bossKills >= 7); assert.equal(boss.y, 640);
-  assert.equal(boss.r, 150); assert.equal(boss.sprite, 'boss_0'); assert((await stats(page)).started.boss_thud >= 1);
+  assert(s.enemies.every(e => e.type === 'boss')); assert(s.kills - bossKills >= 7); assert.equal(boss.y, 660);
+  assert.equal(boss.r, 190); assert(boss.y - boss.r * 1.3 > 300); assert.equal(boss.sprite, 'boss_0'); assert((await stats(page)).started.boss_thud >= 1);
   await page.waitForTimeout(950); await screenshot(page, 'boss_act1');
   for (let i = 1; i <= 9; i++) {
     await hit(page, boss.id); s = await state(page); const b = s.enemies.find(e => e.id === boss.id);
@@ -124,7 +136,7 @@ try {
   s = await state(page); assert(s.bossDefeated); assert(s.slow > 0); assert(!s.enemies.some(e => e.type === 'boss'));
   await page.waitForTimeout(140); await screenshot(page, 'boss_final');
   for (const name of ['boss_layer_1', 'boss_layer_2', 'boss_layer_3', 'boss_core', 'boss_final']) assert((await stats(page)).started[name] >= 1);
-  ok('32s boss clears small enemies, lands at 640 with thud; 3×3 shell → 4-tap core → final slow-mo');
+  ok('32s boss clears small enemies, radius 190 lands at 660 clear of HUD; 3×3 shell → 4-tap core → final slow-mo');
 
   await page.evaluate(() => __asmrTest.start()); const heldBoss = await bossReady(page);
   for (let i = 0; i < 9; i++) await hit(page, heldBoss.id);
@@ -150,7 +162,7 @@ try {
   await page.locator('#retry').click();
   for (const [time, cap] of [[0, 8], [15, 10], [30, 12]]) {
     await page.evaluate(t => __asmrTest.skipTo(t), time); const before = await state(page); await page.waitForTimeout(1550);
-    const after = await state(page); assert(after.enemies.length <= cap); assert(after.particles <= 600);
+    const after = await state(page); assert(after.enemies.length <= cap); assert(after.particles <= 360);
     for (const e of after.enemies) {
       assert(e.y >= 300, 'no target parked under HUD');
       const previous = before.enemies.find(p => p.id === e.id); if (previous) assert(e.y <= previous.y && previous.y - e.y < 100, 'continuous drift, no teleport');
@@ -158,6 +170,7 @@ try {
   }
   ok('wave density caps 8/10/12, HUD clearance, continuous upward drift and particle bound');
   assert.equal((await page.evaluate(() => __asmrTest.artStats())).scales, 10, 'no per-frame rescaling');
+  assert.equal((await page.evaluate(() => __asmrTest.artStats())).fxScales, 66, 'no per-frame FX rescaling');
   await page.goto(url + '&debug=1'); await page.locator('#start').click(); await page.evaluate(() => __asmrTest.showcase());
   await screenshot(page, 'hitbox_debug');
   await context.close();
@@ -167,7 +180,9 @@ try {
   try {
     for (const file of ['index.html', 'style.css', 'audio.js', 'sprites.js', 'game.js']) await cp(path.join(root, file), path.join(fixture, file));
     await mkdir(path.join(fixture, 'assets/art'), { recursive: true });
-    for (const key of Object.keys(art.states)) if (key !== 'wax_1') await cp(path.join(root, 'assets/art', key + '.png'), path.join(fixture, 'assets/art', key + '.png'));
+    const files = [...Object.entries(art.sources).filter(([key]) => key !== 'wax_1').map(([, src]) => src),
+      ...Object.keys(art.fx).filter(key => key !== 'chip_wax_a').map(key => 'assets/art/fx/' + key + '.png')];
+    for (const file of files) { await mkdir(path.dirname(path.join(fixture, file)), { recursive: true }); await cp(path.join(root, file), path.join(fixture, file)); }
     const missing = await browser.newPage({ offline: true, viewport: { width: 412, height: 915 } }), warnings = [], resourceErrors = [];
     missing.on('pageerror', e => errors.push(String(e)));
     missing.on('console', m => { if (m.type() === 'warning') warnings.push(m.text()); if (m.type() === 'error') resourceErrors.push(m.text()); });
@@ -176,8 +191,12 @@ try {
     assert.equal((await missing.evaluate(() => __asmrTest.artStats())).states.wax_1, 'fallback');
     assert.equal(warnings.filter(w => w.includes('wax_1')).length, 1);
     assert(resourceErrors.every(e => e.includes('net::ERR_FILE_NOT_FOUND')), 'only intentional browser missing-resource diagnostic');
-    await screenshot(missing, 'missing_sprite_fallback'); await hit(missing, id); assert.equal((await state(missing)).enemies[0].sprite, 'wax_2');
-    await missing.close(); ok('missing wax_1 PNG: one warning, procedural damaged state, next sprite state works');
+    await screenshot(missing, 'missing_sprite_fallback'); await hit(missing, id); assert.equal((await state(missing)).enemies[0].sprite, 'wax_2_alt');
+    assert.equal((await missing.evaluate(() => __asmrTest.artStats())).fx.chip_wax_a, 'fallback');
+    assert.equal(warnings.filter(w => w.includes('chip_wax_a')).length, 1); assert.equal(warnings.length, 2);
+    await missing.waitForTimeout(60); assert((await state(missing)).particleFx.includes('chip_wax_a'));
+    await screenshot(missing, 'missing_fx_fallback');
+    await missing.close(); ok('missing wax_1 and chip_wax_a PNGs: one warning each, procedural fallbacks, next state works');
   } finally {
     assert.equal(path.dirname(fixture), path.resolve(os.tmpdir())); assert(path.basename(fixture).startsWith('asmr-missing-'));
     await rm(fixture, { recursive: true, force: true });
@@ -195,6 +214,28 @@ try {
     await p.setViewportSize(viewport); assert(!(await p.locator('.rotate-message').isVisible())); await mobile.close();
     ok(`mobile ${viewport.width}×${viewport.height}: real touchscreen taps, canvas bounds, rotation`);
   }
+  await frameStrips(browser, root, observe);
+  ok('33ms frame strips: local crack origin / persistent damage / wax alt / 90ms core bulge → cream drops / boss bloom + one ring');
+
+  const soundboard = await browser.newPage({ offline: true, viewport: { width: 960, height: 900 } }); observe(soundboard);
+  await soundboard.clock.install(); await soundboard.goto(pathToFileURL(path.join(root, 'soundboard.html')).href);
+  assert(await soundboard.locator('section[data-sound]').count() >= 16);
+  assert.equal(await soundboard.locator('section[data-sound] button').count(), Object.keys(DSP.SPECS).length * 5);
+  assert.equal((await soundboard.evaluate(() => __soundboardTest.stats())).ready, false);
+  const soundRow = soundboard.locator('[data-sound="boss_final"]');
+  await soundRow.getByRole('button', { name: 'Variation 2', exact: true }).click();
+  let ear = await soundboard.evaluate(() => __soundboardTest.stats()); assert(ear.ready); assert.equal(ear.events.at(-1).variation, 1); assert.equal(ear.events.at(-1).rate, 1);
+  await soundRow.getByRole('button', { name: 'Rapid-fire ×10' }).click(); await soundboard.clock.runFor(400);
+  ear = await soundboard.evaluate(() => __soundboardTest.stats()); assert.equal(ear.started.boss_final, 11); assert(ear.stolen > 0); assert(ear.active <= 4);
+  await soundboard.locator('#volume').fill('20'); assert.equal((await soundboard.evaluate(() => __soundboardTest.stats())).volume, .2);
+  await soundboard.locator('#all').click(); await soundboard.clock.runFor(65000);
+  ear = await soundboard.evaluate(() => __soundboardTest.stats());
+  for (const name of Object.keys(DSP.SPECS)) for (let v = 0; v < 3; v++) assert(ear.events.some(e => e.name === name && e.variation === v));
+  await soundboard.locator('#stop').click(); assert.equal((await soundboard.evaluate(() => __soundboardTest.stats())).active, 0);
+  await soundboard.evaluate(() => scrollTo(0, 0)); await screenshot(soundboard, 'soundboard');
+  await soundboard.setViewportSize({ width: 390, height: 844 });
+  assert(await soundboard.evaluate(() => document.documentElement.scrollWidth <= innerWidth)); await screenshot(soundboard, 'soundboard_mobile'); await soundboard.close();
+  ok('file:// soundboard: 17 synth sounds / 51 variations / sequence / rapid-fire stealing / volume / stop / mobile layout');
   assert.deepEqual(network, []); assert.deepEqual(errors, []);
   ok('no console/page errors, no HTTP requests; screenshots saved');
   console.log(`\nPASS: ${passed.length} checks; Chrome channel headless, file://, offline. Human ear-check and Android hardware remain unverified.`);

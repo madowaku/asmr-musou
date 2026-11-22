@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ja">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ASMR MUSOU — synth soundboard</title>
+<style>
+  :root{color-scheme:dark;font:16px system-ui;color:#fff3e6;background:#211e36}
+  *{box-sizing:border-box}body{margin:0 auto;padding:28px 18px 50px;max-width:980px}
+  h1{font-size:clamp(25px,5vw,38px);margin:0 0 12px}p{line-height:1.7;color:#dbd3e6}
+  .controls{position:sticky;top:0;background:#211e36f5;padding:12px 0;z-index:1;border-bottom:1px solid #675677}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}label{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 12px}
+  input{width:180px;accent-color:#b8ebd4}button{font:inherit;min-height:44px;padding:9px 14px;border:1px solid #8d769d;border-radius:10px;background:#40354e;color:#fff;cursor:pointer}
+  button:hover,button:focus-visible{background:#665078;outline:2px solid #b8ebd4}#all{background:#b8ebd4;color:#222638}#status{min-height:24px;margin:12px 0 0;font-size:14px}
+  section{padding:18px 0;border-bottom:1px solid #55435f}h2{font:700 17px ui-monospace,monospace;overflow-wrap:anywhere;margin:0 0 12px}
+  small{color:#bdb0c9}a{color:#c2f4e1}
+</style>
+<h1>音の試聴室</h1>
+<p>すべて <strong>synth_* の合成音</strong>です。実録ASMRではありません。<br>小さな音量から、イヤホンとスピーカーで素材感・耳への強さ・連打時の重なりを確かめてください。</p>
+<div class="controls">
+  <label for="volume">Master volume <input id="volume" type="range" min="0" max="100" value="35"><output id="level" for="volume">35%</output></label>
+  <div class="actions"><button id="all">全音・全バリエーションを順番に再生</button><button id="stop">停止</button></div>
+  <p id="status" role="status" aria-live="polite">ボタンを押すと音を準備します。17種 × 3バリエーション。</p>
+</div>
+<main id="sounds" aria-label="合成音一覧"></main>
+<p><small>単音・順番再生は再生速度を固定。連打はゲームと同じ微小な速度変化と声数制限（同音4 / 全体16）を使います。</small></p>
+<p><a href="index.html">ゲームを開く</a></p>
+<script src="audio.js"></script>
+<script>
+(() => {
+  'use strict';
+  const audio = ASMR.createAudio(1), dsp = ASMR.AudioDSP, names = Object.keys(dsp.SPECS);
+  const status = document.getElementById('status'), slider = document.getElementById('volume');
+  let timer = 0, generation = 0;
+  function stop() { generation++; clearTimeout(timer); audio.stopAll(); }
+  function prepare() {
+    stop(); audio.setVolume(Number(slider.value) / 100);
+    if (!audio.init()) { status.textContent = '音を準備できませんでした。もう一度ボタンを押してください。'; return false; }
+    return true;
+  }
+  function play(name, variation, exact = true) {
+    audio.play(name, { variation, exact }); status.textContent = `再生中: synth_${name}_${variation + 1}`;
+  }
+  function sequence(items, rapid = false) {
+    if (!prepare()) return;
+    const token = generation; let index = 0;
+    function next() {
+      if (token !== generation) return;
+      if (index === items.length) { status.textContent = '再生完了'; return; }
+      const [name, variation] = items[index++]; play(name, variation, !rapid);
+      timer = setTimeout(next, rapid && index < items.length ? 35 : (dsp.SPECS[name][0] + .22) * 1000);
+    }
+    next();
+  }
+  const all = names.flatMap(name => Array.from({ length: dsp.variations }, (_, v) => [name, v]));
+  for (const name of names) {
+    const row = document.createElement('section'); row.dataset.sound = name;
+    const title = document.createElement('h2'); title.textContent = 'synth_' + name; row.appendChild(title);
+    const actions = document.createElement('div'); actions.className = 'actions';
+    function button(text, action) { const b = document.createElement('button'); b.textContent = text; b.addEventListener('click', action); actions.appendChild(b); }
+    for (let v = 0; v < dsp.variations; v++) button('Variation ' + (v + 1), () => sequence([[name, v]]));
+    button('3種類を順番に', () => sequence(all.filter(item => item[0] === name)));
+    button('Rapid-fire ×10', () => sequence(Array.from({ length: 10 }, (_, v) => [name, v % dsp.variations]), true));
+    row.appendChild(actions); document.getElementById('sounds').appendChild(row);
+  }
+  slider.addEventListener('input', () => { audio.setVolume(Number(slider.value) / 100); document.getElementById('level').textContent = slider.value + '%'; });
+  document.getElementById('all').addEventListener('click', () => sequence(all));
+  document.getElementById('stop').addEventListener('click', () => { stop(); status.textContent = '停止しました'; });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
+  window.addEventListener('pagehide', stop);
+  window.__soundboardTest = { stats: () => audio.stats() };
+})();
+</script>
+</html>
