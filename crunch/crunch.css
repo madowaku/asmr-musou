@@ -1,0 +1,33 @@
+/* v0.7 CRUNCH LINE: a bright, colourful-pop "ASMR studio" over combat.css + feel.css */
+:root{--bg:#fff3e2;--ink:#3b2346;--sub:#8a6f8f;--accent:#ff5f9e;color:var(--ink);background:var(--bg)}
+html,body{background:radial-gradient(ellipse at 50% 20%,#fff7ee,#ffe2ec 75%)}
+canvas{background:#fff1dc}
+.bar{background:#3b234618}#time{background:linear-gradient(90deg,#ff7fae,#ffb86b,#7fdcc0)}
+.row{color:var(--sub)}#cls{color:var(--ink)}.kills b{color:var(--ink)}
+#combo{color:#ff5f9e}
+#mute{background:#ffffffb0;border-color:#3b234622;color:var(--ink)}
+.breach{font-size:12px;font-weight:800;color:#c05b85;background:#ffffffb8;border-radius:99px;padding:3px 10px;border:1px solid #ff8fb855}.breach b{font-size:15px;color:#e0336f}
+.breach.hit{animation:breach .6s ease}@keyframes breach{0%{transform:scale(1.35);background:#ff5f9e;color:#fff}100%{transform:none}}
+.upmeter{color:var(--sub)}.upmeter div{background:#3b234618}
+#banner b{color:#e0336f;text-shadow:0 2px 0 #fff}#banner span{color:var(--ink);text-shadow:0 1px 0 #fff}
+#help{color:#7a5f80cc}
+.pop{color:#fff;text-shadow:0 2px 0 #c2387a,0 0 14px #ff7fae99}.pop.ko{color:#fff2b0;text-shadow:0 2px 0 #b5562a,0 0 12px #ffb86b99}.pop.big{color:#fff;text-shadow:0 3px 0 #c2387a,0 0 26px #ff7fae}
+.overlay{background:linear-gradient(170deg,#fff6ecf2,#ffe3eef4)}
+.eyebrow{color:#ff5f9e}h1,h2{color:var(--ink)}.lead{color:var(--sub)}.how{color:#8a6f8f}
+.card{border:0;box-shadow:0 6px 18px #c2387a22}.card span{color:#fff}.card small{color:#ffffffcc}
+.card.slasher{background:linear-gradient(120deg,#4aa8ff,#7b7bff)}.card.crusher{background:linear-gradient(120deg,#ff8a5c,#ff5f9e)}.card.caster{background:linear-gradient(120deg,#b07bff,#ff7fd1)}
+.card em{color:#fff8c8}
+.overlay.up{background:linear-gradient(170deg,#fff6ecf0,#ffe0ecf2)}
+.upcard{background:#fff;border:2px solid #ff8fb8;color:var(--ink);box-shadow:0 6px 16px #c2387a22}.upcard b{color:#e0336f}.upcard span{color:#5b4562}
+.uppower{font-size:13px;font-weight:800;color:#2a9d7c;background:#e6fbf3;border-radius:12px;padding:8px 12px;margin:0 0 14px}
+.lv i{background:#ff5f9e;color:#fff}
+.stats div{background:#fff;box-shadow:0 3px 10px #c2387a1a}.stats small{color:var(--sub)}.stats b{color:var(--ink)}
+.growth{color:var(--sub)}.growth b{color:#e0336f}
+.defense{font-size:14px;color:var(--ink);margin:0 0 6px}.defense b{color:#e0336f;font-size:18px}
+#result.perfect h2{background:linear-gradient(90deg,#ff5f9e,#ffb86b,#3fcf9f);-webkit-background-clip:text;background-clip:text;color:transparent}
+#result.perfect .defense b{color:#2a9d7c}
+.primary{background:linear-gradient(120deg,#ff7fae,#ffb86b);color:#fff;box-shadow:0 6px 16px #c2387a33}
+.switch{color:var(--sub)}.switch button{background:#fff;color:var(--ink);border:1px solid #ff8fb866}
+.ghost{color:var(--sub)}
+/* one compact HUD line on a phone: class · kills · breaches · sound */
+#hud .row{flex-wrap:nowrap;gap:8px;white-space:nowrap}#cls{font-size:11.5px;letter-spacing:.04em}.kills{white-space:nowrap}.kills b{font-size:20px}.breach{flex:none}

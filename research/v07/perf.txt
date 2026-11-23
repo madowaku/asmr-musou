@@ -1,0 +1,18 @@
+v0.6 S3  slasher  opening  frame p95 7.2ms avg 5.24 max 19.7 (update 2.9 draw 5.2) audio p95 1.6ms bodies 130
+v0.6 S3  slasher  horde    frame p95 11.7ms avg 8.6 max 41.2 (update 3.2 draw 9.2) audio p95 1.7ms bodies 187
+v0.6 S3  slasher  boss     frame p95 5.9ms avg 2.68 max 15.5 (update 2.6 draw 3.7) audio p95 1.5ms bodies 2
+v0.6 S3  crusher  opening  frame p95 7.5ms avg 5.12 max 25.5 (update 3 draw 5) audio p95 1.9ms bodies 108
+v0.6 S3  crusher  horde    frame p95 15.5ms avg 10.33 max 50.9 (update 5.7 draw 10.9) audio p95 2.1ms bodies 230
+v0.6 S3  crusher  boss     frame p95 10.7ms avg 4.29 max 36.5 (update 3.6 draw 7.3) audio p95 0.6ms bodies 0
+v0.6 S3  caster   opening  frame p95 7.5ms avg 5.13 max 12.9 (update 3 draw 5.4) audio p95 1.8ms bodies 132
+v0.6 S3  caster   horde    frame p95 12.7ms avg 9.34 max 18.3 (update 3.9 draw 9.5) audio p95 2.1ms bodies 191
+v0.6 S3  caster   boss     frame p95 5.5ms avg 2.76 max 19.1 (update 2.4 draw 4.2) audio p95 1.3ms bodies 2
+v0.7     slasher  opening  frame p95 4.7ms avg 2.79 max 24.1 (update 1.8 draw 3.5) audio p95 0.7ms bodies 5
+v0.7     slasher  horde    frame p95 9.4ms avg 6.22 max 21 (update 2.9 draw 7.2) audio p95 2ms bodies 88
+v0.7     slasher  boss     frame p95 11ms avg 3.67 max 25.8 (update 2.8 draw 8.5) audio p95 0.7ms bodies 0
+v0.7     crusher  opening  frame p95 4.7ms avg 2.77 max 14.4 (update 1.4 draw 3.4) audio p95 0.7ms bodies 5
+v0.7     crusher  horde    frame p95 8.6ms avg 5.79 max 12.5 (update 3 draw 6.3) audio p95 2.5ms bodies 117
+v0.7     crusher  boss     frame p95 8.2ms avg 4.96 max 13.6 (update 3.3 draw 5.8) audio p95 2.2ms bodies 14
+v0.7     caster   opening  frame p95 4.7ms avg 3.07 max 8.8 (update 1.9 draw 3.5) audio p95 1.2ms bodies 6
+v0.7     caster   horde    frame p95 9ms avg 6.36 max 13.9 (update 2.9 draw 6.8) audio p95 2.4ms bodies 100
+v0.7     caster   boss     frame p95 9.8ms avg 4.02 max 22.2 (update 3.5 draw 6.4) audio p95 1.3ms bodies 0

@@ -1,0 +1,35 @@
+{
+ "slasher": {
+  "lowHit": true,
+  "lowAreaBefore": 12783,
+  "lowAreaAfter": 7393,
+  "lowCracks": 2,
+  "lowMovedUp": -55.29547567215468,
+  "highUntouched": true
+ },
+ "crusher": {
+  "lowHit": true,
+  "lowAreaBefore": 12783,
+  "lowAreaAfter": 11062,
+  "lowCracks": 3,
+  "lowMovedUp": 60.70452432784532,
+  "highUntouched": true
+ },
+ "caster": {
+  "lowHit": true,
+  "lowAreaBefore": 12783,
+  "lowAreaAfter": 10836,
+  "lowCracks": 2,
+  "lowMovedUp": -37.29547567215468,
+  "highUntouched": true
+ },
+ "upgrade": {
+  "shown": true,
+  "paused": true,
+  "power": "どちらを選んでも 威力 1 → 3：最初の敵が一撃で壊れる",
+  "t": 12.003400000000001,
+  "timeStopped": true,
+  "applied": true
+ },
+ "errors": []
+}

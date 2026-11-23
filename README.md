@@ -92,6 +92,14 @@ T3では旧READMEの「画像未統合・ボスy=560・ピーク正規化・600�
 
 素材の生成方法と出所は [ASSETS.md](ASSETS.md)、全体の方針は [ORCHESTRATOR_BRIEF.md](ORCHESTRATOR_BRIEF.md) を参照。
 
+## CRUNCH LINE (crunch.html) — v0.7 研究
+
+v0.6 の試遊結果（開幕から大量の敵が出て、一体ずつ壊す過程を味わえない）を受けて、**縦スクロール防衛**にした版。「一つを味わう。やがて、全部を砕く。」
+- 試遊：`crunch.html`（スマホ：https://research-v0-7-crunch.asmr-musou.pages.dev/crunch.html ）。人間の評価シートは [docs/v0.7/PLAYTEST_CRUNCH.md](docs/v0.7/PLAYTEST_CRUNCH.md)。
+- 設計：[docs/v0.7/CRUNCH_DESIGN.md](docs/v0.7/CRUNCH_DESIGN.md)。研究記録：[docs/v0.7/research_log/V07_CRUNCH_LOG.md](docs/v0.7/research_log/V07_CRUNCH_LOG.md)。
+- 敵は上から下りてきて、下の防衛ラインを越えると「侵入」（ゲームオーバーなし、侵入ゼロで PERFECT DEFENSE）。倒しきれない一撃は敵を実際に削り、断面と亀裂を残す。強化で威力 1 → 3 → 5。
+- テスト：`node tests/crunch/compare.mjs`（v0.6 と同じボットで比較）、`node tests/crunch/input.mjs`（実際のタッチ操作）、`node tests/crunch/perf.mjs`（音を鳴らした状態で CPU 4倍）、`node tests/crunch/smoke.mjs`、`node tests/crunch/look.mjs`・`closeup.mjs`（画面の撮影）。
+
 ## SOUND STAGES (stages.html) — v0.6 研究
 
 v0.5 の試遊結果（最初から素材が混ざっていて、どの敵がどの音か分かりにくい）を受けて、**1ステージに新しい素材をひとつ**ずつ登場させる版。v0.5 の操作・強化・60秒・巨大ボスはそのまま。`feel.html`（v0.5）と `combat.html`（v0.4）は比較用に残している。

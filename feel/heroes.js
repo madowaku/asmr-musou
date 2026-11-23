@@ -122,6 +122,7 @@
     W.freeze=Math.max(W.freeze,fin?.08:.045);W.punch=Math.max(W.punch,fin?.05:.03);
     W.rings.push({x:e.x,y:e.y,r0:e.radius*.6,r1:e.radius*(fin?2.6:1.9),life:.18,total:.18,w:fin?8:5,color:[1,.85,.6]});
     if(e.bossPart){const blows=fin?4:3; /* heavy fists: the boss takes several blows per punch */for(let k=0;k<blows;k++)C.hit(e,()=>W.shatter(e,2200,{angle:Math.atan2(uy,ux)+Math.PI/2,push:{x:ux*620,y:uy*620},projectile:1.6,owner:id,action:id,cause:'punch'}),h,k*.1);return;}
+    if(C.onPunch&&C.onPunch(h,id,e,ux,uy,{fin,blast}))return; /* v0.7 hook (inert before): a punch that does not break the enemy chips it and knocks it back */
     // launch toward the crowd: the player does not need to aim (±40° auto-aim)
     const base=Math.atan2(uy,ux);let best=base,bn=-1;for(let k=-4;k<=4;k++){const a=base+k*.17,n=rayCount(e,{x:Math.cos(a),y:Math.sin(a)},900,e)-Math.abs(k)*.05;if(n>bn){bn=n;best=a;}}
     const sp=(fin?2400:1750)*(blast?1.45:1),hard=C.MAT[e.material].hard;
