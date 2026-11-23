@@ -1,0 +1,428 @@
+{
+ "materials": [
+  "wax",
+  "jelly",
+  "soap",
+  "chalk",
+  "sand",
+  "sponge",
+  "beadslime",
+  "kohaku"
+ ],
+ "jp": {
+  "wax": "ロウスクイーズ",
+  "jelly": "ゼリー",
+  "soap": "石鹸",
+  "chalk": "チョーク",
+  "sand": "砂",
+  "sponge": "吸水スポンジ",
+  "beadslime": "粒入りスライム",
+  "kohaku": "琥珀糖"
+ },
+ "features": {
+  "wax": {
+   "cut": {
+    "name": "synth_wax_cut",
+    "dur": 0.13833333333333334,
+    "attack": 0,
+    "early": 0.8961536726706679,
+    "centroid": 2942.1272458251915,
+    "flat": 0.09281257710129993,
+    "low": 0.01213951622873717,
+    "high": 0.2817713795909022,
+    "bursts": 1.6666666666666667
+   },
+   "impact": {
+    "name": "synth_wax_snap",
+    "dur": 0.03166666666666667,
+    "attack": 0,
+    "early": 1,
+    "centroid": 3668.1615569878923,
+    "flat": 0.10143257360694186,
+    "low": 0.00003195878041930534,
+    "high": 0.29162548238760516,
+    "bursts": 1.6666666666666667
+   },
+   "grain": {
+    "name": "synth_grain_wax",
+    "dur": 0.0190625,
+    "attack": 0,
+    "early": 1,
+    "centroid": 3791.9483389792076,
+    "flat": 0.012789142281865156,
+    "low": 0.000051671502905705246,
+    "high": 0.3693047315225821,
+    "bursts": 0.9375
+   }
+  },
+  "jelly": {
+   "cut": {
+    "name": "synth_jelly_cut",
+    "dur": 0.19833333333333333,
+    "attack": 0,
+    "early": 0.8821563840712225,
+    "centroid": 1680.85781551361,
+    "flat": 0.05045303901355506,
+    "low": 0.04715789495380305,
+    "high": 0.062398540953984234,
+    "bursts": 0.3333333333333333
+   },
+   "impact": {
+    "name": "synth_jelly_blip",
+    "dur": 0.085,
+    "attack": 0.0016666666666666668,
+    "early": 0.9902563423794057,
+    "centroid": 1706.6556900217104,
+    "flat": 0.034026297392589104,
+    "low": 0.009564222691077076,
+    "high": 0.05541541842626701,
+    "bursts": 0
+   },
+   "grain": {
+    "name": "synth_grain_jelly",
+    "dur": 0.03500000000000002,
+    "attack": 0.00125,
+    "early": 1,
+    "centroid": 1469.8331214387727,
+    "flat": 0.026779569508962434,
+    "low": 0.04498915730473495,
+    "high": 0.04836902687754226,
+    "bursts": 0
+   }
+  },
+  "soap": {
+   "cut": {
+    "name": "synth_soap_cut",
+    "dur": 0.25833333333333336,
+    "attack": 0.011666666666666665,
+    "early": 0.6618575463666017,
+    "centroid": 2945.197759458955,
+    "flat": 0.0646284232845671,
+    "low": 0.0004911864161382755,
+    "high": 0.21018035308629357,
+    "bursts": 6.333333333333333
+   },
+   "impact": {
+    "name": "synth_soap_clack",
+    "dur": 0.015,
+    "attack": 0,
+    "early": 1,
+    "centroid": 1190.7649345720456,
+    "flat": 0.0183904197783137,
+    "low": 0.00011606284187743616,
+    "high": 0.004213231137420553,
+    "bursts": 0
+   },
+   "grain": {
+    "name": "synth_grain_soap",
+    "dur": 0.015312500000000007,
+    "attack": 0,
+    "early": 1,
+    "centroid": 1624.2482922426839,
+    "flat": 0.02188674991429118,
+    "low": 0.0006190080561057377,
+    "high": 0.014427571557614418,
+    "bursts": 0
+   }
+  },
+  "chalk": {
+   "cut": {
+    "name": "synth_chalk_snap",
+    "dur": 0.02,
+    "attack": 0,
+    "early": 1,
+    "centroid": 3179.5809825715646,
+    "flat": 0.0874710865548828,
+    "low": 0.00033394790467620154,
+    "high": 0.2673490568099092,
+    "bursts": 0
+   },
+   "impact": {
+    "name": "synth_chalk_snap",
+    "dur": 0.02,
+    "attack": 0,
+    "early": 1,
+    "centroid": 3179.5809825715646,
+    "flat": 0.0874710865548828,
+    "low": 0.00033394790467620154,
+    "high": 0.2673490568099092,
+    "bursts": 0
+   },
+   "grain": {
+    "name": "synth_grain_chalk",
+    "dur": 0.03500000000000002,
+    "attack": 0.0034374999999999996,
+    "early": 1,
+    "centroid": 3627.371346177568,
+    "flat": 0.0704722040144277,
+    "low": 0.00021192095534433288,
+    "high": 0.3653558862925771,
+    "bursts": 0
+   }
+  },
+  "sand": {
+   "cut": {
+    "name": "synth_sand_cut",
+    "dur": 0.165,
+    "attack": 0,
+    "early": 0.8805201169755653,
+    "centroid": 4976.2633113414195,
+    "flat": 0.3875844751986672,
+    "low": 0.00030574878444519766,
+    "high": 0.6656272022059159,
+    "bursts": 0
+   },
+   "impact": {
+    "name": "synth_sand_settle",
+    "dur": 0.17666666666666667,
+    "attack": 0.0033333333333333335,
+    "early": 0.9070125754591736,
+    "centroid": 4902.86628084261,
+    "flat": 0.10868469125740716,
+    "low": 0.000005109152794685413,
+    "high": 0.6592106147188344,
+    "bursts": 0
+   },
+   "grain": {
+    "name": "synth_grain_sand",
+    "dur": 0.05000000000000001,
+    "attack": 0.012812500000000001,
+    "early": 1,
+    "centroid": 4938.847031885344,
+    "flat": 0.0952731675603322,
+    "low": 0.000006392652905254424,
+    "high": 0.6743401312142933,
+    "bursts": 0.0625
+   }
+  },
+  "sponge": {
+   "cut": {
+    "name": "synth_sponge_cut",
+    "dur": 0.16,
+    "attack": 0,
+    "early": 0.9043995675049556,
+    "centroid": 3277.1760463438563,
+    "flat": 0.23218524746266478,
+    "low": 0.0012923550433758123,
+    "high": 0.2864359143166846,
+    "bursts": 0
+   },
+   "impact": {
+    "name": "synth_sponge_drip",
+    "dur": 0.035,
+    "attack": 0,
+    "early": 0.9999996077844392,
+    "centroid": 1152.1163468926661,
+    "flat": 0.00006388614845153555,
+    "low": 0.00004198789315608368,
+    "high": 9.14753924478549e-9,
+    "bursts": 0
+   },
+   "grain": {
+    "name": "synth_grain_sponge",
+    "dur": 0.03500000000000002,
+    "attack": 0.005,
+    "early": 1,
+    "centroid": 3700.3670994931845,
+    "flat": 0.07258657565745971,
+    "low": 0.0005206362451282091,
+    "high": 0.3719560796258602,
+    "bursts": 0.875
+   }
+  },
+  "beadslime": {
+   "cut": {
+    "name": "synth_beadslime_cut",
+    "dur": 0.26333333333333336,
+    "attack": 0,
+    "early": 0.7795461409317342,
+    "centroid": 1861.6565128405157,
+    "flat": 0.04691120110432819,
+    "low": 0.024739626355276805,
+    "high": 0.05711823115594145,
+    "bursts": 0
+   },
+   "impact": {
+    "name": "synth_beadslime_plink",
+    "dur": 0.015,
+    "attack": 0,
+    "early": 1,
+    "centroid": 3573.1665794453124,
+    "flat": 0.0068118696710420335,
+    "low": 0.000001886855971650841,
+    "high": 0.4406731506770584,
+    "bursts": 0
+   },
+   "grain": {
+    "name": "synth_grain_beadslime",
+    "dur": 0.015000000000000006,
+    "attack": 0,
+    "early": 1,
+    "centroid": 3482.56616788604,
+    "flat": 0.0017384151818498445,
+    "low": 0.000001231246089038441,
+    "high": 0.5003317401526013,
+    "bursts": 0
+   }
+  },
+  "kohaku": {
+   "cut": {
+    "name": "synth_kohaku_cut",
+    "dur": 0.15166666666666664,
+    "attack": 0,
+    "early": 0.9457078332194956,
+    "centroid": 2891.169830943711,
+    "flat": 0.17517356729324327,
+    "low": 0.014487664628524253,
+    "high": 0.3417538868500474,
+    "bursts": 1
+   },
+   "impact": {
+    "name": "synth_kohaku_crust",
+    "dur": 0.04666666666666667,
+    "attack": 0,
+    "early": 1,
+    "centroid": 4914.484896876643,
+    "flat": 0.14657290686368932,
+    "low": 0.00001867342183061467,
+    "high": 0.7759695176360077,
+    "bursts": 0.3333333333333333
+   },
+   "grain": {
+    "name": "synth_grain_kohaku",
+    "dur": 0.032812500000000015,
+    "attack": 0,
+    "early": 1,
+    "centroid": 4979.248658820587,
+    "flat": 0.05791478354738361,
+    "low": 0.000008309638983437203,
+    "high": 0.7966363277387394,
+    "bursts": 1.5625
+   }
+  }
+ },
+ "distance": {
+  "wax": {
+   "wax": 0,
+   "jelly": 4.01,
+   "soap": 3.77,
+   "chalk": 3.62,
+   "sand": 4.9,
+   "sponge": 2.73,
+   "beadslime": 2.9,
+   "kohaku": 1.92
+  },
+  "jelly": {
+   "wax": 4.01,
+   "jelly": 0,
+   "soap": 5.1,
+   "chalk": 5.59,
+   "sand": 7.36,
+   "sponge": 4.93,
+   "beadslime": 2.84,
+   "kohaku": 4.55
+  },
+  "soap": {
+   "wax": 3.77,
+   "jelly": 5.1,
+   "soap": 0,
+   "chalk": 6.19,
+   "sand": 6.66,
+   "sponge": 4.96,
+   "beadslime": 4.42,
+   "kohaku": 4.94
+  },
+  "chalk": {
+   "wax": 3.62,
+   "jelly": 5.59,
+   "soap": 6.19,
+   "chalk": 0,
+   "sand": 4.95,
+   "sponge": 3.16,
+   "beadslime": 5.29,
+   "kohaku": 3.2
+  },
+  "sand": {
+   "wax": 4.9,
+   "jelly": 7.36,
+   "soap": 6.66,
+   "chalk": 4.95,
+   "sand": 0,
+   "sponge": 3.04,
+   "beadslime": 6.65,
+   "kohaku": 3.63
+  },
+  "sponge": {
+   "wax": 2.73,
+   "jelly": 4.93,
+   "soap": 4.96,
+   "chalk": 3.16,
+   "sand": 3.04,
+   "sponge": 0,
+   "beadslime": 4.13,
+   "kohaku": 1.64
+  },
+  "beadslime": {
+   "wax": 2.9,
+   "jelly": 2.84,
+   "soap": 4.42,
+   "chalk": 5.29,
+   "sand": 6.65,
+   "sponge": 4.13,
+   "beadslime": 0,
+   "kohaku": 3.76
+  },
+  "kohaku": {
+   "wax": 1.92,
+   "jelly": 4.55,
+   "soap": 4.94,
+   "chalk": 3.2,
+   "sand": 3.63,
+   "sponge": 1.64,
+   "beadslime": 3.76,
+   "kohaku": 0
+  }
+ },
+ "briefOrder": {
+  "order": [
+   "wax",
+   "jelly",
+   "soap",
+   "chalk",
+   "sand",
+   "sponge",
+   "beadslime",
+   "kohaku"
+  ],
+  "minDistToKnown": [
+   4.01,
+   3.77,
+   3.62,
+   4.9,
+   2.73,
+   2.84,
+   1.64
+  ]
+ },
+ "greedyFromWax": {
+  "order": [
+   "wax",
+   "sand",
+   "jelly",
+   "soap",
+   "chalk",
+   "beadslime",
+   "sponge",
+   "kohaku"
+  ],
+  "mins": [
+   4.9,
+   4.01,
+   3.77,
+   3.62,
+   2.84,
+   2.73,
+   1.64
+  ]
+ }
+}

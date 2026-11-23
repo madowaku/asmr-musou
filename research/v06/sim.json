@@ -1,0 +1,4543 @@
+{
+ "seeds": [
+  1,
+  2,
+  3,
+  4
+ ],
+ "skills": [
+  "intent",
+  "random"
+ ],
+ "summary": [
+  {
+   "skill": "intent",
+   "cls": "slasher",
+   "ver": "v05",
+   "stage": 0,
+   "runs": 4,
+   "perAction": 13.23034020084582,
+   "lv0": 10.934782608695652,
+   "lv2": 23.298418972332016,
+   "best0": 22.25,
+   "best2": 55,
+   "bossDown": 4,
+   "bossSecs": 6.699999999999619,
+   "firstKill": 0.3916666666666666,
+   "seconds": 46.91666666666667
+  },
+  {
+   "skill": "intent",
+   "cls": "slasher",
+   "ver": "v06",
+   "stage": 1,
+   "runs": 4,
+   "perAction": 12.567878058856406,
+   "lv0": 11.923913043478262,
+   "lv2": 21.060559006211182,
+   "best0": 24.75,
+   "best2": 52.75,
+   "bossDown": 4,
+   "bossSecs": 8.791666666666167,
+   "firstKill": 0.3916666666666666,
+   "seconds": 49.008333333333326,
+   "phaseShare": {
+    "solo": {
+     "wax": 1
+    },
+    "mix": {
+     "wax": 1
+    },
+    "blend": {
+     "wax": 1
+    },
+    "boss": {
+     "wax": 1
+    }
+   },
+   "firstHeard": {
+    "wax": 0.4
+   }
+  },
+  {
+   "skill": "intent",
+   "cls": "slasher",
+   "ver": "v06",
+   "stage": 2,
+   "runs": 4,
+   "perAction": 15.169075965314356,
+   "lv0": 12.119565217391305,
+   "lv2": 26.16262626262626,
+   "best0": 24.25,
+   "best2": 56,
+   "bossDown": 4,
+   "bossSecs": 4.508333333333077,
+   "firstKill": 0.3916666666666666,
+   "seconds": 44.725,
+   "phaseShare": {
+    "solo": {
+     "jelly": 1
+    },
+    "mix": {
+     "jelly": 0.737,
+     "wax": 0.263
+    },
+    "blend": {
+     "jelly": 0.505,
+     "wax": 0.495
+    },
+    "boss": {
+     "wax": 0.561,
+     "jelly": 0.439
+    }
+   },
+   "firstHeard": {
+    "jelly": 0.4,
+    "wax": 12.7
+   }
+  },
+  {
+   "skill": "intent",
+   "cls": "slasher",
+   "ver": "v06",
+   "stage": 3,
+   "runs": 4,
+   "perAction": 12.86731120375175,
+   "lv0": 12.065217391304348,
+   "lv2": 23.03078843353443,
+   "best0": 25,
+   "best2": 53.25,
+   "bossDown": 4,
+   "bossSecs": 8.562499999999513,
+   "firstKill": 0.3916666666666666,
+   "seconds": 48.77916666666667,
+   "phaseShare": {
+    "solo": {
+     "soap": 1
+    },
+    "mix": {
+     "soap": 0.752,
+     "wax": 0.124,
+     "jelly": 0.124
+    },
+    "blend": {
+     "soap": 0.504,
+     "jelly": 0.248,
+     "wax": 0.248
+    },
+    "boss": {
+     "soap": 0.455,
+     "jelly": 0.464,
+     "wax": 0.082
+    }
+   },
+   "firstHeard": {
+    "soap": 0.4,
+    "wax": 12.7,
+    "jelly": 12.8
+   }
+  },
+  {
+   "skill": "intent",
+   "cls": "crusher",
+   "ver": "v05",
+   "stage": 0,
+   "runs": 4,
+   "perAction": 9.813391580009382,
+   "lv0": 9.21153846153846,
+   "lv2": 18.27777777777778,
+   "best0": 33.75,
+   "best2": 60.5,
+   "bossDown": 4,
+   "bossSecs": 10.15416666666609,
+   "firstKill": 0.44999999999999996,
+   "seconds": 50.37083333333333
+  },
+  {
+   "skill": "intent",
+   "cls": "crusher",
+   "ver": "v06",
+   "stage": 1,
+   "runs": 4,
+   "perAction": 9.964376895087932,
+   "lv0": 8.64423076923077,
+   "lv2": 17.02777777777778,
+   "best0": 28.75,
+   "best2": 46.5,
+   "bossDown": 4,
+   "bossSecs": 8.079166666666207,
+   "firstKill": 0.44999999999999996,
+   "seconds": 48.295833333333334,
+   "phaseShare": {
+    "solo": {
+     "wax": 1
+    },
+    "mix": {
+     "wax": 1
+    },
+    "blend": {
+     "wax": 1
+    },
+    "boss": {
+     "wax": 1
+    }
+   },
+   "firstHeard": {
+    "wax": 0.5
+   }
+  },
+  {
+   "skill": "intent",
+   "cls": "crusher",
+   "ver": "v06",
+   "stage": 2,
+   "runs": 4,
+   "perAction": 9.958284530596309,
+   "lv0": 9.375,
+   "lv2": 17.462962962962962,
+   "best0": 38.25,
+   "best2": 53.75,
+   "bossDown": 4,
+   "bossSecs": 8.804166666666166,
+   "firstKill": 0.44999999999999996,
+   "seconds": 49.02083333333333,
+   "phaseShare": {
+    "solo": {
+     "jelly": 1
+    },
+    "mix": {
+     "jelly": 0.74,
+     "wax": 0.26
+    },
+    "blend": {
+     "wax": 0.486,
+     "jelly": 0.514
+    },
+    "boss": {
+     "jelly": 0.447,
+     "wax": 0.553
+    }
+   },
+   "firstHeard": {
+    "jelly": 0.5,
+    "wax": 13
+   }
+  },
+  {
+   "skill": "intent",
+   "cls": "crusher",
+   "ver": "v06",
+   "stage": 3,
+   "runs": 4,
+   "perAction": 11.05776271935429,
+   "lv0": 8.971153846153847,
+   "lv2": 18.35185185185185,
+   "best0": 30.75,
+   "best2": 51.5,
+   "bossDown": 4,
+   "bossSecs": 4.908333333333054,
+   "firstKill": 0.44999999999999996,
+   "seconds": 45.125,
+   "phaseShare": {
+    "solo": {
+     "soap": 1
+    },
+    "mix": {
+     "soap": 0.75,
+     "wax": 0.125,
+     "jelly": 0.125
+    },
+    "blend": {
+     "jelly": 0.249,
+     "soap": 0.516,
+     "wax": 0.235
+    },
+    "boss": {
+     "jelly": 0.331,
+     "wax": 0.219,
+     "soap": 0.45
+    }
+   },
+   "firstHeard": {
+    "soap": 0.5,
+    "wax": 13,
+    "jelly": 13.2
+   }
+  },
+  {
+   "skill": "intent",
+   "cls": "caster",
+   "ver": "v05",
+   "stage": 0,
+   "runs": 4,
+   "perAction": 14.133565145092811,
+   "lv0": 11.808461538461538,
+   "lv2": 34.96834415584416,
+   "best0": 31.5,
+   "best2": 57,
+   "bossDown": 4,
+   "bossSecs": 8.808333333332833,
+   "firstKill": 0.35,
+   "seconds": 49.025
+  },
+  {
+   "skill": "intent",
+   "cls": "caster",
+   "ver": "v06",
+   "stage": 1,
+   "runs": 4,
+   "perAction": 14.310158460667799,
+   "lv0": 12.20253205128205,
+   "lv2": 36.27759740259741,
+   "best0": 34.5,
+   "best2": 55.25,
+   "bossDown": 4,
+   "bossSecs": 9.995833333332765,
+   "firstKill": 0.35,
+   "seconds": 50.2125,
+   "phaseShare": {
+    "solo": {
+     "wax": 1
+    },
+    "mix": {
+     "wax": 1
+    },
+    "blend": {
+     "wax": 1
+    },
+    "boss": {
+     "wax": 1
+    }
+   },
+   "firstHeard": {
+    "wax": 0.3
+   }
+  },
+  {
+   "skill": "intent",
+   "cls": "caster",
+   "ver": "v06",
+   "stage": 2,
+   "runs": 4,
+   "perAction": 14.167952069267859,
+   "lv0": 12.18,
+   "lv2": 38.77232142857143,
+   "best0": 34.5,
+   "best2": 57.5,
+   "bossDown": 4,
+   "bossSecs": 10.37499999999941,
+   "firstKill": 0.35,
+   "seconds": 50.59166666666667,
+   "phaseShare": {
+    "solo": {
+     "jelly": 1
+    },
+    "mix": {
+     "jelly": 0.712,
+     "wax": 0.288
+    },
+    "blend": {
+     "wax": 0.499,
+     "jelly": 0.501
+    },
+    "boss": {
+     "wax": 0.57,
+     "jelly": 0.43
+    }
+   },
+   "firstHeard": {
+    "jelly": 0.3,
+    "wax": 12.5
+   }
+  },
+  {
+   "skill": "intent",
+   "cls": "caster",
+   "ver": "v06",
+   "stage": 3,
+   "runs": 4,
+   "perAction": 13.628246753246753,
+   "lv0": 12.230993589743589,
+   "lv2": 34.63700828157349,
+   "best0": 34.5,
+   "best2": 56.75,
+   "bossDown": 4,
+   "bossSecs": 10.462499999999405,
+   "firstKill": 0.35,
+   "seconds": 50.679166666666674,
+   "phaseShare": {
+    "solo": {
+     "soap": 1
+    },
+    "mix": {
+     "soap": 0.723,
+     "jelly": 0.137,
+     "wax": 0.14
+    },
+    "blend": {
+     "wax": 0.251,
+     "soap": 0.499,
+     "jelly": 0.25
+    },
+    "boss": {
+     "soap": 0.45,
+     "wax": 0.075,
+     "jelly": 0.475
+    }
+   },
+   "firstHeard": {
+    "soap": 0.3,
+    "jelly": 12.5,
+    "wax": 12.4
+   }
+  },
+  {
+   "skill": "random",
+   "cls": "slasher",
+   "ver": "v05",
+   "stage": 0,
+   "runs": 4,
+   "perAction": 9.240058572993036,
+   "lv0": 5.7687747035573125,
+   "lv2": 20.29947895100069,
+   "best0": 24,
+   "best2": 69,
+   "bossDown": 4,
+   "bossSecs": 14.533333333332507,
+   "firstKill": 0.9666666666666666,
+   "seconds": 54.75
+  },
+  {
+   "skill": "random",
+   "cls": "slasher",
+   "ver": "v06",
+   "stage": 1,
+   "runs": 4,
+   "perAction": 10.154988883890443,
+   "lv0": 6.3814229249011865,
+   "lv2": 22.486844144772533,
+   "best0": 23.25,
+   "best2": 65.75,
+   "bossDown": 4,
+   "bossSecs": 11.633333333332672,
+   "firstKill": 0.9666666666666666,
+   "seconds": 51.849999999999994,
+   "phaseShare": {
+    "solo": {
+     "wax": 1
+    },
+    "mix": {
+     "wax": 1
+    },
+    "blend": {
+     "wax": 1
+    },
+    "boss": {
+     "wax": 1
+    }
+   },
+   "firstHeard": {
+    "wax": 1
+   }
+  },
+  {
+   "skill": "random",
+   "cls": "slasher",
+   "ver": "v06",
+   "stage": 2,
+   "runs": 4,
+   "perAction": 9.97135254027412,
+   "lv0": 6.097332015810276,
+   "lv2": 21.799896480331263,
+   "best0": 23.25,
+   "best2": 67.5,
+   "bossDown": 4,
+   "bossSecs": 12.26666666666597,
+   "firstKill": 0.9666666666666666,
+   "seconds": 52.483333333333334,
+   "phaseShare": {
+    "solo": {
+     "jelly": 1
+    },
+    "mix": {
+     "jelly": 0.763,
+     "wax": 0.237
+    },
+    "blend": {
+     "jelly": 0.516,
+     "wax": 0.484
+    },
+    "boss": {
+     "jelly": 0.484,
+     "wax": 0.516
+    }
+   },
+   "firstHeard": {
+    "jelly": 1,
+    "wax": 13.7
+   }
+  },
+  {
+   "skill": "random",
+   "cls": "slasher",
+   "ver": "v06",
+   "stage": 3,
+   "runs": 4,
+   "perAction": 9.398340143971788,
+   "lv0": 6.244565217391305,
+   "lv2": 21.005434782608695,
+   "best0": 23.5,
+   "best2": 68.75,
+   "bossDown": 4,
+   "bossSecs": 13.962499999999206,
+   "firstKill": 0.9666666666666666,
+   "seconds": 54.17916666666666,
+   "phaseShare": {
+    "solo": {
+     "soap": 1
+    },
+    "mix": {
+     "soap": 0.77,
+     "jelly": 0.115,
+     "wax": 0.116
+    },
+    "blend": {
+     "soap": 0.524,
+     "jelly": 0.236,
+     "wax": 0.24
+    },
+    "boss": {
+     "soap": 0.505,
+     "wax": 0.115,
+     "jelly": 0.379
+    }
+   },
+   "firstHeard": {
+    "soap": 1,
+    "jelly": 14.5,
+    "wax": 14.4
+   }
+  },
+  {
+   "skill": "random",
+   "cls": "crusher",
+   "ver": "v05",
+   "stage": 0,
+   "runs": 4,
+   "perAction": 8.066067512531328,
+   "lv0": 5.916666666666667,
+   "lv2": 16.73481884057971,
+   "best0": 34.75,
+   "best2": 69.75,
+   "bossDown": 4,
+   "bossSecs": 14.720833333332497,
+   "firstKill": 0.5625000000000002,
+   "seconds": 54.9375
+  },
+  {
+   "skill": "random",
+   "cls": "crusher",
+   "ver": "v06",
+   "stage": 1,
+   "runs": 4,
+   "perAction": 8.90305462903937,
+   "lv0": 6.531249999999999,
+   "lv2": 17.26836956521739,
+   "best0": 32.5,
+   "best2": 66.5,
+   "bossDown": 4,
+   "bossSecs": 12.633333333332615,
+   "firstKill": 0.5625000000000002,
+   "seconds": 52.85,
+   "phaseShare": {
+    "solo": {
+     "wax": 1
+    },
+    "mix": {
+     "wax": 1
+    },
+    "blend": {
+     "wax": 1
+    },
+    "boss": {
+     "wax": 1
+    }
+   },
+   "firstHeard": {
+    "wax": 0.6
+   }
+  },
+  {
+   "skill": "random",
+   "cls": "crusher",
+   "ver": "v06",
+   "stage": 2,
+   "runs": 4,
+   "perAction": 8.42894786180693,
+   "lv0": 6.520833333333333,
+   "lv2": 17.242916666666666,
+   "best0": 33.25,
+   "best2": 69.5,
+   "bossDown": 3,
+   "bossSecs": 11.794444444443775,
+   "firstKill": 0.5625000000000002,
+   "seconds": 54.0625,
+   "phaseShare": {
+    "solo": {
+     "jelly": 1
+    },
+    "mix": {
+     "jelly": 0.763,
+     "wax": 0.237
+    },
+    "blend": {
+     "wax": 0.49,
+     "jelly": 0.51
+    },
+    "boss": {
+     "wax": 0.532,
+     "jelly": 0.468
+    }
+   },
+   "firstHeard": {
+    "jelly": 0.6,
+    "wax": 13.3
+   }
+  },
+  {
+   "skill": "random",
+   "cls": "crusher",
+   "ver": "v06",
+   "stage": 3,
+   "runs": 4,
+   "perAction": 8.415483410345269,
+   "lv0": 6.166666666666667,
+   "lv2": 15.751177536231884,
+   "best0": 33.5,
+   "best2": 57.25,
+   "bossDown": 4,
+   "bossSecs": 11.779166666665997,
+   "firstKill": 0.5625000000000002,
+   "seconds": 51.99583333333334,
+   "phaseShare": {
+    "solo": {
+     "soap": 1
+    },
+    "mix": {
+     "soap": 0.755,
+     "jelly": 0.124,
+     "wax": 0.121
+    },
+    "blend": {
+     "wax": 0.234,
+     "soap": 0.525,
+     "jelly": 0.241
+    },
+    "boss": {
+     "wax": 0.191,
+     "soap": 0.5,
+     "jelly": 0.309
+    }
+   },
+   "firstHeard": {
+    "soap": 0.6,
+    "jelly": 13.1,
+    "wax": 13.2
+   }
+  },
+  {
+   "skill": "random",
+   "cls": "caster",
+   "ver": "v05",
+   "stage": 0,
+   "runs": 4,
+   "perAction": 8.693303169390127,
+   "lv0": 7.760416666666666,
+   "lv2": 24.57626050420168,
+   "best0": 32.25,
+   "best2": 68.75,
+   "bossDown": 1,
+   "bossSecs": 19.866666666665537,
+   "firstKill": 0.9749999999999994,
+   "seconds": 60.18333333333334
+  },
+  {
+   "skill": "random",
+   "cls": "caster",
+   "ver": "v06",
+   "stage": 1,
+   "runs": 4,
+   "perAction": 8.67503078817734,
+   "lv0": 8.052083333333332,
+   "lv2": 23.28611111111111,
+   "best0": 32.25,
+   "best2": 79.5,
+   "bossDown": 0,
+   "bossSecs": null,
+   "firstKill": 0.9749999999999994,
+   "seconds": 60.21666666666667,
+   "phaseShare": {
+    "solo": {
+     "wax": 1
+    },
+    "mix": {
+     "wax": 1
+    },
+    "blend": {
+     "wax": 1
+    },
+    "boss": {
+     "wax": 1
+    }
+   },
+   "firstHeard": {
+    "wax": 1
+   }
+  },
+  {
+   "skill": "random",
+   "cls": "caster",
+   "ver": "v06",
+   "stage": 2,
+   "runs": 4,
+   "perAction": 9.041116880335315,
+   "lv0": 8.322916666666666,
+   "lv2": 21.355612128146454,
+   "best0": 36.25,
+   "best2": 64.75,
+   "bossDown": 2,
+   "bossSecs": 14.116666666665864,
+   "firstKill": 0.9749999999999994,
+   "seconds": 57.275,
+   "phaseShare": {
+    "solo": {
+     "jelly": 1
+    },
+    "mix": {
+     "wax": 0.248,
+     "jelly": 0.752
+    },
+    "blend": {
+     "wax": 0.484,
+     "jelly": 0.516
+    },
+    "boss": {
+     "wax": 0.599,
+     "jelly": 0.401
+    }
+   },
+   "firstHeard": {
+    "jelly": 1,
+    "wax": 13.4
+   }
+  },
+  {
+   "skill": "random",
+   "cls": "caster",
+   "ver": "v06",
+   "stage": 3,
+   "runs": 4,
+   "perAction": 8.987733194372069,
+   "lv0": 8.208333333333334,
+   "lv2": 22.976363636363637,
+   "best0": 33.5,
+   "best2": 71.75,
+   "bossDown": 2,
+   "bossSecs": 14.499999999999176,
+   "firstKill": 0.9749999999999994,
+   "seconds": 57.46666666666667,
+   "phaseShare": {
+    "solo": {
+     "soap": 1
+    },
+    "mix": {
+     "soap": 0.755,
+     "jelly": 0.125,
+     "wax": 0.12
+    },
+    "blend": {
+     "soap": 0.523,
+     "jelly": 0.239,
+     "wax": 0.238
+    },
+    "boss": {
+     "wax": 0.103,
+     "jelly": 0.452,
+     "soap": 0.445
+    }
+   },
+   "firstHeard": {
+    "soap": 1,
+    "jelly": 13.4,
+    "wax": 13.5
+   }
+  }
+ ],
+ "rows": [
+  {
+   "ver": "v05",
+   "stage": 0,
+   "cls": "slasher",
+   "seed": 1,
+   "skill": "intent",
+   "kills": 1026,
+   "actions": 81,
+   "perAction": 12.666666666666666,
+   "lv0": 10.782608695652174,
+   "lv2": 22.7,
+   "best0": 19,
+   "best2": 55,
+   "boss": true,
+   "bossSecs": 7.916666666666217,
+   "firstKill": 0.39999999999999997,
+   "seconds": 48.13333333333333,
+   "byMaterial": {
+    "soap": 247,
+    "jelly": 243,
+    "kohaku": 140,
+    "wax": 131,
+    "beadslime": 75,
+    "sand": 54,
+    "sponge": 58,
+    "chalk": 78
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 1,
+   "cls": "slasher",
+   "seed": 1,
+   "skill": "intent",
+   "kills": 1079,
+   "actions": 83,
+   "perAction": 13,
+   "lv0": 12.173913043478262,
+   "lv2": 21.285714285714285,
+   "best0": 24,
+   "best2": 58,
+   "boss": true,
+   "bossSecs": 8.549999999999514,
+   "firstKill": 0.39999999999999997,
+   "seconds": 48.766666666666666,
+   "byMaterial": {
+    "wax": 1079
+   },
+   "phases": {
+    "firstT": {
+     "wax": 0.4
+    },
+    "solo": {
+     "wax": 280
+    },
+    "mix": {
+     "wax": 286
+    },
+    "blend": {
+     "wax": 451
+    },
+    "boss": {
+     "wax": 62
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 2,
+   "cls": "slasher",
+   "seed": 1,
+   "skill": "intent",
+   "kills": 1084,
+   "actions": 75,
+   "perAction": 14.453333333333333,
+   "lv0": 11.347826086956522,
+   "lv2": 25.6,
+   "best0": 20,
+   "best2": 56,
+   "boss": true,
+   "bossSecs": 4.499999999999744,
+   "firstKill": 0.39999999999999997,
+   "seconds": 44.71666666666667,
+   "byMaterial": {
+    "jelly": 753,
+    "wax": 331
+   },
+   "phases": {
+    "firstT": {
+     "jelly": 0.4,
+     "wax": 13.35
+    },
+    "solo": {
+     "jelly": 261
+    },
+    "mix": {
+     "jelly": 219,
+     "wax": 71
+    },
+    "blend": {
+     "jelly": 264,
+     "wax": 248
+    },
+    "boss": {
+     "wax": 12,
+     "jelly": 9
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 3,
+   "cls": "slasher",
+   "seed": 1,
+   "skill": "intent",
+   "kills": 1113,
+   "actions": 80,
+   "perAction": 13.9125,
+   "lv0": 12.652173913043478,
+   "lv2": 27.526315789473685,
+   "best0": 24,
+   "best2": 55,
+   "boss": true,
+   "bossSecs": 7.816666666666222,
+   "firstKill": 0.39999999999999997,
+   "seconds": 48.03333333333333,
+   "byMaterial": {
+    "soap": 766,
+    "wax": 166,
+    "jelly": 181
+   },
+   "phases": {
+    "firstT": {
+     "soap": 0.4,
+     "wax": 12.32,
+     "jelly": 12.33
+    },
+    "solo": {
+     "soap": 291
+    },
+    "mix": {
+     "soap": 205,
+     "wax": 37,
+     "jelly": 36
+    },
+    "blend": {
+     "soap": 258,
+     "jelly": 132,
+     "wax": 128
+    },
+    "boss": {
+     "soap": 12,
+     "jelly": 13,
+     "wax": 1
+    }
+   }
+  },
+  {
+   "ver": "v05",
+   "stage": 0,
+   "cls": "slasher",
+   "seed": 2,
+   "skill": "intent",
+   "kills": 1063,
+   "actions": 74,
+   "perAction": 14.364864864864865,
+   "lv0": 10.521739130434783,
+   "lv2": 25.3,
+   "best0": 22,
+   "best2": 55,
+   "boss": true,
+   "bossSecs": 4.39999999999975,
+   "firstKill": 0.3833333333333333,
+   "seconds": 44.61666666666667,
+   "byMaterial": {
+    "sponge": 56,
+    "sand": 55,
+    "jelly": 238,
+    "soap": 262,
+    "beadslime": 77,
+    "kohaku": 131,
+    "wax": 149,
+    "chalk": 95
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 1,
+   "cls": "slasher",
+   "seed": 2,
+   "skill": "intent",
+   "kills": 1062,
+   "actions": 86,
+   "perAction": 12.348837209302326,
+   "lv0": 11.478260869565217,
+   "lv2": 20.782608695652176,
+   "best0": 24,
+   "best2": 48,
+   "boss": true,
+   "bossSecs": 8.433333333332854,
+   "firstKill": 0.3833333333333333,
+   "seconds": 48.65,
+   "byMaterial": {
+    "wax": 1062
+   },
+   "phases": {
+    "firstT": {
+     "wax": 0.38
+    },
+    "solo": {
+     "wax": 264
+    },
+    "mix": {
+     "wax": 288
+    },
+    "blend": {
+     "wax": 478
+    },
+    "boss": {
+     "wax": 32
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 2,
+   "cls": "slasher",
+   "seed": 2,
+   "skill": "intent",
+   "kills": 1132,
+   "actions": 77,
+   "perAction": 14.7012987012987,
+   "lv0": 12.043478260869565,
+   "lv2": 24.772727272727273,
+   "best0": 24,
+   "best2": 56,
+   "boss": true,
+   "bossSecs": 4.699999999999733,
+   "firstKill": 0.3833333333333333,
+   "seconds": 44.916666666666664,
+   "byMaterial": {
+    "jelly": 772,
+    "wax": 360
+   },
+   "phases": {
+    "firstT": {
+     "jelly": 0.38,
+     "wax": 12.83
+    },
+    "solo": {
+     "jelly": 277
+    },
+    "mix": {
+     "jelly": 210,
+     "wax": 76
+    },
+    "blend": {
+     "jelly": 270,
+     "wax": 268
+    },
+    "boss": {
+     "jelly": 15,
+     "wax": 16
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 3,
+   "cls": "slasher",
+   "seed": 2,
+   "skill": "intent",
+   "kills": 1107,
+   "actions": 86,
+   "perAction": 12.872093023255815,
+   "lv0": 12.043478260869565,
+   "lv2": 22.652173913043477,
+   "best0": 24,
+   "best2": 56,
+   "boss": true,
+   "bossSecs": 8.849999999999497,
+   "firstKill": 0.3833333333333333,
+   "seconds": 49.06666666666667,
+   "byMaterial": {
+    "soap": 765,
+    "jelly": 172,
+    "wax": 170
+   },
+   "phases": {
+    "firstT": {
+     "soap": 0.38,
+     "jelly": 12.85,
+     "wax": 12.85
+    },
+    "solo": {
+     "soap": 277
+    },
+    "mix": {
+     "soap": 220,
+     "jelly": 33,
+     "wax": 34
+    },
+    "blend": {
+     "wax": 133,
+     "jelly": 125,
+     "soap": 254
+    },
+    "boss": {
+     "soap": 14,
+     "wax": 3,
+     "jelly": 14
+    }
+   }
+  },
+  {
+   "ver": "v05",
+   "stage": 0,
+   "cls": "slasher",
+   "seed": 3,
+   "skill": "intent",
+   "kills": 1079,
+   "actions": 89,
+   "perAction": 12.123595505617978,
+   "lv0": 11.521739130434783,
+   "lv2": 21.73913043478261,
+   "best0": 26,
+   "best2": 54,
+   "boss": true,
+   "bossSecs": 9.866666666666106,
+   "firstKill": 0.3833333333333333,
+   "seconds": 50.083333333333336,
+   "byMaterial": {
+    "wax": 142,
+    "beadslime": 81,
+    "kohaku": 137,
+    "soap": 255,
+    "jelly": 251,
+    "sponge": 67,
+    "chalk": 99,
+    "sand": 47
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 1,
+   "cls": "slasher",
+   "seed": 3,
+   "skill": "intent",
+   "kills": 1120,
+   "actions": 88,
+   "perAction": 12.727272727272727,
+   "lv0": 12.478260869565217,
+   "lv2": 21.695652173913043,
+   "best0": 27,
+   "best2": 54,
+   "boss": true,
+   "bossSecs": 9.349999999999469,
+   "firstKill": 0.3833333333333333,
+   "seconds": 49.56666666666667,
+   "byMaterial": {
+    "wax": 1120
+   },
+   "phases": {
+    "firstT": {
+     "wax": 0.38
+    },
+    "solo": {
+     "wax": 287
+    },
+    "mix": {
+     "wax": 281
+    },
+    "blend": {
+     "wax": 499
+    },
+    "boss": {
+     "wax": 53
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 2,
+   "cls": "slasher",
+   "seed": 3,
+   "skill": "intent",
+   "kills": 1119,
+   "actions": 68,
+   "perAction": 16.455882352941178,
+   "lv0": 12.391304347826088,
+   "lv2": 29.27777777777778,
+   "best0": 27,
+   "best2": 56,
+   "boss": true,
+   "bossSecs": 4.216666666666427,
+   "firstKill": 0.3833333333333333,
+   "seconds": 44.43333333333333,
+   "byMaterial": {
+    "jelly": 764,
+    "wax": 355
+   },
+   "phases": {
+    "firstT": {
+     "jelly": 0.38,
+     "wax": 12.43
+    },
+    "solo": {
+     "jelly": 285
+    },
+    "mix": {
+     "jelly": 208,
+     "wax": 78
+    },
+    "blend": {
+     "jelly": 256,
+     "wax": 260
+    },
+    "boss": {
+     "jelly": 15,
+     "wax": 17
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 3,
+   "cls": "slasher",
+   "seed": 3,
+   "skill": "intent",
+   "kills": 1044,
+   "actions": 85,
+   "perAction": 12.282352941176471,
+   "lv0": 12.304347826086957,
+   "lv2": 20.727272727272727,
+   "best0": 28,
+   "best2": 52,
+   "boss": true,
+   "bossSecs": 8.749999999999503,
+   "firstKill": 0.3833333333333333,
+   "seconds": 48.96666666666667,
+   "byMaterial": {
+    "soap": 734,
+    "wax": 148,
+    "jelly": 162
+   },
+   "phases": {
+    "firstT": {
+     "soap": 0.38,
+     "wax": 12.27,
+     "jelly": 12.82
+    },
+    "solo": {
+     "soap": 283
+    },
+    "mix": {
+     "wax": 37,
+     "soap": 207,
+     "jelly": 38
+    },
+    "blend": {
+     "soap": 233,
+     "wax": 111,
+     "jelly": 112
+    },
+    "boss": {
+     "jelly": 12,
+     "soap": 11
+    }
+   }
+  },
+  {
+   "ver": "v05",
+   "stage": 0,
+   "cls": "slasher",
+   "seed": 4,
+   "skill": "intent",
+   "kills": 1060,
+   "actions": 77,
+   "perAction": 13.766233766233766,
+   "lv0": 10.91304347826087,
+   "lv2": 23.454545454545453,
+   "best0": 22,
+   "best2": 56,
+   "boss": true,
+   "bossSecs": 4.616666666666404,
+   "firstKill": 0.39999999999999997,
+   "seconds": 44.833333333333336,
+   "byMaterial": {
+    "soap": 220,
+    "jelly": 276,
+    "kohaku": 143,
+    "beadslime": 78,
+    "wax": 142,
+    "sponge": 62,
+    "sand": 47,
+    "chalk": 92
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 1,
+   "cls": "slasher",
+   "seed": 4,
+   "skill": "intent",
+   "kills": 1061,
+   "actions": 87,
+   "perAction": 12.195402298850574,
+   "lv0": 11.565217391304348,
+   "lv2": 20.47826086956522,
+   "best0": 24,
+   "best2": 51,
+   "boss": true,
+   "bossSecs": 8.833333333332831,
+   "firstKill": 0.39999999999999997,
+   "seconds": 49.05,
+   "byMaterial": {
+    "wax": 1061
+   },
+   "phases": {
+    "firstT": {
+     "wax": 0.4
+    },
+    "solo": {
+     "wax": 266
+    },
+    "mix": {
+     "wax": 294
+    },
+    "blend": {
+     "wax": 471
+    },
+    "boss": {
+     "wax": 30
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 2,
+   "cls": "slasher",
+   "seed": 4,
+   "skill": "intent",
+   "kills": 1145,
+   "actions": 76,
+   "perAction": 15.06578947368421,
+   "lv0": 12.695652173913043,
+   "lv2": 25,
+   "best0": 26,
+   "best2": 56,
+   "boss": true,
+   "bossSecs": 4.616666666666404,
+   "firstKill": 0.39999999999999997,
+   "seconds": 44.833333333333336,
+   "byMaterial": {
+    "jelly": 784,
+    "wax": 361
+   },
+   "phases": {
+    "firstT": {
+     "jelly": 0.4,
+     "wax": 12.3
+    },
+    "solo": {
+     "jelly": 292
+    },
+    "mix": {
+     "jelly": 205,
+     "wax": 75
+    },
+    "blend": {
+     "wax": 267,
+     "jelly": 276
+    },
+    "boss": {
+     "jelly": 11,
+     "wax": 19
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 3,
+   "cls": "slasher",
+   "seed": 4,
+   "skill": "intent",
+   "kills": 1079,
+   "actions": 87,
+   "perAction": 12.402298850574713,
+   "lv0": 11.26086956521739,
+   "lv2": 21.217391304347824,
+   "best0": 24,
+   "best2": 50,
+   "boss": true,
+   "bossSecs": 8.833333333332831,
+   "firstKill": 0.39999999999999997,
+   "seconds": 49.05,
+   "byMaterial": {
+    "soap": 754,
+    "wax": 157,
+    "jelly": 168
+   },
+   "phases": {
+    "firstT": {
+     "soap": 0.4,
+     "wax": 13.33,
+     "jelly": 13.35
+    },
+    "solo": {
+     "soap": 259
+    },
+    "mix": {
+     "soap": 232,
+     "wax": 35,
+     "jelly": 35
+    },
+    "blend": {
+     "soap": 250,
+     "wax": 117,
+     "jelly": 121
+    },
+    "boss": {
+     "wax": 5,
+     "soap": 13,
+     "jelly": 12
+    }
+   }
+  },
+  {
+   "ver": "v05",
+   "stage": 0,
+   "cls": "crusher",
+   "seed": 1,
+   "skill": "intent",
+   "kills": 1038,
+   "actions": 108,
+   "perAction": 9.61111111111111,
+   "lv0": 9.153846153846153,
+   "lv2": 18.666666666666668,
+   "best0": 31,
+   "best2": 65,
+   "boss": true,
+   "bossSecs": 11.816666666665995,
+   "firstKill": 0.44999999999999996,
+   "seconds": 52.03333333333333,
+   "byMaterial": {
+    "wax": 119,
+    "soap": 244,
+    "beadslime": 76,
+    "sand": 56,
+    "jelly": 253,
+    "kohaku": 125,
+    "sponge": 70,
+    "chalk": 95
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 1,
+   "cls": "crusher",
+   "seed": 1,
+   "skill": "intent",
+   "kills": 947,
+   "actions": 100,
+   "perAction": 9.47,
+   "lv0": 8.26923076923077,
+   "lv2": 16.037037037037038,
+   "best0": 29,
+   "best2": 59,
+   "boss": true,
+   "bossSecs": 7.766666666666225,
+   "firstKill": 0.44999999999999996,
+   "seconds": 47.983333333333334,
+   "byMaterial": {
+    "wax": 947
+   },
+   "phases": {
+    "firstT": {
+     "wax": 0.45
+    },
+    "solo": {
+     "wax": 215
+    },
+    "mix": {
+     "wax": 252
+    },
+    "blend": {
+     "wax": 447
+    },
+    "boss": {
+     "wax": 33
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 2,
+   "cls": "crusher",
+   "seed": 1,
+   "skill": "intent",
+   "kills": 1023,
+   "actions": 99,
+   "perAction": 10.333333333333334,
+   "lv0": 9.307692307692308,
+   "lv2": 18.185185185185187,
+   "best0": 41,
+   "best2": 70,
+   "boss": true,
+   "bossSecs": 7.316666666666251,
+   "firstKill": 0.44999999999999996,
+   "seconds": 47.53333333333333,
+   "byMaterial": {
+    "jelly": 689,
+    "wax": 334
+   },
+   "phases": {
+    "firstT": {
+     "jelly": 0.45,
+     "wax": 12.77
+    },
+    "solo": {
+     "jelly": 238
+    },
+    "mix": {
+     "jelly": 176,
+     "wax": 63
+    },
+    "blend": {
+     "wax": 233,
+     "jelly": 229
+    },
+    "boss": {
+     "jelly": 46,
+     "wax": 38
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 3,
+   "cls": "crusher",
+   "seed": 1,
+   "skill": "intent",
+   "kills": 1061,
+   "actions": 86,
+   "perAction": 12.337209302325581,
+   "lv0": 8.923076923076923,
+   "lv2": 20.037037037037038,
+   "best0": 36,
+   "best2": 70,
+   "boss": true,
+   "bossSecs": 1.366666666666589,
+   "firstKill": 0.44999999999999996,
+   "seconds": 41.583333333333336,
+   "byMaterial": {
+    "soap": 708,
+    "wax": 173,
+    "jelly": 180
+   },
+   "phases": {
+    "firstT": {
+     "soap": 0.45,
+     "wax": 12.58,
+     "jelly": 13.25
+    },
+    "solo": {
+     "soap": 231
+    },
+    "mix": {
+     "soap": 202,
+     "wax": 35,
+     "jelly": 35
+    },
+    "blend": {
+     "jelly": 120,
+     "soap": 234,
+     "wax": 125
+    },
+    "boss": {
+     "jelly": 25,
+     "wax": 13,
+     "soap": 41
+    }
+   }
+  },
+  {
+   "ver": "v05",
+   "stage": 0,
+   "cls": "crusher",
+   "seed": 2,
+   "skill": "intent",
+   "kills": 976,
+   "actions": 101,
+   "perAction": 9.663366336633663,
+   "lv0": 9.23076923076923,
+   "lv2": 17.22222222222222,
+   "best0": 35,
+   "best2": 56,
+   "boss": true,
+   "bossSecs": 9.216666666666143,
+   "firstKill": 0.44999999999999996,
+   "seconds": 49.43333333333333,
+   "byMaterial": {
+    "kohaku": 139,
+    "chalk": 86,
+    "wax": 125,
+    "jelly": 227,
+    "soap": 223,
+    "beadslime": 63,
+    "sand": 46,
+    "sponge": 67
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 1,
+   "cls": "crusher",
+   "seed": 2,
+   "skill": "intent",
+   "kills": 1019,
+   "actions": 97,
+   "perAction": 10.505154639175258,
+   "lv0": 9.076923076923077,
+   "lv2": 17,
+   "best0": 28,
+   "best2": 36,
+   "boss": true,
+   "bossSecs": 6.866666666666276,
+   "firstKill": 0.44999999999999996,
+   "seconds": 47.083333333333336,
+   "byMaterial": {
+    "wax": 1019
+   },
+   "phases": {
+    "firstT": {
+     "wax": 0.45
+    },
+    "solo": {
+     "wax": 231
+    },
+    "mix": {
+     "wax": 243
+    },
+    "blend": {
+     "wax": 453
+    },
+    "boss": {
+     "wax": 92
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 2,
+   "cls": "crusher",
+   "seed": 2,
+   "skill": "intent",
+   "kills": 1002,
+   "actions": 106,
+   "perAction": 9.452830188679245,
+   "lv0": 9.346153846153847,
+   "lv2": 17.074074074074073,
+   "best0": 39,
+   "best2": 49,
+   "boss": true,
+   "bossSecs": 10.916666666666046,
+   "firstKill": 0.44999999999999996,
+   "seconds": 51.13333333333333,
+   "byMaterial": {
+    "jelly": 681,
+    "wax": 321
+   },
+   "phases": {
+    "firstT": {
+     "jelly": 0.45,
+     "wax": 13.15
+    },
+    "solo": {
+     "jelly": 236
+    },
+    "mix": {
+     "jelly": 189,
+     "wax": 74
+    },
+    "blend": {
+     "wax": 204,
+     "jelly": 216
+    },
+    "boss": {
+     "wax": 43,
+     "jelly": 40
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 3,
+   "cls": "crusher",
+   "seed": 2,
+   "skill": "intent",
+   "kills": 1023,
+   "actions": 91,
+   "perAction": 11.241758241758241,
+   "lv0": 9.115384615384615,
+   "lv2": 18.11111111111111,
+   "best0": 28,
+   "best2": 51,
+   "boss": true,
+   "bossSecs": 4.083333333333101,
+   "firstKill": 0.44999999999999996,
+   "seconds": 44.3,
+   "byMaterial": {
+    "soap": 692,
+    "wax": 157,
+    "jelly": 174
+   },
+   "phases": {
+    "firstT": {
+     "soap": 0.45,
+     "wax": 12.58,
+     "jelly": 12.58
+    },
+    "solo": {
+     "soap": 234
+    },
+    "mix": {
+     "soap": 184,
+     "wax": 36,
+     "jelly": 33
+    },
+    "blend": {
+     "soap": 240,
+     "jelly": 115,
+     "wax": 100
+    },
+    "boss": {
+     "soap": 34,
+     "jelly": 26,
+     "wax": 21
+    }
+   }
+  },
+  {
+   "ver": "v05",
+   "stage": 0,
+   "cls": "crusher",
+   "seed": 3,
+   "skill": "intent",
+   "kills": 1012,
+   "actions": 103,
+   "perAction": 9.825242718446601,
+   "lv0": 9.192307692307692,
+   "lv2": 18.296296296296298,
+   "best0": 31,
+   "best2": 41,
+   "boss": true,
+   "bossSecs": 10.016666666666097,
+   "firstKill": 0.44999999999999996,
+   "seconds": 50.233333333333334,
+   "byMaterial": {
+    "soap": 245,
+    "beadslime": 74,
+    "sponge": 51,
+    "jelly": 241,
+    "chalk": 87,
+    "wax": 129,
+    "kohaku": 137,
+    "sand": 48
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 1,
+   "cls": "crusher",
+   "seed": 3,
+   "skill": "intent",
+   "kills": 1015,
+   "actions": 102,
+   "perAction": 9.950980392156863,
+   "lv0": 8.653846153846153,
+   "lv2": 18.11111111111111,
+   "best0": 27,
+   "best2": 44,
+   "boss": true,
+   "bossSecs": 8.666666666666174,
+   "firstKill": 0.44999999999999996,
+   "seconds": 48.88333333333333,
+   "byMaterial": {
+    "wax": 1015
+   },
+   "phases": {
+    "firstT": {
+     "wax": 0.45
+    },
+    "solo": {
+     "wax": 225
+    },
+    "mix": {
+     "wax": 251
+    },
+    "blend": {
+     "wax": 452
+    },
+    "boss": {
+     "wax": 87
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 2,
+   "cls": "crusher",
+   "seed": 3,
+   "skill": "intent",
+   "kills": 986,
+   "actions": 99,
+   "perAction": 9.95959595959596,
+   "lv0": 9.115384615384615,
+   "lv2": 16.962962962962962,
+   "best0": 34,
+   "best2": 58,
+   "boss": true,
+   "bossSecs": 7.766666666666225,
+   "firstKill": 0.44999999999999996,
+   "seconds": 47.983333333333334,
+   "byMaterial": {
+    "jelly": 674,
+    "wax": 312
+   },
+   "phases": {
+    "firstT": {
+     "jelly": 0.45,
+     "wax": 12.85
+    },
+    "solo": {
+     "jelly": 234
+    },
+    "mix": {
+     "jelly": 187,
+     "wax": 62
+    },
+    "blend": {
+     "jelly": 240,
+     "wax": 212
+    },
+    "boss": {
+     "wax": 38,
+     "jelly": 13
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 3,
+   "cls": "crusher",
+   "seed": 3,
+   "skill": "intent",
+   "kills": 989,
+   "actions": 96,
+   "perAction": 10.302083333333334,
+   "lv0": 8.73076923076923,
+   "lv2": 17.925925925925927,
+   "best0": 28,
+   "best2": 46,
+   "boss": true,
+   "bossSecs": 6.416666666666302,
+   "firstKill": 0.44999999999999996,
+   "seconds": 46.63333333333333,
+   "byMaterial": {
+    "soap": 689,
+    "jelly": 155,
+    "wax": 145
+   },
+   "phases": {
+    "firstT": {
+     "soap": 0.45,
+     "jelly": 13.52,
+     "wax": 14.37
+    },
+    "solo": {
+     "soap": 227
+    },
+    "mix": {
+     "soap": 187,
+     "jelly": 30,
+     "wax": 30
+    },
+    "blend": {
+     "soap": 256,
+     "jelly": 104,
+     "wax": 104
+    },
+    "boss": {
+     "jelly": 21,
+     "soap": 19,
+     "wax": 11
+    }
+   }
+  },
+  {
+   "ver": "v05",
+   "stage": 0,
+   "cls": "crusher",
+   "seed": 4,
+   "skill": "intent",
+   "kills": 1056,
+   "actions": 104,
+   "perAction": 10.153846153846153,
+   "lv0": 9.26923076923077,
+   "lv2": 18.925925925925927,
+   "best0": 38,
+   "best2": 80,
+   "boss": true,
+   "bossSecs": 9.566666666666123,
+   "firstKill": 0.44999999999999996,
+   "seconds": 49.78333333333333,
+   "byMaterial": {
+    "soap": 234,
+    "beadslime": 85,
+    "sand": 51,
+    "jelly": 250,
+    "wax": 136,
+    "kohaku": 141,
+    "chalk": 92,
+    "sponge": 67
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 1,
+   "cls": "crusher",
+   "seed": 4,
+   "skill": "intent",
+   "kills": 1013,
+   "actions": 102,
+   "perAction": 9.931372549019608,
+   "lv0": 8.576923076923077,
+   "lv2": 16.962962962962962,
+   "best0": 31,
+   "best2": 47,
+   "boss": true,
+   "bossSecs": 9.016666666666154,
+   "firstKill": 0.44999999999999996,
+   "seconds": 49.233333333333334,
+   "byMaterial": {
+    "wax": 1013
+   },
+   "phases": {
+    "firstT": {
+     "wax": 0.45
+    },
+    "solo": {
+     "wax": 222
+    },
+    "mix": {
+     "wax": 270
+    },
+    "blend": {
+     "wax": 423
+    },
+    "boss": {
+     "wax": 98
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 2,
+   "cls": "crusher",
+   "seed": 4,
+   "skill": "intent",
+   "kills": 1039,
+   "actions": 103,
+   "perAction": 10.087378640776699,
+   "lv0": 9.73076923076923,
+   "lv2": 17.62962962962963,
+   "best0": 39,
+   "best2": 38,
+   "boss": true,
+   "bossSecs": 9.216666666666143,
+   "firstKill": 0.44999999999999996,
+   "seconds": 49.43333333333333,
+   "byMaterial": {
+    "jelly": 714,
+    "wax": 325
+   },
+   "phases": {
+    "firstT": {
+     "jelly": 0.45,
+     "wax": 13.07
+    },
+    "solo": {
+     "jelly": 250
+    },
+    "mix": {
+     "jelly": 201,
+     "wax": 66
+    },
+    "blend": {
+     "jelly": 240,
+     "wax": 227
+    },
+    "boss": {
+     "wax": 32,
+     "jelly": 23
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 3,
+   "cls": "crusher",
+   "seed": 4,
+   "skill": "intent",
+   "kills": 1035,
+   "actions": 100,
+   "perAction": 10.35,
+   "lv0": 9.115384615384615,
+   "lv2": 17.333333333333332,
+   "best0": 31,
+   "best2": 39,
+   "boss": true,
+   "bossSecs": 7.766666666666225,
+   "firstKill": 0.44999999999999996,
+   "seconds": 47.983333333333334,
+   "byMaterial": {
+    "soap": 701,
+    "wax": 154,
+    "jelly": 180
+   },
+   "phases": {
+    "firstT": {
+     "soap": 0.45,
+     "wax": 12.57,
+     "jelly": 13.58
+    },
+    "solo": {
+     "soap": 233
+    },
+    "mix": {
+     "soap": 205,
+     "wax": 29,
+     "jelly": 32
+    },
+    "blend": {
+     "soap": 221,
+     "jelly": 120,
+     "wax": 104
+    },
+    "boss": {
+     "wax": 21,
+     "soap": 42,
+     "jelly": 28
+    }
+   }
+  },
+  {
+   "ver": "v05",
+   "stage": 0,
+   "cls": "caster",
+   "seed": 1,
+   "skill": "intent",
+   "kills": 1156,
+   "actions": 87,
+   "perAction": 13.28735632183908,
+   "lv0": 11.92,
+   "lv2": 35.75,
+   "best0": 31,
+   "best2": 58,
+   "boss": true,
+   "bossSecs": 9.283333333332806,
+   "firstKill": 0.35,
+   "seconds": 49.5,
+   "byMaterial": {
+    "soap": 265,
+    "kohaku": 165,
+    "jelly": 292,
+    "wax": 138,
+    "beadslime": 88,
+    "sand": 55,
+    "sponge": 58,
+    "chalk": 95
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 1,
+   "cls": "caster",
+   "seed": 1,
+   "skill": "intent",
+   "kills": 1156,
+   "actions": 93,
+   "perAction": 12.43010752688172,
+   "lv0": 12.2,
+   "lv2": 39.857142857142854,
+   "best0": 33,
+   "best2": 55,
+   "boss": true,
+   "bossSecs": 14.48333333333251,
+   "firstKill": 0.35,
+   "seconds": 54.7,
+   "byMaterial": {
+    "wax": 1156
+   },
+   "phases": {
+    "firstT": {
+     "wax": 0.35
+    },
+    "solo": {
+     "wax": 305
+    },
+    "mix": {
+     "wax": 272
+    },
+    "blend": {
+     "wax": 558
+    },
+    "boss": {
+     "wax": 21
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 2,
+   "cls": "caster",
+   "seed": 1,
+   "skill": "intent",
+   "kills": 1156,
+   "actions": 91,
+   "perAction": 12.703296703296703,
+   "lv0": 12.2,
+   "lv2": 39.92857142857143,
+   "best0": 33,
+   "best2": 56,
+   "boss": true,
+   "bossSecs": 13.583333333332561,
+   "firstKill": 0.35,
+   "seconds": 53.8,
+   "byMaterial": {
+    "jelly": 786,
+    "wax": 370
+   },
+   "phases": {
+    "firstT": {
+     "jelly": 0.35,
+     "wax": 12.47
+    },
+    "solo": {
+     "jelly": 305
+    },
+    "mix": {
+     "jelly": 194,
+     "wax": 78
+    },
+    "blend": {
+     "wax": 280,
+     "jelly": 278
+    },
+    "boss": {
+     "wax": 12,
+     "jelly": 9
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 3,
+   "cls": "caster",
+   "seed": 1,
+   "skill": "intent",
+   "kills": 1156,
+   "actions": 88,
+   "perAction": 13.136363636363637,
+   "lv0": 12.16,
+   "lv2": 39.92857142857143,
+   "best0": 33,
+   "best2": 56,
+   "boss": true,
+   "bossSecs": 14.733333333332496,
+   "firstKill": 0.35,
+   "seconds": 54.95,
+   "byMaterial": {
+    "soap": 790,
+    "jelly": 189,
+    "wax": 177
+   },
+   "phases": {
+    "firstT": {
+     "soap": 0.35,
+     "jelly": 12.48,
+     "wax": 12.52
+    },
+    "solo": {
+     "soap": 304
+    },
+    "mix": {
+     "soap": 197,
+     "jelly": 38,
+     "wax": 38
+    },
+    "blend": {
+     "wax": 138,
+     "soap": 278,
+     "jelly": 136
+    },
+    "boss": {
+     "soap": 11,
+     "wax": 1,
+     "jelly": 15
+    }
+   }
+  },
+  {
+   "ver": "v05",
+   "stage": 0,
+   "cls": "caster",
+   "seed": 2,
+   "skill": "intent",
+   "kills": 1156,
+   "actions": 77,
+   "perAction": 15.012987012987013,
+   "lv0": 11.5,
+   "lv2": 39.857142857142854,
+   "best0": 32,
+   "best2": 58,
+   "boss": true,
+   "bossSecs": 9.199999999999477,
+   "firstKill": 0.35,
+   "seconds": 49.416666666666664,
+   "byMaterial": {
+    "wax": 151,
+    "kohaku": 155,
+    "soap": 267,
+    "chalk": 94,
+    "jelly": 281,
+    "beadslime": 89,
+    "sponge": 59,
+    "sand": 60
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 1,
+   "cls": "caster",
+   "seed": 2,
+   "skill": "intent",
+   "kills": 1156,
+   "actions": 85,
+   "perAction": 13.6,
+   "lv0": 11.538461538461538,
+   "lv2": 25.681818181818183,
+   "best0": 37,
+   "best2": 56,
+   "boss": true,
+   "bossSecs": 6.716666666666285,
+   "firstKill": 0.35,
+   "seconds": 46.93333333333333,
+   "byMaterial": {
+    "wax": 1156
+   },
+   "phases": {
+    "firstT": {
+     "wax": 0.35
+    },
+    "solo": {
+     "wax": 300
+    },
+    "mix": {
+     "wax": 272
+    },
+    "blend": {
+     "wax": 535
+    },
+    "boss": {
+     "wax": 49
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 2,
+   "cls": "caster",
+   "seed": 2,
+   "skill": "intent",
+   "kills": 1156,
+   "actions": 88,
+   "perAction": 13.136363636363637,
+   "lv0": 12.16,
+   "lv2": 35.375,
+   "best0": 37,
+   "best2": 57,
+   "boss": true,
+   "bossSecs": 9.316666666666137,
+   "firstKill": 0.35,
+   "seconds": 49.53333333333333,
+   "byMaterial": {
+    "jelly": 787,
+    "wax": 369
+   },
+   "phases": {
+    "firstT": {
+     "jelly": 0.35,
+     "wax": 12.47
+    },
+    "solo": {
+     "jelly": 304
+    },
+    "mix": {
+     "jelly": 187,
+     "wax": 78
+    },
+    "blend": {
+     "jelly": 286,
+     "wax": 278
+    },
+    "boss": {
+     "jelly": 10,
+     "wax": 13
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 3,
+   "cls": "caster",
+   "seed": 2,
+   "skill": "intent",
+   "kills": 1156,
+   "actions": 77,
+   "perAction": 15.012987012987013,
+   "lv0": 11.692307692307692,
+   "lv2": 39.857142857142854,
+   "best0": 37,
+   "best2": 56,
+   "boss": true,
+   "bossSecs": 10.033333333332763,
+   "firstKill": 0.35,
+   "seconds": 50.25,
+   "byMaterial": {
+    "soap": 789,
+    "jelly": 189,
+    "wax": 178
+   },
+   "phases": {
+    "firstT": {
+     "soap": 0.35,
+     "jelly": 12.52,
+     "wax": 12.55
+    },
+    "solo": {
+     "soap": 304
+    },
+    "mix": {
+     "soap": 197,
+     "jelly": 38,
+     "wax": 38
+    },
+    "blend": {
+     "jelly": 135,
+     "wax": 139,
+     "soap": 274
+    },
+    "boss": {
+     "jelly": 16,
+     "wax": 1,
+     "soap": 14
+    }
+   }
+  },
+  {
+   "ver": "v05",
+   "stage": 0,
+   "cls": "caster",
+   "seed": 3,
+   "skill": "intent",
+   "kills": 1137,
+   "actions": 86,
+   "perAction": 13.220930232558139,
+   "lv0": 12.16,
+   "lv2": 24.40909090909091,
+   "best0": 34,
+   "best2": 55,
+   "boss": true,
+   "bossSecs": 7.133333333332928,
+   "firstKill": 0.35,
+   "seconds": 47.35,
+   "byMaterial": {
+    "wax": 163,
+    "soap": 266,
+    "jelly": 262,
+    "beadslime": 81,
+    "kohaku": 151,
+    "chalk": 99,
+    "sponge": 73,
+    "sand": 42
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 1,
+   "cls": "caster",
+   "seed": 3,
+   "skill": "intent",
+   "kills": 1152,
+   "actions": 72,
+   "perAction": 16,
+   "lv0": 12.791666666666666,
+   "lv2": 39.642857142857146,
+   "best0": 35,
+   "best2": 57,
+   "boss": true,
+   "bossSecs": 8.783333333332834,
+   "firstKill": 0.35,
+   "seconds": 49,
+   "byMaterial": {
+    "wax": 1152
+   },
+   "phases": {
+    "firstT": {
+     "wax": 0.35
+    },
+    "solo": {
+     "wax": 306
+    },
+    "mix": {
+     "wax": 271
+    },
+    "blend": {
+     "wax": 554
+    },
+    "boss": {
+     "wax": 21
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 2,
+   "cls": "caster",
+   "seed": 3,
+   "skill": "intent",
+   "kills": 1156,
+   "actions": 74,
+   "perAction": 15.621621621621621,
+   "lv0": 12.16,
+   "lv2": 39.92857142857143,
+   "best0": 35,
+   "best2": 58,
+   "boss": true,
+   "bossSecs": 8.849999999999497,
+   "firstKill": 0.35,
+   "seconds": 49.06666666666667,
+   "byMaterial": {
+    "jelly": 786,
+    "wax": 370
+   },
+   "phases": {
+    "firstT": {
+     "jelly": 0.35,
+     "wax": 12.48
+    },
+    "solo": {
+     "jelly": 304
+    },
+    "mix": {
+     "jelly": 195,
+     "wax": 78
+    },
+    "blend": {
+     "wax": 280,
+     "jelly": 278
+    },
+    "boss": {
+     "wax": 12,
+     "jelly": 9
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 3,
+   "cls": "caster",
+   "seed": 3,
+   "skill": "intent",
+   "kills": 1134,
+   "actions": 84,
+   "perAction": 13.5,
+   "lv0": 12.791666666666666,
+   "lv2": 36.06666666666667,
+   "best0": 35,
+   "best2": 58,
+   "boss": true,
+   "bossSecs": 9.84999999999944,
+   "firstKill": 0.35,
+   "seconds": 50.06666666666667,
+   "byMaterial": {
+    "soap": 773,
+    "jelly": 188,
+    "wax": 173
+   },
+   "phases": {
+    "firstT": {
+     "soap": 0.35,
+     "jelly": 12.43,
+     "wax": 12.43
+    },
+    "solo": {
+     "soap": 307
+    },
+    "mix": {
+     "soap": 190,
+     "jelly": 36,
+     "wax": 38
+    },
+    "blend": {
+     "soap": 267,
+     "jelly": 140,
+     "wax": 135
+    },
+    "boss": {
+     "jelly": 12,
+     "soap": 9
+    }
+   }
+  },
+  {
+   "ver": "v05",
+   "stage": 0,
+   "cls": "caster",
+   "seed": 4,
+   "skill": "intent",
+   "kills": 1156,
+   "actions": 77,
+   "perAction": 15.012987012987013,
+   "lv0": 11.653846153846153,
+   "lv2": 39.857142857142854,
+   "best0": 29,
+   "best2": 57,
+   "boss": true,
+   "bossSecs": 9.61666666666612,
+   "firstKill": 0.35,
+   "seconds": 49.833333333333336,
+   "byMaterial": {
+    "wax": 166,
+    "kohaku": 152,
+    "jelly": 278,
+    "soap": 263,
+    "beadslime": 87,
+    "chalk": 97,
+    "sand": 59,
+    "sponge": 54
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 1,
+   "cls": "caster",
+   "seed": 4,
+   "skill": "intent",
+   "kills": 1156,
+   "actions": 76,
+   "perAction": 15.210526315789474,
+   "lv0": 12.28,
+   "lv2": 39.92857142857143,
+   "best0": 33,
+   "best2": 53,
+   "boss": true,
+   "bossSecs": 9.999999999999432,
+   "firstKill": 0.35,
+   "seconds": 50.21666666666667,
+   "byMaterial": {
+    "wax": 1156
+   },
+   "phases": {
+    "firstT": {
+     "wax": 0.35
+    },
+    "solo": {
+     "wax": 302
+    },
+    "mix": {
+     "wax": 275
+    },
+    "blend": {
+     "wax": 558
+    },
+    "boss": {
+     "wax": 21
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 2,
+   "cls": "caster",
+   "seed": 4,
+   "skill": "intent",
+   "kills": 1156,
+   "actions": 76,
+   "perAction": 15.210526315789474,
+   "lv0": 12.2,
+   "lv2": 39.857142857142854,
+   "best0": 33,
+   "best2": 59,
+   "boss": true,
+   "bossSecs": 9.749999999999446,
+   "firstKill": 0.35,
+   "seconds": 49.96666666666667,
+   "byMaterial": {
+    "jelly": 787,
+    "wax": 369
+   },
+   "phases": {
+    "firstT": {
+     "jelly": 0.35,
+     "wax": 12.48
+    },
+    "solo": {
+     "jelly": 305
+    },
+    "mix": {
+     "jelly": 194,
+     "wax": 78
+    },
+    "blend": {
+     "jelly": 279,
+     "wax": 279
+    },
+    "boss": {
+     "wax": 12,
+     "jelly": 9
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 3,
+   "cls": "caster",
+   "seed": 4,
+   "skill": "intent",
+   "kills": 1132,
+   "actions": 88,
+   "perAction": 12.863636363636363,
+   "lv0": 12.28,
+   "lv2": 22.695652173913043,
+   "best0": 33,
+   "best2": 57,
+   "boss": true,
+   "bossSecs": 7.233333333332922,
+   "firstKill": 0.35,
+   "seconds": 47.45,
+   "byMaterial": {
+    "soap": 777,
+    "wax": 175,
+    "jelly": 180
+   },
+   "phases": {
+    "firstT": {
+     "soap": 0.35,
+     "wax": 12.22,
+     "jelly": 12.47
+    },
+    "solo": {
+     "soap": 301
+    },
+    "mix": {
+     "soap": 195,
+     "wax": 37,
+     "jelly": 36
+    },
+    "blend": {
+     "soap": 261,
+     "jelly": 130,
+     "wax": 131
+    },
+    "boss": {
+     "wax": 7,
+     "soap": 20,
+     "jelly": 14
+    }
+   }
+  },
+  {
+   "ver": "v05",
+   "stage": 0,
+   "cls": "slasher",
+   "seed": 1,
+   "skill": "random",
+   "kills": 832,
+   "actions": 97,
+   "perAction": 8.577319587628866,
+   "lv0": 6.090909090909091,
+   "lv2": 18.565217391304348,
+   "best0": 23,
+   "best2": 56,
+   "boss": true,
+   "bossSecs": 17.449999999999008,
+   "firstKill": 0.9833333333333347,
+   "seconds": 57.666666666666664,
+   "byMaterial": {
+    "beadslime": 46,
+    "jelly": 212,
+    "soap": 206,
+    "sponge": 37,
+    "wax": 123,
+    "sand": 41,
+    "kohaku": 111,
+    "chalk": 56
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 1,
+   "cls": "slasher",
+   "seed": 1,
+   "skill": "random",
+   "kills": 849,
+   "actions": 87,
+   "perAction": 9.758620689655173,
+   "lv0": 6.909090909090909,
+   "lv2": 19.681818181818183,
+   "best0": 23,
+   "best2": 69,
+   "boss": true,
+   "bossSecs": 10.916666666666046,
+   "firstKill": 0.9833333333333347,
+   "seconds": 51.13333333333333,
+   "byMaterial": {
+    "wax": 849
+   },
+   "phases": {
+    "firstT": {
+     "wax": 0.98
+    },
+    "solo": {
+     "wax": 152
+    },
+    "mix": {
+     "wax": 205
+    },
+    "blend": {
+     "wax": 429
+    },
+    "boss": {
+     "wax": 63
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 2,
+   "cls": "slasher",
+   "seed": 1,
+   "skill": "random",
+   "kills": 897,
+   "actions": 97,
+   "perAction": 9.24742268041237,
+   "lv0": 6.454545454545454,
+   "lv2": 20.304347826086957,
+   "best0": 23,
+   "best2": 69,
+   "boss": true,
+   "bossSecs": 17.449999999999008,
+   "firstKill": 0.9833333333333347,
+   "seconds": 57.666666666666664,
+   "byMaterial": {
+    "jelly": 595,
+    "wax": 302
+   },
+   "phases": {
+    "firstT": {
+     "jelly": 0.98,
+     "wax": 13.77
+    },
+    "solo": {
+     "jelly": 142
+    },
+    "mix": {
+     "jelly": 199,
+     "wax": 65
+    },
+    "blend": {
+     "jelly": 233,
+     "wax": 213
+    },
+    "boss": {
+     "jelly": 21,
+     "wax": 24
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 3,
+   "cls": "slasher",
+   "seed": 1,
+   "skill": "random",
+   "kills": 834,
+   "actions": 97,
+   "perAction": 8.597938144329897,
+   "lv0": 7.045454545454546,
+   "lv2": 17.52173913043478,
+   "best0": 24,
+   "best2": 63,
+   "boss": true,
+   "bossSecs": 17.449999999999008,
+   "firstKill": 0.9833333333333347,
+   "seconds": 57.666666666666664,
+   "byMaterial": {
+    "soap": 568,
+    "jelly": 138,
+    "wax": 128
+   },
+   "phases": {
+    "firstT": {
+     "soap": 0.98,
+     "jelly": 13.67,
+     "wax": 13.85
+    },
+    "solo": {
+     "soap": 155
+    },
+    "mix": {
+     "soap": 190,
+     "jelly": 31,
+     "wax": 31
+    },
+    "blend": {
+     "soap": 204,
+     "jelly": 90,
+     "wax": 95
+    },
+    "boss": {
+     "soap": 19,
+     "wax": 2,
+     "jelly": 17
+    }
+   }
+  },
+  {
+   "ver": "v05",
+   "stage": 0,
+   "cls": "slasher",
+   "seed": 2,
+   "skill": "random",
+   "kills": 841,
+   "actions": 91,
+   "perAction": 9.241758241758241,
+   "lv0": 6.363636363636363,
+   "lv2": 25.38888888888889,
+   "best0": 28,
+   "best2": 104,
+   "boss": true,
+   "bossSecs": 13.583333333332561,
+   "firstKill": 0.5166666666666666,
+   "seconds": 53.8,
+   "byMaterial": {
+    "wax": 108,
+    "jelly": 195,
+    "soap": 205,
+    "sponge": 41,
+    "sand": 42,
+    "beadslime": 55,
+    "chalk": 76,
+    "kohaku": 119
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 1,
+   "cls": "slasher",
+   "seed": 2,
+   "skill": "random",
+   "kills": 906,
+   "actions": 90,
+   "perAction": 10.066666666666666,
+   "lv0": 6.545454545454546,
+   "lv2": 27.823529411764707,
+   "best0": 28,
+   "best2": 76,
+   "boss": true,
+   "bossSecs": 13.716666666665887,
+   "firstKill": 0.5166666666666666,
+   "seconds": 53.93333333333333,
+   "byMaterial": {
+    "wax": 906
+   },
+   "phases": {
+    "firstT": {
+     "wax": 0.52
+    },
+    "solo": {
+     "wax": 142
+    },
+    "mix": {
+     "wax": 243
+    },
+    "blend": {
+     "wax": 473
+    },
+    "boss": {
+     "wax": 48
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 2,
+   "cls": "slasher",
+   "seed": 2,
+   "skill": "random",
+   "kills": 811,
+   "actions": 78,
+   "perAction": 10.397435897435898,
+   "lv0": 6.545454545454546,
+   "lv2": 25.666666666666668,
+   "best0": 28,
+   "best2": 82,
+   "boss": true,
+   "bossSecs": 7.716666666666228,
+   "firstKill": 0.5166666666666666,
+   "seconds": 47.93333333333333,
+   "byMaterial": {
+    "jelly": 533,
+    "wax": 278
+   },
+   "phases": {
+    "firstT": {
+     "jelly": 0.52,
+     "wax": 14.83
+    },
+    "solo": {
+     "jelly": 142
+    },
+    "mix": {
+     "jelly": 134,
+     "wax": 39
+    },
+    "blend": {
+     "wax": 220,
+     "jelly": 242
+    },
+    "boss": {
+     "jelly": 15,
+     "wax": 19
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 3,
+   "cls": "slasher",
+   "seed": 2,
+   "skill": "random",
+   "kills": 807,
+   "actions": 79,
+   "perAction": 10.215189873417721,
+   "lv0": 6.545454545454546,
+   "lv2": 25.444444444444443,
+   "best0": 28,
+   "best2": 84,
+   "boss": true,
+   "bossSecs": 8.116666666666205,
+   "firstKill": 0.5166666666666666,
+   "seconds": 48.333333333333336,
+   "byMaterial": {
+    "soap": 537,
+    "wax": 128,
+    "jelly": 142
+   },
+   "phases": {
+    "firstT": {
+     "soap": 0.52,
+     "wax": 14.85,
+     "jelly": 16.25
+    },
+    "solo": {
+     "soap": 142
+    },
+    "mix": {
+     "soap": 138,
+     "wax": 18,
+     "jelly": 18
+    },
+    "blend": {
+     "soap": 241,
+     "jelly": 112,
+     "wax": 105
+    },
+    "boss": {
+     "soap": 16,
+     "wax": 5,
+     "jelly": 12
+    }
+   }
+  },
+  {
+   "ver": "v05",
+   "stage": 0,
+   "cls": "slasher",
+   "seed": 3,
+   "skill": "random",
+   "kills": 905,
+   "actions": 84,
+   "perAction": 10.773809523809524,
+   "lv0": 6.3478260869565215,
+   "lv2": 20.523809523809526,
+   "best0": 25,
+   "best2": 55,
+   "boss": true,
+   "bossSecs": 8.766666666666168,
+   "firstKill": 0.4666666666666666,
+   "seconds": 48.983333333333334,
+   "byMaterial": {
+    "soap": 203,
+    "sponge": 55,
+    "beadslime": 71,
+    "wax": 109,
+    "jelly": 227,
+    "sand": 39,
+    "kohaku": 119,
+    "chalk": 82
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 1,
+   "cls": "slasher",
+   "seed": 3,
+   "skill": "random",
+   "kills": 921,
+   "actions": 86,
+   "perAction": 10.709302325581396,
+   "lv0": 6.434782608695652,
+   "lv2": 24.833333333333332,
+   "best0": 21,
+   "best2": 66,
+   "boss": true,
+   "bossSecs": 11.049999999999372,
+   "firstKill": 0.4666666666666666,
+   "seconds": 51.266666666666666,
+   "byMaterial": {
+    "wax": 921
+   },
+   "phases": {
+    "firstT": {
+     "wax": 0.47
+    },
+    "solo": {
+     "wax": 148
+    },
+    "mix": {
+     "wax": 262
+    },
+    "blend": {
+     "wax": 462
+    },
+    "boss": {
+     "wax": 49
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 2,
+   "cls": "slasher",
+   "seed": 3,
+   "skill": "random",
+   "kills": 916,
+   "actions": 88,
+   "perAction": 10.409090909090908,
+   "lv0": 6.434782608695652,
+   "lv2": 21.428571428571427,
+   "best0": 21,
+   "best2": 57,
+   "boss": true,
+   "bossSecs": 10.716666666666057,
+   "firstKill": 0.4666666666666666,
+   "seconds": 50.93333333333333,
+   "byMaterial": {
+    "jelly": 610,
+    "wax": 306
+   },
+   "phases": {
+    "firstT": {
+     "jelly": 0.47,
+     "wax": 12.67
+    },
+    "solo": {
+     "jelly": 148
+    },
+    "mix": {
+     "jelly": 220,
+     "wax": 71
+    },
+    "blend": {
+     "jelly": 229,
+     "wax": 219
+    },
+    "boss": {
+     "wax": 16,
+     "jelly": 13
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 3,
+   "cls": "slasher",
+   "seed": 3,
+   "skill": "random",
+   "kills": 897,
+   "actions": 86,
+   "perAction": 10.430232558139535,
+   "lv0": 6.478260869565218,
+   "lv2": 24.055555555555557,
+   "best0": 21,
+   "best2": 65,
+   "boss": true,
+   "bossSecs": 11.049999999999372,
+   "firstKill": 0.4666666666666666,
+   "seconds": 51.266666666666666,
+   "byMaterial": {
+    "soap": 599,
+    "wax": 143,
+    "jelly": 155
+   },
+   "phases": {
+    "firstT": {
+     "soap": 0.47,
+     "wax": 12.75,
+     "jelly": 12.75
+    },
+    "solo": {
+     "soap": 149
+    },
+    "mix": {
+     "soap": 200,
+     "wax": 31,
+     "jelly": 31
+    },
+    "blend": {
+     "soap": 226,
+     "jelly": 106,
+     "wax": 109
+    },
+    "boss": {
+     "jelly": 18,
+     "soap": 24,
+     "wax": 3
+    }
+   }
+  },
+  {
+   "ver": "v05",
+   "stage": 0,
+   "cls": "slasher",
+   "seed": 4,
+   "skill": "random",
+   "kills": 820,
+   "actions": 98,
+   "perAction": 8.36734693877551,
+   "lv0": 4.2727272727272725,
+   "lv2": 16.72,
+   "best0": 20,
+   "best2": 61,
+   "boss": true,
+   "bossSecs": 18.33333333333229,
+   "firstKill": 1.8999999999999981,
+   "seconds": 58.55,
+   "byMaterial": {
+    "soap": 163,
+    "jelly": 193,
+    "beadslime": 72,
+    "kohaku": 116,
+    "chalk": 76,
+    "sand": 29,
+    "wax": 116,
+    "sponge": 55
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 1,
+   "cls": "slasher",
+   "seed": 4,
+   "skill": "random",
+   "kills": 827,
+   "actions": 82,
+   "perAction": 10.085365853658537,
+   "lv0": 5.636363636363637,
+   "lv2": 17.608695652173914,
+   "best0": 21,
+   "best2": 52,
+   "boss": true,
+   "bossSecs": 10.849999999999383,
+   "firstKill": 1.8999999999999981,
+   "seconds": 51.06666666666667,
+   "byMaterial": {
+    "wax": 827
+   },
+   "phases": {
+    "firstT": {
+     "wax": 1.9
+    },
+    "solo": {
+     "wax": 104
+    },
+    "mix": {
+     "wax": 248
+    },
+    "blend": {
+     "wax": 447
+    },
+    "boss": {
+     "wax": 28
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 2,
+   "cls": "slasher",
+   "seed": 4,
+   "skill": "random",
+   "kills": 875,
+   "actions": 89,
+   "perAction": 9.831460674157304,
+   "lv0": 4.954545454545454,
+   "lv2": 19.8,
+   "best0": 21,
+   "best2": 62,
+   "boss": true,
+   "bossSecs": 13.183333333332584,
+   "firstKill": 1.8999999999999981,
+   "seconds": 53.4,
+   "byMaterial": {
+    "jelly": 556,
+    "wax": 319
+   },
+   "phases": {
+    "firstT": {
+     "jelly": 1.9,
+     "wax": 13.72
+    },
+    "solo": {
+     "jelly": 104
+    },
+    "mix": {
+     "jelly": 169,
+     "wax": 49
+    },
+    "blend": {
+     "jelly": 254,
+     "wax": 246
+    },
+    "boss": {
+     "jelly": 29,
+     "wax": 24
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 3,
+   "cls": "slasher",
+   "seed": 4,
+   "skill": "random",
+   "kills": 835,
+   "actions": 100,
+   "perAction": 8.35,
+   "lv0": 4.909090909090909,
+   "lv2": 17,
+   "best0": 21,
+   "best2": 63,
+   "boss": true,
+   "bossSecs": 19.23333333333224,
+   "firstKill": 1.8999999999999981,
+   "seconds": 59.45,
+   "byMaterial": {
+    "soap": 544,
+    "jelly": 147,
+    "wax": 144
+   },
+   "phases": {
+    "firstT": {
+     "soap": 1.9,
+     "jelly": 15.2,
+     "wax": 16.02
+    },
+    "solo": {
+     "soap": 103
+    },
+    "mix": {
+     "soap": 170,
+     "jelly": 24,
+     "wax": 25
+    },
+    "blend": {
+     "soap": 238,
+     "wax": 108,
+     "jelly": 101
+    },
+    "boss": {
+     "jelly": 22,
+     "soap": 33,
+     "wax": 11
+    }
+   }
+  },
+  {
+   "ver": "v05",
+   "stage": 0,
+   "cls": "crusher",
+   "seed": 1,
+   "skill": "random",
+   "kills": 745,
+   "actions": 112,
+   "perAction": 6.651785714285714,
+   "lv0": 5.833333333333333,
+   "lv2": 14.6,
+   "best0": 34,
+   "best2": 67,
+   "boss": true,
+   "bossSecs": 19.166666666665577,
+   "firstKill": 0.9000000000000011,
+   "seconds": 59.38333333333333,
+   "byMaterial": {
+    "wax": 96,
+    "soap": 202,
+    "sand": 26,
+    "sponge": 41,
+    "chalk": 57,
+    "beadslime": 72,
+    "kohaku": 85,
+    "jelly": 166
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 1,
+   "cls": "crusher",
+   "seed": 1,
+   "skill": "random",
+   "kills": 876,
+   "actions": 95,
+   "perAction": 9.221052631578948,
+   "lv0": 6.333333333333333,
+   "lv2": 17.52,
+   "best0": 41,
+   "best2": 53,
+   "boss": true,
+   "bossSecs": 10.349999999999412,
+   "firstKill": 0.9000000000000011,
+   "seconds": 50.56666666666667,
+   "byMaterial": {
+    "wax": 876
+   },
+   "phases": {
+    "firstT": {
+     "wax": 0.9
+    },
+    "solo": {
+     "wax": 149
+    },
+    "mix": {
+     "wax": 233
+    },
+    "blend": {
+     "wax": 402
+    },
+    "boss": {
+     "wax": 92
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 2,
+   "cls": "crusher",
+   "seed": 1,
+   "skill": "random",
+   "kills": 824,
+   "actions": 95,
+   "perAction": 8.673684210526316,
+   "lv0": 5.458333333333333,
+   "lv2": 17.88,
+   "best0": 36,
+   "best2": 78,
+   "boss": true,
+   "bossSecs": 9.899999999999437,
+   "firstKill": 0.9000000000000011,
+   "seconds": 50.11666666666667,
+   "byMaterial": {
+    "jelly": 532,
+    "wax": 292
+   },
+   "phases": {
+    "firstT": {
+     "jelly": 0.9,
+     "wax": 13.53
+    },
+    "solo": {
+     "jelly": 130
+    },
+    "mix": {
+     "jelly": 152,
+     "wax": 43
+    },
+    "blend": {
+     "wax": 207,
+     "jelly": 202
+    },
+    "boss": {
+     "wax": 42,
+     "jelly": 48
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 3,
+   "cls": "crusher",
+   "seed": 1,
+   "skill": "random",
+   "kills": 736,
+   "actions": 106,
+   "perAction": 6.943396226415095,
+   "lv0": 6,
+   "lv2": 13.48,
+   "best0": 31,
+   "best2": 48,
+   "boss": true,
+   "bossSecs": 16.93333333333237,
+   "firstKill": 0.9000000000000011,
+   "seconds": 57.15,
+   "byMaterial": {
+    "soap": 503,
+    "jelly": 125,
+    "wax": 108
+   },
+   "phases": {
+    "firstT": {
+     "soap": 0.9,
+     "jelly": 13.83,
+     "wax": 13.83
+    },
+    "solo": {
+     "soap": 140
+    },
+    "mix": {
+     "soap": 148,
+     "jelly": 25,
+     "wax": 21
+    },
+    "blend": {
+     "wax": 69,
+     "soap": 176,
+     "jelly": 77
+    },
+    "boss": {
+     "wax": 18,
+     "soap": 39,
+     "jelly": 23
+    }
+   }
+  },
+  {
+   "ver": "v05",
+   "stage": 0,
+   "cls": "crusher",
+   "seed": 2,
+   "skill": "random",
+   "kills": 844,
+   "actions": 95,
+   "perAction": 8.884210526315789,
+   "lv0": 6.791666666666667,
+   "lv2": 18.782608695652176,
+   "best0": 42,
+   "best2": 82,
+   "boss": true,
+   "bossSecs": 11.266666666666026,
+   "firstKill": 0.44999999999999996,
+   "seconds": 51.483333333333334,
+   "byMaterial": {
+    "soap": 199,
+    "wax": 112,
+    "sponge": 47,
+    "beadslime": 64,
+    "jelly": 207,
+    "sand": 43,
+    "chalk": 74,
+    "kohaku": 98
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 1,
+   "cls": "crusher",
+   "seed": 2,
+   "skill": "random",
+   "kills": 822,
+   "actions": 93,
+   "perAction": 8.838709677419354,
+   "lv0": 7.125,
+   "lv2": 16.043478260869566,
+   "best0": 38,
+   "best2": 63,
+   "boss": true,
+   "bossSecs": 10.866666666666049,
+   "firstKill": 0.44999999999999996,
+   "seconds": 51.083333333333336,
+   "byMaterial": {
+    "wax": 822
+   },
+   "phases": {
+    "firstT": {
+     "wax": 0.45
+    },
+    "solo": {
+     "wax": 169
+    },
+    "mix": {
+     "wax": 227
+    },
+    "blend": {
+     "wax": 344
+    },
+    "boss": {
+     "wax": 82
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 2,
+   "cls": "crusher",
+   "seed": 2,
+   "skill": "random",
+   "kills": 860,
+   "actions": 93,
+   "perAction": 9.24731182795699,
+   "lv0": 8.125,
+   "lv2": 19,
+   "best0": 36,
+   "best2": 66,
+   "boss": true,
+   "bossSecs": 10.749999999999389,
+   "firstKill": 0.44999999999999996,
+   "seconds": 50.96666666666667,
+   "byMaterial": {
+    "jelly": 574,
+    "wax": 286
+   },
+   "phases": {
+    "firstT": {
+     "jelly": 0.45,
+     "wax": 13.1
+    },
+    "solo": {
+     "jelly": 181
+    },
+    "mix": {
+     "jelly": 153,
+     "wax": 51
+    },
+    "blend": {
+     "jelly": 206,
+     "wax": 196
+    },
+    "boss": {
+     "jelly": 34,
+     "wax": 39
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 3,
+   "cls": "crusher",
+   "seed": 2,
+   "skill": "random",
+   "kills": 827,
+   "actions": 98,
+   "perAction": 8.438775510204081,
+   "lv0": 7.666666666666667,
+   "lv2": 16.91304347826087,
+   "best0": 51,
+   "best2": 37,
+   "boss": true,
+   "bossSecs": 13.349999999999241,
+   "firstKill": 0.44999999999999996,
+   "seconds": 53.56666666666667,
+   "byMaterial": {
+    "soap": 557,
+    "jelly": 138,
+    "wax": 132
+   },
+   "phases": {
+    "firstT": {
+     "soap": 0.45,
+     "jelly": 13.25,
+     "wax": 13.25
+    },
+    "solo": {
+     "soap": 175
+    },
+    "mix": {
+     "soap": 149,
+     "jelly": 26,
+     "wax": 27
+    },
+    "blend": {
+     "jelly": 83,
+     "soap": 188,
+     "wax": 91
+    },
+    "boss": {
+     "wax": 14,
+     "soap": 45,
+     "jelly": 29
+    }
+   }
+  },
+  {
+   "ver": "v05",
+   "stage": 0,
+   "cls": "crusher",
+   "seed": 3,
+   "skill": "random",
+   "kills": 837,
+   "actions": 96,
+   "perAction": 8.71875,
+   "lv0": 5.166666666666667,
+   "lv2": 17.916666666666668,
+   "best0": 32,
+   "best2": 80,
+   "boss": true,
+   "bossSecs": 11.616666666666006,
+   "firstKill": 0.44999999999999996,
+   "seconds": 51.833333333333336,
+   "byMaterial": {
+    "sponge": 51,
+    "chalk": 70,
+    "soap": 181,
+    "sand": 26,
+    "wax": 117,
+    "beadslime": 70,
+    "jelly": 206,
+    "kohaku": 116
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 1,
+   "cls": "crusher",
+   "seed": 3,
+   "skill": "random",
+   "kills": 943,
+   "actions": 104,
+   "perAction": 9.067307692307692,
+   "lv0": 6.833333333333333,
+   "lv2": 19.75,
+   "best0": 21,
+   "best2": 83,
+   "boss": true,
+   "bossSecs": 14.566666666665839,
+   "firstKill": 0.44999999999999996,
+   "seconds": 54.78333333333333,
+   "byMaterial": {
+    "wax": 943
+   },
+   "phases": {
+    "firstT": {
+     "wax": 0.45
+    },
+    "solo": {
+     "wax": 152
+    },
+    "mix": {
+     "wax": 293
+    },
+    "blend": {
+     "wax": 451
+    },
+    "boss": {
+     "wax": 47
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 2,
+   "cls": "crusher",
+   "seed": 3,
+   "skill": "random",
+   "kills": 892,
+   "actions": 113,
+   "perAction": 7.893805309734513,
+   "lv0": 6.458333333333333,
+   "lv2": 18.291666666666668,
+   "best0": 33,
+   "best2": 94,
+   "boss": false,
+   "bossSecs": null,
+   "firstKill": 0.44999999999999996,
+   "seconds": 60.21666666666667,
+   "byMaterial": {
+    "jelly": 590,
+    "wax": 302
+   },
+   "phases": {
+    "firstT": {
+     "jelly": 0.45,
+     "wax": 12.38
+    },
+    "solo": {
+     "jelly": 149
+    },
+    "mix": {
+     "jelly": 207,
+     "wax": 71
+    },
+    "blend": {
+     "jelly": 218,
+     "wax": 204
+    },
+    "boss": {
+     "jelly": 16,
+     "wax": 27
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 3,
+   "cls": "crusher",
+   "seed": 3,
+   "skill": "random",
+   "kills": 818,
+   "actions": 84,
+   "perAction": 9.738095238095237,
+   "lv0": 5.583333333333333,
+   "lv2": 16.291666666666668,
+   "best0": 29,
+   "best2": 77,
+   "boss": true,
+   "bossSecs": 4.7166666666663986,
+   "firstKill": 0.44999999999999996,
+   "seconds": 44.93333333333333,
+   "byMaterial": {
+    "soap": 553,
+    "jelly": 137,
+    "wax": 128
+   },
+   "phases": {
+    "firstT": {
+     "soap": 0.45,
+     "jelly": 12.53,
+     "wax": 12.88
+    },
+    "solo": {
+     "soap": 132
+    },
+    "mix": {
+     "soap": 195,
+     "jelly": 34,
+     "wax": 32
+    },
+    "blend": {
+     "soap": 212,
+     "wax": 87,
+     "jelly": 91
+    },
+    "boss": {
+     "wax": 9,
+     "soap": 14,
+     "jelly": 12
+    }
+   }
+  },
+  {
+   "ver": "v05",
+   "stage": 0,
+   "cls": "crusher",
+   "seed": 4,
+   "skill": "random",
+   "kills": 841,
+   "actions": 105,
+   "perAction": 8.00952380952381,
+   "lv0": 5.875,
+   "lv2": 15.64,
+   "best0": 31,
+   "best2": 50,
+   "boss": true,
+   "bossSecs": 16.833333333332376,
+   "firstKill": 0.44999999999999996,
+   "seconds": 57.05,
+   "byMaterial": {
+    "kohaku": 119,
+    "jelly": 207,
+    "sand": 36,
+    "beadslime": 71,
+    "soap": 186,
+    "chalk": 71,
+    "wax": 109,
+    "sponge": 42
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 1,
+   "cls": "crusher",
+   "seed": 4,
+   "skill": "random",
+   "kills": 857,
+   "actions": 101,
+   "perAction": 8.485148514851485,
+   "lv0": 5.833333333333333,
+   "lv2": 15.76,
+   "best0": 30,
+   "best2": 67,
+   "boss": true,
+   "bossSecs": 14.749999999999162,
+   "firstKill": 0.44999999999999996,
+   "seconds": 54.96666666666667,
+   "byMaterial": {
+    "wax": 857
+   },
+   "phases": {
+    "firstT": {
+     "wax": 0.45
+    },
+    "solo": {
+     "wax": 136
+    },
+    "mix": {
+     "wax": 251
+    },
+    "blend": {
+     "wax": 398
+    },
+    "boss": {
+     "wax": 72
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 2,
+   "cls": "crusher",
+   "seed": 4,
+   "skill": "random",
+   "kills": 798,
+   "actions": 101,
+   "perAction": 7.900990099009901,
+   "lv0": 6.041666666666667,
+   "lv2": 13.8,
+   "best0": 28,
+   "best2": 40,
+   "boss": true,
+   "bossSecs": 14.733333333332496,
+   "firstKill": 0.44999999999999996,
+   "seconds": 54.95,
+   "byMaterial": {
+    "jelly": 533,
+    "wax": 265
+   },
+   "phases": {
+    "firstT": {
+     "jelly": 0.45,
+     "wax": 14
+    },
+    "solo": {
+     "jelly": 141
+    },
+    "mix": {
+     "jelly": 169,
+     "wax": 47
+    },
+    "blend": {
+     "jelly": 190,
+     "wax": 177
+    },
+    "boss": {
+     "jelly": 33,
+     "wax": 41
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 3,
+   "cls": "crusher",
+   "seed": 4,
+   "skill": "random",
+   "kills": 820,
+   "actions": 96,
+   "perAction": 8.541666666666666,
+   "lv0": 5.416666666666667,
+   "lv2": 16.32,
+   "best0": 23,
+   "best2": 67,
+   "boss": true,
+   "bossSecs": 12.116666666665978,
+   "firstKill": 0.44999999999999996,
+   "seconds": 52.333333333333336,
+   "byMaterial": {
+    "soap": 532,
+    "jelly": 151,
+    "wax": 137
+   },
+   "phases": {
+    "firstT": {
+     "soap": 0.45,
+     "jelly": 12.8,
+     "wax": 12.83
+    },
+    "solo": {
+     "soap": 130
+    },
+    "mix": {
+     "soap": 158,
+     "jelly": 22,
+     "wax": 24
+    },
+    "blend": {
+     "jelly": 106,
+     "soap": 201,
+     "wax": 100
+    },
+    "boss": {
+     "wax": 13,
+     "soap": 43,
+     "jelly": 23
+    }
+   }
+  },
+  {
+   "ver": "v05",
+   "stage": 0,
+   "cls": "caster",
+   "seed": 1,
+   "skill": "random",
+   "kills": 996,
+   "actions": 115,
+   "perAction": 8.660869565217391,
+   "lv0": 8.166666666666666,
+   "lv2": 23.7,
+   "best0": 32,
+   "best2": 76,
+   "boss": false,
+   "bossSecs": null,
+   "firstKill": 0.850000000000001,
+   "seconds": 60.21666666666667,
+   "byMaterial": {
+    "wax": 124,
+    "beadslime": 82,
+    "soap": 218,
+    "sponge": 60,
+    "jelly": 241,
+    "sand": 51,
+    "kohaku": 130,
+    "chalk": 90
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 1,
+   "cls": "caster",
+   "seed": 1,
+   "skill": "random",
+   "kills": 1032,
+   "actions": 116,
+   "perAction": 8.89655172413793,
+   "lv0": 9.916666666666666,
+   "lv2": 17.458333333333332,
+   "best0": 38,
+   "best2": 108,
+   "boss": false,
+   "bossSecs": null,
+   "firstKill": 0.850000000000001,
+   "seconds": 60.21666666666667,
+   "byMaterial": {
+    "wax": 1032
+   },
+   "phases": {
+    "firstT": {
+     "wax": 0.85
+    },
+    "solo": {
+     "wax": 238
+    },
+    "mix": {
+     "wax": 297
+    },
+    "blend": {
+     "wax": 421
+    },
+    "boss": {
+     "wax": 76
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 2,
+   "cls": "caster",
+   "seed": 1,
+   "skill": "random",
+   "kills": 996,
+   "actions": 101,
+   "perAction": 9.861386138613861,
+   "lv0": 9.875,
+   "lv2": 19.48,
+   "best0": 38,
+   "best2": 81,
+   "boss": true,
+   "bossSecs": 14.36666666666585,
+   "firstKill": 0.850000000000001,
+   "seconds": 54.583333333333336,
+   "byMaterial": {
+    "jelly": 681,
+    "wax": 315
+   },
+   "phases": {
+    "firstT": {
+     "jelly": 0.85,
+     "wax": 12.77
+    },
+    "solo": {
+     "jelly": 237
+    },
+    "mix": {
+     "wax": 61,
+     "jelly": 182
+    },
+    "blend": {
+     "wax": 234,
+     "jelly": 243
+    },
+    "boss": {
+     "wax": 20,
+     "jelly": 19
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 3,
+   "cls": "caster",
+   "seed": 1,
+   "skill": "random",
+   "kills": 974,
+   "actions": 101,
+   "perAction": 9.643564356435643,
+   "lv0": 9.875,
+   "lv2": 18.36,
+   "best0": 37,
+   "best2": 83,
+   "boss": true,
+   "bossSecs": 14.36666666666585,
+   "firstKill": 0.850000000000001,
+   "seconds": 54.583333333333336,
+   "byMaterial": {
+    "soap": 673,
+    "jelly": 155,
+    "wax": 146
+   },
+   "phases": {
+    "firstT": {
+     "soap": 0.85,
+     "jelly": 12.77,
+     "wax": 13.25
+    },
+    "solo": {
+     "soap": 237
+    },
+    "mix": {
+     "soap": 184,
+     "jelly": 31,
+     "wax": 31
+    },
+    "blend": {
+     "soap": 243,
+     "jelly": 105,
+     "wax": 108
+    },
+    "boss": {
+     "wax": 7,
+     "jelly": 19,
+     "soap": 9
+    }
+   }
+  },
+  {
+   "ver": "v05",
+   "stage": 0,
+   "cls": "caster",
+   "seed": 2,
+   "skill": "random",
+   "kills": 940,
+   "actions": 108,
+   "perAction": 8.703703703703704,
+   "lv0": 7.666666666666667,
+   "lv2": 21.523809523809526,
+   "best0": 34,
+   "best2": 68,
+   "boss": true,
+   "bossSecs": 19.866666666665537,
+   "firstKill": 0.3833333333333333,
+   "seconds": 60.083333333333336,
+   "byMaterial": {
+    "wax": 137,
+    "soap": 213,
+    "kohaku": 109,
+    "jelly": 211,
+    "beadslime": 66,
+    "chalk": 88,
+    "sponge": 70,
+    "sand": 46
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 1,
+   "cls": "caster",
+   "seed": 2,
+   "skill": "random",
+   "kills": 952,
+   "actions": 112,
+   "perAction": 8.5,
+   "lv0": 7.291666666666667,
+   "lv2": 30.875,
+   "best0": 28,
+   "best2": 75,
+   "boss": false,
+   "bossSecs": null,
+   "firstKill": 0.3833333333333333,
+   "seconds": 60.21666666666667,
+   "byMaterial": {
+    "wax": 952
+   },
+   "phases": {
+    "firstT": {
+     "wax": 0.38
+    },
+    "solo": {
+     "wax": 175
+    },
+    "mix": {
+     "wax": 264
+    },
+    "blend": {
+     "wax": 489
+    },
+    "boss": {
+     "wax": 24
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 2,
+   "cls": "caster",
+   "seed": 2,
+   "skill": "random",
+   "kills": 917,
+   "actions": 99,
+   "perAction": 9.262626262626263,
+   "lv0": 7.708333333333333,
+   "lv2": 20.26086956521739,
+   "best0": 30,
+   "best2": 57,
+   "boss": true,
+   "bossSecs": 13.866666666665878,
+   "firstKill": 0.3833333333333333,
+   "seconds": 54.083333333333336,
+   "byMaterial": {
+    "jelly": 611,
+    "wax": 306
+   },
+   "phases": {
+    "firstT": {
+     "jelly": 0.38,
+     "wax": 13.88
+    },
+    "solo": {
+     "jelly": 185
+    },
+    "mix": {
+     "jelly": 173,
+     "wax": 59
+    },
+    "blend": {
+     "wax": 221,
+     "jelly": 243
+    },
+    "boss": {
+     "wax": 26,
+     "jelly": 10
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 3,
+   "cls": "caster",
+   "seed": 2,
+   "skill": "random",
+   "kills": 952,
+   "actions": 112,
+   "perAction": 8.5,
+   "lv0": 7.458333333333333,
+   "lv2": 30,
+   "best0": 30,
+   "best2": 75,
+   "boss": false,
+   "bossSecs": null,
+   "firstKill": 0.3833333333333333,
+   "seconds": 60.21666666666667,
+   "byMaterial": {
+    "soap": 647,
+    "jelly": 163,
+    "wax": 142
+   },
+   "phases": {
+    "firstT": {
+     "soap": 0.38,
+     "jelly": 13.83,
+     "wax": 13.83
+    },
+    "solo": {
+     "soap": 179
+    },
+    "mix": {
+     "soap": 198,
+     "jelly": 36,
+     "wax": 31
+    },
+    "blend": {
+     "soap": 255,
+     "wax": 110,
+     "jelly": 115
+    },
+    "boss": {
+     "soap": 15,
+     "wax": 1,
+     "jelly": 12
+    }
+   }
+  },
+  {
+   "ver": "v05",
+   "stage": 0,
+   "cls": "caster",
+   "seed": 3,
+   "skill": "random",
+   "kills": 968,
+   "actions": 117,
+   "perAction": 8.273504273504274,
+   "lv0": 8.208333333333334,
+   "lv2": 23.904761904761905,
+   "best0": 31,
+   "best2": 75,
+   "boss": false,
+   "bossSecs": null,
+   "firstKill": 0.36666666666666664,
+   "seconds": 60.21666666666667,
+   "byMaterial": {
+    "soap": 204,
+    "chalk": 92,
+    "beadslime": 93,
+    "sponge": 63,
+    "wax": 144,
+    "jelly": 223,
+    "sand": 39,
+    "kohaku": 110
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 1,
+   "cls": "caster",
+   "seed": 3,
+   "skill": "random",
+   "kills": 992,
+   "actions": 112,
+   "perAction": 8.857142857142858,
+   "lv0": 8,
+   "lv2": 22.2,
+   "best0": 38,
+   "best2": 79,
+   "boss": false,
+   "bossSecs": null,
+   "firstKill": 0.36666666666666664,
+   "seconds": 60.21666666666667,
+   "byMaterial": {
+    "wax": 992
+   },
+   "phases": {
+    "firstT": {
+     "wax": 0.37
+    },
+    "solo": {
+     "wax": 192
+    },
+    "mix": {
+     "wax": 294
+    },
+    "blend": {
+     "wax": 444
+    },
+    "boss": {
+     "wax": 62
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 2,
+   "cls": "caster",
+   "seed": 3,
+   "skill": "random",
+   "kills": 957,
+   "actions": 113,
+   "perAction": 8.469026548672566,
+   "lv0": 8.541666666666666,
+   "lv2": 21.05,
+   "best0": 38,
+   "best2": 57,
+   "boss": false,
+   "bossSecs": null,
+   "firstKill": 0.36666666666666664,
+   "seconds": 60.21666666666667,
+   "byMaterial": {
+    "jelly": 644,
+    "wax": 313
+   },
+   "phases": {
+    "firstT": {
+     "jelly": 0.37,
+     "wax": 13.57
+    },
+    "solo": {
+     "jelly": 205
+    },
+    "mix": {
+     "jelly": 205,
+     "wax": 68
+    },
+    "blend": {
+     "wax": 212,
+     "jelly": 208
+    },
+    "boss": {
+     "jelly": 26,
+     "wax": 33
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 3,
+   "cls": "caster",
+   "seed": 3,
+   "skill": "random",
+   "kills": 936,
+   "actions": 100,
+   "perAction": 9.36,
+   "lv0": 8.541666666666666,
+   "lv2": 20.045454545454547,
+   "best0": 38,
+   "best2": 71,
+   "boss": true,
+   "bossSecs": 14.633333333332502,
+   "firstKill": 0.36666666666666664,
+   "seconds": 54.85,
+   "byMaterial": {
+    "soap": 642,
+    "jelly": 158,
+    "wax": 136
+   },
+   "phases": {
+    "firstT": {
+     "soap": 0.37,
+     "jelly": 13.53,
+     "wax": 13.58
+    },
+    "solo": {
+     "soap": 205
+    },
+    "mix": {
+     "soap": 180,
+     "jelly": 29,
+     "wax": 29
+    },
+    "blend": {
+     "wax": 100,
+     "soap": 224,
+     "jelly": 107
+    },
+    "boss": {
+     "soap": 33,
+     "jelly": 22,
+     "wax": 7
+    }
+   }
+  },
+  {
+   "ver": "v05",
+   "stage": 0,
+   "cls": "caster",
+   "seed": 4,
+   "skill": "random",
+   "kills": 1014,
+   "actions": 111,
+   "perAction": 9.135135135135135,
+   "lv0": 7,
+   "lv2": 29.176470588235293,
+   "best0": 32,
+   "best2": 56,
+   "boss": false,
+   "bossSecs": null,
+   "firstKill": 2.2999999999999967,
+   "seconds": 60.21666666666667,
+   "byMaterial": {
+    "beadslime": 69,
+    "soap": 256,
+    "jelly": 247,
+    "wax": 143,
+    "chalk": 78,
+    "sand": 44,
+    "kohaku": 125,
+    "sponge": 52
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 1,
+   "cls": "caster",
+   "seed": 4,
+   "skill": "random",
+   "kills": 946,
+   "actions": 112,
+   "perAction": 8.446428571428571,
+   "lv0": 7,
+   "lv2": 22.61111111111111,
+   "best0": 25,
+   "best2": 56,
+   "boss": false,
+   "bossSecs": null,
+   "firstKill": 2.2999999999999967,
+   "seconds": 60.21666666666667,
+   "byMaterial": {
+    "wax": 946
+   },
+   "phases": {
+    "firstT": {
+     "wax": 2.3
+    },
+    "solo": {
+     "wax": 144
+    },
+    "mix": {
+     "wax": 272
+    },
+    "blend": {
+     "wax": 461
+    },
+    "boss": {
+     "wax": 69
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 2,
+   "cls": "caster",
+   "seed": 4,
+   "skill": "random",
+   "kills": 960,
+   "actions": 112,
+   "perAction": 8.571428571428571,
+   "lv0": 7.166666666666667,
+   "lv2": 24.63157894736842,
+   "best0": 39,
+   "best2": 64,
+   "boss": false,
+   "bossSecs": null,
+   "firstKill": 2.2999999999999967,
+   "seconds": 60.21666666666667,
+   "byMaterial": {
+    "jelly": 637,
+    "wax": 323
+   },
+   "phases": {
+    "firstT": {
+     "jelly": 2.3,
+     "wax": 13.33
+    },
+    "solo": {
+     "jelly": 143
+    },
+    "mix": {
+     "jelly": 208,
+     "wax": 65
+    },
+    "blend": {
+     "jelly": 278,
+     "wax": 243
+    },
+    "boss": {
+     "wax": 15,
+     "jelly": 8
+    }
+   }
+  },
+  {
+   "ver": "v06",
+   "stage": 3,
+   "cls": "caster",
+   "seed": 4,
+   "skill": "random",
+   "kills": 963,
+   "actions": 114,
+   "perAction": 8.447368421052632,
+   "lv0": 6.958333333333333,
+   "lv2": 23.5,
+   "best0": 29,
+   "best2": 58,
+   "boss": false,
+   "bossSecs": null,
+   "firstKill": 2.2999999999999967,
+   "seconds": 60.21666666666667,
+   "byMaterial": {
+    "soap": 635,
+    "wax": 161,
+    "jelly": 167
+   },
+   "phases": {
+    "firstT": {
+     "soap": 2.3,
+     "wax": 13.48,
+     "jelly": 13.53
+    },
+    "solo": {
+     "soap": 143
+    },
+    "mix": {
+     "soap": 229,
+     "wax": 35,
+     "jelly": 35
+    },
+    "blend": {
+     "wax": 126,
+     "jelly": 119,
+     "soap": 255
+    },
+    "boss": {
+     "jelly": 13,
+     "soap": 8
+    }
+   }
+  }
+ ]
+}

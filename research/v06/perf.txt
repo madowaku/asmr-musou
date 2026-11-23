@@ -1,0 +1,18 @@
+v0.5     slasher  rush  frame p95 10.9ms avg 7.19 max 36.5 (update 4.3 draw 7.6) audio cb p95 2.4ms max 9.4 voices 24 dropped null
+v0.5     slasher  boss  frame p95 11.8ms avg 3.65 max 39 (update 3.6 draw 8.2) audio cb p95 1ms max 9.7 voices 24 dropped null
+v0.5     crusher  rush  frame p95 11.4ms avg 7.27 max 22.5 (update 4.2 draw 7.7) audio cb p95 4.3ms max 9.7 voices 24 dropped null
+v0.5     crusher  boss  frame p95 11.4ms avg 4.37 max 24.8 (update 3.8 draw 7.7) audio cb p95 1.2ms max 10 voices 24 dropped null
+v0.5     caster   rush  frame p95 11.7ms avg 7.63 max 32.8 (update 4.3 draw 8.1) audio cb p95 5.1ms max 11.9 voices 24 dropped null
+v0.5     caster   boss  frame p95 8.8ms avg 3.74 max 27.4 (update 3.2 draw 5.3) audio cb p95 1.3ms max 11.9 voices 24 dropped null
+v0.6 S1  slasher  rush  frame p95 7.3ms avg 4.89 max 34.5 (update 2.9 draw 5.7) audio cb p95 1.1ms max 6.8 voices 28 dropped null
+v0.6 S1  slasher  boss  frame p95 6ms avg 2.85 max 44 (update 2.8 draw 4.2) audio cb p95 1.1ms max 9.3 voices 30 dropped null
+v0.6 S1  crusher  rush  frame p95 7.4ms avg 5.09 max 24.4 (update 2.8 draw 5.5) audio cb p95 1.1ms max 9.3 voices 30 dropped null
+v0.6 S1  crusher  boss  frame p95 8ms avg 3.94 max 65.1 (update 3.5 draw 5.3) audio cb p95 1.2ms max 10 voices 30 dropped null
+v0.6 S1  caster   rush  frame p95 7.8ms avg 5.28 max 23.5 (update 2.9 draw 6.2) audio cb p95 1.5ms max 10.4 voices 30 dropped null
+v0.6 S1  caster   boss  frame p95 4.9ms avg 2.67 max 9.3 (update 2.4 draw 3.7) audio cb p95 1.2ms max 10.4 voices 30 dropped null
+v0.6 S3  slasher  rush  frame p95 8.5ms avg 5.43 max 26.2 (update 3 draw 6.3) audio cb p95 1.8ms max 24.6 voices 32 dropped null
+v0.6 S3  slasher  boss  frame p95 12.6ms avg 3.8 max 43.9 (update 5 draw 8.7) audio cb p95 0.6ms max 24.6 voices 32 dropped null
+v0.6 S3  crusher  rush  frame p95 7.8ms avg 5.13 max 17.7 (update 3.1 draw 5.7) audio cb p95 2.4ms max 24.6 voices 32 dropped null
+v0.6 S3  crusher  boss  frame p95 6.7ms avg 3.33 max 14.1 (update 3 draw 5.2) audio cb p95 1.5ms max 24.6 voices 32 dropped null
+v0.6 S3  caster   rush  frame p95 8.2ms avg 5.67 max 12.7 (update 3.1 draw 6) audio cb p95 1.9ms max 24.6 voices 32 dropped null
+v0.6 S3  caster   boss  frame p95 5.7ms avg 2.77 max 20.7 (update 2.7 draw 3.6) audio cb p95 1.2ms max 24.6 voices 32 dropped null

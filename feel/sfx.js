@@ -3,13 +3,14 @@
  * v0.5: the slash has weight (low thump + air + a faint blade ring), punches alternate fists, spells bloom. */
 (function(L){
   'use strict';
-  const C=L.combat;let noise=null,out=null,fist=0;
-  function ctx(){const c=L.audio&&L.audio.context;if(!c||c.state!=='running'||C.muted)return null;if(!out){out=c.createGain();out.gain.value=.55;const comp=c.createDynamicsCompressor();comp.threshold.value=-20;comp.ratio.value=4;out.connect(comp).connect(c.destination);}
+  const C=L.combat;let noise=null,out=null,fist=0,bound=null;
+  // v0.6 hooks (inert in v0.5): C.sfxContext renders into another context (offline analysis); C.sfxGain scales every hero sound (stage mix).
+  function ctx(){const c=C.sfxContext||(L.audio&&L.audio.context);if(!c||c.state!=='running'||C.muted)return null;if(c!==bound){bound=c;out=null;noise=null;}if(!out){out=c.createGain();out.gain.value=.55;const comp=c.createDynamicsCompressor();comp.threshold.value=-20;comp.ratio.value=4;out.connect(comp).connect(c.destination);}
     if(!noise){noise=c.createBuffer(1,c.sampleRate,c.sampleRate);const d=noise.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;}return c;}
   const pan=x=>Math.max(-.5,Math.min(.5,((x??360)-360)/720));
   function chain(c,node,x){const g=c.createGain(),p=c.createStereoPanner?c.createStereoPanner():null;g.gain.value=0;if(p){p.pan.value=pan(x);node.connect(g).connect(p).connect(out);}else node.connect(g).connect(out);return g;}
-  function nz(c,t,dur,f0,f1,q,gain,x,attack=.004){const s=c.createBufferSource();s.buffer=noise;const f=c.createBiquadFilter();f.type='bandpass';f.Q.value=q;f.frequency.setValueAtTime(f0,t);f.frequency.exponentialRampToValueAtTime(f1,t+dur);s.connect(f);const g=chain(c,f,x);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(gain,t+attack);g.gain.exponentialRampToValueAtTime(.0008,t+dur);s.start(t,Math.random()*.5);s.stop(t+dur+.02);}
-  function tone(c,t,dur,f0,f1,gain,x,type='sine',attack=.006){const o=c.createOscillator();o.type=type;o.frequency.setValueAtTime(f0,t);o.frequency.exponentialRampToValueAtTime(Math.max(30,f1),t+dur);const g=chain(c,o,x);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(gain,t+attack);g.gain.exponentialRampToValueAtTime(.0008,t+dur);o.start(t);o.stop(t+dur+.02);}
+  function nz(c,t,dur,f0,f1,q,gain,x,attack=.004){gain*=C.sfxGain??1;const s=c.createBufferSource();s.buffer=noise;const f=c.createBiquadFilter();f.type='bandpass';f.Q.value=q;f.frequency.setValueAtTime(f0,t);f.frequency.exponentialRampToValueAtTime(f1,t+dur);s.connect(f);const g=chain(c,f,x);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(gain,t+attack);g.gain.exponentialRampToValueAtTime(.0008,t+dur);s.start(t,Math.random()*.5);s.stop(t+dur+.02);}
+  function tone(c,t,dur,f0,f1,gain,x,type='sine',attack=.006){gain*=C.sfxGain??1;const o=c.createOscillator();o.type=type;o.frequency.setValueAtTime(f0,t);o.frequency.exponentialRampToValueAtTime(Math.max(30,f1),t+dur);const g=chain(c,o,x);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(gain,t+attack);g.gain.exponentialRampToValueAtTime(.0008,t+dur);o.start(t);o.stop(t+dur+.02);}
   C.sfx=(kind,at={},strong=false)=>{const c=ctx();if(!c)return;const t=c.currentTime,x=at.x;
     switch(kind){
       // ---- SLASHER ----

@@ -92,6 +92,15 @@ T3では旧READMEの「画像未統合・ボスy=560・ピーク正規化・600�
 
 素材の生成方法と出所は [ASSETS.md](ASSETS.md)、全体の方針は [ORCHESTRATOR_BRIEF.md](ORCHESTRATOR_BRIEF.md) を参照。
 
+## SOUND STAGES (stages.html) — v0.6 研究
+
+v0.5 の試遊結果（最初から素材が混ざっていて、どの敵がどの音か分かりにくい）を受けて、**1ステージに新しい素材をひとつ**ずつ登場させる版。v0.5 の操作・強化・60秒・巨大ボスはそのまま。`feel.html`（v0.5）と `combat.html`（v0.4）は比較用に残している。
+- 試遊：`stages.html`（スマホ：https://research-v0-6-sound.asmr-musou.pages.dev/stages.html ）。`?all=1` で全ステージを開く、`?mix=v05` で v0.5 と同じ音のバランス。人間の評価シートは [docs/v0.6/PLAYTEST_SOUND.md](docs/v0.6/PLAYTEST_SOUND.md)。
+- 設計：[docs/v0.6/SOUND_STAGES_DESIGN.md](docs/v0.6/SOUND_STAGES_DESIGN.md)。研究記録：[docs/v0.6/research_log/V06_SOUND_LOG.md](docs/v0.6/research_log/V06_SOUND_LOG.md)。AI の検証の集計：[research/v06/summary.md](research/v06/summary.md)。
+- ステージ：1 ロウスクイーズ → 2 ゼリー（＋ロウ）→ 3 石鹸（＋ロウ・ゼリー）。各ステージは、新素材だけのソロ（12秒）→ 混ざり始め → 半々 → 素材をテーマにした巨大ボス。クリアで次の素材を解放。4〜8 は予告のみ。
+- 音：主役の素材を前に出し、キャラの効果音を下げる。ボスへの一撃は、その素材自身の音で鳴る。ASMR図鑑で、出会った素材を3キャラで壊して聴き比べられる。
+- テスト：`node tests/sound/analyze.mjs`（8素材の音の特徴と距離）、`node tests/sound/sim.mjs`（v0.5 と同じボットで比較）、`node tests/sound/mix.mjs`（同じプレイを v0.5／v0.6 のミックスでオフライン描画し、主役の素材の聴こえ方を測る）、`node tests/sound/perf.mjs`（音を鳴らした状態で CPU 4倍の性能）、`node tests/sound/boss.mjs`、`node tests/sound/zukan.mjs`、`node tests/sound/look.mjs`（画面の撮影）、`node tests/sound/summary.mjs`（集計）。
+
 ## FEEL LAB (feel.html) — v0.5 研究
 
 v0.4 の試遊結果（キャラが思いどおりに動かない）を受けて、**操作快感と60秒の成長**を作り直した版。v0.4 の `combat.html` は比較用にそのまま残している。

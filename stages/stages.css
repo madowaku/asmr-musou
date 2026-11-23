@@ -1,0 +1,28 @@
+/* v0.6 SOUND STAGES additions over combat/combat.css + feel/feel.css */
+.stages{display:grid;grid-template-columns:repeat(15,1fr);gap:6px;width:100%;margin-bottom:8px}
+.stage{grid-column:span 5}.stage.locked{grid-column:span 3;min-height:40px;padding:5px 2px}.stage.locked b{font-size:11px}.stage.locked span{display:none}
+.stage{display:flex;flex-direction:column;align-items:center;gap:1px;padding:8px 2px;border-radius:12px;border:1px solid #ffffff26;background:#ffffff0e;color:#fff;cursor:pointer;min-height:64px}
+.stage small{font-size:9px;letter-spacing:.08em;color:var(--sub)}.stage b{font-size:13px;line-height:1.25;white-space:nowrap;letter-spacing:-.02em}.stage span{font-size:9.5px;color:#d8d0f6}
+.stage.on{border-color:#ffe7a8;background:linear-gradient(160deg,#ffe7a833,#ffffff0e);box-shadow:0 0 0 1px #ffe7a866 inset}
+.stage.locked{opacity:.38;cursor:default}.stage.dim{opacity:.55}
+.stagelead{font-size:12px;color:#e7e1ff;line-height:1.7;margin:2px 0 12px;min-height:3.4em}.stagelead b{color:#ffe7a8}
+.stg{font-weight:800;color:#ffe7a8;font-size:10.5px;letter-spacing:.12em;display:flex;align-items:center;gap:7px;margin-top:6px;white-space:nowrap}.stg i{font-style:normal;color:#1d1838;border-radius:99px;padding:1px 9px;font-size:10.5px;letter-spacing:.04em}
+/* one-time material introduction: top of the field, never blocks touches */
+.intro{position:absolute;left:8%;right:8%;bottom:27%;pointer-events:none;text-align:center;padding:14px 12px 12px;border-radius:18px;background:#120f1fc4;border:1px solid #ffffff30;animation:intro-in .35s ease both}
+.intro.out{animation:intro-out .4s ease forwards}
+.intro small{display:block;font-size:10px;letter-spacing:.3em;color:#ffe7a8}.intro b{display:block;font-size:clamp(22px,6.5vw,32px);letter-spacing:.12em;margin:2px 0}
+.intro em{display:block;font-style:normal;font-size:clamp(15px,4.4vw,20px);font-weight:800;letter-spacing:.08em}.intro span{display:block;font-size:12px;color:var(--sub);margin-top:4px}
+@keyframes intro-in{from{opacity:0;transform:translateY(-8px) scale(.97)}to{opacity:1;transform:none}}@keyframes intro-out{to{opacity:0;transform:translateY(-6px)}}
+.mats{width:100%;display:flex;flex-direction:column;gap:5px;margin:0 0 8px}
+.mats div{position:relative;display:grid;grid-template-columns:10px 1fr auto;gap:8px;align-items:center;padding:6px 10px;border-radius:10px;background:#ffffff0e;overflow:hidden;font-size:12.5px}
+.mats i{width:10px;height:10px;border-radius:50%}.mats b{text-align:left}.mats span{font-weight:800;font-variant-numeric:tabular-nums}
+.mats em{position:absolute;left:0;bottom:0;height:3px;opacity:.8}
+#next-stage{margin-bottom:8px}
+/* ASMR図鑑 */
+.zbtn{margin-top:12px}.zbtn:disabled{opacity:.45}
+#arena.zukan #help{pointer-events:auto;flex-direction:column;align-items:center;bottom:14px}
+#arena.zukan .upmeter,#arena.zukan .kills{visibility:hidden}
+.zrow{display:flex;gap:6px;justify-content:center;margin-top:6px;flex-wrap:wrap}
+.zrow button{font:inherit;font-size:12px;font-weight:800;padding:8px 12px;border-radius:99px;border:1px solid #ffffff38;background:#120f1fb0;color:#fff;cursor:pointer}
+.zrow button.on{background:var(--c,#ffe7a8);color:#1d1838;border-color:transparent}
+.stg span{color:var(--sub);font-weight:600;letter-spacing:.04em}
