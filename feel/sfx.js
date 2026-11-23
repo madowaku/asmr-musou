@@ -35,6 +35,8 @@
       case 'charge':tone(c,t,.75,200,620,.05,x,'triangle',.08);nz(c,t,.75,500,1800,1.4,.08,x,.5);break; // 予兆
       // ---- v0.7 TEMPO: a crack that rises with each hit on the same enemy (ピキッ → ピキキッ → パキン) ----
       case 'crack':{const k=Math.min(4,at.stage||1);tone(c,t,.07+k*.015,1700*(1+k*.22),1500*(1+k*.22),.06+k*.012,x,'triangle',.002);nz(c,t,.06+k*.02,3800+k*600,2400,2.5,.09+k*.02,x,.001);break;}
+      // ---- v0.8 SPINNER: the two blades, シャッ, alternating left/right, a little higher as the spin keeps going ----
+      case 'twin':{fist^=1;const k=1+Math.min(20,at.combo||1)*.025;nz(c,t,.08,(fist?4200:3600)*k,(fist?6400:5600)*k,1.6,.12,x,.002);tone(c,t+.005,.06,2600*k,2400*k,.025,x,'triangle',.002);break;}
       // ---- shared ----
       case 'ko':{const n=at.n||3,base=440*Math.pow(2,Math.min(12,Math.floor(Math.log2(n)*3))/12);for(const [k,r] of [[0,1],[.06,1.25],[.12,1.5]])tone(c,t+k,.5,base*r,base*r,.05+Math.min(.06,n*.004),360,'sine');break;}
       case 'levelup':for(const [k,f] of [[0,523],[.07,659],[.14,784],[.21,1047],[.3,1319]])tone(c,t+k,.7,f,f,.07,360,'triangle');nz(c,t,.6,3000,6000,1.5,.06,360,.2);break;

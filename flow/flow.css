@@ -1,0 +1,10 @@
+/* v0.8 CRUNCH FLOW over crunch.css */
+.card.spinner{background:linear-gradient(120deg,#34c79e,#4aa8ff)}
+.cards{gap:8px}.card{padding:11px 16px}
+/* the CRUNCH gauge: small, but every gain makes it glint */
+.upmeter.energy{gap:6px;margin-top:5px}.upmeter.energy small{font-weight:900;font-size:10px;letter-spacing:.08em}
+#uplv{color:#e0336f;min-width:3.2em}.upmeter.energy .crunch{color:#c08ab0}
+.upmeter.energy div{height:6px;background:#3b234614;box-shadow:inset 0 1px 2px #3b234622}
+.upmeter.energy i{background:linear-gradient(90deg,#ff7fae,#ffb86b,#ffe47a);transition:width .18s ease-out;box-shadow:0 0 6px #ff9fc4}
+.upmeter.energy.gain i{filter:brightness(1.25) saturate(1.2)}
+.upmeter.energy.gain #uplv{transform:scale(1.12)}

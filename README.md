@@ -92,6 +92,14 @@ T3では旧READMEの「画像未統合・ボスy=560・ピーク正規化・600�
 
 素材の生成方法と出所は [ASSETS.md](ASSETS.md)、全体の方針は [ORCHESTRATOR_BRIEF.md](ORCHESTRATOR_BRIEF.md) を参照。
 
+## CRUNCH FLOW (flow.html) — v0.8 研究
+
+v0.7 TEMPO の試遊結果（まだ暇な時間がある、時間でなく達成で強くなりたい）を受けた版。`tempo.html`（v0.7 TEMPO）と `crunch.html`（v0.7）は同じビルドに残している。
+- 試遊：`flow.html`（スマホ：https://research-v0-8-flow.asmr-musou.pages.dev/flow.html ）。評価シート：[docs/v0.8/PLAYTEST_FLOW.md](docs/v0.8/PLAYTEST_FLOW.md)。
+- 設計：[docs/v0.8/FLOW_DESIGN.md](docs/v0.8/FLOW_DESIGN.md)。研究記録：[docs/v0.8/research_log/V08_FLOW_LOG.md](docs/v0.8/research_log/V08_FLOW_LOG.md)。
+- A. 途切れない敵の行列（奥に次の敵が見え、手前が空くと前へ詰める）。B. CRUNCH ENERGY（壊した量でレベルアップ、時間停止の2択）。C. 4人目の SPINNER（双剣士、指で円を描いて回転斬り）。
+- テスト：`node tests/flow/compare.mjs`（TEMPO と同じ外部ボットで比較）、`node tests/flow/spin.mjs`（円の認識）、`node tests/flow/perf.mjs`、`node tests/flow/smoke.mjs`、`node tests/flow/look.mjs`。
+
 ## CRUNCH LINE TEMPO (tempo.html) — v0.7 の比較版
 
 v0.7 の試遊結果（敵が少なくて序盤が暇）を受けた比較版。v0.7 の `crunch.html` は同じビルドにそのまま残している。**攻撃の頻度は序盤も終盤も変えず、一撃で壊せる量が成長で増える**ように、序盤の出現と連続攻撃の感触だけを変えた。
