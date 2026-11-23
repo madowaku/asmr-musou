@@ -1,0 +1,2920 @@
+{
+ "seeds": [
+  1,
+  2,
+  3,
+  4
+ ],
+ "tempos": [
+  "mash",
+  "casual"
+ ],
+ "summary": [
+  {
+   "tempo": "mash",
+   "cls": "slasher",
+   "ver": "v0.7",
+   "runs": 4,
+   "breaches": 0,
+   "bossDown": 4,
+   "bossSecs": 6.783333333332948,
+   "hitsPerKill": 3,
+   "open": {
+    "aps": 1.3636363636363638,
+    "wait": 0.48863636363636365,
+    "inReach": 0.7215909090909091,
+    "follow": 0.4598793363499246,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.6054298642533936
+   },
+   "grow": {
+    "aps": 0.5434782608695652,
+    "wait": 0.9076086956521738,
+    "inReach": 0.09239130434782608,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 4.678571428571429
+   },
+   "horde": {
+    "aps": 0.7999999999999999,
+    "wait": 0.8583333333333334,
+    "inReach": 0.2875,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 28.55710955710956
+   },
+   "boss": {
+    "aps": 1.3747967479674796,
+    "wait": 0.36795150987224157,
+    "inReach": 2.478085075493612,
+    "follow": 0.5357142857142857,
+    "followHit": 0.4598214285714286,
+    "streak": 1.75,
+    "kpa": 4.910714285714286
+   }
+  },
+  {
+   "tempo": "mash",
+   "cls": "slasher",
+   "ver": "tempo",
+   "runs": 4,
+   "breaches": 0,
+   "bossDown": 4,
+   "bossSecs": 5.458333333333023,
+   "hitsPerKill": 3,
+   "open": {
+    "aps": 2.0454545454545454,
+    "wait": 0,
+    "inReach": 2.8238636363636362,
+    "follow": 0.48913043478260865,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.7549407114624507
+   },
+   "grow": {
+    "aps": 1.5434782608695652,
+    "wait": 0.32608695652173914,
+    "inReach": 4.71195652173913,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 36.07137314439946
+   },
+   "horde": {
+    "aps": 1.5333333333333332,
+    "wait": 0.5791666666666667,
+    "inReach": 7.095833333333333,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 28.871153846153845
+   },
+   "boss": {
+    "aps": 1.1995670995670995,
+    "wait": 0.4836580086580087,
+    "inReach": 1.9413419913419914,
+    "follow": 0.42470238095238094,
+    "followHit": 0.5907738095238095,
+    "streak": 1.75,
+    "kpa": 5.7386904761904765
+   }
+  },
+  {
+   "tempo": "mash",
+   "cls": "crusher",
+   "ver": "v0.7",
+   "runs": 4,
+   "breaches": 0,
+   "bossDown": 4,
+   "bossSecs": 8.133333333332871,
+   "hitsPerKill": 2.8631944444444444,
+   "open": {
+    "aps": 1.1818181818181819,
+    "wait": 0.7499999999999999,
+    "inReach": 0.3125,
+    "follow": 0.386988011988012,
+    "followHit": 1,
+    "streak": 2,
+    "kpa": 0.6941808191808192
+   },
+   "grow": {
+    "aps": 1.1086956521739129,
+    "wait": 0.7934782608695652,
+    "inReach": 0.21195652173913043,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 2.005869130869131
+   },
+   "horde": {
+    "aps": 1.6166666666666667,
+    "wait": 0.5541666666666667,
+    "inReach": 1.1708333333333334,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 14.758583261532445
+   },
+   "boss": {
+    "aps": 1.8016365660564078,
+    "wait": 0.2332913780306779,
+    "inReach": 8.82417109929078,
+    "follow": 0.2922008547008547,
+    "followHit": 0.743452380952381,
+    "streak": 2,
+    "kpa": 3.001144688644689
+   }
+  },
+  {
+   "tempo": "mash",
+   "cls": "crusher",
+   "ver": "tempo",
+   "runs": 4,
+   "breaches": 0,
+   "bossDown": 4,
+   "bossSecs": 12.249999999999304,
+   "hitsPerKill": 2.438419117647059,
+   "open": {
+    "aps": 2.3636363636363638,
+    "wait": 0,
+    "inReach": 2.7897727272727275,
+    "follow": 0.4622364672364673,
+    "followHit": 1,
+    "streak": 2.5,
+    "kpa": 0.6721082621082621
+   },
+   "grow": {
+    "aps": 2.2391304347826084,
+    "wait": 0.02717391304347826,
+    "inReach": 20.967391304347824,
+    "follow": 0.019230769230769232,
+    "followHit": 1,
+    "streak": 1.25,
+    "kpa": 19.461538461538463
+   },
+   "horde": {
+    "aps": 2.3,
+    "wait": 0.029166666666666667,
+    "inReach": 12.125,
+    "follow": 0.014705882352941176,
+    "followHit": 1,
+    "streak": 1.25,
+    "kpa": 18.111134453781514
+   },
+   "boss": {
+    "aps": 1.9563518099547512,
+    "wait": 0.15868495475113123,
+    "inReach": 14.347261972096533,
+    "follow": 0.3202569169960474,
+    "followHit": 0.8158549783549783,
+    "streak": 2,
+    "kpa": 2.898113118765292
+   }
+  },
+  {
+   "tempo": "mash",
+   "cls": "caster",
+   "ver": "v0.7",
+   "runs": 4,
+   "breaches": 0,
+   "bossDown": 4,
+   "bossSecs": 9.61666666666612,
+   "hitsPerKill": 3,
+   "open": {
+    "aps": 1.3863636363636362,
+    "wait": 0.5738636363636364,
+    "inReach": 0.6079545454545455,
+    "follow": 0.6222347913524384,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.6035067873303167
+   },
+   "grow": {
+    "aps": 0.4347826086956521,
+    "wait": 0.967391304347826,
+    "inReach": 0.03260869565217391,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 6.266666666666667
+   },
+   "horde": {
+    "aps": 0.7,
+    "wait": 0.9083333333333333,
+    "inReach": 0.15416666666666667,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 34.80555555555556
+   },
+   "boss": {
+    "aps": 1.7168034036824218,
+    "wait": 0.2956530660724115,
+    "inReach": 2.9869516343435105,
+    "follow": 0.6812213551343986,
+    "followHit": 0.49154411764705874,
+    "streak": 2,
+    "kpa": 3.2559767124984518
+   }
+  },
+  {
+   "tempo": "mash",
+   "cls": "caster",
+   "ver": "tempo",
+   "runs": 4,
+   "breaches": 0,
+   "bossDown": 4,
+   "bossSecs": 6.787499999999614,
+   "hitsPerKill": 3,
+   "open": {
+    "aps": 2.3636363636363638,
+    "wait": 0,
+    "inReach": 2.715909090909091,
+    "follow": 0.530014245014245,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.6232051282051282
+   },
+   "grow": {
+    "aps": 1.7608695652173911,
+    "wait": 0.3695652173913043,
+    "inReach": 3.6684782608695654,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 31.343767507002802
+   },
+   "horde": {
+    "aps": 1.7666666666666666,
+    "wait": 0.575,
+    "inReach": 5.904166666666667,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 26.552772988505748
+   },
+   "boss": {
+    "aps": 1.5158958001063265,
+    "wait": 0.36446703880914405,
+    "inReach": 2.4742490696438066,
+    "follow": 0.47687280040221214,
+    "followHit": 0.5675324675324676,
+    "streak": 2,
+    "kpa": 3.445467930762048
+   }
+  },
+  {
+   "tempo": "casual",
+   "cls": "slasher",
+   "ver": "v0.7",
+   "runs": 4,
+   "breaches": 0,
+   "bossDown": 4,
+   "bossSecs": 7.962499999999547,
+   "hitsPerKill": 3,
+   "open": {
+    "aps": 1.0227272727272727,
+    "wait": 0.21022727272727273,
+    "inReach": 1.6818181818181817,
+    "follow": 0.5746794871794871,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.7205128205128206
+   },
+   "grow": {
+    "aps": 0.41304347826086957,
+    "wait": 0.907608695652174,
+    "inReach": 0.10326086956521738,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 6.601785714285715
+   },
+   "horde": {
+    "aps": 0.7166666666666666,
+    "wait": 0.8583333333333334,
+    "inReach": 0.26249999999999996,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 33.535984848484844
+   },
+   "boss": {
+    "aps": 0.7993884952766532,
+    "wait": 0.3388716683535763,
+    "inReach": 2.8384393977732794,
+    "follow": 0.3699404761904762,
+    "followHit": 0.5104166666666666,
+    "streak": 1,
+    "kpa": 7.688690476190476
+   }
+  },
+  {
+   "tempo": "casual",
+   "cls": "slasher",
+   "ver": "tempo",
+   "runs": 4,
+   "breaches": 0,
+   "bossDown": 4,
+   "bossSecs": 7.8958333333328845,
+   "hitsPerKill": 3,
+   "open": {
+    "aps": 1.2045454545454546,
+    "wait": 0,
+    "inReach": 2.8977272727272725,
+    "follow": 0.5082417582417582,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.7554945054945055
+   },
+   "grow": {
+    "aps": 0.9565217391304348,
+    "wait": 0.2826086956521739,
+    "inReach": 10.668478260869566,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 57.08896658896659
+   },
+   "horde": {
+    "aps": 1.1166666666666667,
+    "wait": 0.45833333333333337,
+    "inReach": 10.854166666666668,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 37.22604166666666
+   },
+   "boss": {
+    "aps": 0.8516093633740692,
+    "wait": 0.328503235856177,
+    "inReach": 2.9398434530787467,
+    "follow": 0.47676282051282054,
+    "followHit": 0.49255952380952384,
+    "streak": 1,
+    "kpa": 8.221955128205128
+   }
+  },
+  {
+   "tempo": "casual",
+   "cls": "crusher",
+   "ver": "v0.7",
+   "runs": 4,
+   "breaches": 3.25,
+   "bossDown": 4,
+   "bossSecs": null,
+   "hitsPerKill": 2.798611111111111,
+   "open": {
+    "aps": 1.1136363636363635,
+    "wait": 0.2897727272727273,
+    "inReach": 1.1647727272727273,
+    "follow": 0.3874458874458874,
+    "followHit": 1,
+    "streak": 2,
+    "kpa": 0.7194264069264069
+   },
+   "grow": {
+    "aps": 1.0217391304347827,
+    "wait": 0.5271739130434783,
+    "inReach": 0.6956521739130435,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 2.201602564102564
+   },
+   "horde": {
+    "aps": 1.2,
+    "wait": 0.15416666666666667,
+    "inReach": 10.7625,
+    "follow": 0.013157894736842105,
+    "followHit": 1,
+    "streak": 1,
+    "kpa": 16.649122807017545
+   },
+   "boss": {
+    "aps": 1.2666666666666666,
+    "wait": 0,
+    "inReach": 25.2,
+    "follow": 0.1986231884057971,
+    "followHit": 0.95,
+    "streak": 1,
+    "kpa": 3.373876811594203
+   }
+  },
+  {
+   "tempo": "casual",
+   "cls": "crusher",
+   "ver": "tempo",
+   "runs": 4,
+   "breaches": 2,
+   "bossDown": 4,
+   "bossSecs": null,
+   "hitsPerKill": 2.300595238095238,
+   "open": {
+    "aps": 1.3181818181818181,
+    "wait": 0,
+    "inReach": 2.982954545454545,
+    "follow": 0.44761904761904764,
+    "followHit": 1,
+    "streak": 2,
+    "kpa": 0.5702380952380952
+   },
+   "grow": {
+    "aps": 1.2608695652173914,
+    "wait": 0,
+    "inReach": 40.358695652173914,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 31.804761904761904
+   },
+   "horde": {
+    "aps": 1.25,
+    "wait": 0,
+    "inReach": 32.6875,
+    "follow": 0.039473684210526314,
+    "followHit": 1,
+    "streak": 1,
+    "kpa": 26.316520467836256
+   },
+   "boss": {
+    "aps": 1.2666666666666666,
+    "wait": 0.02666666666666667,
+    "inReach": 23.63,
+    "follow": 0.22472288580984234,
+    "followHit": 0.9166666666666666,
+    "streak": 1.25,
+    "kpa": 2.533935340022296
+   }
+  },
+  {
+   "tempo": "casual",
+   "cls": "caster",
+   "ver": "v0.7",
+   "runs": 4,
+   "breaches": 0,
+   "bossDown": 4,
+   "bossSecs": 12.088888888888201,
+   "hitsPerKill": 3,
+   "open": {
+    "aps": 1.1363636363636362,
+    "wait": 0.3125,
+    "inReach": 1.3181818181818183,
+    "follow": 0.5823967698967699,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.6224608724608724
+   },
+   "grow": {
+    "aps": 0.34782608695652173,
+    "wait": 0.9565217391304348,
+    "inReach": 0.05434782608695652,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 7.633333333333333
+   },
+   "horde": {
+    "aps": 0.6833333333333333,
+    "wait": 0.8791666666666667,
+    "inReach": 0.20416666666666666,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 38.0375
+   },
+   "boss": {
+    "aps": 1.1265875668449197,
+    "wait": 0.16251671122994651,
+    "inReach": 4.802516432709448,
+    "follow": 0.5665786827551533,
+    "followHit": 0.36136363636363633,
+    "streak": 1,
+    "kpa": 3.9205103066867775
+   }
+  },
+  {
+   "tempo": "casual",
+   "cls": "caster",
+   "ver": "tempo",
+   "runs": 4,
+   "breaches": 0,
+   "bossDown": 4,
+   "bossSecs": 13.044444444443704,
+   "hitsPerKill": 3,
+   "open": {
+    "aps": 1.3181818181818181,
+    "wait": 0,
+    "inReach": 2.8636363636363633,
+    "follow": 0.6547619047619048,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.5833333333333334
+   },
+   "grow": {
+    "aps": 1.152173913043478,
+    "wait": 0.19021739130434784,
+    "inReach": 10.141304347826086,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 47.33516483516483
+   },
+   "horde": {
+    "aps": 1.1833333333333331,
+    "wait": 0.5125,
+    "inReach": 8.458333333333334,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 33.88673890608875
+   },
+   "boss": {
+    "aps": 1.0418130457113508,
+    "wait": 0.18844481706395966,
+    "inReach": 4.982836112873501,
+    "follow": 0.5718487394957983,
+    "followHit": 0.41964285714285715,
+    "streak": 1.25,
+    "kpa": 4.8613445378151265
+   }
+  }
+ ],
+ "rows": [
+  {
+   "ver": "v0.7",
+   "tempo": "mash",
+   "cls": "slasher",
+   "seed": 1,
+   "breaches": 0,
+   "boss": {
+    "aps": 1.4,
+    "wait": 0.375,
+    "inReach": 2.4,
+    "follow": 0.5,
+    "followHit": 0.42857142857142855,
+    "streak": 2,
+    "kpa": 4.714285714285714,
+    "actions": 14
+   },
+   "bossSecs": 6.666666666666288,
+   "open": {
+    "aps": 1.3636363636363635,
+    "wait": 0.5227272727272727,
+    "inReach": 0.6818181818181818,
+    "follow": 0.3333333333333333,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.6,
+    "actions": 15,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 0.6086956521739131,
+    "wait": 0.9130434782608695,
+    "inReach": 0.08695652173913043,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 4.285714285714286,
+    "actions": 7
+   },
+   "horde": {
+    "aps": 0.8,
+    "wait": 0.9,
+    "inReach": 0.18333333333333332,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 28.5,
+    "actions": 12
+   }
+  },
+  {
+   "ver": "v0.7",
+   "tempo": "mash",
+   "cls": "slasher",
+   "seed": 2,
+   "breaches": 0,
+   "boss": {
+    "aps": 1.3658536585365855,
+    "wait": 0.36585365853658536,
+    "inReach": 2.268292682926829,
+    "follow": 0.5714285714285714,
+    "followHit": 0.5,
+    "streak": 2,
+    "kpa": 4.5,
+    "actions": 14
+   },
+   "bossSecs": 6.7999999999996135,
+   "open": {
+    "aps": 1.1818181818181819,
+    "wait": 0.5681818181818182,
+    "inReach": 0.6818181818181818,
+    "follow": 0.38461538461538464,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.6923076923076923,
+    "actions": 13,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 0.34782608695652173,
+    "wait": 0.9782608695652174,
+    "inReach": 0.021739130434782608,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 7,
+    "actions": 4
+   },
+   "horde": {
+    "aps": 0.7333333333333333,
+    "wait": 0.8333333333333334,
+    "inReach": 0.45,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 33.81818181818182,
+    "actions": 11
+   }
+  },
+  {
+   "ver": "v0.7",
+   "tempo": "mash",
+   "cls": "slasher",
+   "seed": 3,
+   "breaches": 0,
+   "boss": {
+    "aps": 1.4,
+    "wait": 0.35,
+    "inReach": 2.625,
+    "follow": 0.5,
+    "followHit": 0.2857142857142857,
+    "streak": 1,
+    "kpa": 6.285714285714286,
+    "actions": 14
+   },
+   "bossSecs": 6.6166666666662906,
+   "open": {
+    "aps": 1.3636363636363635,
+    "wait": 0.4772727272727273,
+    "inReach": 0.6818181818181818,
+    "follow": 0.5333333333333333,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.6,
+    "actions": 15,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 0.6086956521739131,
+    "wait": 0.8913043478260869,
+    "inReach": 0.10869565217391304,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 3.7142857142857144,
+    "actions": 7
+   },
+   "horde": {
+    "aps": 0.8,
+    "wait": 0.85,
+    "inReach": 0.23333333333333334,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 25.833333333333332,
+    "actions": 12
+   }
+  },
+  {
+   "ver": "v0.7",
+   "tempo": "mash",
+   "cls": "slasher",
+   "seed": 4,
+   "breaches": 0,
+   "boss": {
+    "aps": 1.3333333333333333,
+    "wait": 0.38095238095238093,
+    "inReach": 2.619047619047619,
+    "follow": 0.5714285714285714,
+    "followHit": 0.625,
+    "streak": 2,
+    "kpa": 4.142857142857143,
+    "actions": 14
+   },
+   "bossSecs": 7.049999999999599,
+   "open": {
+    "aps": 1.5454545454545454,
+    "wait": 0.38636363636363635,
+    "inReach": 0.8409090909090909,
+    "follow": 0.5882352941176471,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.5294117647058824,
+    "actions": 17,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 0.6086956521739131,
+    "wait": 0.8478260869565217,
+    "inReach": 0.15217391304347827,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 3.7142857142857144,
+    "actions": 7
+   },
+   "horde": {
+    "aps": 0.8666666666666667,
+    "wait": 0.85,
+    "inReach": 0.2833333333333333,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 26.076923076923077,
+    "actions": 13
+   }
+  },
+  {
+   "ver": "tempo",
+   "tempo": "mash",
+   "cls": "slasher",
+   "seed": 1,
+   "breaches": 0,
+   "boss": {
+    "aps": 1,
+    "wait": 0.5714285714285714,
+    "inReach": 1.7857142857142858,
+    "follow": 0.2857142857142857,
+    "followHit": 0.5,
+    "streak": 1,
+    "kpa": 9.285714285714286,
+    "actions": 7
+   },
+   "bossSecs": 3.3499999999998096,
+   "open": {
+    "aps": 2,
+    "wait": 0,
+    "inReach": 2.909090909090909,
+    "follow": 0.5,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.7272727272727273,
+    "actions": 22,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 2.0869565217391304,
+    "wait": 0.043478260869565216,
+    "inReach": 7.434782608695652,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 21.083333333333332,
+    "actions": 24
+   },
+   "horde": {
+    "aps": 1.5333333333333334,
+    "wait": 0.55,
+    "inReach": 5.683333333333334,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 27.217391304347824,
+    "actions": 23
+   }
+  },
+  {
+   "ver": "tempo",
+   "tempo": "mash",
+   "cls": "slasher",
+   "seed": 2,
+   "breaches": 0,
+   "boss": {
+    "aps": 0.9696969696969697,
+    "wait": 0.6060606060606061,
+    "inReach": 1.393939393939394,
+    "follow": 0.375,
+    "followHit": 0.6666666666666666,
+    "streak": 2,
+    "kpa": 5.25,
+    "actions": 8
+   },
+   "bossSecs": 4.783333333333061,
+   "open": {
+    "aps": 2,
+    "wait": 0,
+    "inReach": 2.840909090909091,
+    "follow": 0.5,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.7272727272727273,
+    "actions": 22,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 1.3043478260869565,
+    "wait": 0.4782608695652174,
+    "inReach": 2.869565217391304,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 44.13333333333333,
+    "actions": 15
+   },
+   "horde": {
+    "aps": 1.3333333333333333,
+    "wait": 0.6333333333333333,
+    "inReach": 6.45,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 32.1,
+    "actions": 20
+   }
+  },
+  {
+   "ver": "tempo",
+   "tempo": "mash",
+   "cls": "slasher",
+   "seed": 3,
+   "breaches": 0,
+   "boss": {
+    "aps": 1.4285714285714286,
+    "wait": 0.35714285714285715,
+    "inReach": 2.2857142857142856,
+    "follow": 0.4666666666666667,
+    "followHit": 0.5714285714285714,
+    "streak": 2,
+    "kpa": 5.133333333333334,
+    "actions": 15
+   },
+   "bossSecs": 7.199999999999591,
+   "open": {
+    "aps": 2.090909090909091,
+    "wait": 0,
+    "inReach": 2.7954545454545454,
+    "follow": 0.5652173913043478,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.7391304347826086,
+    "actions": 23,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 1.6521739130434783,
+    "wait": 0.2826086956521739,
+    "inReach": 5.891304347826087,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 30.68421052631579,
+    "actions": 19
+   },
+   "horde": {
+    "aps": 1.7333333333333334,
+    "wait": 0.5166666666666667,
+    "inReach": 8.033333333333333,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 26.384615384615383,
+    "actions": 26
+   }
+  },
+  {
+   "ver": "tempo",
+   "tempo": "mash",
+   "cls": "slasher",
+   "seed": 4,
+   "breaches": 0,
+   "boss": {
+    "aps": 1.4,
+    "wait": 0.4,
+    "inReach": 2.3,
+    "follow": 0.5714285714285714,
+    "followHit": 0.625,
+    "streak": 2,
+    "kpa": 3.2857142857142856,
+    "actions": 14
+   },
+   "bossSecs": 6.4999999999996305,
+   "open": {
+    "aps": 2.090909090909091,
+    "wait": 0,
+    "inReach": 2.75,
+    "follow": 0.391304347826087,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.8260869565217391,
+    "actions": 23,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 1.1304347826086956,
+    "wait": 0.5,
+    "inReach": 2.652173913043478,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 48.38461538461539,
+    "actions": 13
+   },
+   "horde": {
+    "aps": 1.5333333333333334,
+    "wait": 0.6166666666666667,
+    "inReach": 8.216666666666667,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 29.782608695652176,
+    "actions": 23
+   }
+  },
+  {
+   "ver": "v0.7",
+   "tempo": "mash",
+   "cls": "crusher",
+   "seed": 1,
+   "breaches": 0,
+   "boss": {
+    "aps": 1.6744186046511629,
+    "wait": 0.27906976744186046,
+    "inReach": 5,
+    "follow": 0.2777777777777778,
+    "followHit": 0.6,
+    "streak": 2,
+    "kpa": 3.6666666666666665,
+    "actions": 18
+   },
+   "bossSecs": 7.383333333332914,
+   "open": {
+    "aps": 1.2727272727272727,
+    "wait": 0.6818181818181818,
+    "inReach": 0.38636363636363635,
+    "follow": 0.35714285714285715,
+    "followHit": 1,
+    "streak": 2,
+    "kpa": 0.6428571428571429,
+    "actions": 14,
+    "hitsPerKill": 2.888888888888889
+   },
+   "grow": {
+    "aps": 0.9565217391304348,
+    "wait": 0.782608695652174,
+    "inReach": 0.21739130434782608,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 2.5454545454545454,
+    "actions": 11
+   },
+   "horde": {
+    "aps": 1.9333333333333333,
+    "wait": 0.45,
+    "inReach": 1.2,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 11.89655172413793,
+    "actions": 29
+   }
+  },
+  {
+   "ver": "v0.7",
+   "tempo": "mash",
+   "cls": "crusher",
+   "seed": 2,
+   "breaches": 0,
+   "boss": {
+    "aps": 2.08,
+    "wait": 0.10666666666666667,
+    "inReach": 12.053333333333333,
+    "follow": 0.3076923076923077,
+    "followHit": 0.9166666666666666,
+    "streak": 2,
+    "kpa": 1.2307692307692308,
+    "actions": 39
+   },
+   "bossSecs": null,
+   "open": {
+    "aps": 1.1818181818181819,
+    "wait": 0.75,
+    "inReach": 0.3181818181818182,
+    "follow": 0.3076923076923077,
+    "followHit": 1,
+    "streak": 2,
+    "kpa": 0.6923076923076923,
+    "actions": 13,
+    "hitsPerKill": 2.888888888888889
+   },
+   "grow": {
+    "aps": 1.2173913043478262,
+    "wait": 0.8043478260869565,
+    "inReach": 0.1956521739130435,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 1.7857142857142858,
+    "actions": 14
+   },
+   "horde": {
+    "aps": 1.2666666666666666,
+    "wait": 0.75,
+    "inReach": 0.55,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 18.36842105263158,
+    "actions": 19
+   }
+  },
+  {
+   "ver": "v0.7",
+   "tempo": "mash",
+   "cls": "crusher",
+   "seed": 3,
+   "breaches": 0,
+   "boss": {
+    "aps": 1.702127659574468,
+    "wait": 0.2765957446808511,
+    "inReach": 8.680851063829786,
+    "follow": 0.25,
+    "followHit": 0.6,
+    "streak": 2,
+    "kpa": 4.25,
+    "actions": 20
+   },
+   "bossSecs": 8.366666666666191,
+   "open": {
+    "aps": 1.2727272727272727,
+    "wait": 0.7727272727272727,
+    "inReach": 0.2727272727272727,
+    "follow": 0.42857142857142855,
+    "followHit": 1,
+    "streak": 2,
+    "kpa": 0.7142857142857143,
+    "actions": 14,
+    "hitsPerKill": 2.8
+   },
+   "grow": {
+    "aps": 1.1304347826086956,
+    "wait": 0.8043478260869565,
+    "inReach": 0.1956521739130435,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 1.8461538461538463,
+    "actions": 13
+   },
+   "horde": {
+    "aps": 1.8,
+    "wait": 0.4166666666666667,
+    "inReach": 2.1166666666666667,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 11.814814814814815,
+    "actions": 27
+   }
+  },
+  {
+   "ver": "v0.7",
+   "tempo": "mash",
+   "cls": "crusher",
+   "seed": 4,
+   "breaches": 0,
+   "boss": {
+    "aps": 1.75,
+    "wait": 0.2708333333333333,
+    "inReach": 9.5625,
+    "follow": 0.3333333333333333,
+    "followHit": 0.8571428571428571,
+    "streak": 2,
+    "kpa": 2.857142857142857,
+    "actions": 21
+   },
+   "bossSecs": 8.649999999999508,
+   "open": {
+    "aps": 1,
+    "wait": 0.7954545454545454,
+    "inReach": 0.2727272727272727,
+    "follow": 0.45454545454545453,
+    "followHit": 1,
+    "streak": 2,
+    "kpa": 0.7272727272727273,
+    "actions": 11,
+    "hitsPerKill": 2.875
+   },
+   "grow": {
+    "aps": 1.1304347826086956,
+    "wait": 0.782608695652174,
+    "inReach": 0.2391304347826087,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 1.8461538461538463,
+    "actions": 13
+   },
+   "horde": {
+    "aps": 1.4666666666666666,
+    "wait": 0.6,
+    "inReach": 0.8166666666666667,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 16.954545454545453,
+    "actions": 22
+   }
+  },
+  {
+   "ver": "tempo",
+   "tempo": "mash",
+   "cls": "crusher",
+   "seed": 1,
+   "breaches": 0,
+   "boss": {
+    "aps": 1.875,
+    "wait": 0.1875,
+    "inReach": 13.03125,
+    "follow": 0.36666666666666664,
+    "followHit": 0.8181818181818182,
+    "streak": 2,
+    "kpa": 1.5666666666666667,
+    "actions": 30
+   },
+   "bossSecs": 13.049999999999258,
+   "open": {
+    "aps": 2.3636363636363638,
+    "wait": 0,
+    "inReach": 2.840909090909091,
+    "follow": 0.5,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.6538461538461539,
+    "actions": 26,
+    "hitsPerKill": 2.5294117647058822
+   },
+   "grow": {
+    "aps": 2.1739130434782608,
+    "wait": 0.10869565217391304,
+    "inReach": 17.565217391304348,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 18,
+    "actions": 25
+   },
+   "horde": {
+    "aps": 2.3333333333333335,
+    "wait": 0.03333333333333333,
+    "inReach": 10.183333333333334,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 20.542857142857144,
+    "actions": 35
+   }
+  },
+  {
+   "ver": "tempo",
+   "tempo": "mash",
+   "cls": "crusher",
+   "seed": 2,
+   "breaches": 0,
+   "boss": {
+    "aps": 2.24,
+    "wait": 0.04,
+    "inReach": 14.106666666666667,
+    "follow": 0.3333333333333333,
+    "followHit": 0.9285714285714286,
+    "streak": 2,
+    "kpa": 1.5238095238095237,
+    "actions": 42
+   },
+   "bossSecs": null,
+   "open": {
+    "aps": 2.4545454545454546,
+    "wait": 0,
+    "inReach": 2.772727272727273,
+    "follow": 0.4074074074074074,
+    "followHit": 1,
+    "streak": 2,
+    "kpa": 0.7407407407407407,
+    "actions": 27,
+    "hitsPerKill": 2.5
+   },
+   "grow": {
+    "aps": 2.260869565217391,
+    "wait": 0,
+    "inReach": 17.934782608695652,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 16.26923076923077,
+    "actions": 26
+   },
+   "horde": {
+    "aps": 2.2666666666666666,
+    "wait": 0,
+    "inReach": 11.6,
+    "follow": 0.058823529411764705,
+    "followHit": 1,
+    "streak": 2,
+    "kpa": 18.91176470588235,
+    "actions": 34
+   }
+  },
+  {
+   "ver": "tempo",
+   "tempo": "mash",
+   "cls": "crusher",
+   "seed": 3,
+   "breaches": 0,
+   "boss": {
+    "aps": 1.9411764705882353,
+    "wait": 0.17647058823529413,
+    "inReach": 11.058823529411764,
+    "follow": 0.36363636363636365,
+    "followHit": 0.9166666666666666,
+    "streak": 2,
+    "kpa": 1.5454545454545454,
+    "actions": 33
+   },
+   "bossSecs": 13.983333333332538,
+   "open": {
+    "aps": 2.272727272727273,
+    "wait": 0,
+    "inReach": 2.772727272727273,
+    "follow": 0.48,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.64,
+    "actions": 25,
+    "hitsPerKill": 2.3125
+   },
+   "grow": {
+    "aps": 2.260869565217391,
+    "wait": 0,
+    "inReach": 17.543478260869566,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 28.5,
+    "actions": 26
+   },
+   "horde": {
+    "aps": 2.2666666666666666,
+    "wait": 0.08333333333333333,
+    "inReach": 10.65,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 20.647058823529413,
+    "actions": 34
+   }
+  },
+  {
+   "ver": "tempo",
+   "tempo": "mash",
+   "cls": "crusher",
+   "seed": 4,
+   "breaches": 0,
+   "boss": {
+    "aps": 1.7692307692307692,
+    "wait": 0.23076923076923078,
+    "inReach": 19.192307692307693,
+    "follow": 0.21739130434782608,
+    "followHit": 0.6,
+    "streak": 2,
+    "kpa": 6.956521739130435,
+    "actions": 23
+   },
+   "bossSecs": 9.716666666666114,
+   "open": {
+    "aps": 2.3636363636363638,
+    "wait": 0,
+    "inReach": 2.772727272727273,
+    "follow": 0.46153846153846156,
+    "followHit": 1,
+    "streak": 2,
+    "kpa": 0.6538461538461539,
+    "actions": 26,
+    "hitsPerKill": 2.411764705882353
+   },
+   "grow": {
+    "aps": 2.260869565217391,
+    "wait": 0,
+    "inReach": 30.82608695652174,
+    "follow": 0.07692307692307693,
+    "followHit": 1,
+    "streak": 2,
+    "kpa": 15.076923076923077,
+    "actions": 26
+   },
+   "horde": {
+    "aps": 2.3333333333333335,
+    "wait": 0,
+    "inReach": 16.066666666666666,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 12.342857142857143,
+    "actions": 35
+   }
+  },
+  {
+   "ver": "v0.7",
+   "tempo": "mash",
+   "cls": "caster",
+   "seed": 1,
+   "breaches": 0,
+   "boss": {
+    "aps": 1.7692307692307692,
+    "wait": 0.28846153846153844,
+    "inReach": 2.9038461538461537,
+    "follow": 0.7391304347826086,
+    "followHit": 0.4117647058823529,
+    "streak": 2,
+    "kpa": 3.5652173913043477,
+    "actions": 23
+   },
+   "bossSecs": 9.683333333332783,
+   "open": {
+    "aps": 1.5454545454545454,
+    "wait": 0.5227272727272727,
+    "inReach": 0.5681818181818182,
+    "follow": 0.6470588235294118,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.5294117647058824,
+    "actions": 17,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 0.2608695652173913,
+    "wait": 0.9782608695652174,
+    "inReach": 0.021739130434782608,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 9.666666666666666,
+    "actions": 3
+   },
+   "horde": {
+    "aps": 0.7333333333333333,
+    "wait": 0.9166666666666666,
+    "inReach": 0.21666666666666667,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 32.36363636363637,
+    "actions": 11
+   }
+  },
+  {
+   "ver": "v0.7",
+   "tempo": "mash",
+   "cls": "caster",
+   "seed": 2,
+   "breaches": 0,
+   "boss": {
+    "aps": 1.4054054054054055,
+    "wait": 0.43243243243243246,
+    "inReach": 2.135135135135135,
+    "follow": 0.6153846153846154,
+    "followHit": 0.625,
+    "streak": 2,
+    "kpa": 3.3846153846153846,
+    "actions": 13
+   },
+   "bossSecs": 5.79999999999967,
+   "open": {
+    "aps": 1.6363636363636365,
+    "wait": 0.4772727272727273,
+    "inReach": 0.8181818181818182,
+    "follow": 0.6111111111111112,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.5,
+    "actions": 18,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 0.5217391304347826,
+    "wait": 0.9565217391304348,
+    "inReach": 0.043478260869565216,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 4.833333333333333,
+    "actions": 6
+   },
+   "horde": {
+    "aps": 0.6,
+    "wait": 0.9,
+    "inReach": 0.16666666666666666,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 42.22222222222222,
+    "actions": 9
+   }
+  },
+  {
+   "ver": "v0.7",
+   "tempo": "mash",
+   "cls": "caster",
+   "seed": 3,
+   "breaches": 0,
+   "boss": {
+    "aps": 1.8620689655172413,
+    "wait": 0.2413793103448276,
+    "inReach": 2.6206896551724137,
+    "follow": 0.6296296296296297,
+    "followHit": 0.5294117647058824,
+    "streak": 2,
+    "kpa": 3.5185185185185186,
+    "actions": 27
+   },
+   "bossSecs": 11.24999999999936,
+   "open": {
+    "aps": 1.1818181818181819,
+    "wait": 0.6136363636363636,
+    "inReach": 0.4772727272727273,
+    "follow": 0.6153846153846154,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.6923076923076923,
+    "actions": 13,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 0.43478260869565216,
+    "wait": 0.9565217391304348,
+    "inReach": 0.043478260869565216,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 5.4,
+    "actions": 5
+   },
+   "horde": {
+    "aps": 0.7333333333333333,
+    "wait": 0.9166666666666666,
+    "inReach": 0.11666666666666667,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 28.09090909090909,
+    "actions": 11
+   }
+  },
+  {
+   "ver": "v0.7",
+   "tempo": "mash",
+   "cls": "caster",
+   "seed": 4,
+   "breaches": 0,
+   "boss": {
+    "aps": 1.8305084745762712,
+    "wait": 0.22033898305084745,
+    "inReach": 4.288135593220339,
+    "follow": 0.7407407407407407,
+    "followHit": 0.4,
+    "streak": 2,
+    "kpa": 2.5555555555555554,
+    "actions": 27
+   },
+   "bossSecs": 11.733333333332666,
+   "open": {
+    "aps": 1.1818181818181819,
+    "wait": 0.6818181818181818,
+    "inReach": 0.5681818181818182,
+    "follow": 0.6153846153846154,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.6923076923076923,
+    "actions": 13,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 0.5217391304347826,
+    "wait": 0.9782608695652174,
+    "inReach": 0.021739130434782608,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 5.166666666666667,
+    "actions": 6
+   },
+   "horde": {
+    "aps": 0.7333333333333333,
+    "wait": 0.9,
+    "inReach": 0.11666666666666667,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 36.54545454545455,
+    "actions": 11
+   }
+  },
+  {
+   "ver": "tempo",
+   "tempo": "mash",
+   "cls": "caster",
+   "seed": 1,
+   "breaches": 0,
+   "boss": {
+    "aps": 1.6,
+    "wait": 0.3333333333333333,
+    "inReach": 3,
+    "follow": 0.6111111111111112,
+    "followHit": 0.7272727272727273,
+    "streak": 2,
+    "kpa": 2.9444444444444446,
+    "actions": 18
+   },
+   "bossSecs": 8.016666666666211,
+   "open": {
+    "aps": 2.3636363636363638,
+    "wait": 0,
+    "inReach": 2.5681818181818183,
+    "follow": 0.46153846153846156,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.7307692307692307,
+    "actions": 26,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 1.4782608695652173,
+    "wait": 0.43478260869565216,
+    "inReach": 3.1739130434782608,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 38.294117647058826,
+    "actions": 17
+   },
+   "horde": {
+    "aps": 1.6666666666666667,
+    "wait": 0.55,
+    "inReach": 6.65,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 27.52,
+    "actions": 25
+   }
+  },
+  {
+   "ver": "tempo",
+   "tempo": "mash",
+   "cls": "caster",
+   "seed": 2,
+   "breaches": 0,
+   "boss": {
+    "aps": 1.5454545454545454,
+    "wait": 0.3409090909090909,
+    "inReach": 3.272727272727273,
+    "follow": 0.4117647058823529,
+    "followHit": 0.5714285714285714,
+    "streak": 2,
+    "kpa": 3.1176470588235294,
+    "actions": 17
+   },
+   "bossSecs": 7.533333333332905,
+   "open": {
+    "aps": 2.4545454545454546,
+    "wait": 0,
+    "inReach": 2.6363636363636362,
+    "follow": 0.5185185185185185,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.6666666666666666,
+    "actions": 27,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 2.1739130434782608,
+    "wait": 0.1956521739130435,
+    "inReach": 4.260869565217392,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 21.2,
+    "actions": 25
+   },
+   "horde": {
+    "aps": 1.6,
+    "wait": 0.6833333333333333,
+    "inReach": 6.016666666666667,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 29.708333333333332,
+    "actions": 24
+   }
+  },
+  {
+   "ver": "tempo",
+   "tempo": "mash",
+   "cls": "caster",
+   "seed": 3,
+   "breaches": 0,
+   "boss": {
+    "aps": 1.4736842105263157,
+    "wait": 0.39473684210526316,
+    "inReach": 1.763157894736842,
+    "follow": 0.5,
+    "followHit": 0.5714285714285714,
+    "streak": 2,
+    "kpa": 3.642857142857143,
+    "actions": 14
+   },
+   "bossSecs": 6.133333333332985,
+   "open": {
+    "aps": 2.272727272727273,
+    "wait": 0,
+    "inReach": 2.9318181818181817,
+    "follow": 0.64,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.48,
+    "actions": 25,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 1.826086956521739,
+    "wait": 0.34782608695652173,
+    "inReach": 3.5434782608695654,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 31.714285714285715,
+    "actions": 21
+   },
+   "horde": {
+    "aps": 1.9333333333333333,
+    "wait": 0.5333333333333333,
+    "inReach": 6.166666666666667,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 23.482758620689655,
+    "actions": 29
+   }
+  },
+  {
+   "ver": "tempo",
+   "tempo": "mash",
+   "cls": "caster",
+   "seed": 4,
+   "breaches": 0,
+   "boss": {
+    "aps": 1.4444444444444444,
+    "wait": 0.3888888888888889,
+    "inReach": 1.8611111111111112,
+    "follow": 0.38461538461538464,
+    "followHit": 0.4,
+    "streak": 2,
+    "kpa": 4.076923076923077,
+    "actions": 13
+   },
+   "bossSecs": 5.466666666666356,
+   "open": {
+    "aps": 2.3636363636363638,
+    "wait": 0,
+    "inReach": 2.727272727272727,
+    "follow": 0.5,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.6153846153846154,
+    "actions": 26,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 1.565217391304348,
+    "wait": 0.5,
+    "inReach": 3.6956521739130435,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 34.166666666666664,
+    "actions": 18
+   },
+   "horde": {
+    "aps": 1.8666666666666667,
+    "wait": 0.5333333333333333,
+    "inReach": 4.783333333333333,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 25.5,
+    "actions": 28
+   }
+  },
+  {
+   "ver": "v0.7",
+   "tempo": "casual",
+   "cls": "slasher",
+   "seed": 1,
+   "breaches": 0,
+   "boss": {
+    "aps": 0.8421052631578947,
+    "wait": 0.34210526315789475,
+    "inReach": 1.868421052631579,
+    "follow": 0.375,
+    "followHit": 0.6666666666666666,
+    "streak": 1,
+    "kpa": 7.25,
+    "actions": 8
+   },
+   "bossSecs": 6.133333333332985,
+   "open": {
+    "aps": 1.0909090909090908,
+    "wait": 0.1590909090909091,
+    "inReach": 1.7045454545454546,
+    "follow": 0.5833333333333334,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.6666666666666666,
+    "actions": 12,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 0.34782608695652173,
+    "wait": 0.9347826086956522,
+    "inReach": 0.06521739130434782,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 6.75,
+    "actions": 4
+   },
+   "horde": {
+    "aps": 0.6666666666666666,
+    "wait": 0.8666666666666667,
+    "inReach": 0.2,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 35.4,
+    "actions": 10
+   }
+  },
+  {
+   "ver": "v0.7",
+   "tempo": "casual",
+   "cls": "slasher",
+   "seed": 2,
+   "breaches": 0,
+   "boss": {
+    "aps": 0.717948717948718,
+    "wait": 0.41025641025641024,
+    "inReach": 2.5384615384615383,
+    "follow": 0.2857142857142857,
+    "followHit": 0.5,
+    "streak": 1,
+    "kpa": 8,
+    "actions": 7
+   },
+   "bossSecs": 6.183333333332982,
+   "open": {
+    "aps": 0.9090909090909091,
+    "wait": 0.3181818181818182,
+    "inReach": 1.5909090909090908,
+    "follow": 0.6,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.8,
+    "actions": 10,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 0.2608695652173913,
+    "wait": 0.9565217391304348,
+    "inReach": 0.043478260869565216,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 10,
+    "actions": 3
+   },
+   "horde": {
+    "aps": 0.7333333333333333,
+    "wait": 0.8666666666666667,
+    "inReach": 0.3,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 33.72727272727273,
+    "actions": 11
+   }
+  },
+  {
+   "ver": "v0.7",
+   "tempo": "casual",
+   "cls": "slasher",
+   "seed": 3,
+   "breaches": 0,
+   "boss": {
+    "aps": 0.7,
+    "wait": 0.4,
+    "inReach": 2.15,
+    "follow": 0.2857142857142857,
+    "followHit": 0.5,
+    "streak": 1,
+    "kpa": 10.571428571428571,
+    "actions": 7
+   },
+   "bossSecs": 6.6166666666662906,
+   "open": {
+    "aps": 1.1818181818181819,
+    "wait": 0.11363636363636363,
+    "inReach": 1.8863636363636365,
+    "follow": 0.6153846153846154,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.6153846153846154,
+    "actions": 13,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 0.6086956521739131,
+    "wait": 0.9130434782608695,
+    "inReach": 0.08695652173913043,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 3.857142857142857,
+    "actions": 7
+   },
+   "horde": {
+    "aps": 0.6666666666666666,
+    "wait": 0.8666666666666667,
+    "inReach": 0.26666666666666666,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 34.6,
+    "actions": 10
+   }
+  },
+  {
+   "ver": "v0.7",
+   "tempo": "casual",
+   "cls": "slasher",
+   "seed": 4,
+   "breaches": 0,
+   "boss": {
+    "aps": 0.9375,
+    "wait": 0.203125,
+    "inReach": 4.796875,
+    "follow": 0.5333333333333333,
+    "followHit": 0.375,
+    "streak": 1,
+    "kpa": 4.933333333333334,
+    "actions": 15
+   },
+   "bossSecs": 12.916666666665932,
+   "open": {
+    "aps": 0.9090909090909091,
+    "wait": 0.25,
+    "inReach": 1.5454545454545454,
+    "follow": 0.5,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.8,
+    "actions": 10,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 0.43478260869565216,
+    "wait": 0.8260869565217391,
+    "inReach": 0.21739130434782608,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 5.8,
+    "actions": 5
+   },
+   "horde": {
+    "aps": 0.8,
+    "wait": 0.8333333333333334,
+    "inReach": 0.2833333333333333,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 30.416666666666668,
+    "actions": 12
+   }
+  },
+  {
+   "ver": "tempo",
+   "tempo": "casual",
+   "cls": "slasher",
+   "seed": 1,
+   "breaches": 0,
+   "boss": {
+    "aps": 0.9629629629629629,
+    "wait": 0.2222222222222222,
+    "inReach": 4.12962962962963,
+    "follow": 0.6153846153846154,
+    "followHit": 0.375,
+    "streak": 1,
+    "kpa": 7.846153846153846,
+    "actions": 13
+   },
+   "bossSecs": 10.283333333332749,
+   "open": {
+    "aps": 1.1818181818181819,
+    "wait": 0,
+    "inReach": 2.8636363636363638,
+    "follow": 0.5384615384615384,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.7692307692307693,
+    "actions": 13,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 0.9565217391304348,
+    "wait": 0.2826086956521739,
+    "inReach": 9.26086956521739,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 57.90909090909091,
+    "actions": 11
+   },
+   "horde": {
+    "aps": 1.2,
+    "wait": 0.45,
+    "inReach": 11.15,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 32.44444444444444,
+    "actions": 18
+   }
+  },
+  {
+   "ver": "tempo",
+   "tempo": "casual",
+   "cls": "slasher",
+   "seed": 2,
+   "breaches": 0,
+   "boss": {
+    "aps": 0.8727272727272727,
+    "wait": 0.21818181818181817,
+    "inReach": 3.2545454545454544,
+    "follow": 0.5833333333333334,
+    "followHit": 0.42857142857142855,
+    "streak": 1,
+    "kpa": 9.083333333333334,
+    "actions": 12
+   },
+   "bossSecs": 10.533333333332735,
+   "open": {
+    "aps": 1.1818181818181819,
+    "wait": 0,
+    "inReach": 2.9318181818181817,
+    "follow": 0.46153846153846156,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.7692307692307693,
+    "actions": 13,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 0.782608695652174,
+    "wait": 0.391304347826087,
+    "inReach": 9.434782608695652,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 69.11111111111111,
+    "actions": 9
+   },
+   "horde": {
+    "aps": 1.2,
+    "wait": 0.4666666666666667,
+    "inReach": 11.883333333333333,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 33.22222222222222,
+    "actions": 18
+   }
+  },
+  {
+   "ver": "tempo",
+   "tempo": "casual",
+   "cls": "slasher",
+   "seed": 3,
+   "breaches": 0,
+   "boss": {
+    "aps": 0.7058823529411765,
+    "wait": 0.4411764705882353,
+    "inReach": 2.2941176470588234,
+    "follow": 0.3333333333333333,
+    "followHit": 0.5,
+    "streak": 1,
+    "kpa": 9.333333333333334,
+    "actions": 6
+   },
+   "bossSecs": 5.083333333333044,
+   "open": {
+    "aps": 1.2727272727272727,
+    "wait": 0,
+    "inReach": 2.8636363636363638,
+    "follow": 0.5714285714285714,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.7142857142857143,
+    "actions": 14,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 1.1304347826086956,
+    "wait": 0,
+    "inReach": 19.47826086956522,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 33.15384615384615,
+    "actions": 13
+   },
+   "horde": {
+    "aps": 1.0666666666666667,
+    "wait": 0.43333333333333335,
+    "inReach": 11.2,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 45.4375,
+    "actions": 16
+   }
+  },
+  {
+   "ver": "tempo",
+   "tempo": "casual",
+   "cls": "slasher",
+   "seed": 4,
+   "breaches": 0,
+   "boss": {
+    "aps": 0.8648648648648649,
+    "wait": 0.43243243243243246,
+    "inReach": 2.081081081081081,
+    "follow": 0.375,
+    "followHit": 0.6666666666666666,
+    "streak": 1,
+    "kpa": 6.625,
+    "actions": 8
+   },
+   "bossSecs": 5.68333333333301,
+   "open": {
+    "aps": 1.1818181818181819,
+    "wait": 0,
+    "inReach": 2.9318181818181817,
+    "follow": 0.46153846153846156,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.7692307692307693,
+    "actions": 13,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 0.9565217391304348,
+    "wait": 0.45652173913043476,
+    "inReach": 4.5,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 68.18181818181819,
+    "actions": 11
+   },
+   "horde": {
+    "aps": 1,
+    "wait": 0.48333333333333334,
+    "inReach": 9.183333333333334,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 37.8,
+    "actions": 15
+   }
+  },
+  {
+   "ver": "v0.7",
+   "tempo": "casual",
+   "cls": "crusher",
+   "seed": 1,
+   "breaches": 3,
+   "boss": {
+    "aps": 1.28,
+    "wait": 0,
+    "inReach": 20.92,
+    "follow": 0.16666666666666666,
+    "followHit": 1,
+    "streak": 1,
+    "kpa": 4.083333333333333,
+    "actions": 24
+   },
+   "bossSecs": null,
+   "open": {
+    "aps": 1,
+    "wait": 0.4318181818181818,
+    "inReach": 0.7954545454545454,
+    "follow": 0.45454545454545453,
+    "followHit": 1,
+    "streak": 2,
+    "kpa": 0.8181818181818182,
+    "actions": 11,
+    "hitsPerKill": 2.7777777777777777
+   },
+   "grow": {
+    "aps": 1.0434782608695652,
+    "wait": 0.45652173913043476,
+    "inReach": 0.9130434782608695,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 1.75,
+    "actions": 12
+   },
+   "horde": {
+    "aps": 1.2666666666666666,
+    "wait": 0,
+    "inReach": 12.883333333333333,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 15.736842105263158,
+    "actions": 19
+   }
+  },
+  {
+   "ver": "v0.7",
+   "tempo": "casual",
+   "cls": "crusher",
+   "seed": 2,
+   "breaches": 1,
+   "boss": {
+    "aps": 1.2266666666666666,
+    "wait": 0,
+    "inReach": 31.933333333333334,
+    "follow": 0.13043478260869565,
+    "followHit": 1,
+    "streak": 1,
+    "kpa": 4.043478260869565,
+    "actions": 23
+   },
+   "bossSecs": null,
+   "open": {
+    "aps": 1.0909090909090908,
+    "wait": 0.29545454545454547,
+    "inReach": 1.3181818181818181,
+    "follow": 0.3333333333333333,
+    "followHit": 1,
+    "streak": 2,
+    "kpa": 0.6666666666666666,
+    "actions": 12,
+    "hitsPerKill": 2.75
+   },
+   "grow": {
+    "aps": 1.1304347826086956,
+    "wait": 0.6521739130434783,
+    "inReach": 0.45652173913043476,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 1.9230769230769231,
+    "actions": 13
+   },
+   "horde": {
+    "aps": 1.2666666666666666,
+    "wait": 0.1,
+    "inReach": 12.283333333333333,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 15.789473684210526,
+    "actions": 19
+   }
+  },
+  {
+   "ver": "v0.7",
+   "tempo": "casual",
+   "cls": "crusher",
+   "seed": 3,
+   "breaches": 4,
+   "boss": {
+    "aps": 1.2266666666666666,
+    "wait": 0,
+    "inReach": 25.613333333333333,
+    "follow": 0.21739130434782608,
+    "followHit": 0.8,
+    "streak": 1,
+    "kpa": 3.608695652173913,
+    "actions": 23
+   },
+   "bossSecs": null,
+   "open": {
+    "aps": 1.2727272727272727,
+    "wait": 0.022727272727272728,
+    "inReach": 1.4090909090909092,
+    "follow": 0.42857142857142855,
+    "followHit": 1,
+    "streak": 2,
+    "kpa": 0.6428571428571429,
+    "actions": 14,
+    "hitsPerKill": 2.7777777777777777
+   },
+   "grow": {
+    "aps": 1.0434782608695652,
+    "wait": 0.30434782608695654,
+    "inReach": 1,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 2.3333333333333335,
+    "actions": 12
+   },
+   "horde": {
+    "aps": 1.2666666666666666,
+    "wait": 0.03333333333333333,
+    "inReach": 16.683333333333334,
+    "follow": 0.05263157894736842,
+    "followHit": 1,
+    "streak": 1,
+    "kpa": 14.736842105263158,
+    "actions": 19
+   }
+  },
+  {
+   "ver": "v0.7",
+   "tempo": "casual",
+   "cls": "crusher",
+   "seed": 4,
+   "breaches": 5,
+   "boss": {
+    "aps": 1.3333333333333333,
+    "wait": 0,
+    "inReach": 22.333333333333332,
+    "follow": 0.28,
+    "followHit": 1,
+    "streak": 1,
+    "kpa": 1.76,
+    "actions": 25
+   },
+   "bossSecs": null,
+   "open": {
+    "aps": 1.0909090909090908,
+    "wait": 0.4090909090909091,
+    "inReach": 1.1363636363636365,
+    "follow": 0.3333333333333333,
+    "followHit": 1,
+    "streak": 2,
+    "kpa": 0.75,
+    "actions": 12,
+    "hitsPerKill": 2.888888888888889
+   },
+   "grow": {
+    "aps": 0.8695652173913043,
+    "wait": 0.6956521739130435,
+    "inReach": 0.41304347826086957,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 2.8,
+    "actions": 10
+   },
+   "horde": {
+    "aps": 1,
+    "wait": 0.48333333333333334,
+    "inReach": 1.2,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 20.333333333333332,
+    "actions": 15
+   }
+  },
+  {
+   "ver": "tempo",
+   "tempo": "casual",
+   "cls": "crusher",
+   "seed": 1,
+   "breaches": 0,
+   "boss": {
+    "aps": 1.3333333333333333,
+    "wait": 0,
+    "inReach": 26.64,
+    "follow": 0.16,
+    "followHit": 1,
+    "streak": 1,
+    "kpa": 2.08,
+    "actions": 25
+   },
+   "bossSecs": null,
+   "open": {
+    "aps": 1.3636363636363635,
+    "wait": 0,
+    "inReach": 2.977272727272727,
+    "follow": 0.4666666666666667,
+    "followHit": 1,
+    "streak": 2,
+    "kpa": 0.6,
+    "actions": 15,
+    "hitsPerKill": 2.3333333333333335
+   },
+   "grow": {
+    "aps": 1.2173913043478262,
+    "wait": 0,
+    "inReach": 30.695652173913043,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 29.785714285714285,
+    "actions": 14
+   },
+   "horde": {
+    "aps": 1.2666666666666666,
+    "wait": 0,
+    "inReach": 20.633333333333333,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 32.31578947368421,
+    "actions": 19
+   }
+  },
+  {
+   "ver": "tempo",
+   "tempo": "casual",
+   "cls": "crusher",
+   "seed": 2,
+   "breaches": 8,
+   "boss": {
+    "aps": 1.3866666666666667,
+    "wait": 0,
+    "inReach": 37.8,
+    "follow": 0.19230769230769232,
+    "followHit": 1,
+    "streak": 1,
+    "kpa": 2.4615384615384617,
+    "actions": 26
+   },
+   "bossSecs": null,
+   "open": {
+    "aps": 1.3636363636363635,
+    "wait": 0,
+    "inReach": 3,
+    "follow": 0.4666666666666667,
+    "followHit": 1,
+    "streak": 2,
+    "kpa": 0.4666666666666667,
+    "actions": 15,
+    "hitsPerKill": 2.2857142857142856
+   },
+   "grow": {
+    "aps": 1.3043478260869565,
+    "wait": 0,
+    "inReach": 39.65217391304348,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 17.466666666666665,
+    "actions": 15
+   },
+   "horde": {
+    "aps": 1.2666666666666666,
+    "wait": 0,
+    "inReach": 71.9,
+    "follow": 0.10526315789473684,
+    "followHit": 1,
+    "streak": 1,
+    "kpa": 8,
+    "actions": 19
+   }
+  },
+  {
+   "ver": "tempo",
+   "tempo": "casual",
+   "cls": "crusher",
+   "seed": 3,
+   "breaches": 0,
+   "boss": {
+    "aps": 1.12,
+    "wait": 0.10666666666666667,
+    "inReach": 10.546666666666667,
+    "follow": 0.2857142857142857,
+    "followHit": 0.6666666666666666,
+    "streak": 1,
+    "kpa": 4.333333333333333,
+    "actions": 21
+   },
+   "bossSecs": null,
+   "open": {
+    "aps": 1.2727272727272727,
+    "wait": 0,
+    "inReach": 2.977272727272727,
+    "follow": 0.42857142857142855,
+    "followHit": 1,
+    "streak": 2,
+    "kpa": 0.6428571428571429,
+    "actions": 14,
+    "hitsPerKill": 2.3333333333333335
+   },
+   "grow": {
+    "aps": 1.2173913043478262,
+    "wait": 0,
+    "inReach": 44.52173913043478,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 42.5,
+    "actions": 14
+   },
+   "horde": {
+    "aps": 1.2,
+    "wait": 0,
+    "inReach": 19.933333333333334,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 32.05555555555556,
+    "actions": 18
+   }
+  },
+  {
+   "ver": "tempo",
+   "tempo": "casual",
+   "cls": "crusher",
+   "seed": 4,
+   "breaches": 0,
+   "boss": {
+    "aps": 1.2266666666666666,
+    "wait": 0,
+    "inReach": 19.533333333333335,
+    "follow": 0.2608695652173913,
+    "followHit": 1,
+    "streak": 2,
+    "kpa": 1.2608695652173914,
+    "actions": 23
+   },
+   "bossSecs": null,
+   "open": {
+    "aps": 1.2727272727272727,
+    "wait": 0,
+    "inReach": 2.977272727272727,
+    "follow": 0.42857142857142855,
+    "followHit": 1,
+    "streak": 2,
+    "kpa": 0.5714285714285714,
+    "actions": 14,
+    "hitsPerKill": 2.25
+   },
+   "grow": {
+    "aps": 1.3043478260869565,
+    "wait": 0,
+    "inReach": 46.56521739130435,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 37.46666666666667,
+    "actions": 15
+   },
+   "horde": {
+    "aps": 1.2666666666666666,
+    "wait": 0,
+    "inReach": 18.283333333333335,
+    "follow": 0.05263157894736842,
+    "followHit": 1,
+    "streak": 1,
+    "kpa": 32.89473684210526,
+    "actions": 19
+   }
+  },
+  {
+   "ver": "v0.7",
+   "tempo": "casual",
+   "cls": "caster",
+   "seed": 1,
+   "breaches": 0,
+   "boss": {
+    "aps": 1.3333333333333333,
+    "wait": 0,
+    "inReach": 6.466666666666667,
+    "follow": 0.8,
+    "followHit": 0.2,
+    "streak": 1,
+    "kpa": 2.72,
+    "actions": 25
+   },
+   "bossSecs": null,
+   "open": {
+    "aps": 1,
+    "wait": 0.38636363636363635,
+    "inReach": 1.1818181818181819,
+    "follow": 0.6363636363636364,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.6363636363636364,
+    "actions": 11,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 0.43478260869565216,
+    "wait": 0.9565217391304348,
+    "inReach": 0.06521739130434782,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 5.6,
+    "actions": 5
+   },
+   "horde": {
+    "aps": 0.8,
+    "wait": 0.9,
+    "inReach": 0.21666666666666667,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 33,
+    "actions": 12
+   }
+  },
+  {
+   "ver": "v0.7",
+   "tempo": "casual",
+   "cls": "caster",
+   "seed": 2,
+   "breaches": 0,
+   "boss": {
+    "aps": 1.0625,
+    "wait": 0.1875,
+    "inReach": 5.296875,
+    "follow": 0.47058823529411764,
+    "followHit": 0.5,
+    "streak": 1,
+    "kpa": 3.4705882352941178,
+    "actions": 17
+   },
+   "bossSecs": 13.066666666665924,
+   "open": {
+    "aps": 1.0909090909090908,
+    "wait": 0.36363636363636365,
+    "inReach": 1.4090909090909092,
+    "follow": 0.5833333333333334,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.6666666666666666,
+    "actions": 12,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 0.2608695652173913,
+    "wait": 0.9782608695652174,
+    "inReach": 0.043478260869565216,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 9.666666666666666,
+    "actions": 3
+   },
+   "horde": {
+    "aps": 0.6666666666666666,
+    "wait": 0.8333333333333334,
+    "inReach": 0.25,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 39.4,
+    "actions": 10
+   }
+  },
+  {
+   "ver": "v0.7",
+   "tempo": "casual",
+   "cls": "caster",
+   "seed": 3,
+   "breaches": 0,
+   "boss": {
+    "aps": 1.0196078431372548,
+    "wait": 0.23529411764705882,
+    "inReach": 3.0980392156862746,
+    "follow": 0.38461538461538464,
+    "followHit": 0.2,
+    "streak": 1,
+    "kpa": 4.769230769230769,
+    "actions": 13
+   },
+   "bossSecs": 9.583333333332789,
+   "open": {
+    "aps": 1.2727272727272727,
+    "wait": 0.22727272727272727,
+    "inReach": 1.3863636363636365,
+    "follow": 0.5714285714285714,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.5714285714285714,
+    "actions": 14,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 0.43478260869565216,
+    "wait": 0.9347826086956522,
+    "inReach": 0.06521739130434782,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 5.6,
+    "actions": 5
+   },
+   "horde": {
+    "aps": 0.7333333333333333,
+    "wait": 0.8666666666666667,
+    "inReach": 0.23333333333333334,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 37,
+    "actions": 11
+   }
+  },
+  {
+   "ver": "v0.7",
+   "tempo": "casual",
+   "cls": "caster",
+   "seed": 4,
+   "breaches": 0,
+   "boss": {
+    "aps": 1.0909090909090908,
+    "wait": 0.22727272727272727,
+    "inReach": 4.348484848484849,
+    "follow": 0.6111111111111112,
+    "followHit": 0.5454545454545454,
+    "streak": 1,
+    "kpa": 4.722222222222222,
+    "actions": 18
+   },
+   "bossSecs": 13.616666666665893,
+   "open": {
+    "aps": 1.1818181818181819,
+    "wait": 0.2727272727272727,
+    "inReach": 1.2954545454545454,
+    "follow": 0.5384615384615384,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.6153846153846154,
+    "actions": 13,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 0.2608695652173913,
+    "wait": 0.9565217391304348,
+    "inReach": 0.043478260869565216,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 9.666666666666666,
+    "actions": 3
+   },
+   "horde": {
+    "aps": 0.5333333333333333,
+    "wait": 0.9166666666666666,
+    "inReach": 0.11666666666666667,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 42.75,
+    "actions": 8
+   }
+  },
+  {
+   "ver": "tempo",
+   "tempo": "casual",
+   "cls": "caster",
+   "seed": 1,
+   "breaches": 0,
+   "boss": {
+    "aps": 1.0303030303030303,
+    "wait": 0.19696969696969696,
+    "inReach": 5.257575757575758,
+    "follow": 0.5882352941176471,
+    "followHit": 0.5,
+    "streak": 1,
+    "kpa": 4.294117647058823,
+    "actions": 17
+   },
+   "bossSecs": 13.449999999999235,
+   "open": {
+    "aps": 1.3636363636363635,
+    "wait": 0,
+    "inReach": 2.8863636363636362,
+    "follow": 0.6666666666666666,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.5333333333333333,
+    "actions": 15,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 1.2173913043478262,
+    "wait": 0,
+    "inReach": 11.804347826086957,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 37.57142857142857,
+    "actions": 14
+   },
+   "horde": {
+    "aps": 1.2,
+    "wait": 0.5333333333333333,
+    "inReach": 6.866666666666666,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 34.333333333333336,
+    "actions": 18
+   }
+  },
+  {
+   "ver": "tempo",
+   "tempo": "casual",
+   "cls": "caster",
+   "seed": 2,
+   "breaches": 0,
+   "boss": {
+    "aps": 1.0169491525423728,
+    "wait": 0.22033898305084745,
+    "inReach": 4.508474576271187,
+    "follow": 0.4666666666666667,
+    "followHit": 0.42857142857142855,
+    "streak": 1,
+    "kpa": 6.333333333333333,
+    "actions": 15
+   },
+   "bossSecs": 11.68333333333267,
+   "open": {
+    "aps": 1.3636363636363635,
+    "wait": 0,
+    "inReach": 2.840909090909091,
+    "follow": 0.6666666666666666,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.8,
+    "actions": 15,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 1.1304347826086956,
+    "wait": 0.30434782608695654,
+    "inReach": 11.108695652173912,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 55.76923076923077,
+    "actions": 13
+   },
+   "horde": {
+    "aps": 1.1333333333333333,
+    "wait": 0.5166666666666667,
+    "inReach": 8.9,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 33.94117647058823,
+    "actions": 17
+   }
+  },
+  {
+   "ver": "tempo",
+   "tempo": "casual",
+   "cls": "caster",
+   "seed": 3,
+   "breaches": 0,
+   "boss": {
+    "aps": 1,
+    "wait": 0.17647058823529413,
+    "inReach": 5.485294117647059,
+    "follow": 0.47058823529411764,
+    "followHit": 0.5,
+    "streak": 1,
+    "kpa": 4.294117647058823,
+    "actions": 17
+   },
+   "bossSecs": 13.999999999999204,
+   "open": {
+    "aps": 1.2727272727272727,
+    "wait": 0,
+    "inReach": 2.8636363636363638,
+    "follow": 0.6428571428571429,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.5,
+    "actions": 14,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 1.1304347826086956,
+    "wait": 0.13043478260869565,
+    "inReach": 7.021739130434782,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 40.92307692307692,
+    "actions": 13
+   },
+   "horde": {
+    "aps": 1.2666666666666666,
+    "wait": 0.45,
+    "inReach": 9.483333333333333,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 31.68421052631579,
+    "actions": 19
+   }
+  },
+  {
+   "ver": "tempo",
+   "tempo": "casual",
+   "cls": "caster",
+   "seed": 4,
+   "breaches": 0,
+   "boss": {
+    "aps": 1.12,
+    "wait": 0.16,
+    "inReach": 4.68,
+    "follow": 0.7619047619047619,
+    "followHit": 0.25,
+    "streak": 2,
+    "kpa": 4.523809523809524,
+    "actions": 21
+   },
+   "bossSecs": null,
+   "open": {
+    "aps": 1.2727272727272727,
+    "wait": 0,
+    "inReach": 2.8636363636363638,
+    "follow": 0.6428571428571429,
+    "followHit": 1,
+    "streak": 3,
+    "kpa": 0.5,
+    "actions": 14,
+    "hitsPerKill": 3
+   },
+   "grow": {
+    "aps": 1.1304347826086956,
+    "wait": 0.32608695652173914,
+    "inReach": 10.630434782608695,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 55.07692307692308,
+    "actions": 13
+   },
+   "horde": {
+    "aps": 1.1333333333333333,
+    "wait": 0.55,
+    "inReach": 8.583333333333334,
+    "follow": 0,
+    "followHit": null,
+    "streak": 1,
+    "kpa": 35.588235294117645,
+    "actions": 17
+   }
+  }
+ ]
+}

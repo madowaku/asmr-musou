@@ -92,6 +92,13 @@ T3では旧READMEの「画像未統合・ボスy=560・ピーク正規化・600�
 
 素材の生成方法と出所は [ASSETS.md](ASSETS.md)、全体の方針は [ORCHESTRATOR_BRIEF.md](ORCHESTRATOR_BRIEF.md) を参照。
 
+## CRUNCH LINE TEMPO (tempo.html) — v0.7 の比較版
+
+v0.7 の試遊結果（敵が少なくて序盤が暇）を受けた比較版。v0.7 の `crunch.html` は同じビルドにそのまま残している。**攻撃の頻度は序盤も終盤も変えず、一撃で壊せる量が成長で増える**ように、序盤の出現と連続攻撃の感触だけを変えた。
+- 試遊：`tempo.html`（スマホ：https://research-v0-7-tempo.asmr-musou.pages.dev/tempo.html ）。評価シート：[docs/v0.7-tempo/PLAYTEST_TEMPO.md](docs/v0.7-tempo/PLAYTEST_TEMPO.md)。
+- 設計：[docs/v0.7-tempo/TEMPO_DESIGN.md](docs/v0.7-tempo/TEMPO_DESIGN.md)。研究記録（段階別の4指標）：[docs/v0.7-tempo/research_log/V07_TEMPO_LOG.md](docs/v0.7-tempo/research_log/V07_TEMPO_LOG.md)。
+- テスト：`node tests/tempo/compare.mjs`（v0.7 と同じ外部ボットで段階別に計測）、`node tests/tempo/mash.mjs`（同じ場所を連打する実タッチ）、`node tests/tempo/perf.mjs`、`node tests/tempo/look.mjs`。
+
 ## CRUNCH LINE (crunch.html) — v0.7 研究
 
 v0.6 の試遊結果（開幕から大量の敵が出て、一体ずつ壊す過程を味わえない）を受けて、**縦スクロール防衛**にした版。「一つを味わう。やがて、全部を砕く。」

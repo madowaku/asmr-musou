@@ -33,6 +33,8 @@
       case 'zap':nz(c,t,.16,3200,1800,3,.16,x,.001);nz(c,t+.03,.1,2600,1500,4,.1,x,.001);break;
       case 'big':tone(c,t,.5,170,50,.5,x);nz(c,t,.4,1900,500,.8,.36,x,.002);for(const [k,f] of [[0,523],[.05,784],[.1,1047]])tone(c,t+k,.6,f,f*.98,.04,x,'sine',.01);break;
       case 'charge':tone(c,t,.75,200,620,.05,x,'triangle',.08);nz(c,t,.75,500,1800,1.4,.08,x,.5);break; // 予兆
+      // ---- v0.7 TEMPO: a crack that rises with each hit on the same enemy (ピキッ → ピキキッ → パキン) ----
+      case 'crack':{const k=Math.min(4,at.stage||1);tone(c,t,.07+k*.015,1700*(1+k*.22),1500*(1+k*.22),.06+k*.012,x,'triangle',.002);nz(c,t,.06+k*.02,3800+k*600,2400,2.5,.09+k*.02,x,.001);break;}
       // ---- shared ----
       case 'ko':{const n=at.n||3,base=440*Math.pow(2,Math.min(12,Math.floor(Math.log2(n)*3))/12);for(const [k,r] of [[0,1],[.06,1.25],[.12,1.5]])tone(c,t+k,.5,base*r,base*r,.05+Math.min(.06,n*.004),360,'sine');break;}
       case 'levelup':for(const [k,f] of [[0,523],[.07,659],[.14,784],[.21,1047],[.3,1319]])tone(c,t+k,.7,f,f,.07,360,'triangle');nz(c,t,.6,3000,6000,1.5,.06,360,.2);break;

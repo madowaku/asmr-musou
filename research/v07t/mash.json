@@ -1,0 +1,64 @@
+{
+ "crunch.html slasher": {
+  "landed": 3,
+  "killed": true,
+  "movePerHit": [
+   18,
+   25,
+   24
+  ]
+ },
+ "crunch.html crusher": {
+  "landed": 2,
+  "killed": true,
+  "movePerHit": [
+   8,
+   130
+  ]
+ },
+ "crunch.html caster": {
+  "landed": 3,
+  "killed": true,
+  "movePerHit": [
+   10,
+   18,
+   16
+  ]
+ },
+ "tempo.html slasher": {
+  "landed": 7,
+  "killed": true,
+  "movePerHit": [
+   16,
+   21,
+   24,
+   324,
+   167,
+   177,
+   159
+  ]
+ },
+ "tempo.html crusher": {
+  "landed": 8,
+  "killed": true,
+  "movePerHit": [
+   7,
+   70,
+   221,
+   1,
+   10,
+   70,
+   3,
+   141
+  ]
+ },
+ "tempo.html caster": {
+  "landed": 3,
+  "killed": true,
+  "movePerHit": [
+   14,
+   16,
+   15
+  ]
+ }
+}
