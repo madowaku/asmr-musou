@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#fff3e5">
+  <meta name="robots" content="noindex,nofollow">
+  <title>ASMR MUSOU · CRUNCH STUDIO</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="studio/studio.css">
+  <script defer src="lab/slice.js"></script><script defer src="lab/events.js"></script>
+  <script defer src="lab/assets-bundle.js"></script><script defer src="lab/outlines.js"></script>
+  <script defer src="lab/profiles.js"></script><script defer src="lab/timing.js"></script>
+  <script defer src="lab/assets.js"></script><script defer src="lab/gl.js"></script>
+  <script defer src="lab/materials/wax.js"></script><script defer src="lab/materials/jelly.js"></script>
+  <script defer src="lab/materials/studies.js"></script><script defer src="lab/audio/dsp.js"></script>
+  <script defer src="lab/audio/temporal.js"></script><script defer src="lab/audio/engine.js"></script>
+  <script defer src="lab/audio/audio.js"></script><script defer src="lab/caps.js"></script>
+  <script defer src="combat/world.js"></script><script defer src="combat/formations.js"></script>
+  <script defer src="feel/heroes.js"></script><script defer src="feel/sfx.js"></script>
+  <script defer src="crunch/crunch.js"></script><script defer src="flow/spinner.js"></script>
+  <script defer src="stages/stages.js"></script>
+  <script defer src="studio/art/battle-assets.js"></script><script defer src="studio/roller.js"></script><script defer src="studio/content.js"></script>
+  <script defer src="studio/menus.js"></script><script defer src="studio/game.js"></script>
+</head>
+<body>
+<main id="arena" data-material="wax">
+  <canvas id="scene" width="720" height="1280" aria-label="素材を壊すプレイエリア"></canvas>
+  <div id="pops" aria-hidden="true"></div>
+  <header id="hud" hidden>
+    <div class="hud-row"><strong id="stage-tag"></strong><span id="clock"></span><button id="pause" aria-label="一時停止">Ⅱ</button></div>
+    <div class="bar" id="clock-track"><i id="time"></i></div>
+    <div class="hud-row counts"><span id="cls"></span><span><b id="kills">0</b> 撃破</span><span id="breach-box">侵入 <b id="breach">0</b></span><span id="combo"></span></div>
+    <div id="upmeter"><small id="uplv">Lv 1</small><div class="bar"><i id="upbar"></i></div><small>CRUNCH</small></div>
+    <div id="boss-meter" hidden><span id="boss-name"></span><progress id="boss-progress" max="1" value="1" aria-label="ボスの残り耐久"></progress></div>
+    <div id="banner"></div>
+  </header>
+  <footer id="play-footer" hidden><p id="help"></p><button id="free-refill" hidden>素材を置き直す</button></footer>
+  <section id="loading" class="screen"><p role="status">スタジオを準備中…</p></section>
+  <section id="title" class="screen title-screen" hidden>
+    <div class="title-copy"><span class="kicker">ASMR MUSOU</span><h1>CRUNCH<br>STUDIO</h1><p>一つを味わう。やがて、全部を砕く。</p></div>
+    <div id="title-art" class="title-art" aria-hidden="true"></div>
+    <nav class="title-actions" aria-label="メインメニュー">
+      <button id="adventure" class="primary">ステージ攻略 <span>›</span></button>
+      <button id="collection" class="secondary">ASMR図鑑 <span>›</span></button>
+      <button id="settings-open" class="plain">設定</button>
+    </nav>
+  </section>
+  <section id="select" class="screen panel" hidden>
+    <button class="back" id="hero-back">‹ 戻る</button>
+    <h2>キャラクター</h2>
+    <div id="hero-preview" class="hero-preview"><img id="hero-art" alt=""><div><h3 id="hero-name"></h3><p id="hero-help"></p></div></div>
+    <div id="hero-cards" class="hero-cards" aria-label="キャラクター選択"></div>
+    <button id="hero-confirm" class="primary"></button>
+  </section>
+  <section id="stages" class="screen panel" hidden>
+    <button class="back" id="stage-back">‹ キャラクター</button>
+    <h2>ステージ</h2><div id="stage-cards" class="stage-cards"></div>
+  </section>
+  <section id="book" class="screen panel" hidden>
+    <button class="back" id="book-back">‹ タイトル</button>
+    <h2>ASMR図鑑</h2><div id="material-cards" class="stage-cards"></div>
+    <fieldset class="layouts" aria-label="素材の置き方">
+      <label><input type="radio" name="layout" value="single" checked>単体</label>
+      <label><input type="radio" name="layout" value="group">複数配置</label>
+      <label><input type="radio" name="layout" value="supply">連続供給</label>
+    </fieldset>
+    <button id="book-confirm" class="primary">キャラクターを選ぶ <span>›</span></button>
+  </section>
+  <section id="upgrade" class="overlay" aria-labelledby="upgrade-title" hidden><div class="dialog">
+    <p class="kicker" id="up-n"></p><h2 id="upgrade-title">武器を進化させる</h2><p id="up-power"></p><div id="up-cards"></div>
+  </div></section>
+  <section id="result" class="screen panel result" hidden>
+    <p class="kicker" id="result-stage"></p><h2 id="r-title"></h2>
+    <div id="r-stats" class="result-stats"></div><p id="r-defense"></p><p id="r-growth"></p>
+    <div class="result-actions"><button id="next" class="primary"></button><button id="again" class="secondary">もう一度</button>
+    <button id="result-back" class="plain">ステージへ</button><button id="result-title" class="plain">タイトルへ</button></div>
+  </section>
+  <section id="settings" class="overlay" aria-labelledby="settings-title" hidden><div class="dialog">
+    <h2 id="settings-title">設定</h2>
+    <label class="setting"><input type="checkbox" id="sound-setting" checked> 効果音</label>
+    <label class="setting">音量 <input id="volume" type="range" min="0" max="100" value="65"></label>
+    <label class="setting"><input type="checkbox" id="motion" checked> 画面の揺れ・ズーム</label>
+    <button id="settings-close" class="primary">閉じる</button>
+    <button id="leave" class="secondary" hidden>プレイを終了する</button>
+  </div></section>
+  <p id="error" role="alert" hidden></p>
+</main>
+</body>
+</html>
