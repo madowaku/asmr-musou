@@ -14,6 +14,7 @@ try {
   page.on('pageerror', e => errors.push(String(e.stack || e)));
   page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
   const shot = name => shots && page.screenshot({ path: path.join(shots, name + '.png') });
+  if(shots)await page.exposeBinding('studioShot', (_source,name) => shot(name));
   const click = id => page.locator('#' + id).tap();
   const choose = id => page.locator('[data-hero="' + id + '"]').tap();
   const openStage = number => page.locator('#stage-cards [data-stage="' + number + '"]').tap();
@@ -64,6 +65,14 @@ try {
   await choose('slasher');
   await click('hero-confirm');
   await openStage(1);
+  await page.evaluate(() => {
+    const {G,step}=StudioTest;
+    for(let i=0;i<3800&&G.state==='play';i++)step(1/60);
+  });
+  assert.equal(await page.locator('#r-title').textContent(),'TIME UP');
+  await click('result-back');
+  assert.equal(await page.locator('#stage-cards button:enabled').count(),1);
+  await openStage(1);
 
   const clears = [];
   for (const [n, hero, material] of [[1,'slasher','wax'],[2,'spinner','jelly'],[3,'roller','soap']]) {
@@ -77,7 +86,7 @@ try {
     const opening = await page.evaluate(() => StudioTest.targets().map(b => b.material));
     assert.equal(new Set(opening).size, 1);
     assert.equal(opening[0], material);
-    const result = await page.evaluate(() => {
+    const result = await page.evaluate(async n => {
       const {G,input,step,targets}=StudioTest;
       const advance=secs=>{for(let i=0;i<Math.ceil(secs*60)&&G.state==='play';i++){
         if(G.choice)return;
@@ -85,6 +94,7 @@ try {
       }};
       const tap=p=>{input.down(p);advance(.047);input.up(p);};
       let sawGale=false, lastUp=null, nextAction=0, aim=null, spinner=false, rollerTarget=null;
+      let bossShot=false, upgradeShot=false;
       const handleLevel=()=>{
         if(!G.choice)return;
         lastUp=G.t;
@@ -95,7 +105,17 @@ try {
         aim=null;rollerTarget=null;nextAction=0;
       };
       for(let frame=0;frame<4800&&G.state==='play';frame++){
+        if(window.studioShot && G.choice && !upgradeShot){
+          upgradeShot=true;
+          StudioTest.draw();
+          await window.studioShot('stage-'+n+'-upgrade');
+        }
         handleLevel();
+        if(window.studioShot && G.boss && !bossShot){
+          bossShot=true;
+          StudioTest.draw();
+          await window.studioShot('stage-'+n+'-boss');
+        }
         if(G.bossDown){step(1/60);continue;}
         const pool=targets().filter(b=>b.y>180&&b.y<1130);
         const target=pool.find(b=>b.bossPart)||pool.filter(b=>!b.bossPart).sort((a,b)=>b.y-a.y)[0];
@@ -124,7 +144,7 @@ try {
       return { hero:G.cls, clear:G.stats.bossDefeated, kills:G.stats.kills, lvl:G.hero.ups.size+1,
         bossHits:G.stats.bossHits, cuts:G.stats.cutErrors||0, upgrades:G.stats.ups, sawGale, lastUp, spinner,
         remaining:StudioTest.world.bodies.filter(b=>b.bossPart&&!b.removed&&!b.active).map(b=>[b.bossLayer,b.hp]), time:G.t };
-    });
+    }, n);
     console.log('STAGE '+n, result);
     assert(result.clear, JSON.stringify(result));
     assert.equal(result.hero, hero);
@@ -149,7 +169,17 @@ try {
     assert(await page.locator('#breach-box').isHidden());
     assert(await page.locator('#upmeter').isHidden());
     await page.evaluate(() => {
-      const {G,step,targets,world}=StudioTest;
+      const {G,step,targets,world,input}=StudioTest;
+      if(G.cls!=='roller'){
+        for(let i=0;i<6&&targets().length;i++){
+          const target=targets()[0];
+          input.down({x:target.x,y:target.y});
+          for(let f=0;f<5;f++)step(1/60);
+          input.up();
+          for(let f=0;f<19;f++)step(1/60);
+        }
+        if(G.stats.kills===0)throw new Error(G.cls+' did not break a material');
+      }
       if(G.free==='supply'){
         for(const body of targets())world.shatter(body,600,{action:0});
       }

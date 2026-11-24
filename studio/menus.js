@@ -216,6 +216,7 @@
         if (first) { progress.cleared.push(stage.n); Studio.save(progress); }
         $('result-stage').textContent = 'STAGE 0' + stage.n + ' · ' + stage.name;
         $('r-title').textContent = stats.bossDefeated ? 'STAGE CLEAR' : 'TIME UP';
+        $('result-boss').src = window.StudioBossArt['studio-boss/' + stage.mat];
         $('r-stats').replaceChildren(...[['撃破', stats.kills], ['最大連続破壊', stats.best], ['到達レベル', stats.levelUps.length + 1]].map(([label, value]) => {
           const block = document.createElement('div');
           const small = document.createElement('span');

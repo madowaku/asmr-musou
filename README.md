@@ -92,6 +92,12 @@ T3では旧READMEの「画像未統合・ボスy=560・ピーク正規化・600�
 
 素材の生成方法と出所は [ASSETS.md](ASSETS.md)、全体の方針は [ORCHESTRATOR_BRIEF.md](ORCHESTRATOR_BRIEF.md) を参照。
 
+## CRUNCH STUDIO v0.9
+
+Chrome で [studio.html](studio.html) を開く。5人のキャラクターでロウスクイーズ、ゼリー、石鹸の3ステージを攻略する。
+ボスを砕くとその素材がASMR図鑑に入り、時間制限のないフリープレイで使える。
+開発・検証範囲と素材出典は [v0.9 Studio](docs/v0.9/STUDIO.md) を参照。
+
 ## CRUNCH STUDIO — v0.9 ROLLER 試験台
 
 Chrome で [roller.html](roller.html) を開く。ロウ・ゼリー・石鹸にローラーをゆっくりかけ、素材ごとの変形と合成音を比べる。

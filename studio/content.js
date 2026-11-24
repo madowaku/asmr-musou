@@ -56,6 +56,22 @@
     return canvas.toDataURL('image/png');
   }
 
+  function dressBoss(boss, stage, bodies) {
+    const art = 'studio-boss/' + stage.mat, radius = 216;
+    for (const body of bodies) {
+      if (!body.bossPart) continue;
+      body.baseTexture = art;
+      const dx = body.x - boss.cx, dy = body.y - boss.cy;
+      for (const points of [body.poly, body.soft?.points].filter(Boolean)) {
+        for (const point of points) {
+          point.u = .5 + (point.x + dx) / (radius * 2);
+          point.v = .5 + (point.y + dy) / (radius * 2);
+        }
+      }
+      body.dirty = true;
+    }
+  }
+
   const key = 'asmr-crunch-studio-v09';
   function load() {
     let value = {};
@@ -72,5 +88,5 @@
   const unlocked = (stage, progress) => stage.n === 1 || progress.cleared.includes(stage.n - 1);
   const learned = (stage, progress) => progress.cleared.includes(stage.n);
   const portrait = id => 'studio/art/' + id + '-portrait.webp';
-  window.StudioContent = { heroes, stages, background, load, save, unlocked, learned, portrait };
+  window.StudioContent = { heroes, stages, background, dressBoss, load, save, unlocked, learned, portrait };
 })(window.LAB);

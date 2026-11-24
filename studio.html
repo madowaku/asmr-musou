@@ -20,7 +20,7 @@
   <script defer src="feel/heroes.js"></script><script defer src="feel/sfx.js"></script>
   <script defer src="crunch/crunch.js"></script><script defer src="flow/spinner.js"></script>
   <script defer src="stages/stages.js"></script>
-  <script defer src="studio/art/battle-assets.js"></script><script defer src="studio/roller.js"></script><script defer src="studio/content.js"></script>
+  <script defer src="studio/art/battle-assets.js"></script><script defer src="studio/art/boss-assets.js"></script><script defer src="studio/roller.js"></script><script defer src="studio/content.js"></script>
   <script defer src="studio/menus.js"></script><script defer src="studio/game.js"></script>
 </head>
 <body>
@@ -67,16 +67,16 @@
     </fieldset>
     <button id="book-confirm" class="primary">キャラクターを選ぶ <span>›</span></button>
   </section>
-  <section id="upgrade" class="overlay" aria-labelledby="upgrade-title" hidden><div class="dialog">
+  <section id="upgrade" class="overlay" role="dialog" aria-modal="true" aria-labelledby="upgrade-title" hidden><div class="dialog">
     <p class="kicker" id="up-n"></p><h2 id="upgrade-title">武器を進化させる</h2><p id="up-power"></p><div id="up-cards"></div>
   </div></section>
   <section id="result" class="screen panel result" hidden>
-    <p class="kicker" id="result-stage"></p><h2 id="r-title"></h2>
+    <p class="kicker" id="result-stage"></p><h2 id="r-title"></h2><img id="result-boss" alt="">
     <div id="r-stats" class="result-stats"></div><p id="r-defense"></p><p id="r-growth"></p>
     <div class="result-actions"><button id="next" class="primary"></button><button id="again" class="secondary">もう一度</button>
     <button id="result-back" class="plain">ステージへ</button><button id="result-title" class="plain">タイトルへ</button></div>
   </section>
-  <section id="settings" class="overlay" aria-labelledby="settings-title" hidden><div class="dialog">
+  <section id="settings" class="overlay" role="dialog" aria-modal="true" aria-labelledby="settings-title" hidden><div class="dialog">
     <h2 id="settings-title">設定</h2>
     <label class="setting"><input type="checkbox" id="sound-setting" checked> 効果音</label>
     <label class="setting">音量 <input id="volume" type="range" min="0" max="100" value="65"></label>

@@ -12,7 +12,7 @@
   const art=window.LAB_ASSETS=window.LAB_ASSETS||{};
   Object.assign(art,C.makeHeroSprites());
   for(const stage of Studio.stages) art['bg/'+stage.mat]=Studio.background(stage);
-  Object.assign(art,window.StudioBattleArt);
+  Object.assign(art,window.StudioBattleArt,window.StudioBossArt);
   let renderer;
   try { await L.loadAssets(); renderer=L.createRenderer(canvas); }
   catch(e) { $('loading').hidden=true; $('error').hidden=false; $('error').textContent='WebGL2 を開始できません: '+e.message; return; }
@@ -93,10 +93,11 @@
     P.cancel();
     const seed=(G.seed*7919+13)%100000;
     W.clear(); L.seed(seed); L.time=0; L.frame=0; W.nextId=1; W.cutId=0;
-    Object.assign(G,{cls,stage,free,seed,t:0,rt:0,hero:C.createHero(cls),boss:null,slow:0,actions:new Map(),later:[],bolts:[],glows:[],arcs:[],sparks:[],bossDown:false,finaleT:0,paused:false,choice:null,broken:new Map(),gestureT:0,lineFlash:0,sampleT:0,
+    Object.assign(G,{cls,stage,free,seed,t:0,rt:0,hero:C.createHero(cls),boss:null,slow:0,actions:new Map(),later:[],bolts:[],glows:[],arcs:[],sparks:[],lastPop:-9,bossDown:false,finaleT:0,paused:false,choice:null,broken:new Map(),gestureT:0,lineFlash:0,sampleT:0,
       sched:{spawn:0,hard:10,thin:0,firstHard:true,lane:0},energy:0,energyOver:0,levelPending:false,gainFlash:0,holdSupply:0});
     G.stats={cls,seed,kills:0,actions:0,hurts:0,chainKills:0,best:0,bestChain:0,ups:[],levelUps:[],energy:{},bossTime:null,bossSecs:null,bossDefeated:false,bossHits:0,firstActionT:null,firstKillT:null,byMaterial:{},byKind:{},lifeOf:[],breaches:[],onScreen:[],danger:[],byLevel:null,latency:null};
     G.state='play';
+    $('pops').replaceChildren();
     Stages.applyRules(stage);
     C.mix=Stages.mixState(stage,0,false); C.sfxGain=(C.mix?.sfx??.7)*progress.volume/.65;
     ui.play();
@@ -207,8 +208,10 @@
   // ---------- boss: the v0.5 three-layer material boss, descending slowly toward the line ----------
   function startBoss(){if(G.boss)return;
     if(W.bodies.length>170){const deb=W.bodies.filter(b=>b.active).sort((a,b)=>b.age-a.age);for(const b of deb.slice(0,W.bodies.length-170))b.removed=true;const keep=W.bodies.filter(b=>!b.removed);W.bodies.length=0;W.bodies.push(...keep);}
-    G.boss=Stages.spawnBoss(G.stage);G.boss.cy=320;G.boss.totalHp=0;for(const b of W.bodies)if(b.bossPart){b.hp=b.hpMax=G.stage.hp[b.bossLayer];G.boss.totalHp+=b.hp;b.cracks=[];}G.stats.bossTime=G.t;banner(G.stage.bossName,'外側から割って、芯まで砕く');}
-  function moveBoss(dt){const B=G.boss;B.cy=Math.min(560,B.cy+dt*26);B.rot=(B.rot||0)+dt*.22;const by=B.cy+Math.sin(G.t*1.3)*8;
+    G.boss=Stages.spawnBoss(G.stage);Studio.dressBoss(G.boss,G.stage,W.bodies);G.boss.cy=437;G.boss.totalHp=0;for(const b of W.bodies)if(b.bossPart){b.hp=b.hpMax=G.stage.hp[b.bossLayer];G.boss.totalHp+=b.hp;b.cracks=[];}G.stats.bossTime=G.t;$('banner').classList.remove('show');}
+  function moveBoss(dt){const B=G.boss;B.cy=Math.min(560,B.cy+dt*26);B.rot=0;
+    const amplitude=G.stage.mat==='jelly'?15:G.stage.mat==='wax'?7:3;
+    const by=B.cy+Math.sin(G.t*2)*amplitude;
     for(const b of W.bodies){if(!b.bossPart||b.active||b.flying||b.removed)continue;if(b.orbit){b.x=B.cx+Math.cos(b.orbit.a+B.rot)*b.orbit.d;b.y=by+Math.sin(b.orbit.a+B.rot)*b.orbit.d;b.angle=B.rot;}else{b.x=B.cx;b.y=by;}b.dirty=true;}}
   function bigBreak(){if(G.bossDown)return;G.bossDown=true;G.stats.bossDefeated=true;G.stats.bossSecs=G.t-G.stats.bossTime;G.slow=progress.motion?.75:0;C.sfx('finale');
     const B=G.boss,list=W.enemies().map(e=>({e,d:Math.hypot(e.x-B.cx,e.y-B.cy)})).sort((a,b)=>a.d-b.d),id=-1;G.actions.set(id,{id,kills:0,hurts:0,chainMax:0,chainKills:0,t0:G.t,last:G.t,system:true,reported:true,info:{}});
@@ -284,6 +287,10 @@
     const lf=G.lineFlash;if(!G.free)renderer.line({x:0,y:K.LINE},{x:720,y:K.LINE},4+lf*10,[1,.35+.3*(1-lf),.6,.75]);
     // "next to arrive" shadows under enemies close to the line
     for(const b of W.bodies){if(G.free||b.removed||b.active||b.team!=='enemy'||b.bossPart||b.y<K.DANGER)continue;const k=Math.min(1,(b.y-K.DANGER)/(K.LINE-K.DANGER));renderer.line({x:b.x-b.radius*.9,y:b.y+b.radius*.95},{x:b.x+b.radius*.9,y:b.y+b.radius*.95},5,[1,.3,.5,.25+.45*k*(.6+.4*Math.sin(G.t*10))]);}
+    for(const b of W.bodies){
+      if(b.removed||b.active||b.bossPart||b.y<130)continue;
+      renderer.glow(b.x,b.y+b.radius*.65,b.radius*1.25,[.45,.27,.26,.18]);
+    }
     W.drawBodies(renderer);
     for(const b of W.bodies)if(!b.removed&&!b.active&&b.cracks)K.drawCracks(renderer,b);
     for(const g of G.glows){const k=g.life/g.total;renderer.glow(g.x,g.y,g.r*(1.1-k*.3),[...g.col,.35*k]);}
@@ -304,7 +311,19 @@
   }
   // ---------- HUD ----------
   const popsEl=$('pops');
-  function pop(x,y,text,kind){const d=document.createElement('div');d.className='pop '+(kind||'');d.textContent=text;d.style.left=(x/720*100)+'%';d.style.top=(y/1280*100)+'%';popsEl.appendChild(d);setTimeout(()=>d.remove(),1100);}
+  function pop(x,y,text,kind){
+    if(kind!=='big'&&G.t-G.lastPop<.50)return;
+    G.lastPop=G.t;
+    if(kind==='big')popsEl.replaceChildren();
+    while(popsEl.childElementCount>=2)popsEl.firstElementChild.remove();
+    const label=document.createElement('div');
+    label.className='pop '+kind;
+    label.textContent=text;
+    label.style.left=Math.max(14,Math.min(86,x/720*100))+'%';
+    label.style.top=Math.max(27,Math.min(78,y/1280*100))+'%';
+    popsEl.appendChild(label);
+    setTimeout(()=>label.remove(),1050);
+  }
   function banner(name,hint){$('banner').innerHTML=`<b>${name}</b><span>${hint}</span>`;$('banner').classList.remove('show');void $('banner').offsetWidth;$('banner').classList.add('show');}
   function hud(){
     if(G.state!=='play')return;
