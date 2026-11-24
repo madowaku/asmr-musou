@@ -72,7 +72,7 @@
     }
   }
 
-  const key = 'asmr-crunch-studio-v09';
+  const key = 'asmr-crunch-studio-v09' + (L.combat.rollerFeel ? '-roller-feel' : '');
   function load() {
     let value = {};
     try { value = JSON.parse(localStorage.getItem(key)) || {}; } catch (_) { /* private browsing */ }

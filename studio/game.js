@@ -291,6 +291,7 @@
       if(b.removed||b.active||b.bossPart||b.y<130)continue;
       renderer.glow(b.x,b.y+b.radius*.65,b.radius*1.25,[.45,.27,.26,.18]);
     }
+    if(G.cls==='roller')C.drawRollerResidues?.(renderer,G.t);
     W.drawBodies(renderer);
     for(const b of W.bodies)if(!b.removed&&!b.active&&b.cracks)K.drawCracks(renderer,b);
     for(const g of G.glows){const k=g.life/g.total;renderer.glow(g.x,g.y,g.r*(1.1-k*.3),[...g.col,.35*k]);}
@@ -307,6 +308,7 @@
       renderer.glow(x,y,17,[...p.color.slice(0,3),1-t]);
       renderer.line({x:x-4,y:y+7},{x:x+3,y:y-4},4,[.98,.65,.24,1-t*.6]);
     }
+    if(h?.cls==='roller')C.drawRollerTools?.(renderer,h,G.t);
     W.drawFx(renderer);renderer.render(W.particles,G.t,progress.motion?W.punch:0,progress.motion&&G.slow>0);
   }
   // ---------- HUD ----------

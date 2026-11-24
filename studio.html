@@ -20,7 +20,8 @@
   <script defer src="feel/heroes.js"></script><script defer src="feel/sfx.js"></script>
   <script defer src="crunch/crunch.js"></script><script defer src="flow/spinner.js"></script>
   <script defer src="stages/stages.js"></script>
-  <script defer src="studio/art/battle-assets.js"></script><script defer src="studio/art/boss-assets.js"></script><script defer src="studio/roller.js"></script><script defer src="studio/content.js"></script>
+  <script defer src="studio/art/battle-assets.js"></script><script defer src="studio/art/boss-assets.js"></script><script defer src="studio/roller.js"></script><script defer src="studio/roller-feel.js"></script>
+  <script defer src="studio/roller-render.js"></script><script defer src="studio/content.js"></script>
   <script defer src="studio/menus.js"></script><script defer src="studio/game.js"></script>
 </head>
 <body>
@@ -35,15 +36,16 @@
     <div id="boss-meter" hidden><span id="boss-name"></span><progress id="boss-progress" max="1" value="1" aria-label="ボスの残り耐久"></progress></div>
     <div id="banner"></div>
   </header>
-  <footer id="play-footer" hidden><p id="help"></p><button id="free-refill" hidden>素材を置き直す</button></footer>
+  <footer id="play-footer" hidden><p id="help"></p><span id="roll-feel-mode" hidden aria-hidden="true"></span><button id="free-refill" hidden>素材を置き直す</button></footer>
   <section id="loading" class="screen"><p role="status">スタジオを準備中…</p></section>
   <section id="title" class="screen title-screen" hidden>
     <div class="title-copy"><span class="kicker">ASMR MUSOU</span><h1>CRUNCH<br>STUDIO</h1><p>一つを味わう。やがて、全部を砕く。</p></div>
     <div id="title-art" class="title-art" aria-hidden="true"></div>
     <nav class="title-actions" aria-label="メインメニュー">
       <button id="adventure" class="primary">ステージ攻略 <span>›</span></button>
+      <button id="roller-practice" class="primary" hidden>ROLLERの練習 <span>›</span></button>
       <button id="collection" class="secondary">ASMR図鑑 <span>›</span></button>
-      <button id="settings-open" class="plain">設定</button>
+      <div class="title-links"><button id="settings-open" class="plain">設定</button><a id="roller-baseline" href="studio.html" hidden>現行 v0.9</a></div>
     </nav>
   </section>
   <section id="select" class="screen panel" hidden>
@@ -59,7 +61,7 @@
   </section>
   <section id="book" class="screen panel" hidden>
     <button class="back" id="book-back">‹ タイトル</button>
-    <h2>ASMR図鑑</h2><div id="material-cards" class="stage-cards"></div>
+    <h2 id="book-heading">ASMR図鑑</h2><div id="material-cards" class="stage-cards"></div>
     <fieldset class="layouts" aria-label="素材の置き方">
       <label><input type="radio" name="layout" value="single" checked>単体</label>
       <label><input type="radio" name="layout" value="group">複数配置</label>

@@ -4,7 +4,8 @@
     const $ = id => document.getElementById(id);
     const { heroes, stages } = Studio;
     const screens = Array.from(document.querySelectorAll('.screen'));
-    let freeSelect = false, material = null, settingsFrom = null;
+    let freeSelect = false, material = null, settingsFrom = null, practice = false;
+    const rollerHelp = 'ゆっくりで深く。素早くで削りかす。止めて芯を押す。';
 
     function view(id, focus = true) {
       for (const section of screens) section.hidden = section.id !== id;
@@ -26,7 +27,7 @@
       art.src = Studio.portrait(progress.hero);
       $('hero-preview').style.setProperty('--hero', hero.color);
       $('hero-name').textContent = hero.name + '  ' + hero.jp;
-      $('hero-help').textContent = hero.help;
+      $('hero-help').textContent = C.rollerFeel && progress.hero === 'roller' ? rollerHelp : hero.help;
       $('hero-confirm').textContent = freeSelect ? 'フリープレイを始める ›' : 'ステージを選ぶ ›';
       for (const button of $('hero-cards').querySelectorAll('button')) {
         button.setAttribute('aria-pressed', String(button.dataset.hero === progress.hero));
@@ -41,7 +42,7 @@
 
     function card(stage, mode) {
       const book = mode === 'book';
-      const available = book ? Studio.learned(stage, progress) : Studio.unlocked(stage, progress);
+      const available = book ? practice || Studio.learned(stage, progress) : Studio.unlocked(stage, progress);
       const button = document.createElement('button');
       button.className = 'stage-card';
       button.dataset.stage = stage.n;
@@ -79,9 +80,11 @@
     }
 
     function showBook() {
-      if (!material || !Studio.learned(material, progress)) {
-        material = stages.find(stage => Studio.learned(stage, progress)) || null;
+      if (!material || (!practice && !Studio.learned(material, progress))) {
+        material = practice ? stages[0] : stages.find(stage => Studio.learned(stage, progress)) || null;
       }
+      $('book-heading').textContent = practice ? 'ROLLERの練習' : 'ASMR図鑑';
+      $('book-confirm').textContent = practice ? 'この素材を圧延する ›' : 'キャラクターを選ぶ ›';
       $('material-cards').replaceChildren(...stages.map(stage => card(stage, 'book')));
       $('book-confirm').disabled = !material;
       view('book');
@@ -159,11 +162,22 @@
       }
       $('adventure').onclick = () => selectHero(false);
       $('collection').onclick = $('book-back').onclick = null;
-      $('collection').onclick = showBook;
+      $('collection').onclick = () => { practice = false; showBook(); };
+      if (C.rollerFeel) {
+        $('roller-practice').hidden = false;
+        $('roller-baseline').hidden = false;
+        $('roller-practice').onclick = () => { practice = true; showBook(); };
+      }
       $('hero-back').onclick = () => freeSelect ? showBook() : showTitle();
       $('stage-back').onclick = () => selectHero(false);
       $('book-back').onclick = showTitle;
-      $('book-confirm').onclick = () => { if (material) selectHero(true); };
+      $('book-confirm').onclick = () => {
+        if (!material) return;
+        if (practice) {
+          L.audio.unlock();
+          start('roller', material, document.querySelector('input[name="layout"]:checked').value);
+        } else selectHero(true);
+      };
       $('hero-confirm').onclick = () => {
         if (freeSelect && material) launch(material, document.querySelector('input[name="layout"]:checked').value);
         else showStages();
@@ -198,9 +212,9 @@
       play() {
         const info = heroes[G.cls];
         $('arena').dataset.material = G.stage.mat;
-        $('stage-tag').textContent = G.free ? 'ASMR図鑑 · '+L.combat.stages.MATERIALS[G.stage.mat].jp : 'STAGE 0' + G.stage.n + '  ' + G.stage.name;
+        $('stage-tag').textContent = G.free ? (practice ? 'ROLLERの練習 · ' : 'ASMR図鑑 · ') + L.combat.stages.MATERIALS[G.stage.mat].jp : 'STAGE 0' + G.stage.n + '  ' + G.stage.name;
         $('cls').textContent = info.name;
-        $('help').textContent = info.help;
+        $('help').textContent = C.rollerFeel && G.cls === 'roller' ? rollerHelp : info.help;
         $('breach').textContent = '0';
         $('clock-track').hidden = $('breach-box').hidden = $('upmeter').hidden = Boolean(G.free);
         $('boss-meter').hidden = true;
