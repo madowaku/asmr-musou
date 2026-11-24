@@ -2,6 +2,7 @@
 (function (root) {
   'use strict';
   const FIELD = { width: 720, height: 1280, x: 360, y: 610, left: 80, right: 640, top: 290, bottom: 880 };
+  const BATCH = { columns: [230, 490], rows: [445, 610, 775], scale: .44, rate: 3.1 };
   const MATERIALS = {
     wax: { name: 'ロウ', rate: .76, spring: 12, spread: .42, thresholds: [.19, .46, .72, 1],
       phases: ['殻がつやつや', '殻にひび', 'やわらかい芯がのぞく', '芯が薄くのびる', 'ぺたんこ'] },
@@ -14,27 +15,36 @@
   const lerp = (a, b, t) => a + (b - a) * t;
   const response = (rate, dt) => 1 - Math.exp(-rate * dt);
 
-  function create(material) {
-    return { material, depth: 0, stage: 0, dent: 0, wobble: 0, contact: 0 };
+  function create(material, x = FIELD.x, y = FIELD.y, scale = 1) {
+    return { material, x, y, scale, depth: 0, stage: 0, dent: 0, wobble: 0, contact: 0 };
+  }
+
+  function createTray(material, mode) {
+    return mode === 'batch'
+      ? BATCH.rows.flatMap(y => BATCH.columns.map(x => create(material, x, y, BATCH.scale)))
+      : [create(material)];
   }
 
   function step(sample, roller, mode, dt) {
     const profile = MATERIALS[sample.material];
     const spread = 1 + profile.spread * sample.depth;
-    const distance = Math.hypot((roller.x - FIELD.x) / (155 * spread + 52), (roller.y - FIELD.y) / 151);
+    const width = 155 * spread * sample.scale + 52;
+    const height = 131 * sample.scale + 20;
+    const distance = Math.hypot((roller.x - sample.x) / width, (roller.y - sample.y) / height);
     const contact = roller.active && sample.depth < 1 ? clamp((1 - distance) * 2.3, 0, 1) : 0;
     const speed = roller.speed;
     const rolling = clamp((speed - 13) / 42, 0, 1);
     const slowWeight = 1 / (1 + (speed / 315) ** 2);
     const holding = mode === 'press' ? (1 - rolling) * .42 : 0;
     sample.contact = contact;
-    sample.depth = Math.min(1, sample.depth + dt * contact * profile.rate * (rolling * slowWeight + holding));
+    const rate = profile.rate * (mode === 'batch' ? BATCH.rate : 1);
+    sample.depth = Math.min(1, sample.depth + dt * contact * rate * (rolling * slowWeight + holding));
     sample.dent = lerp(sample.dent, contact * (.62 + .38 * slowWeight), response(profile.spring, dt));
     sample.wobble = lerp(sample.wobble, contact, response(contact ? 10 : 4, dt));
     while (sample.stage < profile.thresholds.length && sample.depth >= profile.thresholds[sample.stage]) sample.stage++;
   }
 
-  const api = { FIELD, MATERIALS, clamp, create, step, lerp, response };
+  const api = { FIELD, MATERIALS, clamp, create, createTray, step, lerp, response };
   if (typeof module === 'object') module.exports = api;
   else root.RollerPressure = api;
 })(globalThis);

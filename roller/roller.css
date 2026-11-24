@@ -93,7 +93,7 @@ progress::-webkit-progress-value { background: var(--accent); }
 progress::-moz-progress-bar { background: var(--accent); }
 fieldset { display: grid; margin: 0; padding: 0; gap: 5px; border: 0; min-width: 0; }
 .material-switch { grid-template-columns: repeat(3, 1fr); }
-.mode-switch { grid-template-columns: repeat(2, 1fr); flex: 1; }
+.mode-switch { grid-template-columns: repeat(3, minmax(0, 1fr)); flex: 1; }
 .compare { display: flex; gap: 7px; margin-top: 6px; }
 label { position: relative; }
 label input, .sr-only { position: absolute; width: 1px; height: 1px; margin: 0; padding: 0; overflow: hidden; clip-path: inset(50%); }

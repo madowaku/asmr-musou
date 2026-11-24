@@ -37,7 +37,7 @@ try {
   const errors = [];
   page.on('pageerror', error => errors.push(String(error)));
   page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
-  const url = new URL('../../roller.html', import.meta.url).href;
+  const url = process.env.ROLLER_PREVIEW_URL || new URL('../../roller.html', import.meta.url).href;
   await page.goto(url);
   await page.locator('.studio.ready').waitFor();
   assert.equal(await page.evaluate(() => LAB.audio.stats().contextState), 'uninitialized');
@@ -49,9 +49,9 @@ try {
   await page.waitForFunction(() => LAB.audio.stats().ready && LAB.audio.stats().enabled);
   const cdp = await context.newCDPSession(page);
   const box = await page.locator('#bench').boundingBox();
-  const touch = (type, y) => cdp.send('Input.dispatchTouchEvent', {
+  const touch = (type, y, x = 360) => cdp.send('Input.dispatchTouchEvent', {
     type,
-    touchPoints: y === undefined ? [] : [{ x: box.x + box.width / 2, y: box.y + y / 1280 * box.height, id: 1 }]
+    touchPoints: y === undefined ? [] : [{ x: box.x + x / 720 * box.width, y: box.y + y / 1280 * box.height, id: 1 }]
   });
   const percent = () => page.locator('#depth').evaluate(el => el.value);
   const phases = [];
@@ -99,6 +99,36 @@ try {
   await touch('touchEnd');
   await page.getByRole('button', { name: 'もう一度' }).tap();
   assert.equal(await percent(), 0);
+  const batchButton = page.locator('.mode-switch label').filter({ hasText: '連続圧延' });
+  await batchButton.tap();
+  assert.match(await page.locator('#phase').textContent(), /^0 \/ 6 /);
+  await screenshot('roller-batch-ready.png');
+  await touch('touchStart', 365, 230);
+  await page.waitForTimeout(300);
+  assert.equal(await percent(), 0, 'batch requires movement');
+  const pathPoints = [[230, 365], [230, 861], [490, 861], [490, 365]];
+  for (let pass = 0; pass < 3 && await percent() !== 100; pass++) {
+    const points = pass % 2 ? [...pathPoints].reverse() : pathPoints;
+    for (let i = 1; i < points.length; i++) {
+      const [x0, y0] = points[i - 1], [x1, y1] = points[i];
+      const steps = Math.ceil(Math.hypot(x1 - x0, y1 - y0) / 12);
+      for (let step = 1; step <= steps; step++) {
+        await touch('touchMove', y0 + (y1 - y0) * step / steps, x0 + (x1 - x0) * step / steps);
+        await page.waitForTimeout(65);
+      }
+      if (!pass && i === 1) {
+        const finished = Number((await page.locator('#phase').textContent())[0]);
+        assert(finished > 0 && finished <= 3, 'one column must not finish the other');
+        await screenshot('roller-batch-half.png');
+      }
+    }
+  }
+  await touch('touchEnd');
+  assert.equal(await percent(), 100);
+  assert.match(await page.locator('#phase').textContent(), /^6 \/ 6 /);
+  await screenshot('roller-batch-complete.png');
+  await page.getByRole('button', { name: 'もう一度' }).tap();
+  assert.match(await page.locator('#phase').textContent(), /^0 \/ 6 /);
   await page.getByRole('button', { name: '音あり' }).tap();
   assert.equal(await page.evaluate(() => LAB.audio.stats().enabled), false);
   assert.deepEqual(errors, []);
@@ -124,7 +154,9 @@ try {
   await page.locator('.studio.ready').waitFor();
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth), 320);
   await page.getByRole('button', { name: 'もう一度' }).tap();
-  console.log('desktop keyboard, 320px controls, and FLOW link: OK');
+  await page.locator('.mode-switch label').filter({ hasText: '連続圧延' }).tap();
+  assert.match(await page.locator('#phase').textContent(), /^0 \/ 6 /);
+  console.log('batch 6/6, desktop keyboard, 320px controls, and FLOW link: OK');
 } finally {
   await browser.close();
 }

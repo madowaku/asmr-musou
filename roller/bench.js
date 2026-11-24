@@ -17,7 +17,7 @@
     [[.04,.06],[.14,-.22],[.42,-.47]],
     [[.23,.3],[.14,.55],[.3,.68]]
   ];
-  let renderer, sample, pointer = null, sound = false, mode = 'roll';
+  let renderer, material = 'wax', tray = [], pointer = null, sound = false, mode = 'roll';
   let pointerSpeed = 0, movedAt = 0;
   let audioPending = false, time = 0, lastFrame = 0, repaint = true, audioClock = 0, wasContact = false;
   const keys = new Set(), debris = [];
@@ -88,11 +88,11 @@
   }
 
   function emit(name, options = {}) {
-    if (sound) L.events.emit(name, { material: sample.material, x: roller.x, ...options });
+    if (sound) L.events.emit(name, { material, x: roller.x, ...options });
   }
 
   function stopAudio() {
-    if (!sample || !wasContact) return;
+    if (!wasContact) return;
     emit('strain', { amount: 0 });
     emit('flow', { rate: 0 });
     wasContact = false;
@@ -109,9 +109,10 @@
     repaint = true;
   }
 
-  function reset(material = sample.material) {
+  function reset(nextMaterial = material) {
     cancelInput();
-    sample = P.create(material);
+    material = nextMaterial;
+    tray = P.createTray(material, mode);
     debris.length = 0;
     roller.x = roller.targetX = 360;
     roller.y = roller.targetY = 844;
@@ -123,46 +124,52 @@
   }
 
   function updateReadout() {
-    const percent = Math.floor(sample.depth * 100);
-    const label = MATERIALS[sample.material].phases[sample.stage];
+    const total = tray.reduce((sum, sample) => sum + sample.depth, 0);
+    const percent = Math.floor(total / tray.length * 100);
+    const finished = tray.filter(sample => sample.depth === 1).length;
+    const label = mode === 'batch'
+      ? finished + ' / ' + tray.length + ' 個 圧延済み'
+      : MATERIALS[material].phases[tray[0].stage];
     if (depth.value !== percent) depth.value = percent;
     if (phase.textContent !== label) phase.textContent = label;
-    studio.dataset.contact = String(sample.contact > 0);
+    studio.dataset.contact = String(tray.some(sample => sample.contact > 0));
   }
 
-  function scatter(count, stage) {
+  function scatter(sample, count, stage) {
     const fx = FX[sample.material];
-    for (let i = 0; i < count; i++) {
+    const size = Math.sqrt(sample.scale);
+    const limit = Math.ceil(count * size);
+    for (let i = 0; i < limit; i++) {
       const a = (i * 2.399 + stage * .71) % TAU;
       const strength = .42 + ((i * 11) % 7) * .085;
       debris.push({
-        x: lerp(FIELD.x, roller.x, .28) + Math.cos(a) * 72,
-        y: lerp(FIELD.y, roller.y, .28) + Math.sin(a) * 38,
-        vx: Math.cos(a) * fx.spread * strength, vy: Math.sin(a) * fx.spread * strength - 40,
-        angle: a, spin: Math.cos(a) * 7, size: fx.size * strength,
+        x: lerp(sample.x, roller.x, .28) + Math.cos(a) * 72 * size,
+        y: lerp(sample.y, roller.y, .28) + Math.sin(a) * 38 * size,
+        vx: Math.cos(a) * fx.spread * strength * size, vy: Math.sin(a) * fx.spread * strength * size - 40,
+        angle: a, spin: Math.cos(a) * 7, size: fx.size * strength * size,
         kind: fx.kinds[i % fx.kinds.length], color: fx.colors[i % fx.colors.length],
         life: 1.25 + strength * .75
       });
     }
   }
 
-  function milestone(stage) {
+  function milestone(sample, stage) {
     const m = sample.material;
     if (m === 'wax') {
       if (stage === 1) emit('impact', { energy: .65 });
       if (stage === 2) emit('peel', { size: 1 });
       if (stage === 3) emit('settle', { energy: .55 });
       if (stage === 4) emit('crumble', { count: 6 });
-      scatter(stage === 4 ? 12 : FX.wax.count, stage);
+      scatter(sample, stage === 4 ? 12 : FX.wax.count, stage);
     } else if (m === 'jelly') {
       if (sample.depth === 1) {
         emit('release');
-        scatter(FX.jelly.count, stage);
+        scatter(sample, FX.jelly.count, stage);
       } else emit('impact', { energy: .35 + stage * .1 });
     } else {
       emit('crumble', { count: stage + 3 });
       if (stage === 5) emit('settle', { energy: .75 });
-      scatter(FX.soap.count, stage);
+      scatter(sample, FX.soap.count, stage);
     }
   }
 
@@ -193,18 +200,22 @@
   }
 
   function simulate(dt) {
-    const stageBefore = sample.stage;
     updateRoller(dt);
-    P.step(sample, roller, mode, dt);
-    for (let stage = stageBefore + 1; stage <= sample.stage; stage++) milestone(stage);
+    let contact = 0;
+    for (const sample of tray) {
+      const stageBefore = sample.stage;
+      P.step(sample, roller, mode, dt);
+      for (let stage = stageBefore + 1; stage <= sample.stage; stage++) milestone(sample, stage);
+      contact = Math.max(contact, sample.contact);
+    }
     audioClock -= dt;
-    if (sample.contact > 0 && audioClock <= 0) {
+    if (contact > 0 && audioClock <= 0) {
       wasContact = true;
       const moving = Math.min(1, roller.speed / 95);
-      emit('strain', { amount: sample.contact * (.32 + moving * .5), rate: .6 + moving });
-      if (sample.material === 'soap') emit('flow', { rate: sample.contact * (20 + 210 * moving) });
+      emit('strain', { amount: contact * (.32 + moving * .5), rate: .6 + moving });
+      if (material === 'soap') emit('flow', { rate: contact * (20 + 210 * moving) });
       audioClock = .05;
-    } else if (!sample.contact) stopAudio();
+    } else if (!contact) stopAudio();
     for (let i = debris.length - 1; i >= 0; i--) {
       const p = debris[i];
       p.life -= dt;
@@ -221,43 +232,47 @@
     }
   }
 
-  function draw() {
+  function drawSample(sample) {
     const r = renderer, d = sample.depth, m = sample.material;
     const jelly = m === 'jelly', wax = m === 'wax';
     const bounce = jelly ? Math.sin(time * 28) * sample.wobble * .07 : 0;
     const sx = 1 + MATERIALS[m].spread * d + sample.dent * (jelly ? .31 : .09) + bounce;
     const sy = Math.max(.18, 1 - d * (jelly ? .61 : .69) - sample.dent * .25 - bounce);
-    const cx = FIELD.x, cy = FIELD.y + (1 - sy) * 45;
-    const size = jelly ? 370 : 335;
+    const scale = sample.scale, cx = sample.x, cy = sample.y + (1 - sy) * 45 * scale;
+    const size = (jelly ? 370 : 335) * scale;
     const film = clamp((d - (wax ? .4 : .55)) * 2.7, 0, 1);
-    const shade = disk(cx, cy + lerp(61, 30, d), Math.min(155 * sx, 245), 45 * sy + 15);
-    const residue = disk(cx, cy + 20, Math.min((99 + 74 * film) * sx, 249), (19 + 24 * (1 - d)) * sx, 38, .18);
+    const shade = disk(cx, cy + lerp(61, 30, d) * scale, Math.min(155 * sx, 245) * scale, (45 * sy + 15) * scale);
+    const residue = disk(cx, cy + 20 * scale, Math.min((99 + 74 * film) * sx, 249) * scale, (19 + 24 * (1 - d)) * sx * scale, 38, .18);
     const key = 'body/' + m + '_boss';
-    r.begin();
-    r.mesh('roller/worktop', rectangle(0, 0, 720, 1280), quad);
     r.mesh('roller/shadow', shade.vertices, shade.indices, [.37, .26, .27, .12], 1);
     r.mesh('xsec/' + m, residue.vertices, residue.indices, [1, 1, 1, film * (jelly ? .29 : .79)]);
     const body = rectangle(cx - size * sx / 2, cy - size * sy / 2, size * sx, size * sy);
     const opacity = d === 1 ? (jelly ? 0 : .24) : 1 - film * (jelly ? .35 : .48);
     r.mesh(key, body, quad, [1, 1, 1, opacity]);
     if (wax && sample.stage > 0 && d < .94) {
-      const core = disk(cx + 24 * sx, cy + 8, (20 + 67 * film) * sx, (14 + 34 * film) * sy, 30, .25);
+      const core = disk(cx + 24 * sx * scale, cy + 8 * scale, (20 + 67 * film) * sx * scale, (14 + 34 * film) * sy * scale, 30, .25);
       r.mesh('roller/core', core.vertices, core.indices, [1, .89, .68, film * .91], 1);
       for (const [index, crack] of cracks.entries()) {
         if (index > sample.stage) break;
         for (let i = 1; i < crack.length; i++) {
           const [x1, y1] = crack[i - 1], [x2, y2] = crack[i];
-          r.line({ x: cx + x1 * 158 * sx, y: cy + y1 * 145 * sy }, { x: cx + x2 * 158 * sx, y: cy + y2 * 145 * sy }, 2.6, [.44, .19, .26, .77 - film * .35]);
+          r.line({ x: cx + x1 * 158 * sx * scale, y: cy + y1 * 145 * sy * scale }, { x: cx + x2 * 158 * sx * scale, y: cy + y2 * 145 * sy * scale }, 2.6 * scale, [.44, .19, .26, .77 - film * .35]);
         }
       }
     }
     if (m === 'soap') {
       for (let i = 0; i < sample.stage; i++) {
-        const y = cy + (i - 2) * 23 * sy;
-        r.line({ x: cx - 85 * sx, y: y + 12 }, { x: cx + 85 * sx, y: y - 8 }, 2.8, [.97, 1, .9, .63]);
+        const y = cy + (i - 2) * 23 * sy * scale;
+        r.line({ x: cx - 85 * sx * scale, y: y + 12 * scale }, { x: cx + 85 * sx * scale, y: y - 8 * scale }, 2.8 * scale, [.97, 1, .9, .63]);
       }
     }
-    r.render(debris, time, 0, false);
+  }
+
+  function draw() {
+    renderer.begin();
+    renderer.mesh('roller/worktop', rectangle(0, 0, FIELD.width, FIELD.height), quad);
+    for (const sample of tray) drawSample(sample);
+    renderer.render(debris, time, 0, false);
     tool.style.left = roller.x / FIELD.width * 100 + '%';
     tool.style.top = roller.y / FIELD.height * 100 + '%';
     tool.style.setProperty('--roll', (roller.spin * .29 % 30) + 'px');
@@ -266,7 +281,7 @@
   function frame(now) {
     const elapsed = lastFrame ? Math.min(.10, (now - lastFrame) / 1000) : 0;
     lastFrame = now;
-    const moving = roller.active || keys.size || debris.length || sample.dent > .002 || sample.wobble > .002;
+    const moving = roller.active || keys.size || debris.length || tray.some(sample => sample.dent > .002 || sample.wobble > .002);
     if (repaint || moving) {
       time += elapsed;
       let remaining = elapsed;
@@ -289,7 +304,7 @@
   }
 
   canvas.addEventListener('pointerdown', event => {
-    if (!renderer || !sample || pointer !== null || event.button !== 0) return;
+    if (!tray.length || pointer !== null || event.button !== 0) return;
     pointer = event.pointerId;
     keys.clear();
     pointerSpeed = 0;
@@ -317,7 +332,7 @@
     });
   }
   function keyboard(event, down) {
-    if (!renderer || !sample || pointer !== null) return;
+    if (!tray.length || pointer !== null) return;
     if (event.code === 'Space') {
       roller.active = down;
       if (down && sound && !event.repeat) L.audio.unlock();
@@ -337,9 +352,11 @@
   document.querySelector('.material-switch').addEventListener('change', event => reset(event.target.value));
   document.querySelector('.mode-switch').addEventListener('change', event => {
     mode = event.target.value;
-    $('gesture').textContent = mode === 'press'
-      ? '転がして、止めて。止めた場所でもじわっと沈む。'
-      : '素材の上をゆっくり転がす。折り返すと、さらに薄く。';
+    $('gesture').textContent = {
+      roll: '素材の上をゆっくり転がす。折り返すと、さらに薄く。',
+      press: '転がして、止めて。止めた場所でもじわっと沈む。',
+      batch: '同じ素材が縦横に6個。指を置いたまま順に転がそう。'
+    }[mode];
     reset();
   });
   $('reset').addEventListener('click', () => reset());
@@ -354,7 +371,7 @@
     L.audio.setEnabled(sound);
     soundButton.setAttribute('aria-pressed', String(sound));
     soundButton.textContent = sound ? '音あり' : L.audio.stats().error ? '音を再試行' : '音を鳴らす';
-    if (sound && sample) emit('impact', { energy: .45, x: FIELD.x });
+    if (sound && tray.length) emit('impact', { energy: .45, x: FIELD.x });
   });
 
   try {
