@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#fff3df">
+  <meta name="robots" content="noindex,nofollow">
+  <title>ROLLER 試験台 · ASMR MUSOU</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="roller/roller.css">
+  <script defer src="lab/slice.js"></script>
+  <script defer src="lab/events.js"></script>
+  <script defer src="lab/assets-bundle.js"></script>
+  <script defer src="lab/assets.js"></script>
+  <script defer src="lab/gl.js"></script>
+  <script defer src="lab/profiles.js"></script>
+  <script defer src="lab/audio/dsp.js"></script>
+  <script defer src="lab/audio/temporal.js"></script>
+  <script defer src="lab/audio/engine.js"></script>
+  <script defer src="lab/audio/audio.js"></script>
+  <script defer src="roller/pressure.js"></script>
+  <script defer src="roller/bench.js"></script>
+</head>
+<body>
+  <main class="studio" data-material="wax">
+    <div class="worktop">
+      <canvas id="bench" width="720" height="1280" tabindex="0" aria-label="ローラーの試験台" aria-describedby="gesture keyboard"></canvas>
+      <div id="roller-tool" class="tool" aria-hidden="true"><i></i><span></span></div>
+      <p id="loading" class="notice" role="status">試験台を準備中…</p>
+    </div>
+    <header class="masthead">
+      <div class="mast-row">
+        <a href="flow.html">‹ <span>CRUNCH FLOW</span></a>
+        <button id="sound" type="button" aria-pressed="false">音を鳴らす</button>
+      </div>
+      <p class="wordmark">ASMR MUSOU <span>CRUNCH STUDIO</span></p>
+      <h1>ROLLER<span>ローラー試験台</span></h1>
+      <p id="gesture">素材の上をゆっくり転がす。折り返すと、さらに薄く。</p>
+    </header>
+    <footer class="controls">
+      <div class="material-readout"><strong id="specimen">ロウ</strong><span id="phase" aria-live="polite">殻がつやつや</span></div>
+      <progress id="depth" value="0" max="100" aria-label="圧縮の深さ"></progress>
+      <fieldset class="material-switch" disabled>
+        <legend class="sr-only">素材</legend>
+        <label><input type="radio" name="material" value="wax" checked><span>ロウ</span></label>
+        <label><input type="radio" name="material" value="jelly"><span>ゼリー</span></label>
+        <label><input type="radio" name="material" value="soap"><span>石鹸</span></label>
+      </fieldset>
+      <div class="compare">
+        <fieldset class="mode-switch" disabled>
+          <legend class="sr-only">圧縮方法</legend>
+          <label><input type="radio" name="mode" value="roll" checked><span>転がす</span></label>
+          <label><input type="radio" name="mode" value="press"><span>＋長押し</span></label>
+        </fieldset>
+        <button id="reset" type="button" disabled>もう一度 <span aria-hidden="true">↻</span></button>
+      </div>
+      <p id="keyboard">キーボードは矢印キーで移動、スペースを押しながら圧縮。</p>
+    </footer>
+  </main>
+</body>
+</html>

@@ -92,6 +92,11 @@ T3では旧READMEの「画像未統合・ボスy=560・ピーク正規化・600�
 
 素材の生成方法と出所は [ASSETS.md](ASSETS.md)、全体の方針は [ORCHESTRATOR_BRIEF.md](ORCHESTRATOR_BRIEF.md) を参照。
 
+## CRUNCH STUDIO — v0.9 ROLLER 試験台
+
+Chrome で [roller.html](roller.html) を開く。ロウ・ゼリー・石鹸にローラーをゆっくりかけ、素材ごとの変形と合成音を比べる。
+試遊手順は [ROLLER 試験台](docs/v0.9/ROLLER_PLAYTEST.md)、開発起点と既知の課題は [引き継ぎ](docs/v0.9/HANDOFF.md)。
+
 ## CRUNCH FLOW (flow.html) — v0.8 研究
 
 v0.7 TEMPO の試遊結果（まだ暇な時間がある、時間でなく達成で強くなりたい）を受けた版。`tempo.html`（v0.7 TEMPO）と `crunch.html`（v0.7）は同じビルドに残している。
