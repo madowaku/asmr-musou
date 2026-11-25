@@ -38,7 +38,7 @@
       if(e.bossPart&&e.hp>(h?.bossDmg||1)){C.touch(G.hero.action);e.hp=Math.max(1,e.hp-(h?.bossDmg||1));e.squash=1;e.pressing={age:0,duration:.18,done:()=>{}};K.bossChip(e);if(act)act.hurts++;
         L.events.emit('impact',{material:e.material,speed:900,area:Math.min(e.area,5000),x:e.x,y:e.y});L.events.emit('crumble',{material:e.material,count:4,x:e.x,y:e.y});
         const g=C.sfxGain;C.sfxGain=g*.3;C.sfx('pound',e);C.sfxGain=g;W.rings.push({x:e.x,y:e.y,r0:e.radius*.8,r1:e.radius*1.25,life:.2,total:.2,w:5,color:[1,.6,.8]});G.stats.bossHits++;return;}
-      if(!e.bossPart&&e.hpc>0){const dmg=(h&&h.dmg)||K.power(G.hero);if(e.hpc>dmg){C.touch(aid);K.hurt(e,dmg,G.hero);G.stats.hurts++;if(act)act.hurts++;return;}e.hits++;}
+      if(!e.bossPart&&e.hpc>0){const dmg=(h&&h.dmg)||K.power(G.hero);if(e.hpc>dmg){C.touch(aid);K.hurt(e,dmg,h?.from??G.hero);G.stats.hurts++;if(act)act.hurts++;return;}e.hits++;}
       e.chainGen=gen;fn();};
     if(delay>0)C.later(delay,run);else run();};
   // CRUSHER: a punch that does not break chips the enemy and knocks it back into the crowd behind it.
@@ -89,11 +89,11 @@
   // the level; when reach runs short the queue steps forward faster. Enemies never overlap (a column waits behind
   // the enemy ahead), so materials and cracks stay readable. Spawning stays within a body budget.
   const REACH=400,QUEUE=188,WANT=[2,8,21,29],RESERVE=[2,5,14,20]; // waiting room y 150-400 (below the HUD), reach y 400-line
-  function start(cls, stage, free=null) {
+  function start(cls, stage, free=null, practice=null) {
     P.cancel();
     const seed=(G.seed*7919+13)%100000;
     W.clear(); L.seed(seed); L.time=0; L.frame=0; W.nextId=1; W.cutId=0;
-    Object.assign(G,{cls,stage,free,seed,t:0,rt:0,hero:C.createHero(cls),boss:null,slow:0,actions:new Map(),later:[],bolts:[],glows:[],arcs:[],sparks:[],lastPop:-9,bossDown:false,finaleT:0,paused:false,choice:null,broken:new Map(),gestureT:0,lineFlash:0,sampleT:0,
+    Object.assign(G,{cls,stage,free,practice,seed,t:0,rt:0,hero:C.createHero(cls),boss:null,slow:0,actions:new Map(),later:[],bolts:[],glows:[],arcs:[],sparks:[],lastPop:-9,bossDown:false,finaleT:0,paused:false,choice:null,broken:new Map(),gestureT:0,lineFlash:0,sampleT:0,
       sched:{spawn:0,hard:10,thin:0,firstHard:true,lane:0},energy:0,energyOver:0,levelPending:false,gainFlash:0,holdSupply:0});
     G.stats={cls,seed,kills:0,actions:0,hurts:0,chainKills:0,best:0,bestChain:0,ups:[],levelUps:[],energy:{},bossTime:null,bossSecs:null,bossDefeated:false,bossHits:0,firstActionT:null,firstKillT:null,byMaterial:{},byKind:{},lifeOf:[],breaches:[],onScreen:[],danger:[],byLevel:null,latency:null};
     G.state='play';
@@ -116,7 +116,10 @@
     W.clear(); G.later=[]; G.sparks=[]; G.arcs=[]; G.glows=[]; G.bolts=[];
     G.hero.launched=null;
     const positions=G.free==='single'?[[360,620]]:[[225,450],[495,450],[225,620],[495,620],[225,790],[495,790]];
-    for(const [x,y] of positions) K.spawn(G.free==='single'?'weak':'mid',x,y,{m:G.stage.mat});
+    for(const [x,y] of positions){
+      const body=K.spawn(G.free==='single'?'weak':'mid',x,y,{m:G.stage.mat});
+      if(body&&G.practice==='iai'&&G.free!=='single')body.hpc=body.hpMax=1;
+    }
   }
 
   function addRow(kind, points) {
@@ -237,7 +240,7 @@
     if(h.cls==='roller'){C.rollerMove(q,p);return;}
     if(q.charging){h.charge&&(h.charge.p=p);return;}
     if(h.cls==='spinner'){C.spinMove(h,q,p);return;}
-    if(h.cls==='slasher'){const dx=p.x-q.anchor.x,dy=p.y-q.anchor.y,d=Math.hypot(dx,dy);
+    if(h.cls==='slasher'){if(C.iai&&q.fired)return;const dx=p.x-q.anchor.x,dy=p.y-q.anchor.y,d=Math.hypot(dx,dy);
       if(d>=(q.fired?110:52)){const ux=dx/d,uy=dy/d,turn=q.dir?Math.acos(Math.max(-1,Math.min(1,ux*q.dir.x+uy*q.dir.y))):9;
         if((!q.fired||turn>.5||d>=220)&&G.rt-h.lastSlash>=.07){h.lastSlash=G.rt;if(q.fired)G.gestureT=G.rt;C.slash(h,q.anchor,ux,uy);q.fired++;q.dir={x:ux,y:uy};q.anchor=p;}}}
     else if(h.cls==='crusher'){if(!q.redirected&&q.moved>=40&&G.rt-q.t0<.35){const dx=p.x-q.start.x,dy=p.y-q.start.y,d=Math.hypot(dx,dy)||1;q.redirected=C.redirect(h,dx/d,dy/d);}}
@@ -309,6 +312,7 @@
       renderer.line({x:x-4,y:y+7},{x:x+3,y:y-4},4,[.98,.65,.24,1-t*.6]);
     }
     if(h?.cls==='roller')C.drawRollerTools?.(renderer,h,G.t);
+    if(h?.cls==='slasher')C.drawIai?.(renderer);
     W.drawFx(renderer);renderer.render(W.particles,G.t,progress.motion?W.punch:0,progress.motion&&G.slow>0);
   }
   // ---------- HUD ----------

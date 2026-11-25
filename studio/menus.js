@@ -5,6 +5,8 @@
     const { heroes, stages } = Studio;
     const screens = Array.from(document.querySelectorAll('.screen'));
     let freeSelect = false, material = null, settingsFrom = null, practice = false;
+    const practiceHero = C.iai ? 'slasher' : 'roller';
+    const practiceTitle = C.iai ? '居合の練習' : 'ROLLERの練習';
     const rollerHelp = 'ゆっくりで深く。素早くで削りかす。止めて芯を押す。';
 
     function view(id, focus = true) {
@@ -21,13 +23,16 @@
       }
     }
 
+    const helpFor = id => id === 'slasher' && C.iai ? C.iai.help
+      : id === 'roller' && C.rollerFeel ? rollerHelp : heroes[id].help;
+
     function paintHero() {
       const hero = heroes[progress.hero];
       const art = $('hero-art');
       art.src = Studio.portrait(progress.hero);
       $('hero-preview').style.setProperty('--hero', hero.color);
       $('hero-name').textContent = hero.name + '  ' + hero.jp;
-      $('hero-help').textContent = C.rollerFeel && progress.hero === 'roller' ? rollerHelp : hero.help;
+      $('hero-help').textContent = helpFor(progress.hero);
       $('hero-confirm').textContent = freeSelect ? 'フリープレイを始める ›' : 'ステージを選ぶ ›';
       for (const button of $('hero-cards').querySelectorAll('button')) {
         button.setAttribute('aria-pressed', String(button.dataset.hero === progress.hero));
@@ -83,8 +88,8 @@
       if (!material || (!practice && !Studio.learned(material, progress))) {
         material = practice ? stages[0] : stages.find(stage => Studio.learned(stage, progress)) || null;
       }
-      $('book-heading').textContent = practice ? 'ROLLERの練習' : 'ASMR図鑑';
-      $('book-confirm').textContent = practice ? 'この素材を圧延する ›' : 'キャラクターを選ぶ ›';
+      $('book-heading').textContent = practice ? practiceTitle : 'ASMR図鑑';
+      $('book-confirm').textContent = practice ? (C.iai ? 'この素材を斬る ›' : 'この素材を圧延する ›') : 'キャラクターを選ぶ ›';
       $('material-cards').replaceChildren(...stages.map(stage => card(stage, 'book')));
       $('book-confirm').disabled = !material;
       view('book');
@@ -163,10 +168,15 @@
       $('adventure').onclick = () => selectHero(false);
       $('collection').onclick = $('book-back').onclick = null;
       $('collection').onclick = () => { practice = false; showBook(); };
-      if (C.rollerFeel) {
+      if (C.rollerFeel || C.iai) {
+        if (C.iai) $('roller-practice').textContent = practiceTitle + ' ›';
         $('roller-practice').hidden = false;
         $('roller-baseline').hidden = false;
-        $('roller-practice').onclick = () => { practice = true; showBook(); };
+        $('roller-practice').onclick = () => {
+          practice = true;
+          if(C.iai)document.querySelector('input[value="group"]').checked = true;
+          showBook();
+        };
       }
       $('hero-back').onclick = () => freeSelect ? showBook() : showTitle();
       $('stage-back').onclick = () => selectHero(false);
@@ -175,7 +185,7 @@
         if (!material) return;
         if (practice) {
           L.audio.unlock();
-          start('roller', material, document.querySelector('input[name="layout"]:checked').value);
+          start(practiceHero, material, document.querySelector('input[name="layout"]:checked').value, C.iai ? 'iai' : 'roller');
         } else selectHero(true);
       };
       $('hero-confirm').onclick = () => {
@@ -212,9 +222,9 @@
       play() {
         const info = heroes[G.cls];
         $('arena').dataset.material = G.stage.mat;
-        $('stage-tag').textContent = G.free ? (practice ? 'ROLLERの練習 · ' : 'ASMR図鑑 · ') + L.combat.stages.MATERIALS[G.stage.mat].jp : 'STAGE 0' + G.stage.n + '  ' + G.stage.name;
+        $('stage-tag').textContent = G.free ? (practice ? practiceTitle + ' · ' : 'ASMR図鑑 · ') + L.combat.stages.MATERIALS[G.stage.mat].jp : 'STAGE 0' + G.stage.n + '  ' + G.stage.name;
         $('cls').textContent = info.name;
-        $('help').textContent = C.rollerFeel && G.cls === 'roller' ? rollerHelp : info.help;
+        $('help').textContent = helpFor(G.cls);
         $('breach').textContent = '0';
         $('clock-track').hidden = $('breach-box').hidden = $('upmeter').hidden = Boolean(G.free);
         $('boss-meter').hidden = true;
