@@ -7,7 +7,7 @@ set -e
 SRC=${1:-.}; OUT=${2:-dist}
 rm -rf "$OUT"; mkdir -p "$OUT"; OUT=$(cd "$OUT" && pwd)
 cd "$SRC"
-for f in index.html style.css game.js audio.js sprites.js soundboard.html lab.html lab-audio.html combat.html spin.html feel.html stages.html crunch.html tempo.html flow.html; do if [ -f "$f" ]; then cp "$f" "$OUT/"; fi; done
+for f in index.html style.css game.js audio.js sprites.js soundboard.html lab.html lab-audio.html combat.html spin.html feel.html stages.html crunch.html tempo.html flow.html roller.html studio.html; do if [ -f "$f" ]; then cp "$f" "$OUT/"; fi; done
 if [ -d lab ]; then cp -R lab "$OUT/lab"; fi
 if [ -d combat ]; then cp -R combat "$OUT/combat"; fi
 if [ -d spin ]; then cp -R spin "$OUT/spin"; fi
@@ -16,6 +16,8 @@ if [ -d stages ]; then cp -R stages "$OUT/stages"; fi
 if [ -d crunch ]; then cp -R crunch "$OUT/crunch"; fi
 if [ -d tempo ]; then cp -R tempo "$OUT/tempo"; fi
 if [ -d flow ]; then cp -R flow "$OUT/flow"; fi
+if [ -d roller ]; then cp -R roller "$OUT/roller"; fi
+if [ -d studio ]; then cp -R studio "$OUT/studio"; fi
 if [ -d assets/art ]; then
   mkdir -p "$OUT/assets/art"
   for p in assets/art/*.png; do case "$p" in *contact_sheet*) ;; *) cp "$p" "$OUT/assets/art/";; esac; done
@@ -27,6 +29,8 @@ printf 'User-agent: *\nDisallow: /\n' > "$OUT/robots.txt"
 printf '/*\n  X-Robots-Tag: noindex, nofollow\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: no-referrer\n' > "$OUT/_headers"
 # A tiny launcher listing what this build contains (handy on a phone).
 { printf '<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ASMR MUSOU builds</title><link rel="icon" href="data:,"><style>body{font:18px system-ui;background:#151626;color:#eee;padding:24px}a{display:block;margin:14px 0;padding:16px;border-radius:12px;background:#2a2647;color:#fff;text-decoration:none}</style><h1>ASMR無双 試遊</h1>';
+  if [ -f "$OUT/studio.html" ]; then printf '<a href="studio.html">CRUNCH STUDIO v1.0（5キャラ×8素材・ASMR図鑑）</a>'; fi
+  if [ -f "$OUT/studio.html" ]; then printf '<a href="studio.html?all=1">CRUNCH STUDIO v1.0（全8ステージ＆図鑑 開放版）</a>'; fi
   if [ -f "$OUT/flow.html" ]; then printf '<a href="flow.html">CRUNCH FLOW v0.8（途切れない行列・壊して強くなる・双剣士）</a>'; fi
   if [ -f "$OUT/tempo.html" ]; then printf '<a href="tempo.html">CRUNCH LINE TEMPO（v0.7 比較版：序盤から連打できる）</a>'; fi
   if [ -f "$OUT/crunch.html" ]; then printf '<a href="crunch.html">CRUNCH LINE（縦スクロール防衛・一つを味わい、全部を砕く）</a>'; fi
