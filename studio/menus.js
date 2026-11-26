@@ -17,8 +17,11 @@
       if (id !== 'play') $('pops').replaceChildren();
       for (const section of screens) section.hidden = section.id !== id;
       const active = id === 'play';
-      $('hud').hidden = $('play-footer').hidden = !active;
+      const film = active && Boolean(G.film);
+      $('hud').hidden = $('play-footer').hidden = !active || film;
+      $('film-exit').hidden = !film;
       $('arena').classList.toggle('playing', active);
+      $('arena').classList.toggle('film-mode', film);
       if (id === 'title') updateTitleBadges();
       if (focus && !active) {
         const target = $(id)?.querySelector('h1,h2');
@@ -43,7 +46,8 @@
       $('hero-preview').style.setProperty('--hero', hero.color);
       $('hero-name').textContent = hero.name + '  ' + hero.jp;
       $('hero-help').textContent = helpFor(progress.hero);
-      $('hero-confirm').textContent = freeSelect ? 'フリープレイを始める ›' : 'ステージを選ぶ ›';
+      const isFilm = freeSelect && $('film-mode')?.checked;
+      $('hero-confirm').textContent = isFilm ? '撮影モードを始める ›' : freeSelect ? 'フリープレイを始める ›' : 'ステージを選ぶ ›';
       for (const button of $('hero-cards').querySelectorAll('button')) {
         button.setAttribute('aria-pressed', String(button.dataset.hero === progress.hero));
       }
@@ -144,9 +148,9 @@
       if (resume) settingsFrom?.focus({ preventScroll: true });
     }
 
-    function launch(stage, free = null) {
+    function launch(stage, free = null, opts = {}) {
       L.audio.unlock();
-      start(progress.hero, stage, free);
+      start(progress.hero, stage, free, null, opts);
     }
 
     function showTitle() {
@@ -201,8 +205,18 @@
         } else selectHero(true);
       };
       $('hero-confirm').onclick = () => {
-        if (freeSelect && material) launch(material, document.querySelector('input[name="layout"]:checked').value);
-        else showStages();
+        if (freeSelect && material) {
+          const layout = document.querySelector('input[name="layout"]:checked').value;
+          const level = Number(document.querySelector('input[name="book-level"]:checked')?.value || 1);
+          const film = Boolean($('film-mode')?.checked);
+          launch(material, layout, { film, level });
+        } else showStages();
+      };
+      $('film-exit').onclick = () => {
+        G.paused = false;
+        G.state = 'select';
+        cancel();
+        showBook();
       };
       $('settings-open').onclick = () => settings(false, $('settings-open'));
       $('pause').onclick = () => settings(true, $('pause'));
@@ -222,13 +236,14 @@
         const idx = (heroOrder.indexOf(G.cls) + 1) % heroOrder.length;
         progress.hero = heroOrder[idx];
         Studio.save(progress);
-        start(progress.hero, G.stage, G.free, G.practice);
+        start(progress.hero, G.stage, G.free, G.practice, { film: G.film, level: G.startLv });
       };
       $('again').onclick = () => launch(G.stage);
       $('result-back').onclick = () => { G.state = 'select'; showStages(); };
       $('result-title').onclick = showTitle;
       document.addEventListener('keydown', event => {
         if (event.key !== 'Escape') return;
+        if (G.state === 'play' && G.film) { $('film-exit').click(); return; }
         if (!$('settings').hidden) closeSettings();
         else if (G.state === 'play' && !G.choice) settings(true, $('pause'));
       });

@@ -23,7 +23,8 @@
   <script defer src="stages/stages.js"></script>
   <script defer src="studio/art/battle-assets.js"></script><script defer src="studio/art/boss-assets.js"></script>
   <script defer src="studio/roller.js"></script><script defer src="studio/roller-feel.js"></script>
-  <script defer src="studio/roller-render.js"></script><script defer src="studio/iai.js"></script>
+  <script defer src="studio/roller-render.js"></script><script defer src="studio/material-synergy.js"></script>
+  <script defer src="studio/iai.js"></script>
   <script defer src="studio/heroes-polish.js"></script><script defer src="studio/content.js"></script>
   <script defer src="studio/menus.js"></script><script defer src="studio/game.js"></script>
 </head>
@@ -40,6 +41,7 @@
     <div id="banner"></div>
   </header>
   <footer id="play-footer" hidden><p id="help"></p><span id="roll-feel-mode" hidden aria-hidden="true"></span><button id="free-hero" hidden>キャラ変更</button><button id="free-refill" hidden>置き直す</button></footer>
+  <button id="film-exit" hidden aria-label="撮影モードを終了">✕</button>
   <section id="loading" class="screen"><p role="status">スタジオを準備中…</p></section>
   <section id="title" class="screen title-screen" hidden>
     <div class="title-copy"><span class="kicker">ASMR MUSOU</span><h1>CRUNCH<br>STUDIO</h1><p>一つを味わう。やがて、全部を砕く。</p></div>
@@ -72,6 +74,16 @@
       <label><input type="radio" name="layout" value="group">複数配置</label>
       <label><input type="radio" name="layout" value="supply">連続供給</label>
     </fieldset>
+    <div class="film-panel">
+      <label class="film-toggle"><input type="checkbox" id="film-mode"><span><b>撮影モード</b><small>HUD非表示・連続供給・素材音主役（縦型動画向け）</small></span></label>
+      <fieldset class="levels" aria-label="成長段階">
+        <legend>成長段階</legend>
+        <label><input type="radio" name="book-level" value="1" checked>Lv 1</label>
+        <label><input type="radio" name="book-level" value="2">Lv 2</label>
+        <label><input type="radio" name="book-level" value="3">Lv 3</label>
+        <label><input type="radio" name="book-level" value="4">MAX</label>
+      </fieldset>
+    </div>
     <button id="book-confirm" class="primary">キャラクターを選ぶ <span>›</span></button>
   </section>
   <section id="upgrade" class="overlay" role="dialog" aria-modal="true" aria-labelledby="upgrade-title" hidden><div class="dialog upgrade-dialog">

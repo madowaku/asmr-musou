@@ -44,6 +44,7 @@
       e.proj = { energy: (o.fin ? 3.8 : 2.5) * (o.blast ? 1.6 : 1) * (0.65 + hard * 0.45), owner: id, gen: 0, hits: 0 };
       h.launched = { e, t: C.state.rt };
       C.sfx('billiard', { x: e.x, gen: 1 });
+      C.synergy?.onPunchImpact(e, Math.cos(best), Math.sin(best), !!o.fin, 0);
       W.rings.push({ x: e.x, y: e.y, r0: e.radius * 0.4, r1: e.radius * 2.1, life: 0.20, total: 0.20, w: 6, color: [1, 0.48, 0.74], alpha: 0.8 });
       if (o.blast) {
         for (const other of C.targets()) {
@@ -60,6 +61,7 @@
       }
       return true;
     }
+    C.synergy?.onPunchImpact(e, ux, uy, !!o.fin, 0);
     C.hit(e, () => W.shatter(e, 2200, {
       angle: Math.atan2(uy, ux) + Math.PI / 2,
       push: { x: ux * 680, y: uy * 680 },
@@ -90,7 +92,9 @@
       const prev = beforeHits.get(p.id);
       if (prev != null && p.proj && p.proj.hits > prev) {
         const gen = p.proj.hits + 1;
+        const sp = Math.hypot(p.vx, p.vy) || 1;
         C.sfx('billiard', { x: p.x, gen });
+        C.synergy?.onPunchImpact(p, p.vx / sp, p.vy / sp, gen >= 2, gen);
         W.rings.push({ x: p.x, y: p.y, r0: p.radius * 0.5, r1: p.radius * 2.2, life: 0.20, total: 0.20, w: 6, color: [1, 0.72, 0.35], alpha: 0.8 });
         W.freeze = Math.max(W.freeze, 0.022);
       }
@@ -143,6 +147,7 @@
     C.glow(w, w.r * 1.15, w.sub ? [1, 0.55, 0.9] : [0.65, 0.55, 1]);
     C.sfx('burst', { x: w.x, n: caught.length, sub: w.sub });
     if (caught.length >= 3) C.sfx('gravity_burst', { x: w.x, k: Math.min(1, caught.length / 8) });
+    C.synergy?.onCasterBurst(w, caught, 0.65);
 
     // Simultaneous wave burst so crowded materials pop crisply with stereo width
     const nonBoss = caught.filter(e => !e.bossPart);
@@ -201,11 +206,13 @@
     if (h.cls === 'caster') {
       const r = C.bigRadius(h, ch.k) * 1.45;
       let leadMat = null, bestD = Infinity, count = 0;
+      const pulled = [];
       for (const e of C.targets()) {
         if (e.bossPart) continue;
         const dx = ch.p.x - e.x, dy = ch.p.y - e.y, d = Math.hypot(dx, dy);
         if (d > r || d < 6) continue;
         count++;
+        pulled.push(e);
         if (d < bestD) { bestD = d; leadMat = e.material; }
         // Swirl + inward compression pull
         const nx = dx / d, ny = dy / d, tx = -ny, ty = nx;
@@ -218,6 +225,7 @@
         e.squash = Math.max(e.squash || 0, Math.min(1.18, 0.36 + ch.k * 0.85));
         e.dirty = true;
       }
+      C.synergy?.onCasterPull(ch.p, pulled, ch.k, dt);
       const mat = leadMat || C.state.stage?.mat || 'beadslime';
       h.chargeMat = mat;
       L.events.emit('strain', { material: mat, amount: Math.min(1, 0.25 + ch.k * 0.75), rate: 1.2 + ch.k * 1.6, x: ch.p.x });
@@ -236,6 +244,9 @@
       L.events.emit('strain', { material: h.chargeMat, amount: 0, rate: 0 });
       h.chargeMat = null;
     }
+    const r = C.bigRadius(h, k);
+    const caught = C.targets().filter(e => dist(e, p) < r + e.radius * 0.6);
+    C.synergy?.onCasterBurst(p, caught, k);
     C.sfx('gravity_burst', { x: p.x, k });
     return origBig(h, p, k);
   };
@@ -250,8 +261,12 @@
     const pullOuter = gale ? R * 2.1 : R * 1.55;
     const pullStep = gale ? 34 : 18;
     for (const e of C.targets()) {
-      if (e.bossPart) continue;
       const d = dist(e, c);
+      if (d <= R + e.radius * 0.55) {
+        const ux = (e.x - c.x) / (d || 1), uy = (e.y - c.y) / (d || 1);
+        C.synergy?.onSpinnerTick(e, c, -uy, ux, h.spinCombo || 1);
+      }
+      if (e.bossPart) continue;
       if (d < R * 0.45 || d > pullOuter) continue;
       const ux = (c.x - e.x) / d, uy = (c.y - e.y) / d;
       // Add slight tangential swirl so materials visibly spiral into the twin blades!

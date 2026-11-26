@@ -222,12 +222,24 @@
   // ---------- unbroken enemy queue (reduced downtime across all heroes) ----------
   const REACH = 400, QUEUE = 188, WANT = [3, 9, 22, 30], RESERVE = [3, 6, 15, 21];
 
-  function start(cls, stage, free = null, practice = null) {
+  function start(cls, stage, free = null, practice = null, opts = {}) {
     P.cancel();
     const seed = (G.seed * 7919 + 13) % 100000;
     W.clear(); L.seed(seed); L.time = 0; L.frame = 0; W.nextId = 1; W.cutId = 0;
+    const film = Boolean(free && opts.film);
+    const startLv = free ? Math.max(1, Math.min(4, Number(opts.level) || 1)) : 1;
+    const hero = C.createHero(cls);
+    if (startLv > 1) {
+      // Apply ordered upgrades for chosen growth level in ASMR Book / Film Mode
+      const pool = (C.UPGRADES[cls] || []).slice();
+      if (cls === 'spinner') {
+        const gi = pool.findIndex(u => u.id === 'gale');
+        if (gi > 0) [pool[0], pool[gi]] = [pool[gi], pool[0]];
+      }
+      for (const u of pool.slice(0, startLv - 1)) hero.ups.add(u.id);
+    }
     Object.assign(G, {
-      cls, stage, free, practice, seed, t: 0, rt: 0, hero: C.createHero(cls), boss: null, slow: 0,
+      cls, stage, free, practice, film, startLv, seed, t: 0, rt: 0, hero, boss: null, slow: 0,
       actions: new Map(), later: [], bolts: [], glows: [], arcs: [], sparks: [], lastPop: -9,
       bossDown: false, finaleT: 0, paused: false, choice: null, broken: new Map(), gestureT: 0,
       lineFlash: 0, sampleT: 0, levelGlow: 0,
@@ -235,7 +247,7 @@
       energy: 0, energyOver: 0, levelPending: false, gainFlash: 0, holdSupply: 0
     });
     G.stats = {
-      cls, seed, kills: 0, actions: 0, hurts: 0, chainKills: 0, best: 0, bestChain: 0, ups: [], levelUps: [],
+      cls, seed, kills: 0, actions: 0, hurts: 0, chainKills: 0, best: 0, bestChain: 0, ups: [...hero.ups], levelUps: [],
       energy: {}, bossTime: null, bossSecs: null, bossDefeated: false, bossHits: 0, firstActionT: null,
       firstKillT: null, byMaterial: {}, byKind: {}, lifeOf: [], breaches: [], onScreen: [], danger: [],
       byLevel: null, latency: null
@@ -245,7 +257,8 @@
     Stages.applyRules(stage);
     C.mix = Stages.mixState(stage, 0, false);
     C.studioVolume = progress.volume;
-    C.sfxGain = (C.mix?.sfx ?? 0.7) * progress.volume / 0.65;
+    // Film mode puts material ASMR sound front-and-center by tucking hero SFX slightly behind
+    C.sfxGain = (C.mix?.sfx ?? 0.7) * (film ? 0.52 : 1) * progress.volume / 0.65;
     ui.play();
     if (free) fillFree();
     else {
@@ -281,9 +294,10 @@
     if (G.state !== 'play') return;
     dropLaunched(); pruneDebris();
     if (G.free) {
-      if (G.free === 'supply' && !alive()) {
+      // Continuous replenishment in 'supply' layout AND whenever Film Mode is active
+      if ((G.free === 'supply' || G.film) && !alive()) {
         G.holdSupply += dt;
-        if (G.holdSupply > 0.55) { G.holdSupply = 0; fillFree(); }
+        if (G.holdSupply > (G.film ? 0.48 : 0.55)) { G.holdSupply = 0; fillFree(); }
       }
       return;
     }
@@ -580,7 +594,7 @@
     const scale = G.slow > 0 ? 0.3 : 1; G.slow = Math.max(0, G.slow - dt);
     const sdt = dt * scale; G.t += sdt; L.time = G.t; L.frame++;
     for (let i = G.later.length - 1; i >= 0; i--) if (G.later[i].at <= G.t) { const q = G.later.splice(i, 1)[0]; q.fn(); }
-    C.updateHero(G.hero, sdt); C.updateCharge(G.hero, sdt); C.updateStudioHeroes?.(sdt); W.advance(sdt);
+    C.updateHero(G.hero, sdt); C.updateCharge(G.hero, sdt); C.updateStudioHeroes?.(sdt); C.synergy?.update(sdt); W.advance(sdt);
     if (W.freeze > 0) W.freeze = Math.max(0, W.freeze - dt);
     else { W.physics(sdt); C.updateProjectiles(sdt); }
     W.decay(sdt);
@@ -642,6 +656,7 @@
       renderer.glow(b.x, b.y + b.radius * 0.65, b.radius * 1.25, [0.45, 0.27, 0.26, 0.18]);
     }
     if (G.cls === 'roller') C.drawRollerResidues?.(renderer, G.t);
+    C.synergy?.drawUnder(renderer);
     W.drawBodies(renderer);
     for (const b of W.bodies) if (!b.removed && !b.active && b.cracks) K.drawCracks(renderer, b);
     for (const g of G.glows) { const k = g.life / g.total; renderer.glow(g.x, g.y, g.r * (1.1 - k * 0.3), [...g.col, 0.35 * k]); }
@@ -659,6 +674,7 @@
     // Draw ROLLER drum directly over materials & below the character sprite for natural perspective
     if (h?.cls === 'roller') C.drawRollerTools?.(renderer, h, G.t);
     C.drawStudioHeroes?.(renderer, h, G.t);
+    C.synergy?.drawOver(renderer);
     if (h) {
       const col = TINT[h.cls];
       if (h.charge && h.cls !== 'caster') {
@@ -693,7 +709,7 @@
   // ---------- HUD ----------
   const popsEl = $('pops');
   function pop(x, y, text, kind) {
-    if (G.state !== 'play') return;
+    if (G.state !== 'play' || G.film) return;
     if (kind !== 'big' && G.t - G.lastPop < 0.48) return;
     G.lastPop = G.t;
     if (kind === 'big') popsEl.replaceChildren();

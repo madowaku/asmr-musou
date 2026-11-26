@@ -147,9 +147,36 @@ h1 { font: italic 900 clamp(46px, 14vw, 76px)/.82 var(--label); letter-spacing: 
 .stage-card strong { font-size: 16px; }
 .stage-card span { font-size: 11px; color: #603f4c; font-weight: 700; }
 
-.layouts { display: flex; gap: 5px; margin: 12px 0; border: 0; padding: 0; }
-.layouts label { display: flex; align-items: center; gap: 3px; flex: 1; justify-content: center; border: 1px solid var(--edge); border-radius: 8px; min-height: 42px; font-weight: 750; font-size: 11px; background: #fffaf2; }
+.layouts { display: flex; gap: 5px; margin: 10px 0 8px; border: 0; padding: 0; }
+.layouts label { display: flex; align-items: center; gap: 3px; flex: 1; justify-content: center; border: 1px solid var(--edge); border-radius: 8px; min-height: 40px; font-weight: 750; font-size: 11px; background: #fffaf2; }
 .layouts label:has(:checked) { border-color: var(--key); background: var(--wash); }
+.film-panel { display: grid; gap: 7px; margin: 0 0 11px; padding: 9px 10px; border-radius: 12px; background: #fffbf4; border: 1px solid var(--edge); }
+.film-toggle { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.film-toggle input { width: 18px; height: 18px; margin: 0; flex-shrink: 0; }
+.film-toggle b { display: block; font-size: 12px; color: var(--ink); }
+.film-toggle small { display: block; font-size: 10px; color: var(--muted); font-weight: 700; }
+.levels { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; border: 0; padding: 0; margin: 0; }
+.levels legend { font-size: 10px; font-weight: 800; color: var(--muted); margin-bottom: 4px; }
+.levels label { display: flex; align-items: center; justify-content: center; gap: 3px; min-height: 34px; border: 1px solid var(--edge); border-radius: 8px; background: #fffaf2; font-size: 11px; font-weight: 800; cursor: pointer; }
+.levels label:has(:checked) { border-color: var(--key); background: var(--wash); color: var(--key); }
+#film-exit {
+  position: absolute;
+  top: max(10px, env(safe-area-inset-top));
+  left: 10px;
+  z-index: 12;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid #ffffff88;
+  background: #432b3744;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 900;
+  opacity: 0.16;
+  transition: opacity .2s ease;
+}
+#film-exit:hover, #film-exit:focus-visible, #film-exit:active { opacity: 0.9; background: #432b37cc; }
+#arena.film-mode { aspect-ratio: 9 / 16; }
 input { accent-color: var(--key); }
 
 /* In-game HUD */

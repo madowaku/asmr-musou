@@ -195,9 +195,10 @@
     body.squash = Math.max(body.squash || 0, 0.28 + contact * 0.35 + state.depth * 1.44);
     if (body.material === 'sponge') {
       // Wet sponge darkens richly as water squeezes out
-      const w = state.depth * 0.22;
-      body.tint = [1 - w, 1 - w * 0.9, 1 - w * 1.35, 1];
+      const w = state.depth * 0.24;
+      body.tint = [1 - w, 1 - w * 0.9, 1 - w * 1.4, 1];
     }
+    C.synergy?.onRollerPress(body, roller, state.depth, dt);
     if (!G.free && !body.bossPart && !body.flying) body.rollDrag = G.t + 0.12;
     if (justTouched) {
       const quick = roller.mode === 'quick';

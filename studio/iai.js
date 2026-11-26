@@ -44,12 +44,13 @@
       if (!parts?.length) return;
       for (const part of parts) {
         const side = Math.sign((part.x - x) * nx + (part.y - y) * ny) || 1;
-        const offset = limit(e.radius * 0.21, 6, 19);
+        const offset = limit(e.radius * (e.material === 'sand' ? 0.10 : 0.21), 4, 19);
         part.x += nx * side * offset;
         part.y += ny * side * offset;
         part.spin *= 0.26;
         part.dirty = true;
       }
+      C.synergy?.onIaidoSplit(e, parts, mark);
     }, { action: id, dmg: K.power(hero), from: { x: x - nx * e.radius, y: y - ny * e.radius } });
   }
 
@@ -88,7 +89,8 @@
       C.begin(hero, 'iai', { at: c });
       hero.combo = G.rt - hero.comboT < 0.85 ? Math.min(9, hero.combo + 1) : 1;
       hero.comboT = G.rt;
-      const from = C.clampP(a), to = C.clampP(b);
+      const from = { x: limit(a.x, 86, 634), y: limit(a.y, 240, 1140) };
+      const to = { x: limit(b.x, 86, 634), y: limit(b.y, 240, 1140) };
       W.trails.push({ a: { x: hero.x, y: hero.y }, b: from, life: 0.10, total: 0.10, w: 3, color: [0.45, 0.72, 1], alpha: 0.35 });
       hero.x = from.x;
       hero.y = from.y;
