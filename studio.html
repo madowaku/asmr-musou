@@ -18,10 +18,13 @@
   <script defer src="lab/audio/audio.js"></script><script defer src="lab/caps.js"></script>
   <script defer src="combat/world.js"></script><script defer src="combat/formations.js"></script>
   <script defer src="feel/heroes.js"></script><script defer src="feel/sfx.js"></script>
+  <script defer src="studio/audio-polish.js"></script>
   <script defer src="crunch/crunch.js"></script><script defer src="flow/spinner.js"></script>
   <script defer src="stages/stages.js"></script>
-  <script defer src="studio/art/battle-assets.js"></script><script defer src="studio/art/boss-assets.js"></script><script defer src="studio/roller.js"></script><script defer src="studio/roller-feel.js"></script>
-  <script defer src="studio/roller-render.js"></script><script defer src="studio/iai.js"></script><script defer src="studio/content.js"></script>
+  <script defer src="studio/art/battle-assets.js"></script><script defer src="studio/art/boss-assets.js"></script>
+  <script defer src="studio/roller.js"></script><script defer src="studio/roller-feel.js"></script>
+  <script defer src="studio/roller-render.js"></script><script defer src="studio/iai.js"></script>
+  <script defer src="studio/heroes-polish.js"></script><script defer src="studio/content.js"></script>
   <script defer src="studio/menus.js"></script><script defer src="studio/game.js"></script>
 </head>
 <body>
@@ -36,16 +39,16 @@
     <div id="boss-meter" hidden><span id="boss-name"></span><progress id="boss-progress" max="1" value="1" aria-label="ボスの残り耐久"></progress></div>
     <div id="banner"></div>
   </header>
-  <footer id="play-footer" hidden><p id="help"></p><span id="roll-feel-mode" hidden aria-hidden="true"></span><button id="free-refill" hidden>素材を置き直す</button></footer>
+  <footer id="play-footer" hidden><p id="help"></p><span id="roll-feel-mode" hidden aria-hidden="true"></span><button id="free-hero" hidden>キャラ変更</button><button id="free-refill" hidden>置き直す</button></footer>
   <section id="loading" class="screen"><p role="status">スタジオを準備中…</p></section>
   <section id="title" class="screen title-screen" hidden>
     <div class="title-copy"><span class="kicker">ASMR MUSOU</span><h1>CRUNCH<br>STUDIO</h1><p>一つを味わう。やがて、全部を砕く。</p></div>
     <div id="title-art" class="title-art" aria-hidden="true"></div>
     <nav class="title-actions" aria-label="メインメニュー">
       <button id="adventure" class="primary">ステージ攻略 <span>›</span></button>
-      <button id="roller-practice" class="primary" hidden>ROLLERの練習 <span>›</span></button>
-      <button id="collection" class="secondary">ASMR図鑑 <span>›</span></button>
-      <div class="title-links"><button id="settings-open" class="plain">設定</button><a id="roller-baseline" href="studio.html" hidden>現行 v0.9</a></div>
+      <button id="roller-practice" class="primary" hidden>練習モード <span>›</span></button>
+      <button id="collection" class="secondary">ASMR図鑑 <span id="book-badge" class="badge"></span></button>
+      <div class="title-links"><button id="settings-open" class="plain">設定</button><a id="roller-baseline" href="studio.html" hidden>標準版へ</a></div>
     </nav>
   </section>
   <section id="select" class="screen panel" hidden>
@@ -57,11 +60,13 @@
   </section>
   <section id="stages" class="screen panel" hidden>
     <button class="back" id="stage-back">‹ キャラクター</button>
-    <h2>ステージ</h2><div id="stage-cards" class="stage-cards"></div>
+    <div class="panel-head"><h2>ステージ</h2><span id="stage-progress" class="pill"></span></div>
+    <div id="stage-cards" class="stage-cards"></div>
   </section>
   <section id="book" class="screen panel" hidden>
     <button class="back" id="book-back">‹ タイトル</button>
-    <h2 id="book-heading">ASMR図鑑</h2><div id="material-cards" class="stage-cards"></div>
+    <div class="panel-head"><h2 id="book-heading">ASMR図鑑</h2><span id="book-progress" class="pill"></span></div>
+    <div id="material-cards" class="stage-cards"></div>
     <fieldset class="layouts" aria-label="素材の置き方">
       <label><input type="radio" name="layout" value="single" checked>単体</label>
       <label><input type="radio" name="layout" value="group">複数配置</label>
@@ -69,7 +74,7 @@
     </fieldset>
     <button id="book-confirm" class="primary">キャラクターを選ぶ <span>›</span></button>
   </section>
-  <section id="upgrade" class="overlay" role="dialog" aria-modal="true" aria-labelledby="upgrade-title" hidden><div class="dialog">
+  <section id="upgrade" class="overlay" role="dialog" aria-modal="true" aria-labelledby="upgrade-title" hidden><div class="dialog upgrade-dialog">
     <p class="kicker" id="up-n"></p><h2 id="upgrade-title">武器を進化させる</h2><p id="up-power"></p><div id="up-cards"></div>
   </div></section>
   <section id="result" class="screen panel result" hidden>
@@ -81,7 +86,7 @@
   <section id="settings" class="overlay" role="dialog" aria-modal="true" aria-labelledby="settings-title" hidden><div class="dialog">
     <h2 id="settings-title">設定</h2>
     <label class="setting"><input type="checkbox" id="sound-setting" checked> 効果音</label>
-    <label class="setting">音量 <input id="volume" type="range" min="0" max="100" value="65"></label>
+    <label class="setting">音量 <input id="volume" type="range" min="0" max="100" value="68"></label>
     <label class="setting"><input type="checkbox" id="motion" checked> 画面の揺れ・ズーム</label>
     <button id="settings-close" class="primary">閉じる</button>
     <button id="leave" class="secondary" hidden>プレイを終了する</button>

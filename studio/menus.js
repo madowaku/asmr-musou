@@ -1,19 +1,25 @@
+/* CRUNCH STUDIO v1.0 Menus:
+ * 5 heroes, 8 stages, 8-material ASMR Book with live hero-switching, and clean screen transitions. */
 (function () {
   'use strict';
   window.StudioMenus = ({ L, C, G, Studio, progress, start, fillFree, cancel }) => {
     const $ = id => document.getElementById(id);
     const { heroes, stages } = Studio;
+    const heroOrder = ['slasher', 'crusher', 'caster', 'spinner', 'roller'];
     const screens = Array.from(document.querySelectorAll('.screen'));
     let freeSelect = false, material = null, settingsFrom = null, practice = false;
-    const practiceHero = C.iai ? 'slasher' : 'roller';
-    const practiceTitle = C.iai ? '居合の練習' : 'ROLLERの練習';
-    const rollerHelp = 'ゆっくりで深く。素早くで削りかす。止めて芯を押す。';
+    const isIaiStudy = Boolean(C.iai?.study);
+    const isRollerStudy = Boolean(C.rollerFeel?.study);
+    const practiceHero = isIaiStudy ? 'slasher' : 'roller';
+    const practiceTitle = isIaiStudy ? '居合の練習' : 'ROLLERの練習';
 
     function view(id, focus = true) {
+      if (id !== 'play') $('pops').replaceChildren();
       for (const section of screens) section.hidden = section.id !== id;
       const active = id === 'play';
       $('hud').hidden = $('play-footer').hidden = !active;
       $('arena').classList.toggle('playing', active);
+      if (id === 'title') updateTitleBadges();
       if (focus && !active) {
         const target = $(id)?.querySelector('h1,h2');
         if (target) {
@@ -23,8 +29,12 @@
       }
     }
 
-    const helpFor = id => id === 'slasher' && C.iai ? C.iai.help
-      : id === 'roller' && C.rollerFeel ? rollerHelp : heroes[id].help;
+    function updateTitleBadges() {
+      const badge = $('book-badge');
+      if (badge) badge.textContent = progress.cleared.length + ' / ' + stages.length + ' ›';
+    }
+
+    const helpFor = id => heroes[id].help;
 
     function paintHero() {
       const hero = heroes[progress.hero];
@@ -49,7 +59,7 @@
       const book = mode === 'book';
       const available = book ? practice || Studio.learned(stage, progress) : Studio.unlocked(stage, progress);
       const button = document.createElement('button');
-      button.className = 'stage-card';
+      button.className = 'stage-card' + (available ? '' : ' locked');
       button.dataset.stage = stage.n;
       button.style.setProperty('--swatch', stage.colors[0]);
       button.disabled = !available;
@@ -59,7 +69,7 @@
       image.alt = '';
       const info = document.createElement('div');
       const caption = document.createElement('small');
-      caption.textContent = stage.name;
+      caption.textContent = '0' + stage.n + ' · ' + stage.name;
       const label = document.createElement('strong');
       label.textContent = L.combat.stages.MATERIALS[stage.mat].jp;
       const note = document.createElement('span');
@@ -80,6 +90,7 @@
     }
 
     function showStages() {
+      $('stage-progress').textContent = progress.cleared.length + ' / ' + stages.length + ' CLEAR';
       $('stage-cards').replaceChildren(...stages.map(stage => card(stage, 'stage')));
       view('stages');
     }
@@ -89,7 +100,8 @@
         material = practice ? stages[0] : stages.find(stage => Studio.learned(stage, progress)) || null;
       }
       $('book-heading').textContent = practice ? practiceTitle : 'ASMR図鑑';
-      $('book-confirm').textContent = practice ? (C.iai ? 'この素材を斬る ›' : 'この素材を圧延する ›') : 'キャラクターを選ぶ ›';
+      $('book-progress').textContent = practice ? '全8素材 開放中' : progress.cleared.length + ' / ' + stages.length + ' 解放';
+      $('book-confirm').textContent = practice ? (isIaiStudy ? 'この素材を斬る ›' : 'この素材を圧延する ›') : 'キャラクターを選ぶ ›';
       $('material-cards').replaceChildren(...stages.map(stage => card(stage, 'book')));
       $('book-confirm').disabled = !material;
       view('book');
@@ -97,6 +109,7 @@
 
     function applySettings() {
       C.muted = !progress.sound;
+      C.studioVolume = progress.volume;
       L.audio.setEnabled(progress.sound);
       L.audio.setMaster(progress.volume);
       if (!progress.volume) C.muted = true;
@@ -159,22 +172,21 @@
         return button;
       });
       $('hero-cards').replaceChildren(...buttons);
-      for (const id of ['slasher', 'crusher', 'caster', 'spinner', 'roller']) {
+      for (const id of heroOrder) {
         const image = document.createElement('img');
         image.src = Studio.portrait(id);
         image.alt = '';
         $('title-art').append(image);
       }
       $('adventure').onclick = () => selectHero(false);
-      $('collection').onclick = $('book-back').onclick = null;
       $('collection').onclick = () => { practice = false; showBook(); };
-      if (C.rollerFeel || C.iai) {
-        if (C.iai) $('roller-practice').textContent = practiceTitle + ' ›';
+      if (isIaiStudy || isRollerStudy) {
+        $('roller-practice').textContent = practiceTitle + ' ›';
         $('roller-practice').hidden = false;
         $('roller-baseline').hidden = false;
         $('roller-practice').onclick = () => {
           practice = true;
-          if(C.iai)document.querySelector('input[value="group"]').checked = true;
+          if (isIaiStudy) document.querySelector('input[value="group"]').checked = true;
           showBook();
         };
       }
@@ -185,7 +197,7 @@
         if (!material) return;
         if (practice) {
           L.audio.unlock();
-          start(practiceHero, material, document.querySelector('input[name="layout"]:checked').value, C.iai ? 'iai' : 'roller');
+          start(practiceHero, material, document.querySelector('input[name="layout"]:checked').value, isIaiStudy ? 'iai' : 'roller');
         } else selectHero(true);
       };
       $('hero-confirm').onclick = () => {
@@ -204,6 +216,14 @@
       };
       for (const id of ['sound-setting', 'volume', 'motion']) $(id).addEventListener('input', syncSettings);
       $('free-refill').onclick = fillFree;
+      // Quick hero cycle inside ASMR Book so players can compare all 5 heroes on any material in 1 tap!
+      $('free-hero').onclick = () => {
+        if (!G.free) return;
+        const idx = (heroOrder.indexOf(G.cls) + 1) % heroOrder.length;
+        progress.hero = heroOrder[idx];
+        Studio.save(progress);
+        start(progress.hero, G.stage, G.free, G.practice);
+      };
       $('again').onclick = () => launch(G.stage);
       $('result-back').onclick = () => { G.state = 'select'; showStages(); };
       $('result-title').onclick = showTitle;
@@ -222,7 +242,9 @@
       play() {
         const info = heroes[G.cls];
         $('arena').dataset.material = G.stage.mat;
-        $('stage-tag').textContent = G.free ? (practice ? practiceTitle + ' · ' : 'ASMR図鑑 · ') + L.combat.stages.MATERIALS[G.stage.mat].jp : 'STAGE 0' + G.stage.n + '  ' + G.stage.name;
+        $('stage-tag').textContent = G.free
+          ? (practice ? practiceTitle + ' · ' : 'ASMR図鑑 · ') + L.combat.stages.MATERIALS[G.stage.mat].jp
+          : 'STAGE 0' + G.stage.n + '  ' + G.stage.name;
         $('cls').textContent = info.name;
         $('help').textContent = helpFor(G.cls);
         $('breach').textContent = '0';
@@ -231,6 +253,7 @@
         $('combo').textContent = '';
         $('banner').classList.remove('show');
         $('free-refill').hidden = !G.free;
+        $('free-hero').hidden = !G.free || practice;
         $('upgrade').hidden = true;
         view('play');
       },
@@ -241,7 +264,11 @@
         $('result-stage').textContent = 'STAGE 0' + stage.n + ' · ' + stage.name;
         $('r-title').textContent = stats.bossDefeated ? 'STAGE CLEAR' : 'TIME UP';
         $('result-boss').src = window.StudioBossArt['studio-boss/' + stage.mat];
-        $('r-stats').replaceChildren(...[['撃破', stats.kills], ['最大連続破壊', stats.best], ['到達レベル', stats.levelUps.length + 1]].map(([label, value]) => {
+        $('r-stats').replaceChildren(...[
+          ['撃破', stats.kills],
+          ['最大連続破壊', stats.best],
+          ['到達レベル', stats.levelUps.length + 1]
+        ].map(([label, value]) => {
           const block = document.createElement('div');
           const small = document.createElement('span');
           small.textContent = label;
@@ -251,11 +278,11 @@
           return block;
         }));
         const materialName = L.combat.stages.MATERIALS[stage.mat].jp;
-        $('r-defense').textContent = first ? materialName + 'を図鑑に解放しました。'
-          : stats.bossDefeated ? stage.bossName + 'を撃破。'
+        $('r-defense').textContent = first ? materialName + 'を図鑑に解放しました！'
+          : stats.bossDefeated ? stage.bossName + 'を撃破！'
           : stage.bossName + 'はまだ砕けていません。';
         $('r-growth').textContent = '侵入 ' + stats.breaches.length + ' · ' +
-          (stats.ups.map(id => C.UPGRADES[stats.cls].find(upgrade => upgrade.id === id).name).join(' / ') || '強化なし');
+          (stats.ups.map(id => C.UPGRADES[stats.cls].find(upgrade => upgrade.id === id)?.name).filter(Boolean).join(' / ') || '強化なし');
         const next = stages[stage.n];
         const canContinue = next && stats.bossDefeated;
         $('next').textContent = canContinue ? '次のステージ ›' : first ? '図鑑で遊ぶ ›' : 'もう一度挑戦 ›';
