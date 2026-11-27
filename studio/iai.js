@@ -1,12 +1,13 @@
-/* SLASHER Iaido (居合斬り) — promoted to default Studio experience.
- * Swipe -> crisp steel draw + stillness beat (audio ducking + slender ink-light line)
- * -> cross-sections blossom open in order along the blade path, preserving material beauty at every level. */
+/* SLASHER Iaido (居合斬り) v1.2 — Multi-Slice Tactile Engine:
+ * Instead of making materials vanish on the first strike, large/medium targets split into
+ * real cross-sectioned halves that smoothly GLIDE APART (ズレる手応え) and remain sliceable!
+ * A second iaido (or the cross-slash of 'double') quarters them into finer pieces before collapse. */
 (function (L) {
   'use strict';
   const query = new URLSearchParams(location.search);
   if (query.get('slasher') === 'classic') return;
   const C = L.combat, W = L.world, K = C.crunch;
-  const STILL = 0.115, OPEN = 0.23, LINGER = 0.42;
+  const STILL = 0.115, OPEN = 0.23, LINGER = 0.44;
   const marks = [], ringMarks = [];
   const limit = (v, min, max) => Math.max(min, Math.min(max, v));
   const at = (mark, t) => ({ x: mark.a.x + (mark.b.x - mark.a.x) * t, y: mark.a.y + (mark.b.y - mark.a.y) * t });
@@ -17,7 +18,7 @@
   const isIaiStudy = query.get('slasher') === 'iai';
   C.iai = {
     study: isIaiStudy,
-    help: 'スワイプで居合。ひと呼吸の静寂のあと、斬った順に断面が開く。長押しで大回転居合。'
+    help: 'スワイプで居合。静寂のあと断面がズレて開き、分かれた素材をさらに切り分けられる！'
   };
 
   function tintForLevel(lv, wide) {
@@ -27,32 +28,146 @@
     return [0.22, 0.52, 0.84];
   }
 
+  // Decide whether a cut produces still-sliceable drifting halves (multi-slice) or final falling pieces.
+  function canMultiSlice(e) {
+    if (isIaiStudy || e.bossPart || e.active || e.removed) return false;
+    const stage = e.sliceStage || 0;
+    const maxStage = (e.kind === 'weak' || e.kind === 'hard') ? 2 : e.kind === 'mid' ? 1 : 0;
+    if (stage >= maxStage) return false;
+    // Only split into further sliceable halves if the piece is large enough to read cleanly & slice again
+    return e.area > (stage === 0 ? 2800 : 1900) && e.radius > 22;
+  }
+
   function split(e, mark, id, hero) {
     if (e.removed || e.active || !W.bodies.includes(e)) return;
+    const G = C.state;
     const { ux, uy, nx, ny } = mark, x = e.x, y = e.y, r = e.radius * 3;
+
+    // Boss parts go through the structured boss damage path with crisp visual feedback
+    if (e.bossPart) {
+      C.hit(e, () => {
+        const line = [{ x: x - ux * r, y: y - uy * r }, { x: x + ux * r, y: y + uy * r }];
+        W.cut(e, line, 1920, { spread: 0.72, push: { x: ux * 75, y: uy * 75 }, action: id, cause: 'iai', stop: 0.010 });
+        W.rings.push({ x, y, r0: e.radius * 0.28, r1: e.radius * 1.15, life: 0.18, total: 0.18, w: 3.5, color: mark.tint, alpha: 0.75 });
+      }, { action: id, dmg: K.power(hero), bossDmg: 1, from: { x: x - nx * e.radius, y: y - ny * e.radius } });
+      return;
+    }
+
+    // Multi-slice: split into real cross-sectioned halves that smoothly GLIDE APART and stay sliceable!
+    if (canMultiSlice(e)) {
+      const line = [{ x: x - ux * r, y: y - uy * r }, { x: x + ux * r, y: y + uy * r }];
+      const d0 = e.depth;
+      e.depth = 0.5; // suppress final kill report until pieces are finished
+      const parts = W.cut(e, line, 1650, {
+        spread: 0.12,
+        push: { x: 0, y: 0 },
+        action: id,
+        cause: 'iai-split',
+        stop: 0.012
+      });
+      e.depth = d0;
+      if (!parts || parts.length < 2) {
+        // Fallback if geometry couldn't bisect cleanly
+        C.hit(e, () => W.shatter(e, 1650, { action: id, cause: 'iai', stop: 0.01 }), { action: id, dmg: K.power(hero) });
+        return;
+      }
+      const nextStage = (e.sliceStage || 0) + 1;
+      const originId = e.sliceOrigin || e.id;
+      const nextHp = Math.max(1, Math.ceil(((e.hpc || 2) - K.power(hero) * 0.55)));
+      parts.forEach((part, idx) => {
+        const side = Math.sign((part.x - x) * nx + (part.y - y) * ny) || (idx ? 1 : -1);
+        const sep = limit(e.radius * (e.material === 'sand' ? 0.14 : 0.22), 7, 17);
+        const slip = limit(e.radius * 0.16, 6, 14);
+        // Turn each severed half back into a sliceable target with its real cross-section cap kept open!
+        Object.assign(part, {
+          active: false,
+          team: 'enemy',
+          depth: 0,
+          vx: 0,
+          vy: 0,
+          spin: 0,
+          flying: false,
+          drift: null,
+          shard: null,
+          kind: e.kind,
+          hpc: nextHp,
+          hpMax: e.hpMax || 3,
+          hits: (e.hits || 0) + 1,
+          born: e.born ?? G.t,
+          area0: part.area,
+          phase: L.random() * 6.28,
+          speed: Math.max(12, (e.speed || 30) * 0.42),
+          base: Math.max(12, (e.base || e.speed || 30) * 0.42),
+          cracks: [],
+          sliceStage: nextStage,
+          sliceOrigin: originId,
+          slicePrimary: idx === 0 && !e.sliceSecondary,
+          sliceSecondary: idx > 0 || !!e.sliceSecondary,
+          // Smooth 0.10s glide-apart (ズレる手応え) along normal + tangent
+          slide: {
+            dx: nx * side * sep + ux * side * slip,
+            dy: ny * side * sep + uy * side * slip,
+            t: 0.105,
+            total: 0.105
+          }
+        });
+        if (part.cap) part.cap.keepOpen = true;
+        part.dirty = true;
+      });
+      // Material audio & cross-section feedback on split
+      L.events.emit('cut', { material: e.material, speed: 1700, length: e.radius * 1.8, depth: 0.85, area: e.area, kills: 0, x, y });
+      C.sfx('iai_slide', { x });
+      C.synergy?.onIaidoSplit(e, parts, mark);
+      W.rings.push({ x, y, r0: e.radius * 0.25, r1: e.radius * 1.15, life: 0.20, total: 0.20, w: 3.8, color: mark.tint, alpha: 0.78 });
+      const act = G.actions.get(id);
+      if (act) { act.hurts++; act.last = G.t; }
+      G.stats.hurts++;
+      G.stats.multiSlices = (G.stats.multiSlices || 0) + 1;
+      C.touch(id);
+      C.studioChip(parts[0], e.kind === 'weak' ? 3.2 : 1.6);
+      return;
+    }
+
+    // Final slice: cleanly cuts & collapses the piece (or quarters an already-split half!)
     C.hit(e, () => {
       const line = [{ x: x - ux * r, y: y - uy * r }, { x: x + ux * r, y: y + uy * r }];
       const parts = W.cut(e, line, 1920, {
-        spread: 0.72,
-        push: { x: ux * 75, y: uy * 75 },
+        spread: 0.68,
+        push: { x: ux * 70, y: uy * 70 },
         action: id,
-        cause: 'iai',
+        cause: e.sliceStage ? 'iai-finish' : 'iai',
         stop: 0.010
       });
-      // Delicate blossom glint at each freshly revealed cross-section
-      W.rings.push({ x, y, r0: e.radius * 0.28, r1: e.radius * 1.15, life: 0.18, total: 0.18, w: 3.5, color: mark.tint, alpha: 0.75 });
+      W.rings.push({ x, y, r0: e.radius * 0.28, r1: e.radius * 1.12, life: 0.18, total: 0.18, w: 3.5, color: mark.tint, alpha: 0.75 });
       if (!parts?.length) return;
       for (const part of parts) {
         const side = Math.sign((part.x - x) * nx + (part.y - y) * ny) || 1;
-        const offset = limit(e.radius * (e.material === 'sand' ? 0.10 : 0.21), 4, 19);
+        const offset = limit(e.radius * (e.material === 'sand' ? 0.10 : 0.20), 4, 18);
         part.x += nx * side * offset;
         part.y += ny * side * offset;
         part.spin *= 0.26;
         part.dirty = true;
       }
       C.synergy?.onIaidoSplit(e, parts, mark);
-    }, { action: id, dmg: K.power(hero), from: { x: x - nx * e.radius, y: y - ny * e.radius } });
+    }, { action: id, dmg: Math.max(e.hpc || 1, K.power(hero)), from: { x: x - nx * e.radius, y: y - ny * e.radius } });
   }
+
+  // Smoothly animate the tactile glide-apart (ズレ) of freshly severed halves & keep their cross-section caps open
+  C.updateIaiHalves = dt => {
+    for (const b of W.bodies) {
+      if (b.removed || b.active) continue;
+      if (b.cap?.keepOpen) b.cap.age = 0.14; // keep cross-section brightly open until sliced again!
+      if (b.slide) {
+        const step = Math.min(b.slide.t, dt);
+        const frac = step / b.slide.total;
+        b.x += b.slide.dx * frac;
+        b.y += b.slide.dy * frac;
+        b.slide.t -= step;
+        b.dirty = true;
+        if (b.slide.t <= 0) b.slide = null;
+      }
+    }
+  };
 
   C.slash = (hero, anchor, ux, uy, options = {}) => {
     if (hero.cls !== 'slasher') return original(hero, anchor, ux, uy, options);
@@ -102,7 +217,7 @@
     const id = options.id ?? hero.action;
     const lv = hero.ups.size;
     const tint = options.sub ? [0.88, 0.38, 0.68] : tintForLevel(lv, hero.ups.has('wide'));
-    const mark = { a, b, ux, uy, nx, ny, at: G.t, wide: hero.ups.has('wide'), width: w, tint, still: options.sub ? 0.075 : STILL };
+    const mark = { a, b, ux, uy, nx, ny, at: G.t, wide: hero.ups.has('wide'), width: w, tint, still: options.sub ? 0.085 : STILL };
     if (marks.length >= 8) marks.shift();
     marks.push(mark);
 
@@ -115,20 +230,20 @@
       C.later(stillDur + 0.016 + t * openDur + i * 0.005, () => split(e, mark, id, hero));
     });
 
-    // Preserving the iaido rhythm even at high level:
-    // Double = a second delayed cross-iaido line; Wave = a crisp zanshin shockwave after the bloom finishes.
+    // Double upgrade: fires a delayed CROSS iaido right after the first halves glide apart -> quarters them!
     if (!options.sub && hero.ups.has('double')) {
-      const ang = Math.atan2(uy, ux) + (hero.combo % 2 ? 0.96 : -0.96);
+      const ang = Math.atan2(uy, ux) + (hero.combo % 2 ? 1.05 : -1.05);
       const cx2 = Math.cos(ang), cy2 = Math.sin(ang);
-      C.later(stillDur + openDur * 0.55, () => {
+      C.later(stillDur + openDur * 0.78, () => {
         if (hero !== G.hero || G.state !== 'play') return;
-        C.slash(hero, null, cx2, cy2, { sub: true, center: c, len: L0 * 0.82, w: w * 0.8, id });
+        C.slash(hero, null, cx2, cy2, { sub: true, center: c, len: L0 * 0.85, w: w * 0.82, id });
       });
     }
+    // Wave upgrade: crisp zanshin shockwave radiating from the blade line after the blooms
     if (!options.sub && hero.ups.has('wave')) {
-      C.later(stillDur + openDur + 0.06, () => {
+      C.later(stillDur + openDur + 0.08, () => {
         if (hero !== G.hero || G.state !== 'play') return;
-        const reach = mark.wide ? 195 : 155;
+        const reach = mark.wide ? 190 : 150;
         C.sfx('shock', { x: c.x });
         for (const side of [-1, 1]) {
           for (let i = 1; i <= 3; i++) {
@@ -142,14 +257,13 @@
         for (const e of C.targets()) {
           if (C.segDist(e, a, b) > e.radius + w + reach) continue;
           const s = (e.x - a.x) * nx + (e.y - a.y) * ny, side = Math.sign(s) || 1, d = Math.max(0, Math.abs(s) - w);
-          C.hit(e, () => W.shatter(e, 1550, { angle: Math.atan2(uy, ux), push: { x: nx * side * 340, y: ny * side * 340 }, action: id, cause: 'shock', stop: 0.008 }), hero, 0.02 + d / reach * 0.11);
+          C.hit(e, () => W.shatter(e, 1550, { angle: Math.atan2(uy, ux), push: { x: nx * side * 320, y: ny * side * 320 }, action: id, cause: 'shock', stop: 0.008 }), { action: id, dmg: K.power(hero) * 0.85, bossDmg: 1 }, 0.02 + d / reach * 0.11);
         }
       });
     }
     return true;
   };
 
-  // Hold -> Release (or tap) circular iaido: a luminous slash circle forms -> brief stillness -> all caught materials split cleanly along tangents.
   C.spin = (hero, p, big) => {
     if (hero.cls !== 'slasher') return originalSpin(hero, p, big);
     const G = C.state, q = C.clampP(p);
@@ -176,10 +290,8 @@
       caught.forEach((e, idx) => {
         const dx = e.x - q.x, dy = e.y - q.y, d = Math.hypot(dx, dy) || 1;
         const tx = -dy / d, ty = dx / d;
-        C.hit(e, () => {
-          const line = [{ x: e.x - tx * e.radius * 3, y: e.y - ty * e.radius * 3 }, { x: e.x + tx * e.radius * 3, y: e.y + ty * e.radius * 3 }];
-          W.cut(e, line, 1950, { push: { x: dx / d * 210, y: dy / d * 210 }, action: id, cause: 'spin', stop: 0.010 });
-        }, hero, idx * 0.012);
+        const m = { a: q, b: e, ux: tx, uy: ty, nx: dx / d, ny: dy / d, tint };
+        C.later(idx * 0.012, () => split(e, m, id, hero));
       });
     });
     return true;
@@ -196,7 +308,6 @@
       const k = limit((age - mark.still) / OPEN, 0, 1);
       const head = at(mark, k);
       const alpha = limit(1 - Math.max(0, age - mark.still - OPEN) / LINGER, 0, 1);
-      // During the stillness beat: crisp razor line + subtle tension pulse at start
       r.line(mark.a, mark.b, age < mark.still ? 2.4 : 1.8, [...mark.tint, (age < mark.still ? 0.78 : 0.48) * alpha]);
       if (age < mark.still) {
         const pulse = 1 - age / mark.still;

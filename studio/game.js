@@ -8,9 +8,12 @@
   const Studio = window.StudioContent, Stages = C.stages, CLASSES = Studio.heroes;
   const progress = Studio.load(), testing = new URLSearchParams(location.search).get('test') === '1';
   Stages.patchEngine();
-  K.POWER = [1, 3, 5, 7];
+  // v1.2 Growth Curve: restrained single-target power scaling [1 -> 2.2] so tactile material steps
+  // (chips, cracks, multi-slice, compression, billiards) stay rich even at MAX level!
+  K.POWER = [1, 1.35, 1.75, 2.2];
   K.power = h => K.POWER[Math.min(3, h.ups.size)];
-  L.config.maxBodies = 230;
+  K.TYPES.hard.hp = 10;
+  L.config.maxBodies = 240;
   L.config.maxDepth = 6;
   C.MAT.chalk.armor = false;
 
@@ -79,19 +82,52 @@
       if (G.breaks >= 5) { C.later(0.001, run); return; }
       G.breaks++;
       const aid = h && h.action != null ? h.action : G.hero.action, act = G.actions.get(aid);
-      if (e.bossPart && e.hp > (h?.bossDmg || 1)) {
-        C.touch(G.hero.action);
-        e.hp = Math.max(1, e.hp - (h?.bossDmg || 1));
-        e.squash = 1;
-        e.pressing = { age: 0, duration: 0.18, done: () => {} };
-        K.bossChip(e);
-        if (act) act.hurts++;
-        L.events.emit('impact', { material: e.material, speed: 900, area: Math.min(e.area, 5000), x: e.x, y: e.y });
-        L.events.emit('crumble', { material: e.material, count: 4, x: e.x, y: e.y });
-        const g = C.sfxGain; C.sfxGain = g * 0.3; C.sfx('pound', e); C.sfxGain = g;
-        W.rings.push({ x: e.x, y: e.y, r0: e.radius * 0.8, r1: e.radius * 1.25, life: 0.2, total: 0.2, w: 5, color: [1, 0.6, 0.8] });
-        G.stats.bossHits++;
-        return;
+      if (e.bossPart) {
+        if (C.locked(e)) return;
+        const B = G.boss;
+        // Per-part rhythmic cadence + layer beat budget (max 4 simultaneous plates per 0.16s beat)
+        // prevents wide AoEs from erasing an entire 12-plate ring in <1s while keeping every hit crunchy!
+        const cd = e.bossLayer === 2 ? 0.22 : 0.21;
+        if (e.bossHitAt != null && G.t - e.bossHitAt < cd) return;
+        if (B && e.bossLayer < 2 && !h?.resonance) {
+          if (G.t - (B.beatAt || -9) >= 0.16) { B.beatAt = G.t; B.beatHits = 0; }
+          if (B.beatHits >= 4) return;
+          B.beatHits++;
+        }
+        e.bossHitAt = G.t;
+        const baseDmg = h?.bossDmg || (G.hero?.cls === 'crusher' && !h?.bossSplash && e.bossLayer < 2 ? 2 : 1);
+        const bdmg = Math.min(3, Math.max(1, Math.round(baseDmg)));
+        // Boss-part heavy fist synergy for CRUSHER: primary blow + shockwave splash into up to 2 adjacent ring plates
+        if (G.hero?.cls === 'crusher' && !h?.bossSplash && e.bossLayer < 2 && (G.hero.ups.has('blast') || G.hero.ups.has('quake'))) {
+          const adj = W.bodies
+            .filter(o => o !== e && o.bossPart && o.bossLayer === e.bossLayer && !o.active && !o.removed && dist(o, e) < 165)
+            .sort((a, c) => dist(a, e) - dist(c, e))
+            .slice(0, 2);
+          for (const o of adj) {
+            C.hit(o, () => W.shatter(o, 1500, { action: aid, cause: 'punch-splash', stop: 0.008 }), { action: aid, bossDmg: 1, bossSplash: true }, 0.02);
+          }
+        }
+        if (e.hp > bdmg) {
+          C.touch(G.hero.action);
+          e.hp = Math.max(1, e.hp - bdmg);
+          e.squash = e.bossLayer === 2 ? 1.15 : 0.92;
+          e.pressing = { age: 0, duration: 0.16, done: () => {} };
+          K.bossChip(e);
+          if (act) act.hurts++;
+          L.events.emit('impact', { material: e.material, speed: 920, area: Math.min(e.area, 5000), x: e.x, y: e.y });
+          L.events.emit('crumble', { material: e.material, count: 4, x: e.x, y: e.y });
+          const g = C.sfxGain; C.sfxGain = g * 0.34; C.sfx('pound', e); C.sfxGain = g;
+          W.rings.push({ x: e.x, y: e.y, r0: e.radius * 0.65, r1: e.radius * 1.25, life: 0.2, total: 0.2, w: 5, color: [1, 0.6, 0.8] });
+          G.stats.bossHits++;
+          // Phase 3 Core dramatic 3-stage crack milestones at 75%, 50%, 25% remaining HP
+          if (e.bossLayer === 2 && B) {
+            const frac = e.hp / e.hpMax;
+            if (frac <= 0.75 && !B.coreCracks[0]) triggerCoreCrack(e, 1);
+            else if (frac <= 0.50 && !B.coreCracks[1]) triggerCoreCrack(e, 2);
+            else if (frac <= 0.25 && !B.coreCracks[2]) triggerCoreCrack(e, 3);
+          }
+          return;
+        }
       }
       if (!e.bossPart && e.hpc > 0) {
         const dmg = (h && h.dmg) || K.power(G.hero);
@@ -103,6 +139,20 @@
     };
     if (delay > 0) C.later(delay, run); else run();
   };
+
+  function triggerCoreCrack(core, stage) {
+    G.boss.coreCracks[stage - 1] = true;
+    C.sfx('boss_crack', { x: core.x, stage: Math.min(2, stage) });
+    W.punch = Math.max(W.punch, 0.042 + stage * 0.008);
+    W.rings.push({
+      x: core.x, y: core.y, r0: 40, r1: 260 + stage * 55, life: 0.36, total: 0.36, w: 8,
+      color: stage >= 3 ? [1, 0.34, 0.56] : stage === 2 ? [1, 0.58, 0.32] : [1, 0.80, 0.38], alpha: 0.88
+    });
+    C.synergy?.onPunchImpact(core, 0, -1, true, stage);
+    for (let k = 0; k < 3; k++) K.bossChip(core);
+    const label = stage === 1 ? 'コアに亀裂！' : stage === 2 ? '深くひび割れた！' : '崩壊寸前!!';
+    pop(core.x, core.y - 115, label, 'ko');
+  }
 
   // Safe cut wrapper (prevents triangulation errors on heavily chipped jelly from halting play)
   {
@@ -146,53 +196,101 @@
   function checkBossLayerClear(b) {
     const B = G.boss;
     if (!B || !b.bossPart || b.bossLayer >= 2 || B.layerDone[b.bossLayer]) return;
+    // Phase 2 (Inner Layer): each broken plate sheds 2 playful material chunks for billiards/suction/slicing combos!
+    if (b.bossLayer === 1 && !G.bossDown && W.bodies.length < 185) {
+      for (const s of [-1, 1]) {
+        const chunk = K.spawn('mid', Math.max(85, Math.min(635, b.x + s * 62)), Math.min(820, b.y + 42), { m: b.material });
+        if (chunk) { chunk.hpc = chunk.hpMax = 2; chunk.bossShed = true; chunk.nudge = { x: s * 46, y: 40, t: 0.18 }; }
+      }
+    }
     const layerIds = B.layers[b.bossLayer];
-    const remaining = layerIds.some(id => W.bodies.some(x => x.id === id && !x.active && !x.removed));
-    if (!remaining) {
+    const alivePlates = layerIds.map(id => W.bodies.find(x => x.id === id && !x.active && !x.removed)).filter(Boolean);
+    // Resonance shatter: clearing 10/12 outer shells or 7/8 inner shells triggers a dramatic collapse of the final stragglers!
+    const threshold = b.bossLayer === 0 ? 2 : 1;
+    if (alivePlates.length <= threshold) {
       B.layerDone[b.bossLayer] = true;
-      B.layerGuardUntil = G.t + 0.34;
+      B.layerTimes[b.bossLayer] = +(G.t - B.start).toFixed(2);
+      B.phase = b.bossLayer + 1;
+      B.layerGuardUntil = G.t + 0.55;
       B.guardLayer = b.bossLayer + 1;
+      // Collapse remaining straggler plates cleanly in sequence
+      alivePlates.forEach((plate, idx) => {
+        plate.hp = 1;
+        C.later(0.04 + idx * 0.06, () => {
+          if (plate.removed || plate.active) return;
+          const dx = plate.x - B.cx, dy = plate.y - B.cy, d = Math.hypot(dx, dy) || 1;
+          W.shatter(plate, 1600, { push: { x: dx / d * 320, y: dy / d * 320 }, action: G.hero.action, cause: 'boss-resonance', stop: 0.01 });
+        });
+      });
       C.sfx('boss_layer', { x: B.cx, layer: b.bossLayer });
-      W.rings.push({ x: B.cx, y: B.cy, r0: 90, r1: 360, life: 0.45, total: 0.45, w: 9, color: [1, 0.72, 0.35], alpha: 0.85 });
-      W.punch = Math.max(W.punch, 0.045);
-      pop(B.cx, B.cy - 120, b.bossLayer === 0 ? '外殻ブレイク！' : 'コア露出！', 'ko');
+      W.rings.push(
+        { x: B.cx, y: B.cy, r0: 85, r1: 390, life: 0.48, total: 0.48, w: 10, color: [1, 0.72, 0.35], alpha: 0.88 },
+        { x: B.cx, y: B.cy, r0: 50, r1: 260, life: 0.36, total: 0.36, w: 6, color: [1, 0.52, 0.82], alpha: 0.82 }
+      );
+      W.punch = Math.max(W.punch, 0.055);
+      if (b.bossLayer === 0) {
+        pop(B.cx, B.cy - 125, '外殻クラッシュ！', 'ko');
+        banner('PHASE 2 · 内層露出', '脈動する内層と零れる塊をまとめて砕け！');
+      } else {
+        pop(B.cx, B.cy - 125, 'コア露出!!', 'ko');
+        banner('FINAL PHASE · コア出現', '亀裂を広げてフィナーレへ！');
+        if (B.core) B.core.squash = 1.25;
+      }
     }
   }
 
   W.onBreak = (b, opt) => {
     const s = G.stats;
-    s.kills++;
+    // Secondary multi-slice halves give crisp chip rewards without double-counting the original enemy kill
+    if (!b.sliceSecondary) s.kills++;
     if (s.firstKillT == null) s.firstKillT = G.t;
     G.broken.set(b.id, G.t);
     const a = G.actions.get(opt.action);
     if (a) {
-      a.kills++; a.last = G.t;
+      if (!b.sliceSecondary) a.kills++;
+      a.last = G.t;
       if (a.firstBreak == null) a.firstBreak = G.rt;
       const gen = b.chainGen || 0;
       if (gen > 0) { a.chainKills++; a.chainMax = Math.max(a.chainMax, gen); s.chainKills++; }
     }
-    s.byMaterial[b.material] = (s.byMaterial[b.material] || 0) + 1;
+    if (!b.sliceSecondary) s.byMaterial[b.material] = (s.byMaterial[b.material] || 0) + 1;
     if (b.bossPart) { G.stats.bossHits++; checkBossLayerClear(b); }
-    if (b.kind && opt.cause !== 'finale') {
+    // Phase 2 Synergy: shattering a boss-shed chunk sends a crisp resonance crack into the nearest inner plate!
+    if (b.bossShed && G.boss && !G.bossDown && G.boss.phase === 1) {
+      const inner = W.bodies.filter(x => x.bossPart && x.bossLayer === 1 && !x.active && !x.removed)
+        .sort((a, c) => dist(a, b) - dist(c, b))[0];
+      if (inner) {
+        C.bolt(b, inner);
+        C.hit(inner, () => W.shatter(inner, 1450, { action: opt.action, cause: 'boss-shed-chain', stop: 0.008 }), { action: opt.action, bossDmg: 1, resonance: true }, 0.03);
+      }
+    }
+    if (b.kind && !b.sliceSecondary && opt.cause !== 'finale') {
       const lv = G.hero.ups.size, k = s.byKind[b.kind] = s.byKind[b.kind] || [[], [], [], []];
       k[lv].push(b.hits || 1);
       s.lifeOf.push({ kind: b.kind, life: G.t - b.born, hits: b.hits || 1, t: G.t });
     }
-    if (opt.cause !== 'finale') { gain(b.bossPart ? ENERGY.boss : (ENERGY.kill[b.kind] ?? 0.6), 'kill'); spark(b); }
+    if (opt.cause !== 'finale') {
+      const val = b.bossPart ? ENERGY.boss : b.sliceSecondary ? 1.5 : (ENERGY.kill[b.kind] ?? 0.6);
+      gain(val, b.sliceSecondary ? 'chip' : 'kill');
+      spark(b);
+    }
     if (G.boss && b.id === G.boss.core.id) bigBreak();
   };
 
-  // ---------- flow (60 s) ----------
-  const BOSS_T = 40;
+  // ---------- flow (75 s: 45 s build-up + 15-22 s multi-phase giant boss + finish margin) ----------
+  const RUN_TIME = 75, BOSS_T = 45;
   const phaseAt = () => G.boss ? 'boss' : ['one', 'grow', 'horde', 'horde'][Math.min(3, G.hero.ups.size)];
-  // Tuned Lv2 threshold (70) so players savour breaking 2-3 large materials before evolving (~6-10 s)
-  const ENERGY = { need: [70, 165, 290], chip: 8, kill: { weak: 10, mid: 3.2, swarm: 1.0, hard: 18 }, boss: 2, bigHit: 0.12, bigCap: 12, pace: [10, 22, 33] };
+  // v1.2 Balanced Growth Curve: Lv2 (~9-13s), Lv3 (~21-28s), Lv4 (~35-43s right before 45s Boss!)
+  const ENERGY = { need: [135, 310, 520], chip: 7.2, kill: { weak: 9, mid: 2.6, swarm: 0.72, hard: 16 }, boss: 2.5, bigHit: 0.055, bigCap: 6, pace: [13, 27, 40] };
 
   function gain(v, src) {
     if (!G.stats || G.state !== 'play' || G.free || v <= 0) return;
     const lv = G.hero.ups.size;
     if (lv >= 3) { G.energyOver = (G.energyOver || 0) + v; return; }
-    const late = Math.max(0, G.t - ENERGY.pace[lv]), mult = 1 + Math.min(3.2, late / 4);
+    const targetT = ENERGY.pace[lv];
+    let mult = 1;
+    if (G.t > targetT) mult = 1 + Math.min(3.4, (G.t - targetT) / 3.8);
+    else if (G.t < targetT - 4) mult = 0.48 + 0.52 * Math.max(0, G.t / Math.max(1, targetT - 4));
     G.energy += v * mult;
     G.stats.energy[src] = (G.stats.energy[src] || 0) + v * mult;
     G.gainFlash = 0.34;
@@ -293,6 +391,13 @@
   function updateFlow(dt) {
     if (G.state !== 'play') return;
     dropLaunched(); pruneDebris();
+    // Apply tactile nudge impulses (SPINNER suction vortex, CRUSHER knockback) in both Campaign and ASMR Book!
+    for (const b of W.bodies) {
+      if (b.removed || b.active || !b.nudge) continue;
+      const k = Math.min(1, dt / b.nudge.t);
+      b.x += b.nudge.x * k; b.y += b.nudge.y * k; b.nudge.t -= dt; b.dirty = true;
+      if (b.nudge.t <= 0) b.nudge = null;
+    }
     if (G.free) {
       // Continuous replenishment in 'supply' layout AND whenever Film Mode is active
       if ((G.free === 'supply' || G.film) && !alive()) {
@@ -327,7 +432,7 @@
     }
     if (G.boss && !G.bossDown) moveBoss(dt);
     if (G.bossDown) { G.finaleT += dt; if (G.finaleT > 2.25) finish(); }
-    else if (G.t >= 60) finish();
+    else if (G.t >= RUN_TIME) finish();
 
     if ((G.sampleT = (G.sampleT || 0) - dt) <= 0) {
       G.sampleT = 0.25;
@@ -375,7 +480,6 @@
     for (const b of W.bodies) if (!b.removed && !b.active && b.team === 'enemy' && !b.bossPart) list.push(b);
     for (const b of list) {
       if (b.base == null) b.base = b.speed;
-      if (b.nudge) { const k = Math.min(1, dt / b.nudge.t); b.x += b.nudge.x * k; b.y += b.nudge.y * k; b.nudge.t -= dt; b.dirty = true; if (b.nudge.t <= 0) b.nudge = null; }
       let sp = b.base * (b.y < REACH ? (1 + 4.2 * short) * emptyBoost : 1) + (b.y < REACH && short > 0.45 ? 78 * emptyBoost : 0) + (b.y < QUEUE ? 105 : 0);
       for (const o of list) {
         if (o === b || o.y <= b.y) continue;
@@ -405,7 +509,9 @@
     G.paused = true; G.choice = ch; P.cancel();
     C.sfx('pause');
     $('up-n').textContent = 'LEVEL ' + (G.hero.ups.size + 2) + ' · 進化';
-    $('up-power').textContent = G.cls === 'roller' ? '圧縮の深さとローラー幅が進化する！' : '破壊力 ' + K.POWER[G.hero.ups.size] + ' → ' + K.POWER[G.hero.ups.size + 1];
+    $('up-power').textContent = G.cls === 'roller'
+      ? '圧縮の深さとローラー幅が進化する！'
+      : '範囲・連鎖・工程が進化！（削り力 ' + K.POWER[G.hero.ups.size] + ' → ' + K.POWER[G.hero.ups.size + 1] + '）';
     $('up-cards').innerHTML = ch.map((u, i) => `<button class="upcard" data-i="${i}"><b>✦ ${u.name}</b><span>${u.desc}</span></button>`).join('');
     for (const b of $('up-cards').querySelectorAll('button')) b.onclick = () => choose(ch[+b.dataset.i]);
     $('upgrade').hidden = false;
@@ -444,20 +550,43 @@
   }
   function moveBoss(dt) {
     const B = G.boss;
-    B.cy = Math.min(560, B.cy + dt * 26);
-    B.rot = 0;
-    const amplitude = G.stage.mat === 'jelly' || G.stage.mat === 'beadslime' ? 14 : G.stage.mat === 'wax' || G.stage.mat === 'sponge' ? 7 : 3;
-    const by = B.cy + Math.sin(G.t * 2) * amplitude;
+    B.cy = Math.min(545, B.cy + dt * 20);
+    // Distinct physical choreography per Boss Phase:
+    // Phase 0 (Outer Shell): stately rotation; Phase 1 (Inner Layer): reverse spin + breathing pulse;
+    // Phase 2 (Exposed Core): rapid heartbeat throb accelerating as core cracks grow!
+    const rotRate = B.phase === 0 ? 0.24 : B.phase === 1 ? -0.38 : 0;
+    B.rot = (B.rot || 0) + dt * rotRate;
+    const coreHpRatio = B.core ? Math.max(0, B.core.hp / (B.core.hpMax || 1)) : 1;
+    const pulseFreq = B.phase === 2 ? 3.2 + (1 - coreHpRatio) * 5.0 : B.phase === 1 ? 3.4 : 2.0;
+    B.pulse = (B.pulse || 0) + dt * pulseFreq;
+    const amplitude = G.stage.mat === 'jelly' || G.stage.mat === 'beadslime' ? 14 : G.stage.mat === 'wax' || G.stage.mat === 'sponge' ? 8 : 4;
+    const by = B.cy + Math.sin(B.pulse * 0.8) * amplitude;
+    const radialBreath = B.phase === 1 ? 1 + Math.sin(B.pulse * 1.6) * 0.065 : 1;
     for (const b of W.bodies) {
       if (!b.bossPart || b.active || b.flying || b.removed) continue;
-      if (b.orbit) { b.x = B.cx + Math.cos(b.orbit.a + B.rot) * b.orbit.d; b.y = by + Math.sin(b.orbit.a + B.rot) * b.orbit.d; b.angle = B.rot; }
-      else { b.x = B.cx; b.y = by; }
+      if (b.orbit) {
+        const d = b.orbit.d * (b.bossLayer === 1 ? radialBreath : 1);
+        b.x = B.cx + Math.cos(b.orbit.a + B.rot) * d;
+        b.y = by + Math.sin(b.orbit.a + B.rot) * d;
+        b.angle = B.rot;
+      } else {
+        b.x = B.cx;
+        b.y = by;
+        if (B.phase === 2) {
+          const throb = Math.max(0, Math.sin(B.pulse * 2.2)) * (0.14 + (1 - coreHpRatio) * 0.24);
+          b.squash = Math.max(b.squash || 0, throb);
+        }
+      }
       b.dirty = true;
     }
   }
   function bigBreak() {
     if (G.bossDown) return;
     G.bossDown = true; G.stats.bossDefeated = true; G.stats.bossSecs = G.t - G.stats.bossTime;
+    if (G.boss) {
+      G.boss.layerTimes[2] = +G.stats.bossSecs.toFixed(2);
+      G.stats.bossLayerTimes = G.boss.layerTimes.slice();
+    }
     G.slow = progress.motion ? 0.78 : 0;
     W.punch = Math.max(W.punch, 0.065);
     C.sfx('finale');
@@ -594,7 +723,7 @@
     const scale = G.slow > 0 ? 0.3 : 1; G.slow = Math.max(0, G.slow - dt);
     const sdt = dt * scale; G.t += sdt; L.time = G.t; L.frame++;
     for (let i = G.later.length - 1; i >= 0; i--) if (G.later[i].at <= G.t) { const q = G.later.splice(i, 1)[0]; q.fn(); }
-    C.updateHero(G.hero, sdt); C.updateCharge(G.hero, sdt); C.updateStudioHeroes?.(sdt); C.synergy?.update(sdt); W.advance(sdt);
+    C.updateHero(G.hero, sdt); C.updateCharge(G.hero, sdt); C.updateStudioHeroes?.(sdt); C.updateIaiHalves?.(sdt); C.synergy?.update(sdt); W.advance(sdt);
     if (W.freeze > 0) W.freeze = Math.max(0, W.freeze - dt);
     else { W.physics(sdt); C.updateProjectiles(sdt); }
     W.decay(sdt);
@@ -657,7 +786,19 @@
     }
     if (G.cls === 'roller') C.drawRollerResidues?.(renderer, G.t);
     C.synergy?.drawUnder(renderer);
+    // Suppress raw white HP-dash spam on high-HP boss parts (boss progress is shown cleanly via phase meter & cracks)
+    const savedBossHp = [];
+    for (const b of W.bodies) {
+      if (b.bossPart && !b.active && b.hp > 1) { savedBossHp.push([b, b.hp]); b.hp = 1; }
+    }
     W.drawBodies(renderer);
+    for (const [b, hp] of savedBossHp) b.hp = hp;
+    // Exposed Boss Core aura ring reflecting remaining phase intensity
+    if (G.boss && !G.bossDown && G.boss.phase === 2 && G.boss.core && !G.boss.core.removed && !G.boss.core.active) {
+      const core = G.boss.core, ratio = Math.max(0, core.hp / (core.hpMax || 1));
+      const auraCol = ratio <= 0.34 ? [1, 0.34, 0.56, 0.62] : ratio <= 0.67 ? [1, 0.72, 0.28, 0.52] : [1, 0.55, 0.78, 0.42];
+      circle({ x: core.x, y: core.y }, 118 + Math.sin(G.boss.pulse * 2.2) * 7, 3.5, auraCol, 40, G.t * 1.4);
+    }
     for (const b of W.bodies) if (!b.removed && !b.active && b.cracks) K.drawCracks(renderer, b);
     for (const g of G.glows) { const k = g.life / g.total; renderer.glow(g.x, g.y, g.r * (1.1 - k * 0.3), [...g.col, 0.35 * k]); }
     for (const b of G.bolts) {
@@ -730,10 +871,10 @@
   }
   function hud() {
     if (G.state !== 'play') return;
-    const seconds = Math.max(0, Math.ceil(60 - G.t));
+    const seconds = Math.max(0, Math.ceil(RUN_TIME - G.t));
     const clock = G.free ? '∞' : String(seconds).padStart(2, '0') + ' 秒';
     if ($('clock').textContent !== clock) $('clock').textContent = clock;
-    if (!G.free) $('time').style.width = Math.max(0, 100 - G.t / 60 * 100) + '%';
+    if (!G.free) $('time').style.width = Math.max(0, 100 - G.t / RUN_TIME * 100) + '%';
     if ($('kills').textContent !== String(G.stats.kills)) $('kills').textContent = G.stats.kills;
     const lv = G.hero.ups.size, k = lv >= 3 ? 1 : G.energy / ENERGY.need[lv];
     $('upbar').style.width = Math.min(100, k * 100) + '%';
@@ -742,7 +883,8 @@
     if (!G.paused) G.gainFlash = Math.max(0, G.gainFlash - 1 / 60);
     if (G.boss) {
       $('boss-meter').hidden = false;
-      $('boss-name').textContent = G.stage.bossName;
+      const phaseNames = ['外殻', '内層', 'コア'];
+      $('boss-name').textContent = G.stage.bossName + ' · ' + (phaseNames[G.boss.phase] || 'コア');
       const hp = W.bodies.reduce((sum, b) => sum + (!b.active && !b.removed && b.bossPart ? b.hp : 0), 0);
       $('boss-progress').value = G.bossDown ? 0 : hp / G.boss.totalHp;
     }

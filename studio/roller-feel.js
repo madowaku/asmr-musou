@@ -8,7 +8,7 @@
   const T = {
     follow: 660, slow: 34, quick: 350, holdDelay: 0.16, contactSound: 0.080, beat: 0.112,
     baseWidth: 58, levelWidth: 29, wideBonus: 48, halfDepth: 44, levelDepth: 9,
-    gatherReach: 96, gatherSpeed: 135, chipEnergy: 0.56, maxContacts: 16,
+    gatherReach: 96, gatherSpeed: 135, chipEnergy: 1.18, maxContacts: 16,
     maxRemnants: 26, remnantLife: 9, reworkLife: 0.30
   };
   const traits = {
@@ -190,8 +190,9 @@
     state.seen = roller.id;
     const before = state.depth;
     if (!body.bossPart) flattened.add(body);
-    const size = body.kind === 'swarm' || body.kind === 'mid' ? 1.5 : 1;
-    state.depth = clamp(before + motion.effort * contact * dt * mat.rate * size * shape.weight);
+    const size = body.bossPart ? 2.25 : (body.kind === 'swarm' || body.kind === 'mid' ? 1.5 : 1);
+    const eff = body.bossPart ? Math.max(motion.effort, 0.62) : motion.effort;
+    state.depth = clamp(before + eff * contact * dt * mat.rate * size * shape.weight);
     body.squash = Math.max(body.squash || 0, 0.28 + contact * 0.35 + state.depth * 1.44);
     if (body.material === 'sponge') {
       // Wet sponge darkens richly as water squeezes out

@@ -66,9 +66,15 @@ try {
     for (let i = 0; i < 14; i++) step(1 / 60);
     draw();
     if (window.v10Shot) await window.v10Shot('v10-hero-slasher-sep');
+    // Second iaido quarters the gliding halves cleanly (v1.2 multi-slice!)
+    input.down({ x: 110, y: 620 });
+    input.move({ x: 560, y: 620 });
+    input.up({ x: 560, y: 620 });
+    for (let i = 0; i < 30; i++) step(1 / 60);
     window.__slasherRes = {
       actions: [...G.actions.values()].map(a => a.kind),
       kills: G.stats.kills,
+      multiSlices: G.stats.multiSlices || 0,
       caps: world.bodies.filter(b => b.active && b.cap).length
     };
   });
@@ -177,7 +183,7 @@ try {
         document.querySelectorAll('.upcard')[Math.max(0, gale, heavy)].click();
         aim = null; rollerTarget = null; nextAction = 0;
       };
-      for (let frame = 0; frame < 4800 && G.state === 'play'; frame++) {
+      for (let frame = 0; frame < 5200 && G.state === 'play'; frame++) {
         if (window.v10Shot && stageNum === 1 && G.choice && !upgradeShot) {
           upgradeShot = true; draw(); await window.v10Shot('v10-upgrade-dialog');
         }
@@ -197,11 +203,16 @@ try {
           }
           if (target && input.ptr) input.move({ x: target.x, y: target.y });
         } else if (G.cls === 'spinner') {
-          if (target && !aim) { aim = { x: target.x, y: target.y, at: G.rt }; input.down({ x: aim.x + 68, y: aim.y }); }
+          if (target && !aim) {
+            const rad = G.boss ? (G.boss.phase === 0 ? 175 : G.boss.phase === 1 ? 130 : 80) : 95;
+            aim = { x: G.boss ? G.boss.cx : target.x, y: G.boss ? (G.boss.core?.y || G.boss.cy) : target.y, at: G.rt, rad };
+            input.down({ x: aim.x + rad, y: aim.y });
+          }
           if (aim) {
-            const el = G.rt - aim.at, a = el * 11;
-            input.move({ x: aim.x + Math.cos(a) * 68, y: aim.y + Math.sin(a) * 68 });
-            if (el > 0.85) { input.up(); aim = null; }
+            if (G.boss) { aim.x = G.boss.cx; aim.y = G.boss.core?.y || G.boss.cy; aim.rad = G.boss.phase === 0 ? 175 : G.boss.phase === 1 ? 130 : 80; }
+            const el = G.rt - aim.at, a = el * 12;
+            input.move({ x: aim.x + Math.cos(a) * aim.rad, y: aim.y + Math.sin(a) * aim.rad });
+            if (!G.boss && el > 0.85) { input.up(); aim = null; }
           }
           if (!target && aim) { input.up(); aim = null; }
         } else if (G.cls === 'slasher') {

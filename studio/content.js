@@ -40,14 +40,14 @@
   };
 
   const stages = [
-    { n: 1, mat: 'wax',       known: [],                                                              title: 'はじめての音',   name: 'WAX SQUEEZE',   bossName: 'クリーム・クラウン',   boss: ['wax', 'wax', 'wax'],             colors: ['#f9d8cf', '#fff2dc', '#dc8799'], hp: [1, 1, 4] },
-    { n: 2, mat: 'jelly',     known: ['wax'],                                                         title: 'やわらかい音',   name: 'JELLY RIPPLE',  bossName: 'プリズム・ゼリー',     boss: ['wax', 'jelly', 'jelly'],         colors: ['#dfdcf8', '#fff4e5', '#9c83d3'], hp: [1, 1, 5] },
-    { n: 3, mat: 'soap',      known: ['wax', 'jelly'],                                                title: '切る音',         name: 'SOAP PARTY',    bossName: 'ソープ・ジュエル',     boss: ['jelly', 'soap', 'soap'],         colors: ['#d4ead8', '#fff4dd', '#72ae9c'], hp: [2, 1, 5] },
-    { n: 4, mat: 'chalk',     known: ['wax', 'jelly', 'soap'],                                        title: '乾いた音',       name: 'CHALK PASTEL',  bossName: 'パステル・キャッスル', boss: ['soap', 'chalk', 'chalk'],        colors: ['#ebe0f7', '#fff6e8', '#9f7cc7'], hp: [2, 1, 5] },
-    { n: 5, mat: 'sand',      known: ['jelly', 'soap', 'chalk'],                                      title: '流れる音',       name: 'KINETIC DUNES', bossName: 'デューン・キング',     boss: ['chalk', 'sand', 'sand'],         colors: ['#f6e5c8', '#fff7e6', '#c59254'], hp: [2, 2, 5] },
-    { n: 6, mat: 'sponge',    known: ['soap', 'chalk', 'sand'],                                       title: 'あふれる音',     name: 'AQUA SPONGE',   bossName: 'バブル・スポンジ王',   boss: ['sand', 'sponge', 'sponge'],      colors: ['#f9efc4', '#fff9e6', '#d4a634'], hp: [2, 2, 6] },
-    { n: 7, mat: 'beadslime', known: ['chalk', 'sand', 'sponge'],                                     title: 'はじける音',     name: 'BEAD SLIME',    bossName: 'キャンディ・ビーズコア', boss: ['sponge', 'beadslime', 'beadslime'], colors: ['#d8eef9', '#fff4ee', '#66a3cc'], hp: [2, 2, 6] },
-    { n: 8, mat: 'kohaku',    known: ['wax', 'jelly', 'soap', 'chalk', 'sand', 'sponge', 'beadslime'], title: 'きらめく音',     name: 'KOHAKU JEWEL',  bossName: 'アンバー・クリスタル', boss: ['beadslime', 'kohaku', 'kohaku'], colors: ['#fde2c4', '#fff6e6', '#d87d38'], hp: [2, 2, 7] }
+    { n: 1, mat: 'wax',       known: [],                                                              title: 'はじめての音',   name: 'WAX SQUEEZE',   bossName: 'クリーム・クラウン',     boss: ['wax', 'wax', 'wax'],               colors: ['#f9d8cf', '#fff2dc', '#dc8799'], hp: [7, 8, 20] },
+    { n: 2, mat: 'jelly',     known: ['wax'],                                                         title: 'やわらかい音',   name: 'JELLY RIPPLE',  bossName: 'プリズム・ゼリー',       boss: ['wax', 'jelly', 'jelly'],           colors: ['#dfdcf8', '#fff4e5', '#9c83d3'], hp: [7, 8, 21] },
+    { n: 3, mat: 'soap',      known: ['wax', 'jelly'],                                                title: '切る音',         name: 'SOAP PARTY',    bossName: 'ソープ・ジュエル',       boss: ['jelly', 'soap', 'soap'],           colors: ['#d4ead8', '#fff4dd', '#72ae9c'], hp: [8, 8, 21] },
+    { n: 4, mat: 'chalk',     known: ['wax', 'jelly', 'soap'],                                        title: '乾いた音',       name: 'CHALK PASTEL',  bossName: 'パステル・キャッスル',   boss: ['soap', 'chalk', 'chalk'],          colors: ['#ebe0f7', '#fff6e8', '#9f7cc7'], hp: [8, 8, 22] },
+    { n: 5, mat: 'sand',      known: ['jelly', 'soap', 'chalk'],                                      title: '流れる音',       name: 'KINETIC DUNES', bossName: 'デューン・キング',       boss: ['chalk', 'sand', 'sand'],           colors: ['#f6e5c8', '#fff7e6', '#c59254'], hp: [8, 9, 22] },
+    { n: 6, mat: 'sponge',    known: ['soap', 'chalk', 'sand'],                                       title: 'あふれる音',     name: 'AQUA SPONGE',   bossName: 'バブル・スポンジ王',     boss: ['sand', 'sponge', 'sponge'],        colors: ['#f9efc4', '#fff9e6', '#d4a634'], hp: [8, 9, 23] },
+    { n: 7, mat: 'beadslime', known: ['chalk', 'sand', 'sponge'],                                     title: 'はじける音',     name: 'BEAD SLIME',    bossName: 'キャンディ・ビーズコア', boss: ['sponge', 'beadslime', 'beadslime'], colors: ['#d8eef9', '#fff4ee', '#66a3cc'], hp: [9, 9, 23] },
+    { n: 8, mat: 'kohaku',    known: ['wax', 'jelly', 'soap', 'chalk', 'sand', 'sponge', 'beadslime'], title: 'きらめく音',     name: 'KOHAKU JEWEL',  bossName: 'アンバー・クリスタル',   boss: ['beadslime', 'kohaku', 'kohaku'],   colors: ['#fde2c4', '#fff6e6', '#d87d38'], hp: [9, 9, 24] }
   ];
 
   function background(stage) {
@@ -164,7 +164,9 @@
     const cx = 360, cy = 438;
     const boss = {
       cx, cy, parts: [], layers: [[], [], []], layerDone: [false, false, false],
-      core: null, start: L.time, phase: 0, mats: stage.boss, totalHp: 0
+      layerTimes: [null, null, null], coreCracks: [false, false, false],
+      beatAt: -9, beatHits: 0,
+      core: null, start: L.time, phase: 0, rot: 0, pulse: 0, mats: stage.boss, totalHp: 0
     };
     const core = W.spawn(m2, cx, cy, 0, {
       poly: disc(108, 24),

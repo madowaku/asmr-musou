@@ -67,7 +67,7 @@ try {
   await openStage(1);
   await page.evaluate(() => {
     const {G,step}=StudioTest;
-    for(let i=0;i<3800&&G.state==='play';i++)step(1/60);
+    for(let i=0;i<4700&&G.state==='play';i++)step(1/60);
   });
   assert.equal(await page.locator('#r-title').textContent(),'TIME UP');
   await click('result-back');
@@ -104,7 +104,7 @@ try {
         document.querySelectorAll('.upcard')[Math.max(0,gale,heavy)].click();
         aim=null;rollerTarget=null;nextAction=0;
       };
-      for(let frame=0;frame<4800&&G.state==='play';frame++){
+      for(let frame=0;frame<5200&&G.state==='play';frame++){
         if(window.studioShot && G.choice && !upgradeShot){
           upgradeShot=true;
           StudioTest.draw();

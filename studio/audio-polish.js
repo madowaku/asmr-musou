@@ -142,6 +142,20 @@
         tone(c, t, 0.09, 165, 62, 0.16, x, 'sine', 0.004);
         return;
       }
+      case 'iai_slide': {
+        // Delicate tactile slip as freshly severed halves glide apart to show their cross-section
+        nz(c, t, 0.085, 1600, 3400, 2.2, 0.09, x, 0.008);
+        tone(c, t, 0.06, 520, 340, 0.04, x, 'triangle', 0.004);
+        return;
+      }
+      case 'boss_crack': {
+        // Dramatic core-stage crack sound at 66% / 33% boss core HP
+        const stage = at.stage || 1;
+        tone(c, t, 0.24, 150 + stage * 35, 58, 0.32, x, 'sine', 0.003);
+        nz(c, t, 0.16, 1800 + stage * 500, 620, 1.4, 0.22, x, 0.002);
+        tone(c, t + 0.02, 0.28, 440 * (stage === 2 ? 1.5 : 1.25), 420 * (stage === 2 ? 1.5 : 1.25), 0.06, x, 'triangle', 0.005);
+        return;
+      }
       case 'billiard': {
         // Pitch-climbing crisp billiard ricochet impact
         const gen = Math.min(PENT.length - 1, Math.max(0, (at.gen || 1) - 1));

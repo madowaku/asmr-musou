@@ -160,12 +160,12 @@
         C.hit(e, () => W.shatter(e, 1480, { push: { x: dx / d * 340, y: dy / d * 340 - 60 }, projectile: h.ups.size ? 0.35 : 0, owner: w.id, action: w.id, cause: 'burst', stop: 0.008 }), h, (kk.dt || 0) / 1000);
       }
       for (const e of caught) {
-        if (e.bossPart) C.hit(e, () => W.shatter(e, 1480, { action: w.id, cause: 'burst', stop: 0.01 }), h, 0.02);
+        if (e.bossPart) C.hit(e, () => W.shatter(e, 1480, { action: w.id, cause: 'burst', stop: 0.01 }), { action: w.id, bossDmg: e.bossLayer === 2 ? 2 : (w.sub ? 1 : 2) }, 0.02);
       }
     } else {
       for (const e of caught) {
         const d = dist(e, w), u = { x: (e.x - w.x) / (d || 1), y: (e.y - w.y) / (d || 1) };
-        C.hit(e, () => W.shatter(e, 1450, { push: { x: u.x * 320, y: u.y * 320 - 60 }, projectile: h.ups.size ? 0.35 : 0, owner: w.id, action: w.id, cause: 'burst', stop: 0.008 }), h, d / w.r * 0.045);
+        C.hit(e, () => W.shatter(e, 1450, { push: { x: u.x * 320, y: u.y * 320 - 60 }, projectile: h.ups.size ? 0.35 : 0, owner: w.id, action: w.id, cause: 'burst', stop: 0.008 }), { action: w.id, bossDmg: e.bossPart ? (e.bossLayer === 2 ? 2 : (w.sub ? 1 : 2)) : undefined }, d / w.r * 0.045);
       }
     }
 
@@ -248,7 +248,15 @@
     const caught = C.targets().filter(e => dist(e, p) < r + e.radius * 0.6);
     C.synergy?.onCasterBurst(p, caught, k);
     C.sfx('gravity_burst', { x: p.x, k });
-    return origBig(h, p, k);
+    const res = origBig(h, p, k);
+    // Reward gravity-charge release on Boss with a crisp delayed implosion pulse past per-part cooldown
+    if (k >= 0.3) {
+      const id = h.action;
+      for (const e of caught) {
+        if (e.bossPart) C.hit(e, () => W.shatter(e, 1600, { action: id, cause: 'big-implode', stop: 0.01 }), { action: id, bossDmg: 2 }, 0.25);
+      }
+    }
+    return res;
   };
 
   // ======================= SPINNER: Gentle Lv1 pull + crisp swirl polish =======================
@@ -258,8 +266,8 @@
     // Even before unlocking 'gale', gentle inward pull prevents frustrating Lv1 whiffs after breaking the first target
     const wide = h.ups.has('wide'), gale = h.ups.has('gale');
     const R = r * (wide ? 1.4 : 1) + h.ups.size * 18;
-    const pullOuter = gale ? R * 2.1 : R * 1.55;
-    const pullStep = gale ? 34 : 18;
+    const pullOuter = gale ? R * 2.35 : R * 1.9;
+    const pullStep = gale ? 42 : 24;
     for (const e of C.targets()) {
       const d = dist(e, c);
       if (d <= R + e.radius * 0.55) {
