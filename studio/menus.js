@@ -13,7 +13,10 @@
     const isIaiStudy = Boolean(C.iai?.study);
     const isRollerStudy = Boolean(C.rollerFeel?.study);
     const comparison = $('wave-comparison');
-    comparison.hidden = isIaiStudy || isRollerStudy;
+    const params = new URLSearchParams(location.search);
+    comparison.hidden = isIaiStudy || isRollerStudy || !(params.has('waves') || params.has('test'));
+    $('sound-mode').closest('label').hidden = !(params.has('sound') || params.has('test'));
+    const { en, t } = window.StudioLanguage;
     const comparisonUrl = new URL(location.href);
     if (window.StudioFormations.classic) {
       comparisonUrl.searchParams.delete('waves');
@@ -59,13 +62,13 @@
       const art = $('hero-art');
       art.src = Studio.portrait(progress.hero);
       $('hero-preview').style.setProperty('--hero', hero.color);
-      $('hero-name').textContent = hero.name + '  ' + hero.jp;
+      $('hero-name').textContent = en ? hero.name : hero.name + '  ' + hero.jp;
       $('hero-preview').dataset.hero = progress.hero;
       $('hero-instruction').textContent = hero.gesture[1];
       $('hero-techniques').open = false;
       $('hero-help').textContent = helpFor(progress.hero);
       const isFilm = freeSelect && $('film-mode')?.checked;
-      $('hero-confirm').textContent = isFilm ? '撮影モードを始める ›' : freeSelect ? 'フリープレイを始める ›' : 'ステージを選ぶ ›';
+      $('hero-confirm').textContent = t(isFilm ? '撮影モードを始める ›' : freeSelect ? 'フリープレイを始める ›' : 'ステージを選ぶ ›');
       for (const button of $('hero-cards').querySelectorAll('button')) {
         button.setAttribute('aria-pressed', String(button.dataset.hero === progress.hero));
       }
@@ -105,7 +108,7 @@
       const formation = !book && !window.StudioFormations.classic && window.StudioFormations.materials[stage.mat][1];
       note.textContent = available
         ? (Studio.learned(stage, progress) && !book ? 'CLEAR · ' : '') + (formation || L.combat.stages.MATERIALS[stage.mat].sound)
-        : 'STAGE ' + (book ? stage.n : stage.n - 1) + ' クリアで解放';
+        : (en ? 'Clear stage ' : 'STAGE ') + (book ? stage.n : stage.n - 1) + (en ? ' to unlock' : ' クリアで解放');
       info.append(caption, label, note);
       button.append(image, info);
       if (book) button.addEventListener('click', () => {
@@ -129,9 +132,9 @@
       if (!material || (!practice && !Studio.learned(material, progress))) {
         material = practice ? stages[0] : stages.find(stage => Studio.learned(stage, progress)) || null;
       }
-      $('book-heading').textContent = practice ? practiceTitle : 'ASMR図鑑';
-      $('book-progress').textContent = practice ? '全8素材 開放中' : progress.cleared.length + ' / ' + stages.length + ' 解放';
-      $('book-confirm').textContent = practice ? (isIaiStudy ? 'この素材を斬る ›' : 'この素材を圧延する ›') : 'キャラクターを選ぶ ›';
+      $('book-heading').textContent = practice ? practiceTitle : t('ASMR図鑑');
+      $('book-progress').textContent = practice ? '全8素材 開放中' : progress.cleared.length + ' / ' + stages.length + (en ? ' unlocked' : ' 解放');
+      $('book-confirm').textContent = practice ? (isIaiStudy ? 'この素材を斬る ›' : 'この素材を圧延する ›') : t('キャラクターを選ぶ ›');
       $('material-cards').replaceChildren(...stages.map(stage => card(stage, 'book')));
       $('book-confirm').disabled = !material;
       view('book');
@@ -140,6 +143,7 @@
     function applySettings() {
       C.muted = !progress.sound;
       C.studioVolume = progress.volume;
+      if (G.state === 'play') C.sfxGain = (C.mix?.sfx ?? 0.7) * (G.film ? 0.52 : 1) * progress.volume / 0.65;
       L.audio.setEnabled(progress.sound);
       L.audio.setMaster(progress.volume);
       if (!progress.volume) C.muted = true;
@@ -192,7 +196,7 @@
         cancel();
       }
       $('aftermath-status').textContent = '';
-      $('aftermath-back').textContent = fromFilm ? '‹ 撮影に戻る' : '‹ 結果に戻る';
+      $('aftermath-back').textContent = t(fromFilm ? '‹ 撮影に戻る' : '‹ 結果に戻る');
       view('aftermath', false);
       draw();
       $('aftermath-back').focus();
@@ -207,7 +211,7 @@
       $('scene').toBlob(blob => {
         trigger.disabled = false;
         if (!blob) {
-          $('aftermath-status').textContent = '画像を保存できませんでした';
+          $('aftermath-status').textContent = t('画像を保存できませんでした');
           return;
         }
         const url = URL.createObjectURL(blob);
@@ -226,7 +230,7 @@
         const button = document.createElement('button');
         button.dataset.hero = id;
         button.style.setProperty('--hero', hero.color);
-        button.textContent = hero.jp;
+        button.textContent = en ? hero.name : hero.jp;
         const image = document.createElement('img');
         image.src = window.StudioBattleArt['hero/' + id];
         image.alt = '';
@@ -334,7 +338,7 @@
         const info = heroes[G.cls];
         $('arena').dataset.material = G.stage.mat;
         $('stage-tag').textContent = G.free
-          ? (practice ? practiceTitle + ' · ' : 'ASMR図鑑 · ') + L.combat.stages.MATERIALS[G.stage.mat].jp
+          ? (practice ? practiceTitle + ' · ' : t('ASMR図鑑') + ' · ') + L.combat.stages.MATERIALS[G.stage.mat].jp
           : 'STAGE 0' + G.stage.n + '  ' + WorldArt.worlds[G.stage.mat].name;
         $('cls').textContent = info.name;
         $('help').textContent = helpFor(G.cls);
@@ -371,21 +375,21 @@
         ].map(([label, value]) => {
           const block = document.createElement('div');
           const small = document.createElement('span');
-          small.textContent = label;
+          small.textContent = t(label);
           const number = document.createElement('b');
           number.textContent = value;
           block.append(small, number);
           return block;
         }));
         const materialName = L.combat.stages.MATERIALS[stage.mat].jp;
-        $('r-defense').textContent = first ? materialName + 'を図鑑に解放しました！'
+        $('r-defense').textContent = en ? (first ? materialName + ' unlocked in the ASMR Book!' : stage.bossName + (stats.bossDefeated ? ' defeated!' : ' survived.')) : first ? materialName + 'を図鑑に解放しました！'
           : stats.bossDefeated ? stage.bossName + 'を撃破！'
           : stage.bossName + 'はまだ砕けていません。';
-        $('r-growth').textContent = '侵入 ' + stats.breaches.length + ' · ' +
-          (stats.ups.map(id => C.UPGRADES[stats.cls].find(upgrade => upgrade.id === id)?.name).filter(Boolean).join(' / ') || '強化なし');
+        $('r-growth').textContent = t('侵入') + ' ' + stats.breaches.length + ' · ' +
+          (stats.ups.map(id => C.UPGRADES[stats.cls].find(upgrade => upgrade.id === id)?.name).filter(Boolean).join(' / ') || t('強化なし'));
         const next = stages[stage.n];
         const canContinue = next && stats.bossDefeated;
-        $('next').textContent = canContinue ? '次のステージ ›' : first ? '図鑑で遊ぶ ›' : 'もう一度挑戦 ›';
+        $('next').textContent = t(canContinue ? '次のステージ ›' : first ? '図鑑で遊ぶ ›' : 'もう一度挑戦 ›');
         $('next').onclick = canContinue ? () => launch(next) : first ? () => {
           G.state = 'select';
           material = stage;

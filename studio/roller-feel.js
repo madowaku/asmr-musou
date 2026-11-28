@@ -4,7 +4,7 @@
   'use strict';
   const query = new URLSearchParams(location.search);
   if (query.get('roller') === 'classic') return;
-  const refined = query.get('pressure') === 'refined';
+  const refined = query.has('pressure') ? query.get('pressure') === 'refined' : query.get('roller') !== 'feel';
   const C = L.combat, W = L.world, K = C.crunch;
   const T = {
     follow: 660, slow: 34, quick: 350, holdDelay: 0.16, contactSound: 0.080, beat: 0.112,
@@ -273,7 +273,8 @@
     modeNode ||= document.getElementById('roll-feel-mode');
     if (!modeNode) return;
     const text = { hold: '止め押し', slow: 'ゆっくり圧延', quick: 'ひと転がし' }[value] || '';
-    if (modeNode.textContent !== text) modeNode.textContent = text;
+    const caption = window.StudioLanguage?.t(text) ?? text;
+    if (modeNode.textContent !== caption) modeNode.textContent = caption;
     modeNode.hidden = !text;
   }
 

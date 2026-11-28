@@ -24,7 +24,7 @@
 
   let renderer;
   try { await L.loadAssets(); renderer = L.createRenderer(canvas); }
-  catch (e) { $('loading').hidden = true; $('error').hidden = false; $('error').textContent = 'WebGL2 を開始できません: ' + e.message; return; }
+  catch (e) { $('loading').hidden = true; $('error').hidden = false; $('error').textContent = (window.StudioLanguage.en ? 'WebGL2 could not start: ' : 'WebGL2 を開始できません: ') + e.message; return; }
 
   // Light cream stage: deepen near-white strokes, soften additive glows
   {
@@ -389,7 +389,7 @@
       banner(stage.name, Stages.MATERIALS[stage.mat].sound);
     } else {
       G.sched.movement = 'one';
-      spawnWave(Formations.opening(stage.mat), 345, 613);
+      spawnWave(Formations.opening(stage.mat), 345, 613, true);
       G.sched.wave = 1;
       G.sched.nextWave = 1.8;
       banner('素材を味わう', Stages.MATERIALS[stage.mat].sound);
@@ -417,7 +417,7 @@
   }
   const alive = k => { let n = 0; for (const b of W.bodies) if (!b.removed && !b.active && b.team === 'enemy' && !b.bossPart && (!k || b.kind === k)) n++; return n; };
 
-  function spawnWave(wave, x, y) {
+  function spawnWave(wave, x, y, opening = false) {
     const phase = G.sched.movement, rule = Formations.movements[phase];
     const kind = phase === 'horde' ? 'swarm' : 'mid';
     const mix = wave.materialOnly ? [[G.stage.mat, 1]] : Stages.mixAt(G.stage, G.t);
@@ -426,6 +426,8 @@
     for (const p of positions) {
       const body = K.spawn(p.kind ?? kind, x + p.x, y + p.y, { m: p.m, size: p.size });
       if (!body) continue;
+      // The opening piece teaches the gesture with an immediate break.
+      if (opening) body.hpc = body.hpMax = 1;
       body.formation = wave.pattern;
       body.phase = driftPhase;
       body.marchSpeed = rule.speed * (p.kind === 'weak' && phase !== 'one' ? 0.9 : 1);
@@ -824,8 +826,8 @@
         if (a.kills >= 6) gain(Math.min(ENERGY.bigCap, a.kills * ENERGY.bigHit), 'bigHit');
         if (a.kills >= 3 || a.chainKills >= 2) {
           const label = a.chainKills >= 2 && a.cls === 'crusher'
-            ? a.kills + ' KO · 玉突き×' + a.chainKills
-            : a.kills + ' KO' + (a.chainKills ? ' · 連鎖' + a.chainKills : '');
+            ? a.kills + (window.StudioLanguage.en ? ' KO · Ricochet ×' : ' KO · 玉突き×') + a.chainKills
+            : a.kills + ' KO' + (a.chainKills ? (window.StudioLanguage.en ? ' · Chain ' : ' · 連鎖') + a.chainKills : '');
           pop(Math.max(110, Math.min(610, G.hero.x)), Math.max(300, G.hero.y - 110), label, a.kills >= 15 ? 'big' : 'ko');
           C.sfx('ko', { n: a.kills });
         }
@@ -942,24 +944,24 @@
     while (popsEl.childElementCount >= 2) popsEl.firstElementChild.remove();
     const label = document.createElement('div');
     label.className = 'pop ' + kind;
-    label.textContent = text;
+    label.textContent = window.StudioLanguage.t(text);
     label.style.left = Math.max(16, Math.min(84, x / 720 * 100)) + '%';
     label.style.top = Math.max(27, Math.min(78, y / 1280 * 100)) + '%';
     popsEl.appendChild(label);
     setTimeout(() => label.remove(), 1020);
   }
   function banner(name, hint) {
-    $('banner').innerHTML = `<b>${name}</b><span>${hint}</span>`;
+    $('banner').innerHTML = `<b>${window.StudioLanguage.t(name)}</b><span>${window.StudioLanguage.t(hint)}</span>`;
     $('banner').classList.remove('show');
     void $('banner').offsetWidth;
     $('banner').classList.add('show');
   }
   function hud() {
     if (G.state !== 'play') return;
-    $('gesture-guide').hidden = G.film || G.guideDone || G.rt >= 7;
+    $('gesture-guide').hidden = G.film || (G.guideDone && G.stats.kills > 0) || G.rt >= 12;
     $('growth-notice').hidden = G.free || G.rt >= G.growthNoticeUntil;
     const seconds = Math.max(0, Math.ceil(RUN_TIME - G.t));
-    const clock = G.free ? '∞' : String(seconds).padStart(2, '0') + ' 秒';
+    const clock = G.free ? '∞' : String(seconds).padStart(2, '0') + (window.StudioLanguage.en ? ' s' : ' 秒');
     if ($('clock').textContent !== clock) $('clock').textContent = clock;
     if (!G.free) $('time').style.width = Math.max(0, 100 - G.t / RUN_TIME * 100) + '%';
     if ($('kills').textContent !== String(G.stats.kills)) $('kills').textContent = G.stats.kills;
@@ -971,7 +973,7 @@
     if (G.boss) {
       $('boss-meter').hidden = false;
       const phaseNames = ['外殻', '内層', 'コア'];
-      $('boss-name').textContent = G.stage.bossName + ' · ' + (phaseNames[G.boss.phase] || 'コア');
+      $('boss-name').textContent = G.stage.bossName + ' · ' + window.StudioLanguage.t(phaseNames[G.boss.phase] || 'コア');
       const hp = W.bodies.reduce((sum, b) => sum + (!b.active && !b.removed && b.bossPart ? b.hp : 0), 0);
       $('boss-progress').value = G.bossDown ? 0 : hp / G.boss.totalHp;
     }

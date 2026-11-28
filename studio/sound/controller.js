@@ -18,7 +18,7 @@
   const isMode = value => ['A', 'B', 'C'].includes(value);
   let saved, mode, palette, stage = null, twinBlade = 0;
   try { saved = sessionStorage.getItem('studio-sound-mode'); } catch (_) {}
-  mode = isMode(query) ? query : isMode(saved) ? saved : 'A';
+  mode = isMode(query) ? query : location.pathname.includes('/listen') && isMode(saved) ? saved : 'A';
 
   function attach(engine) {
     palette = root.StudioSoundPalette.makePalette(engine, root.StudioSoundAssets || {});
