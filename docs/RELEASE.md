@@ -20,3 +20,5 @@
 v1.5 の正本は release/v1.5-packaging。共通ビルド 03ef1105cdff77cb のZIPの SHA-256 は d977a9ef58f6f8d27b06ca2de8280e5c66f5543767712a11d508eb7065c4475f。Pages の本番は https://asmr-musou.pages.dev/ 、itch.io は https://madowaku.itch.io/asmr-musou 。
 
 Pages の deploy/production は生成物専用。次回もこのスクリプトで両方を生成し、release.mjs で検証する。検証済み pages/ の全ファイルで配信用ブランチを同期し、削除されたファイルも反映する。Cloudflare用の 404.html を維持し、展開時の改行変換を無効にする。承認後に通常の fast-forward push で配信。itch.io には同じビルドのZIPを使う。研究ブランチのプレビューは従来の ci/pages-build を使う。
+
+2026-11-28 公開。ゲームソース 1699fe2、配信用コミット 2a2427c、Pages 本番デプロイ 333c635a。安定URLで配信された64ファイルがローカルの正本とSHA-256で一致した。通常開始・研究パラメータ無効・研究ページ404・日本語/英語・390×844の初撃とWeb Audio出力を確認。ブラウザ内に8ステージクリア済みの保存データを用意し、再読込後の素材祭と8素材のボスも確認した。正本では新規進行からエンディングまで自動攻略を実施。
