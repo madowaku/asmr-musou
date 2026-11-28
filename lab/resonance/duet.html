@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="ja">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,"><link rel="stylesheet" href="atelier.css"><link rel="stylesheet" href="trial.css">
+<title>音の万華鏡とグラスハープ · Resonance Atelier</title>
+<style>
+#pad{width:100%;height:100%;display:block;touch-action:none}.tools{display:flex;gap:.5rem;align-items:center}.tools button{flex:1}button:disabled{opacity:.45}section{height:clamp(230px,52svh,540px)}#status{pointer-events:none}h1{font-size:clamp(1.6rem,8vw,2.5rem)}[hidden]{display:none!important}
+</style>
+<main><header><a href="trial.html">← 6人の試験場</a><button id="mute" aria-pressed="false">音 ON</button></header>
+<h1 id="title">音の万華鏡</h1>
+<div class="choices"><label>奏者<select id="hero"><option>双剣士</option><option>ローラー</option></select></label>
+<label id="modeLabel" hidden>音程<select id="mode"><option>A　音階に固定</option><option>B　連続音程</option><option selected>C　柔らかく吸着</option></select></label></div>
+<section><canvas id="pad" aria-label="指で自由に演奏する面"></canvas><div id="status"></div></section>
+<p id="guide"></p><div class="tools"><button id="again" hidden disabled>直前の軌跡を再演</button></div></main>
+<script type="module" src="duet.js"></script></html>
