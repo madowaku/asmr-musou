@@ -5,6 +5,8 @@
   window.StudioMenus = ({ L, C, G, Studio, progress, start, fillFree, cancel }) => {
     const $ = id => document.getElementById(id);
     const { heroes, stages } = Studio;
+    const WorldArt = window.StudioWorld;
+    const plainBackground = () => document.querySelector('input[name="book-background"]:checked').value === 'plain';
     const heroOrder = ['slasher', 'crusher', 'caster', 'spinner', 'roller'];
     const screens = Array.from(document.querySelectorAll('.screen'));
     let freeSelect = false, material = null, settingsFrom = null, practice = false;
@@ -25,6 +27,10 @@
       if (id !== 'play') $('pops').replaceChildren();
       for (const section of screens) section.hidden = section.id !== id;
       const active = id === 'play';
+      if (!active && id !== 'result' && id !== 'aftermath' && G.environment) {
+        WorldArt.leave();
+        G.environment = null;
+      }
       const film = active && Boolean(G.film);
       $('hud').hidden = $('play-footer').hidden = !active || film;
       $('film-exit').hidden = !film;
@@ -77,11 +83,18 @@
       button.disabled = !available;
       if (book) button.setAttribute('aria-pressed', String(stage === material));
       const image = document.createElement('img');
-      image.src = L.tex('body/' + stage.mat + '_boss').src;
+      image.src = book ? L.tex('body/' + stage.mat + '_boss').src : WorldArt.thumbnail(stage.mat);
+      if (!book) {
+        image.className = 'world-thumb';
+        image.width = 360;
+        image.height = 205;
+        image.decoding = 'async';
+        image.addEventListener('error', () => { image.hidden = true; }, { once: true });
+      }
       image.alt = '';
       const info = document.createElement('div');
       const caption = document.createElement('small');
-      caption.textContent = '0' + stage.n + ' · ' + stage.name;
+      caption.textContent = '0' + stage.n + ' · ' + (book ? stage.name : WorldArt.worlds[stage.mat].name);
       const label = document.createElement('strong');
       label.textContent = L.combat.stages.MATERIALS[stage.mat].jp;
       const note = document.createElement('span');
@@ -210,7 +223,7 @@
         if (!material) return;
         if (practice) {
           L.audio.unlock();
-          start(practiceHero, material, document.querySelector('input[name="layout"]:checked').value, isIaiStudy ? 'iai' : 'roller');
+          start(practiceHero, material, document.querySelector('input[name="layout"]:checked').value, isIaiStudy ? 'iai' : 'roller', { plain: plainBackground() });
         } else selectHero(true);
       };
       $('hero-confirm').onclick = () => {
@@ -218,7 +231,7 @@
           const layout = document.querySelector('input[name="layout"]:checked').value;
           const level = Number(document.querySelector('input[name="book-level"]:checked')?.value || 1);
           const film = Boolean($('film-mode')?.checked);
-          launch(material, layout, { film, level });
+          launch(material, layout, { film, level, plain: plainBackground() });
         } else showStages();
       };
       $('film-exit').onclick = () => {
@@ -245,13 +258,22 @@
         const idx = (heroOrder.indexOf(G.cls) + 1) % heroOrder.length;
         progress.hero = heroOrder[idx];
         Studio.save(progress);
-        start(progress.hero, G.stage, G.free, G.practice, { film: G.film, level: G.startLv });
+        start(progress.hero, G.stage, G.free, G.practice, { film: G.film, level: G.startLv, plain: G.environment.plain });
       };
       $('again').onclick = () => launch(G.stage);
+      $('result-aftermath').onclick = () => {
+        view('aftermath', false);
+        $('aftermath-back').focus();
+      };
+      $('aftermath-back').onclick = () => {
+        view('result', false);
+        $('result-aftermath').focus({ preventScroll: true });
+      };
       $('result-back').onclick = () => { G.state = 'select'; showStages(); };
       $('result-title').onclick = showTitle;
       document.addEventListener('keydown', event => {
         if (event.key !== 'Escape') return;
+        if (!$('aftermath').hidden) { $('aftermath-back').click(); return; }
         if (G.state === 'play' && G.film) { $('film-exit').click(); return; }
         if (!$('settings').hidden) closeSettings();
         else if (G.state === 'play' && !G.choice) settings(true, $('pause'));
@@ -268,7 +290,7 @@
         $('arena').dataset.material = G.stage.mat;
         $('stage-tag').textContent = G.free
           ? (practice ? practiceTitle + ' · ' : 'ASMR図鑑 · ') + L.combat.stages.MATERIALS[G.stage.mat].jp
-          : 'STAGE 0' + G.stage.n + '  ' + G.stage.name;
+          : 'STAGE 0' + G.stage.n + '  ' + WorldArt.worlds[G.stage.mat].name;
         $('cls').textContent = info.name;
         $('help').textContent = helpFor(G.cls);
         $('breach').textContent = '0';
@@ -285,7 +307,7 @@
         const stage = G.stage;
         const first = stats.bossDefeated && !Studio.learned(stage, progress);
         if (first) { progress.cleared.push(stage.n); Studio.save(progress); }
-        $('result-stage').textContent = 'STAGE 0' + stage.n + ' · ' + stage.name;
+        $('result-stage').textContent = 'STAGE 0' + stage.n + ' · ' + WorldArt.worlds[stage.mat].name;
         $('r-title').textContent = stats.bossDefeated ? 'STAGE CLEAR' : 'TIME UP';
         $('result-boss').src = window.StudioBossArt['studio-boss/' + stage.mat];
         $('r-stats').replaceChildren(...[

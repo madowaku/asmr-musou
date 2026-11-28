@@ -50,89 +50,7 @@
     { n: 8, mat: 'kohaku',    known: ['wax', 'jelly', 'soap', 'chalk', 'sand', 'sponge', 'beadslime'], title: 'きらめく音',     name: 'KOHAKU JEWEL',  bossName: 'アンバー・クリスタル',   boss: ['beadslime', 'kohaku', 'kohaku'],   colors: ['#fde2c4', '#fff6e6', '#d87d38'], hp: [9, 9, 24] }
   ];
 
-  function background(stage) {
-    const canvas = document.createElement('canvas');
-    canvas.width = 720;
-    canvas.height = 1280;
-    const ctx = canvas.getContext('2d');
-    const [tint, cream, accent] = stage.colors;
-    const fill = ctx.createLinearGradient(0, 0, 615, 1160);
-    fill.addColorStop(0, tint);
-    fill.addColorStop(0.58, cream);
-    fill.addColorStop(1, tint);
-    ctx.fillStyle = fill;
-    ctx.fillRect(0, 0, 720, 1280);
 
-    // Subtle top spotlight glow for bright tactile studio warmth
-    const spot = ctx.createRadialGradient(360, 420, 40, 360, 460, 460);
-    spot.addColorStop(0, 'rgba(255,253,246,0.58)');
-    spot.addColorStop(1, 'rgba(255,253,246,0)');
-    ctx.fillStyle = spot;
-    ctx.fillRect(0, 0, 720, 1280);
-
-    // Receding studio table grid
-    ctx.strokeStyle = accent;
-    ctx.lineWidth = 2;
-    ctx.globalAlpha = 0.19;
-    for (let x = -780; x < 1500; x += 105) {
-      ctx.beginPath();
-      ctx.moveTo(360 + (x - 360) * 0.32, 140);
-      ctx.lineTo(x, 1170);
-      ctx.stroke();
-    }
-    for (let i = 0; i < 10; i++) {
-      const y = 176 + (i / 9) ** 1.65 * 928;
-      ctx.beginPath();
-      ctx.moveTo(0, y);
-      ctx.lineTo(720, y);
-      ctx.stroke();
-    }
-
-    // Material-specific subtle studio motifs along the sides
-    ctx.globalAlpha = 0.22;
-    for (let i = 0; i < 18; i++) {
-      const x = i % 2 ? 656 + (i * 11) % 56 : 12 + (i * 11) % 52;
-      const y = 180 + i * 57;
-      const r = 11 + (i % 4) * 6;
-      ctx.beginPath();
-      if (stage.mat === 'jelly') ctx.ellipse(x, y, r, r * 0.65, -0.3, 0, Math.PI * 2);
-      else if (stage.mat === 'soap') ctx.roundRect(x - r, y, r * 2, r * 1.3, 6);
-      else if (stage.mat === 'chalk') {
-        for (let k = 0; k < 6; k++) {
-          const a = k * Math.PI / 3;
-          const px = x + Math.cos(a) * r, py = y + Math.sin(a) * r;
-          if (k === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
-        }
-        ctx.closePath();
-      } else if (stage.mat === 'sand') {
-        ctx.arc(x, y, r, 0.2, Math.PI - 0.2);
-      } else if (stage.mat === 'sponge') {
-        ctx.arc(x, y, r * 0.62, 0, Math.PI * 2);
-        ctx.moveTo(x + r * 0.9, y + r * 0.45);
-        ctx.arc(x + r * 0.55, y + r * 0.45, r * 0.35, 0, Math.PI * 2);
-      } else if (stage.mat === 'beadslime') {
-        for (let k = 0; k < 3; k++) {
-          const bx = x + (k - 1) * r * 0.55, by = y + (k % 2 ? -r * 0.3 : r * 0.3);
-          ctx.moveTo(bx + r * 0.32, by);
-          ctx.arc(bx, by, r * 0.32, 0, Math.PI * 2);
-        }
-      } else if (stage.mat === 'kohaku') {
-        ctx.moveTo(x, y - r); ctx.lineTo(x + r * 0.85, y); ctx.lineTo(x, y + r); ctx.lineTo(x - r * 0.85, y); ctx.closePath();
-      } else {
-        ctx.ellipse(x, y, r * 0.7, r, 0.3, 0, Math.PI * 2);
-      }
-      ctx.stroke();
-    }
-
-    // Defence zone wash below the line
-    ctx.globalAlpha = 0.13;
-    ctx.fillStyle = accent;
-    ctx.fillRect(0, 1100, 720, 180);
-    return canvas.toDataURL('image/png');
-  }
-
-  // Seamless circular boss construction: zero radial slit gaps while intact,
-  // clean circular core matching the boss portrait, peels ring by ring when struck.
   function wedge(r0, r1, a0, a1, steps = 7) {
     const pts = [];
     for (let i = 0; i <= steps; i++) {
@@ -247,5 +165,5 @@
   const unlocked = (stage, progress) => allOpen || stage.n === 1 || progress.cleared.includes(stage.n - 1);
   const learned = (stage, progress) => allOpen || progress.cleared.includes(stage.n);
   const portrait = id => 'studio/art/' + id + '-portrait.webp';
-  window.StudioContent = { heroes, stages, background, spawnBoss, dressBoss, load, save, unlocked, learned, portrait };
+  window.StudioContent = { heroes, stages, spawnBoss, dressBoss, load, save, unlocked, learned, portrait };
 })(window.LAB);

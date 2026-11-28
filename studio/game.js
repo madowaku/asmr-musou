@@ -6,7 +6,7 @@
   const C = L.combat, W = L.world, K = C.crunch, $ = id => document.getElementById(id), canvas = $('scene');
   const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
   const Studio = window.StudioContent, Stages = C.stages, CLASSES = Studio.heroes;
-  const Formations = window.StudioFormations;
+  const Formations = window.StudioFormations, WorldArt = window.StudioWorld;
   const progress = Studio.load(), testing = new URLSearchParams(location.search).get('test') === '1';
   Stages.patchEngine();
   // v1.2 Growth Curve: restrained single-target power scaling [1 -> 2.2] so tactile material steps
@@ -20,7 +20,6 @@
 
   const art = window.LAB_ASSETS = window.LAB_ASSETS || {};
   Object.assign(art, C.makeHeroSprites());
-  for (const stage of Studio.stages) art['bg/' + stage.mat] = Studio.background(stage);
   Object.assign(art, window.StudioBattleArt, window.StudioBossArt);
 
   let renderer;
@@ -256,6 +255,7 @@
   W.onBreak = (b, opt) => {
     const s = G.stats;
     // Secondary multi-slice halves give crisp chip rewards without double-counting the original enemy kill
+    WorldArt.residue(G.environment, b, G.t);
     if (!b.sliceSecondary) s.kills++;
     if (s.firstKillT == null) s.firstKillT = G.t;
     G.broken.set(b.id, G.t);
@@ -359,6 +359,7 @@
     }
     Object.assign(G, {
       cls, stage, free, practice, film, startLv, seed, t: 0, rt: 0, hero, boss: null, slow: 0,
+      environment: WorldArt.enter(stage, Boolean(free && opts.plain)),
       actions: new Map(), later: [], bolts: [], glows: [], arcs: [], sparks: [], lastPop: -9,
       bossDown: false, finaleT: 0, paused: false, choice: null, broken: new Map(), gestureT: 0,
       lineFlash: 0, sampleT: 0, levelGlow: 0,
@@ -840,7 +841,6 @@
   }
 
   // ---------- render ----------
-  const BG = [{ x: 0, y: 0, u: 0, v: 0 }, { x: 720, y: 0, u: 1, v: 0 }, { x: 720, y: 1280, u: 1, v: 1 }, { x: 0, y: 1280, u: 0, v: 1 }];
   function heroQuad(h) {
     const k = h.move ? 1.12 : 1, s = (h.cls === 'roller' ? 84 : 82) * k;
     const flip = Math.cos(h.face) < 0 ? -1 : 1, bob = h.move ? 0 : Math.sin(h.bob * 4) * 4;
@@ -861,9 +861,11 @@
   }
   function draw() {
     renderer.begin();
-    renderer.mesh('bg/' + G.stage.mat, BG, [0, 1, 2, 0, 2, 3]);
-    const lf = G.lineFlash;
-    if (!G.free) renderer.line({ x: 0, y: K.LINE }, { x: 720, y: K.LINE }, 4 + lf * 10, [1, 0.35 + 0.3 * (1 - lf), 0.6, 0.75]);
+    WorldArt.draw(renderer, G, progress.motion && !reduceMotion.matches, K.LINE);
+    if (G.state === 'result') {
+      renderer.render([], G.t, 0, false);
+      return;
+    }
     for (const b of W.bodies) {
       if (G.free || b.removed || b.active || b.team !== 'enemy' || b.bossPart || b.y < K.DANGER) continue;
       const k = Math.min(1, (b.y - K.DANGER) / (K.LINE - K.DANGER));
@@ -983,11 +985,18 @@
 
   // ---------- loop ----------
   const ui = window.StudioMenus({ L, C, G, Studio, progress, start, fillFree, cancel: P.cancel });
-  let prev = 0;
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  let prev = 0, resultPlate;
   function frame(ms) {
     const dt = prev ? Math.min(0.05, (ms - prev) / 1000) : 1 / 60; prev = ms;
     if (!testing) step(dt);
-    if (G.state === 'play' || G.state === 'result') draw();
+    if (G.state === 'play') {
+      resultPlate = null;
+      draw();
+    } else if (G.state === 'result' && resultPlate !== G.environment.plate) {
+      resultPlate = G.environment.plate;
+      draw();
+    }
     hud();
     requestAnimationFrame(frame);
   }

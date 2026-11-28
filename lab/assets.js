@@ -15,6 +15,7 @@
   }
   L.textureNames={wax_body:'body/wax_boss',jelly_body:'body/jelly_boss',wax_core:'xsec/wax'};
   L.tex=name=>{const key=L.textureNames[name]||name;if(!sources.has(key))sources.set(key,placeholder(name));return sources.get(key);};
+  L.setTextureSource=(name,source)=>{if(source)sources.set(name,source);else sources.delete(name);};
   L.assetStatus={bundled:0,failed:[],ready:false};
   L.loadAssets=async()=>{
     await Promise.all(Object.entries(window.LAB_ASSETS||{}).map(async([name,url])=>{try{const im=new Image();im.src=url;await im.decode();sources.set(name,im);L.assetStatus.bundled++;}catch(_){L.assetStatus.failed.push(name);}}));

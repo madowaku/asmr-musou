@@ -65,6 +65,7 @@ try {
   await page.reload();
   await page.locator('#wave-comparison').click();
   await page.waitForURL(/waves=classic/);
+  await page.locator('#title').waitFor();
   assert.equal(await page.evaluate(() => {
     StudioTest.start('slasher', StudioContent.stages[0]);
     return StudioTest.targets().length;
@@ -72,6 +73,7 @@ try {
   await page.reload();
   await page.locator('#wave-comparison').click();
   await page.waitForURL(href => !href.searchParams.has('waves'));
+  await page.locator('#title').waitFor();
   assert.equal(await page.evaluate(() => {
     StudioTest.start('slasher', StudioContent.stages[0]);
     return StudioTest.targets().length;
