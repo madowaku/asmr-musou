@@ -33,7 +33,8 @@
       this.voices = this.voices.filter(v => v.end > this.time);
       // Never hard-steal a sounding grain: skip new low-level detail when full.
       if (this.voices.length >= this.cap) { this.counters.dropped++; return; }
-      const variants = this.bank[name], variation = Math.floor(this.rand() * variants.length), buffer = variants[variation];
+      const variants = this.bank[name], variation = Math.floor(this.rand() * variants.length);
+      const buffer = this.atelier ? this.atelier.variant(name, variants[variation], variation) : variants[variation];
       const rate = 2 ** (pitch / 12), natural = buffer.length / this.sr / rate;
       const end = at + (clip ? Math.min(clip, natural) : duration || natural), p = clamp(pan, -.4, .4);
       this.voices.push({ name, buffer, at, end, natural, rate, gain, group, fadeAt: Infinity, left: Math.cos((p + 1) * Math.PI / 4), right: Math.sin((p + 1) * Math.PI / 4), stretch: !!duration });
@@ -180,9 +181,10 @@
         this.time = this.sample / this.sr;
         if (!this.enabled) { left[i] = right[i] = 0; this.sample++; continue; }
         if (this.time >= this.nextTick) { this.tick(); this.nextTick = this.time + .005; }
-        let l = 0, r = 0;
+        let l = this.atelier ? this.atelier.bedSample(this.density) : 0, r = l;
         for (const [material, s] of this.strains) {
-          const value = s.sample(this.time), angle = (s.pan + 1) * Math.PI / 4;
+          const value = this.atelier ? this.atelier.strain(s, this.time) : s.sample(this.time);
+          const angle = (s.pan + 1) * Math.PI / 4;
           l += value * Math.cos(angle); r += value * Math.sin(angle);
           if ((!s.target || this.time - s.last > .070) && s.value < 1e-5) this.strains.delete(material);
         }

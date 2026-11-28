@@ -88,9 +88,12 @@
       this.hp = new D.Filter(D.coefficients('highpass', lo, .707, 0, sr)); this.lp = new D.Filter(D.coefficients('lowpass', hi, .707, 0, sr));
       this.random = D.seeded(912 + Object.keys(strainColors).indexOf(material) * 137); this.phase = 0; this.pulse = 0; this.next = 0; this.clock = 0;
     }
-    sample(time) {
+    envelope(time) {
       const stale = time - this.last > .070;
       this.value += ((stale ? 0 : this.target) - this.value) * (1 - Math.exp(-1 / (this.sr * (stale || !this.target ? .004 : .008))));
+    }
+    sample(time) {
+      this.envelope(time);
       const a = this.value, c = this.color, wet = ['jelly', 'sponge', 'beadslime'].includes(this.material);
       const interval = this.sr / (8 + a * a * 150 * clamp(this.rate, .2, 3));
       this.next = Math.min(this.next, this.clock + interval);

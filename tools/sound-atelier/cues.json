@@ -1,0 +1,335 @@
+{
+  "upstream": "81939e56b880532b2cb094954a50c5aa7a2ea302",
+  "cues": [
+    {
+      "name": "wax",
+      "id": "pulling-waxed-thread-through-leather",
+      "seconds": 0.18,
+      "skip": 0,
+      "highpass": 230,
+      "lowpass": 5600,
+      "punch": 0.5,
+      "pitch": -2
+    },
+    {
+      "name": "jelly",
+      "id": "glass-jar-lid-breaks-seal",
+      "seconds": 0.18,
+      "skip": 0,
+      "highpass": 180,
+      "lowpass": 4100,
+      "punch": 0.55,
+      "pitch": -7
+    },
+    {
+      "name": "soap",
+      "id": "arcade-kill-confirm-dry-ceramic-stamp",
+      "seconds": 0.155,
+      "skip": 0,
+      "highpass": 210,
+      "lowpass": 6100,
+      "punch": 0.56,
+      "pitch": 2
+    },
+    {
+      "name": "chalk",
+      "id": "ceramic-pot-cracked-under-pressure",
+      "seconds": 0.175,
+      "skip": 0,
+      "highpass": 270,
+      "lowpass": 6600,
+      "punch": 0.56,
+      "pitch": -1
+    },
+    {
+      "name": "sand",
+      "id": "handful-of-sand-on-stone",
+      "seconds": 0.23,
+      "skip": 0,
+      "highpass": 320,
+      "lowpass": 6700,
+      "punch": 0.52,
+      "pitch": 0
+    },
+    {
+      "name": "sponge",
+      "id": "foam-target-direct-soft-impact",
+      "seconds": 0.21,
+      "skip": 0,
+      "highpass": 190,
+      "lowpass": 4500,
+      "punch": 0.57,
+      "pitch": -2
+    },
+    {
+      "name": "beadslime",
+      "id": "soft-tissue-pull-and-snap",
+      "seconds": 0.23,
+      "skip": 0,
+      "highpass": 170,
+      "lowpass": 5100,
+      "punch": 0.46,
+      "pitch": 2
+    },
+    {
+      "name": "kohaku",
+      "id": "window-glass-shatter",
+      "seconds": 0.185,
+      "skip": 0,
+      "highpass": 330,
+      "lowpass": 7000,
+      "punch": 0.39,
+      "pitch": 4
+    },
+    {
+      "name": "blade-draw",
+      "id": "glass-edge-match-cut",
+      "seconds": 0.075,
+      "skip": 0,
+      "highpass": 650,
+      "lowpass": 6200,
+      "punch": 0.37,
+      "pitch": -3
+    },
+    {
+      "name": "blade-open",
+      "id": "light-blade-swish",
+      "seconds": 0.17,
+      "skip": 0,
+      "highpass": 340,
+      "lowpass": 5700,
+      "punch": 0.46,
+      "pitch": -3
+    },
+    {
+      "name": "blade-slide",
+      "id": "silk-whip-cut",
+      "seconds": 0.13,
+      "skip": 0,
+      "highpass": 550,
+      "lowpass": 5700,
+      "punch": 0.33,
+      "pitch": -2
+    },
+    {
+      "name": "punch",
+      "id": "arcade-kill-confirm-padded-bass-punch",
+      "seconds": 0.17,
+      "skip": 0,
+      "highpass": 165,
+      "lowpass": 5500,
+      "punch": 0.6,
+      "pitch": -1
+    },
+    {
+      "name": "ricochet",
+      "id": "critical-hit-hard-ceramic-doublet",
+      "seconds": 0.15,
+      "skip": 0,
+      "highpass": 290,
+      "lowpass": 6500,
+      "punch": 0.53,
+      "pitch": 0
+    },
+    {
+      "name": "spell",
+      "id": "healing-spell-bloom",
+      "seconds": 0.42,
+      "skip": 0,
+      "highpass": 225,
+      "lowpass": 6200,
+      "punch": 0.44,
+      "pitch": 0
+    },
+    {
+      "name": "twin",
+      "id": "glass-edge-swipe-right",
+      "seconds": 0.1,
+      "skip": 0,
+      "highpass": 780,
+      "lowpass": 7300,
+      "punch": 0.46,
+      "pitch": 3
+    },
+    {
+      "name": "roller",
+      "id": "rubber-wiper-blade-lifting-off-glass",
+      "seconds": 0.2,
+      "skip": 0,
+      "highpass": 230,
+      "lowpass": 5100,
+      "punch": 0.42,
+      "pitch": -4
+    },
+    {
+      "name": "pressure-dry",
+      "id": "trimming-clay-on-a-wheel",
+      "seconds": 0.65,
+      "skip": 0,
+      "highpass": 460,
+      "lowpass": 5800,
+      "punch": 0.32,
+      "pitch": 0
+    },
+    {
+      "name": "pressure-wet",
+      "id": "bubbles-rising-beside-a-submerged-wall-gentle-laps-loop",
+      "seconds": 1.2,
+      "skip": 0,
+      "highpass": 330,
+      "lowpass": 4000,
+      "punch": 0.32,
+      "pitch": 0
+    },
+    {
+      "name": "shell",
+      "id": "ceramic-roof-tiles-first-piece-gives-way",
+      "seconds": 0.34,
+      "skip": 0,
+      "highpass": 175,
+      "lowpass": 5900,
+      "punch": 0.54,
+      "pitch": -4
+    },
+    {
+      "name": "inner",
+      "id": "glass-guard-screen-hard-impact-and-scatter",
+      "seconds": 0.38,
+      "skip": 0,
+      "highpass": 210,
+      "lowpass": 6400,
+      "punch": 0.53,
+      "pitch": 0
+    },
+    {
+      "name": "core",
+      "id": "ceramic-shield-frame-loses-power",
+      "seconds": 0.59,
+      "skip": 0,
+      "highpass": 155,
+      "lowpass": 6200,
+      "punch": 0.48,
+      "pitch": -3
+    },
+    {
+      "name": "finale",
+      "id": "portal-unfold",
+      "seconds": 0.85,
+      "skip": 0,
+      "highpass": 180,
+      "lowpass": 6400,
+      "punch": 0.48,
+      "pitch": 0
+    },
+    {
+      "name": "select",
+      "id": "menu-focus-tap",
+      "seconds": 0.095,
+      "skip": 0,
+      "highpass": 420,
+      "lowpass": 6400,
+      "punch": 0.36,
+      "pitch": 0
+    },
+    {
+      "name": "growth",
+      "id": "quest-accepted-chime",
+      "seconds": 0.38,
+      "skip": 0,
+      "highpass": 300,
+      "lowpass": 6100,
+      "punch": 0.39,
+      "pitch": 0
+    },
+    {
+      "name": "unlock",
+      "id": "crystal-pickup-tick",
+      "seconds": 0.31,
+      "skip": 0,
+      "highpass": 370,
+      "lowpass": 6100,
+      "punch": 0.37,
+      "pitch": 0
+    },
+    {
+      "name": "bed-wax",
+      "id": "late-night-workshop-window-air-loop",
+      "seconds": 2.7,
+      "skip": 0,
+      "highpass": 340,
+      "lowpass": 4100,
+      "punch": 0.31,
+      "pitch": 0
+    },
+    {
+      "name": "bed-jelly",
+      "id": "glass-elevator-interior-air-loop",
+      "seconds": 2.7,
+      "skip": 0,
+      "highpass": 270,
+      "lowpass": 3800,
+      "punch": 0.31,
+      "pitch": 0
+    },
+    {
+      "name": "bed-soap",
+      "id": "greenhouse-drips-loop",
+      "seconds": 2.7,
+      "skip": 0,
+      "highpass": 380,
+      "lowpass": 4500,
+      "punch": 0.31,
+      "pitch": 0
+    },
+    {
+      "name": "bed-chalk",
+      "id": "narrow-sandstone-canyon-by-day-loop",
+      "seconds": 2.7,
+      "skip": 0,
+      "highpass": 480,
+      "lowpass": 4500,
+      "punch": 0.31,
+      "pitch": 0
+    },
+    {
+      "name": "bed-sand",
+      "id": "dry-grass-wind-loop",
+      "seconds": 2.7,
+      "skip": 0,
+      "highpass": 530,
+      "lowpass": 4600,
+      "punch": 0.31,
+      "pitch": 0
+    },
+    {
+      "name": "bed-sponge",
+      "id": "lagoon-ripples-against-a-stone-step-loop",
+      "seconds": 2.7,
+      "skip": 0,
+      "highpass": 310,
+      "lowpass": 4500,
+      "punch": 0.31,
+      "pitch": 0
+    },
+    {
+      "name": "bed-beadslime",
+      "id": "environmental-scrubber-bed-loop",
+      "seconds": 2.7,
+      "skip": 0,
+      "highpass": 380,
+      "lowpass": 3700,
+      "punch": 0.31,
+      "pitch": 0
+    },
+    {
+      "name": "bed-kohaku",
+      "id": "slow-wind-gusts-loop",
+      "seconds": 2.7,
+      "skip": 0,
+      "highpass": 520,
+      "lowpass": 4600,
+      "punch": 0.31,
+      "pitch": 1
+    }
+  ]
+}

@@ -985,6 +985,7 @@
   function frame(ms) {
     const dt = prev ? Math.min(0.05, (ms - prev) / 1000) : 1 / 60; prev = ms;
     if (!testing) step(dt);
+    window.StudioSound.scene(G.state === 'play' && !G.paused && !G.film ? G.stage.mat : null);
     if (G.state === 'play' && !G.inspecting) {
       resultPlate = null;
       draw();

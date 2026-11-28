@@ -143,6 +143,7 @@
       $('sound-setting').checked = progress.sound;
       $('volume').value = Math.round(progress.volume * 100);
       $('motion').checked = progress.motion;
+      $('sound-mode').value = window.StudioSound.mode;
       $('arena').classList.toggle('calm', !progress.motion);
     }
 
@@ -228,6 +229,7 @@
         image.alt = '';
         button.prepend(image);
         button.addEventListener('click', () => {
+          window.StudioSound.select('ui_select');
           progress.hero = id;
           Studio.save(progress);
           paintHero();
@@ -288,6 +290,7 @@
         if (G.free) showBook(); else showStages();
       };
       for (const id of ['sound-setting', 'volume', 'motion']) $(id).addEventListener('input', syncSettings);
+      $('sound-mode').onchange = () => window.StudioSound.setMode($('sound-mode').value);
       $('free-refill').onclick = fillFree;
       // Quick hero cycle inside ASMR Book so players can compare all 5 heroes on any material in 1 tap!
       $('free-hero').onclick = () => {
@@ -323,7 +326,7 @@
     }
 
     return {
-      ready() { bind(); applySettings(); view('title', false); },
+      ready() { bind(); applySettings(); view('title', false); L.audio.prime(); },
       play() {
         const info = heroes[G.cls];
         $('arena').dataset.material = G.stage.mat;
@@ -345,7 +348,11 @@
       result(stats) {
         const stage = G.stage;
         const first = stats.bossDefeated && !Studio.learned(stage, progress);
-        if (first) { progress.cleared.push(stage.n); Studio.save(progress); }
+        if (first) {
+          progress.cleared.push(stage.n);
+          Studio.save(progress);
+          C.sfx('ui_unlock');
+        }
         $('result-stage').textContent = 'STAGE 0' + stage.n + ' · ' + WorldArt.worlds[stage.mat].name;
         $('r-title').textContent = stats.bossDefeated ? 'STAGE CLEAR' : 'TIME UP';
         $('result').classList.toggle('cleared', stats.bossDefeated);

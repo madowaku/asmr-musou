@@ -165,13 +165,26 @@
     for (let i = 0; i < out.length; i++) out[i] = lp.sample(hp.sample(out[i]));
     return normalize(out, cfg.db, sr, cfg.impact);
   }
-  function makeBank(sr = 48000) {
+  function bankBuilder(sr = 48000) {
     const bank = {};
-    for (const name of Object.keys(SPECS)) bank[name] = Array.from({ length: 3 }, (_, i) => render(name, i, sr));
-    for (const m of MATERIALS) bank['synth_grain_' + m] = Array.from({ length: 16 }, (_, i) => render('synth_grain_' + m, i, sr));
+    const entries = [...Object.keys(SPECS).map(name => [name, 3]),
+      ...MATERIALS.map(material => ['synth_grain_' + material, 16])];
+    let entry = 0, take = 0;
+    function next() {
+      if (entry >= entries.length) return false;
+      const [name, count] = entries[entry];
+      (bank[name] ||= []).push(render(name, take++, sr));
+      if (take === count) { entry++; take = 0; }
+      return true;
+    }
+    return { bank, next };
+  }
+  function makeBank(sr = 48000) {
+    const { bank, next } = bankBuilder(sr);
+    while (next()) { /* Complete the standard bank synchronously. */ }
     return bank;
   }
-  const DSP = { MATERIALS, SPECS, clamp, finite, dbGain, seeded, coefficients, Filter, render, makeBank };
+  const DSP = { MATERIALS, SPECS, clamp, finite, dbGain, seeded, coefficients, Filter, render, makeBank, bankBuilder };
   if (typeof module !== 'undefined' && module.exports) module.exports = DSP;
   else { root.LAB = root.LAB || {}; root.LAB.AudioDSP = DSP; }
 })(typeof window === 'undefined' ? globalThis : window);

@@ -29,6 +29,7 @@
       comp.attack.value = 0.003;
       comp.release.value = 0.09;
       bus.connect(highShelf).connect(comp).connect(c.destination);
+      if (c === L.audio?.context && L.audio.captureDestination) comp.connect(L.audio.captureDestination);
       noise = c.createBuffer(1, c.sampleRate, c.sampleRate);
       const d = noise.getChannelData(0);
       for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
@@ -125,6 +126,11 @@
       adaptShelf(density);
     }
     if (!c) return origSfx ? origSfx(kind, at, strong) : undefined;
+    const sampled = c === L.audio?.context && window.StudioSound?.fx(kind, at, scaleGain());
+    if (sampled && window.StudioSound.mode === 'B') {
+      if (kind === 'iai_draw') duck(at.still ?? 0.115, 0.22);
+      return;
+    }
     const t = c.currentTime, x = at.x;
 
     switch (kind) {

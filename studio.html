@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#fff3e5">
   <meta name="robots" content="noindex,nofollow">
-  <title>ASMR MUSOU · WORLD ATELIER</title>
+  <title>ASMR MUSOU · SOUND ATELIER</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="studio/studio.css">
   <script defer src="lab/slice.js"></script><script defer src="lab/events.js"></script>
@@ -17,6 +17,8 @@
   <script defer src="lab/audio/temporal.js"></script><script defer src="lab/audio/engine.js"></script>
   <script defer src="lab/audio/audio.js"></script><script defer src="lab/caps.js"></script>
   <script defer src="combat/world.js"></script><script defer src="combat/formations.js"></script>
+  <script defer src="studio/sound/assets.js"></script><script defer src="studio/sound/palette.js"></script>
+  <script defer src="studio/sound/controller.js"></script>
   <script defer src="feel/heroes.js"></script><script defer src="feel/sfx.js"></script>
   <script defer src="studio/audio-polish.js"></script>
   <script defer src="crunch/crunch.js"></script><script defer src="flow/spinner.js"></script>
@@ -47,13 +49,13 @@
   <button id="film-aftermath" hidden aria-label="破壊の跡を見る" title="破壊の跡を見る"></button>
   <section id="loading" class="screen"><p role="status">スタジオを準備中…</p></section>
   <section id="title" class="screen title-screen" hidden>
-    <div class="title-copy"><span class="kicker">ASMR MUSOU</span><h1>WORLD<br>ATELIER</h1><p>一つを味わう。やがて、全部を砕く。</p></div>
+    <div class="title-copy"><span class="kicker">ASMR MUSOU</span><h1>SOUND<br>ATELIER</h1><p>一つを味わう。やがて、全部を砕く。</p></div>
     <div id="title-art" class="title-art" aria-hidden="true"></div>
     <nav class="title-actions" aria-label="メインメニュー">
       <button id="adventure" class="primary">ステージ攻略 <span>›</span></button>
       <button id="roller-practice" class="primary" hidden>練習モード <span>›</span></button>
       <button id="collection" class="secondary">ASMR図鑑 <span id="book-badge" class="badge"></span></button>
-      <div class="title-links"><button id="settings-open" class="plain">設定</button><a id="wave-comparison" href="studio.html?waves=classic">従来の出現へ</a><a id="roller-baseline" href="studio.html" hidden>標準版へ</a></div>
+      <div class="title-links"><button id="settings-open" class="plain">設定</button><a href="studio/listen.html">音を聴き比べる</a><a id="wave-comparison" href="studio.html?waves=classic">従来の出現へ</a><a id="roller-baseline" href="studio.html" hidden>標準版へ</a></div>
     </nav>
   </section>
   <section id="select" class="screen panel" hidden>
@@ -115,6 +117,9 @@
     <h2 id="settings-title">設定</h2>
     <label class="setting"><input type="checkbox" id="sound-setting" checked> 効果音</label>
     <label class="setting">音量 <input id="volume" type="range" min="0" max="100" value="68"></label>
+    <label class="setting">音響方式
+      <select id="sound-mode"><option value="A">A 既存の合成音</option><option value="B">B Lumina SFX</option><option value="C">C ハイブリッド</option></select>
+    </label>
     <label class="setting"><input type="checkbox" id="motion" checked> 画面の揺れ・ズーム</label>
     <button id="settings-close" class="primary">閉じる</button>
     <button id="leave" class="secondary" hidden>プレイを終了する</button>

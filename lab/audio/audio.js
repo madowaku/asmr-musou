@@ -14,12 +14,30 @@
   }
   let recordDest = null, context, processor, engine, enabled = true, master = .65, error = '', cpu = 0, cpuMax = 0, initMs = 0;
   const times = [];
+  let preparation = null;
+  function prime() {
+    if (context || preparation || !root.requestIdleCallback) return;
+    const builder = preparation = LAB.AudioDSP.bankBuilder(48000);
+    function slice(deadline) {
+      if (preparation !== builder) return;
+      do {
+        if (!builder.next()) return;
+      } while (deadline.timeRemaining() > 4);
+      root.requestIdleCallback(slice, { timeout: 200 });
+    }
+    root.requestIdleCallback(slice, { timeout: 200 });
+  }
   async function init() {
     try {
       if (!context) {
         const start = performance.now();
         context = new (root.AudioContext || root.webkitAudioContext)({ latencyHint: 'interactive', sampleRate: 48000 });
-        engine = new LAB.AudioEngine.Engine(context.sampleRate, undefined, LAB.audioWorldWidth); engine.setMaster(master); engine.setEnabled(enabled);
+        const prepared = preparation;
+        preparation = null;
+        if (prepared && context.sampleRate === 48000) while (prepared.next()) { /* Finish pending voices. */ }
+        const bank = context.sampleRate === 48000 ? prepared?.bank : undefined;
+        engine = new LAB.AudioEngine.Engine(context.sampleRate, bank, LAB.audioWorldWidth); engine.setMaster(master); engine.setEnabled(enabled);
+        root.StudioSound?.attach(engine);
         // A classic-script/file:// baseline: no worklet modules, fetch or network.
         // Keep DSP identical to offline renders; 512 frames = 10.67 ms at 48 kHz.
         processor = context.createScriptProcessor(512, 0, 2);
@@ -64,10 +82,12 @@
   }
   LAB.audio = {
     init,
+    prime,
     // Lab UI conveniences (first gesture unlock, sound button).
     unlock() { return init(); },
     toggle() { enabled = !enabled; if (engine) engine.setEnabled(enabled); return enabled; },
     get context() { return context; },
+    get captureDestination() { return recordDest; },
     captureStream() { return recordDest ? recordDest.stream : null; },
     planWave: LAB.AudioTemporal.planWave,
     setEnabled(value) { enabled = !!value; if (engine) engine.setEnabled(enabled); },

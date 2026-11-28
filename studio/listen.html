@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>SOUND ATELIER · 比較試聴</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="studio.css">
+<link rel="stylesheet" href="sound/listen.css">
+<script defer src="../lab/profiles.js"></script>
+<script defer src="../lab/audio/dsp.js"></script>
+<script defer src="../lab/audio/temporal.js"></script>
+<script defer src="../lab/audio/engine.js"></script>
+<script defer src="../lab/audio/audio.js"></script>
+<script defer src="sound/assets.js"></script>
+<script defer src="sound/palette.js"></script>
+<script defer src="sound/controller.js"></script>
+<script defer src="../feel/sfx.js"></script>
+<script defer src="audio-polish.js"></script>
+<script defer src="sound/scenes.js"></script>
+<script defer src="sound/listen.js"></script>
+</head>
+<body>
+<main class="listening">
+<header><a href="../studio.html">‹ ゲームに戻る</a><p class="kicker">ASMR MUSOU · v1.4</p><h1>SOUND<br>ATELIER</h1></header>
+<section class="desk" aria-label="比較試聴">
+  <p>素材と場面を選び、同じ演奏を3方式で聴き比べます。</p>
+  <label>素材 <select id="material"></select></label>
+  <label>キャラクター <select id="hero"></select></label>
+  <label>場面 <select id="listen-scene"></select></label>
+  <label>音量 <input id="listen-volume" type="range" min="0" max="100" value="65"></label>
+  <div class="cues" aria-label="試聴する方式">
+    <button class="secondary" data-mode="A"><strong>A</strong>既存の合成音</button>
+    <button class="secondary" data-mode="B"><strong>B</strong>Lumina SFX</button>
+    <button class="secondary" data-mode="C"><strong>C</strong>ハイブリッド</button>
+  </div>
+  <p id="listen-status" role="status">再生する方式を選んでください</p>
+</section>
+<a id="play-mode" class="play-link" href="../studio.html?sound=A">Aでゲームを試遊 ›</a>
+</main>
+</body>
+</html>

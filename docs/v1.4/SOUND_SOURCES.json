@@ -1,0 +1,853 @@
+{
+  "upstream": "81939e56b880532b2cb094954a50c5aa7a2ea302",
+  "assets": [
+    {
+      "name": "wax",
+      "id": "pulling-waxed-thread-through-leather",
+      "seconds": 0.18,
+      "skip": 0,
+      "highpass": 230,
+      "lowpass": 5600,
+      "punch": 0.5,
+      "pitch": -2,
+      "recipe": "recipes/pulling-waxed-thread-through-leather.ts",
+      "recordings": [
+        {
+          "title": "Leather",
+          "author": "Vendarro",
+          "url": "https://freesound.org/people/Vendarro/sounds/399540/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        },
+        {
+          "title": "SmallJarLidScrewUnscrew.wav",
+          "author": "SpliceSound",
+          "url": "https://freesound.org/people/SpliceSound/sounds/160444/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        }
+      ],
+      "sampleRate": 24000,
+      "frames": 4320,
+      "sourceWavSha256": "1c6df1afe695d60ad88be194950c54c8fa044576d2d18eca5cf884c1f0a5dd6c",
+      "pcmSha256": "c9e715012cca8bf6a93ce8e7c79f4a5f7341abd887405ed8628a3c750a8ad894"
+    },
+    {
+      "name": "jelly",
+      "id": "glass-jar-lid-breaks-seal",
+      "seconds": 0.18,
+      "skip": 0,
+      "highpass": 180,
+      "lowpass": 4100,
+      "punch": 0.55,
+      "pitch": -7,
+      "recipe": "recipes/glass-jar-lid-breaks-seal.ts",
+      "recordings": [
+        {
+          "title": "SmallJarLidScrewUnscrew.wav",
+          "author": "SpliceSound",
+          "url": "https://freesound.org/people/SpliceSound/sounds/160444/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        },
+        {
+          "title": "Opening_Jar_Pop.wav",
+          "author": "vcspran",
+          "url": "https://freesound.org/people/vcspran/sounds/344607/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        },
+        {
+          "title": "Glass lid on.wav",
+          "author": "BillyPalmer",
+          "url": "https://freesound.org/people/BillyPalmer/sounds/434999/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        }
+      ],
+      "sampleRate": 24000,
+      "frames": 4320,
+      "sourceWavSha256": "b124ea509ea567f1e995241c24837b67196582054e3fb6384b582532d2f4ea1f",
+      "pcmSha256": "c9fb8244abb2f51c41e85484fc24498edc825479c38290a32b734d798da8fe41"
+    },
+    {
+      "name": "soap",
+      "id": "arcade-kill-confirm-dry-ceramic-stamp",
+      "seconds": 0.155,
+      "skip": 0,
+      "highpass": 210,
+      "lowpass": 6100,
+      "punch": 0.56,
+      "pitch": 2,
+      "recipe": "recipes/arcade-kill-confirm-dry-ceramic-stamp.ts",
+      "recordings": [],
+      "sampleRate": 24000,
+      "frames": 3720,
+      "sourceWavSha256": "366b4d64cfa1237d6372f1e25e208366b65c489cd204183de8f0a97955284e17",
+      "pcmSha256": "ee357db8c99dcc2ca77bba67ed63c7e41416facb3c7ffd1bc3d8637b40d007ea"
+    },
+    {
+      "name": "chalk",
+      "id": "ceramic-pot-cracked-under-pressure",
+      "seconds": 0.175,
+      "skip": 0,
+      "highpass": 270,
+      "lowpass": 6600,
+      "punch": 0.56,
+      "pitch": -1,
+      "recipe": "recipes/ceramic-pot-cracked-under-pressure.ts",
+      "recordings": [
+        {
+          "title": "Ceramic_Mug_Cup.wav",
+          "author": "Jamitch2",
+          "url": "https://freesound.org/people/Jamitch2/sounds/344704/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        },
+        {
+          "title": "Glass Breaking.wav",
+          "author": "21100375",
+          "url": "https://freesound.org/people/21100375/sounds/593135/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        }
+      ],
+      "sampleRate": 24000,
+      "frames": 4200,
+      "sourceWavSha256": "300fb4ab432ffc63b1eb5ba02ca5254ac6f66b86f17f47dd694949f85c9b53b3",
+      "pcmSha256": "1c26d2cca7db20536e92439ce6aac7e13d3fcd82a0ad407f99ef5c61685ce83d"
+    },
+    {
+      "name": "sand",
+      "id": "handful-of-sand-on-stone",
+      "seconds": 0.23,
+      "skip": 0,
+      "highpass": 320,
+      "lowpass": 6700,
+      "punch": 0.52,
+      "pitch": 0,
+      "recipe": "recipes/handful-of-sand-on-stone.ts",
+      "recordings": [
+        {
+          "title": "Footsteps on Sand.wav",
+          "author": "BrendanSound12",
+          "url": "https://freesound.org/people/BrendanSound12/sounds/445155/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        },
+        {
+          "title": "Digging a Hole and Shovelling Soil/Dirt",
+          "author": "Ali_6868",
+          "url": "https://freesound.org/people/Ali_6868/sounds/384361/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        }
+      ],
+      "sampleRate": 24000,
+      "frames": 5520,
+      "sourceWavSha256": "d0962432fb9f2c8dafd4a20231e2947841406f5147224486e728ba0c96919b31",
+      "pcmSha256": "cf3dd53094a96e227b3ebe33c66863a1be33b1232f7498cc1c78396312da1aea"
+    },
+    {
+      "name": "sponge",
+      "id": "foam-target-direct-soft-impact",
+      "seconds": 0.21,
+      "skip": 0,
+      "highpass": 190,
+      "lowpass": 4500,
+      "punch": 0.57,
+      "pitch": -2,
+      "recipe": "recipes/foam-target-direct-soft-impact.ts",
+      "recordings": [
+        {
+          "title": "Foley_Clothes_Jacket_Whoosh_Sequence_Stereo.wav",
+          "author": "Nox_Sound",
+          "url": "https://freesound.org/people/Nox_Sound/sounds/495390/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        }
+      ],
+      "sampleRate": 24000,
+      "frames": 5040,
+      "sourceWavSha256": "19654307fa78b12f496d236c86909236799f5cc8093c23c5bf565c7d717cef96",
+      "pcmSha256": "934216a6b0f074744c02fa55869a376eca8a6c6da70ae7516785bc9130c1979b"
+    },
+    {
+      "name": "beadslime",
+      "id": "soft-tissue-pull-and-snap",
+      "seconds": 0.23,
+      "skip": 0,
+      "highpass": 170,
+      "lowpass": 5100,
+      "punch": 0.46,
+      "pitch": 2,
+      "recipe": "recipes/soft-tissue-pull-and-snap.ts",
+      "recordings": [
+        {
+          "title": "Lettuce Ripping - Senn K6 SD 788T.WAV",
+          "author": "lunchmoney",
+          "url": "https://freesound.org/people/lunchmoney/sounds/382042/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        },
+        {
+          "title": "Rustling foliage.WAV",
+          "author": "DDT197",
+          "url": "https://freesound.org/people/DDT197/sounds/445788/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        },
+        {
+          "title": "Cabbage being chopped 2.wav",
+          "author": "MessyAcousticApocalypse666",
+          "url": "https://freesound.org/people/MessyAcousticApocalypse666/sounds/594781/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        },
+        {
+          "title": "Long Wet Pepper Crunch with Rip.wav",
+          "author": "minituffy",
+          "url": "https://freesound.org/people/minituffy/sounds/385965/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        }
+      ],
+      "sampleRate": 24000,
+      "frames": 5520,
+      "sourceWavSha256": "bb09bb268ff82b0e1d301fa3c55e588553d341ba06e301ba14ada01c57de3d45",
+      "pcmSha256": "9f88f9fd9208b699643a1b5cbc47c9e74f7d9b4e92d83fa17831f1fa329b1ae0"
+    },
+    {
+      "name": "kohaku",
+      "id": "window-glass-shatter",
+      "seconds": 0.185,
+      "skip": 0,
+      "highpass": 330,
+      "lowpass": 7000,
+      "punch": 0.39,
+      "pitch": 4,
+      "recipe": "recipes/window-glass-shatter.ts",
+      "recordings": [
+        {
+          "title": "Glass Break",
+          "author": "unfa",
+          "url": "https://freesound.org/people/unfa/sounds/221528/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        }
+      ],
+      "sampleRate": 24000,
+      "frames": 4440,
+      "sourceWavSha256": "a8cde69e48dd7ac7999558faf1d56ffb58cb672555c085fa6e48c0b3ebcb642b",
+      "pcmSha256": "23812732a315051b0efb690448f57ad9cc29d63558026773627a38abbdfd3101"
+    },
+    {
+      "name": "blade-draw",
+      "id": "glass-edge-match-cut",
+      "seconds": 0.075,
+      "skip": 0,
+      "highpass": 650,
+      "lowpass": 6200,
+      "punch": 0.37,
+      "pitch": -3,
+      "recipe": "recipes/glass-edge-match-cut.ts",
+      "recordings": [],
+      "sampleRate": 24000,
+      "frames": 1800,
+      "sourceWavSha256": "c596f8b2fe3e45a4b4a30b8d7b0c46ccaa7f3bd7e543a7201ac5a2fd25d2a6b3",
+      "pcmSha256": "aa2a07ec79883dced747a42a06ecf8a064327c729a7c304c6d6c5824345f08e7"
+    },
+    {
+      "name": "blade-open",
+      "id": "light-blade-swish",
+      "seconds": 0.17,
+      "skip": 0,
+      "highpass": 340,
+      "lowpass": 5700,
+      "punch": 0.46,
+      "pitch": -3,
+      "recipe": "recipes/light-blade-swish.ts",
+      "recordings": [
+        {
+          "title": "Knife Swing 1_3",
+          "author": "Joao_Janz",
+          "url": "https://freesound.org/people/Joao_Janz/sounds/485267/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        }
+      ],
+      "sampleRate": 24000,
+      "frames": 4080,
+      "sourceWavSha256": "4d21e7048acd627c0253462fbaab6c3aab47fb91bdad48d11b36946b9be3d23a",
+      "pcmSha256": "379c58ef871218ed1c657f71ee3f268507b8e2a1ff4d87d82b6adbb07fbc7607"
+    },
+    {
+      "name": "blade-slide",
+      "id": "silk-whip-cut",
+      "seconds": 0.13,
+      "skip": 0,
+      "highpass": 550,
+      "lowpass": 5700,
+      "punch": 0.33,
+      "pitch": -2,
+      "recipe": "recipes/silk-whip-cut.ts",
+      "recordings": [],
+      "sampleRate": 24000,
+      "frames": 2880,
+      "sourceWavSha256": "f51727540194e42c17971a776c83e4897fa181f83a547ba9d393de69c33119e1",
+      "pcmSha256": "9b2a4904422a0bc27e340b74dc1e8be2f2b1c61804cf08dce0839f71f904157c"
+    },
+    {
+      "name": "punch",
+      "id": "arcade-kill-confirm-padded-bass-punch",
+      "seconds": 0.17,
+      "skip": 0,
+      "highpass": 165,
+      "lowpass": 5500,
+      "punch": 0.6,
+      "pitch": -1,
+      "recipe": "recipes/arcade-kill-confirm-padded-bass-punch.ts",
+      "recordings": [],
+      "sampleRate": 24000,
+      "frames": 4080,
+      "sourceWavSha256": "2773d279e52324c293ecf857fe845d52273ca05b0e1362f2387bb7ba6cd5a50b",
+      "pcmSha256": "bf07fbbaad707c5528379ce974013ef00ab2dbd039413d75a344076946ced3eb"
+    },
+    {
+      "name": "ricochet",
+      "id": "critical-hit-hard-ceramic-doublet",
+      "seconds": 0.15,
+      "skip": 0,
+      "highpass": 290,
+      "lowpass": 6500,
+      "punch": 0.53,
+      "pitch": 0,
+      "recipe": "recipes/critical-hit-hard-ceramic-doublet.ts",
+      "recordings": [],
+      "sampleRate": 24000,
+      "frames": 3600,
+      "sourceWavSha256": "84da68755a704e9e8bd7c7ac0d63f0ee5f3124e6bdb38bcea280602e1adf3056",
+      "pcmSha256": "e849e35e5cc75e2ccacb260e88e6bcf80338b2a4f33f1407b2bccc7619f31a35"
+    },
+    {
+      "name": "spell",
+      "id": "healing-spell-bloom",
+      "seconds": 0.42,
+      "skip": 0,
+      "highpass": 225,
+      "lowpass": 6200,
+      "punch": 0.44,
+      "pitch": 0,
+      "recipe": "recipes/healing-spell-bloom.ts",
+      "recordings": [],
+      "sampleRate": 24000,
+      "frames": 10080,
+      "sourceWavSha256": "6c9068dd2a883a95ccf60cf595133e08c5413a9b5f46bfa5068918eddd72bf10",
+      "pcmSha256": "a27921fc69ee36fa1572bd04aeb8ac4087e40ce42332b1f6fbe5284b4bc3acbe"
+    },
+    {
+      "name": "twin",
+      "id": "glass-edge-swipe-right",
+      "seconds": 0.1,
+      "skip": 0,
+      "highpass": 780,
+      "lowpass": 7300,
+      "punch": 0.46,
+      "pitch": 3,
+      "recipe": "recipes/glass-edge-swipe-right.ts",
+      "recordings": [],
+      "sampleRate": 24000,
+      "frames": 2400,
+      "sourceWavSha256": "1570e75d2feaf7f3def7e7fe7e1dccb0538edb7889815c949a61aefc4b2f8260",
+      "pcmSha256": "f741281666dbd8fab0b0cc59938ebaa20fc495e14cb195fdf70574f9a89c291b"
+    },
+    {
+      "name": "roller",
+      "id": "rubber-wiper-blade-lifting-off-glass",
+      "seconds": 0.2,
+      "skip": 0,
+      "highpass": 230,
+      "lowpass": 5100,
+      "punch": 0.42,
+      "pitch": -4,
+      "recipe": "recipes/rubber-wiper-blade-lifting-off-glass.ts",
+      "recordings": [
+        {
+          "title": "SQUEEKY SNEAKERS ON TILE",
+          "author": "klangfabrik",
+          "url": "https://freesound.org/people/klangfabrik/sounds/479138/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        },
+        {
+          "title": "Waterdrop falling on water surface",
+          "author": "damarlo",
+          "url": "https://freesound.org/people/damarlo/sounds/736528/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        }
+      ],
+      "sampleRate": 24000,
+      "frames": 4800,
+      "sourceWavSha256": "f017032eb231f0526e126281dbfa88e7b5289ed29f6361a5e0c8d0bc16714d8c",
+      "pcmSha256": "d3cfbd7a4683044d81fe527b7bfcea0c70e80bc581093ce659535563785a956d"
+    },
+    {
+      "name": "pressure-dry",
+      "id": "trimming-clay-on-a-wheel",
+      "seconds": 0.65,
+      "skip": 0,
+      "highpass": 460,
+      "lowpass": 5800,
+      "punch": 0.32,
+      "pitch": 0,
+      "recipe": "recipes/trimming-clay-on-a-wheel.ts",
+      "recordings": [
+        {
+          "title": "ceramics_wheel.wav",
+          "author": "vasifer",
+          "url": "https://freesound.org/people/vasifer/sounds/262251/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        },
+        {
+          "title": "Teig ausrollen.wav",
+          "author": "gruenebanane",
+          "url": "https://freesound.org/people/gruenebanane/sounds/241813/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        },
+        {
+          "title": "Spreading butter; quick_1-2.aif",
+          "author": "domrodrig",
+          "url": "https://freesound.org/people/domrodrig/sounds/119103/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        }
+      ],
+      "sampleRate": 12000,
+      "frames": 6240,
+      "sourceWavSha256": "7b4d987727058522cfdbbeff42ce5132b3d935ca364d4fd8bd5ef63fe72f9d00",
+      "pcmSha256": "91c5f884c0884665bb77626d384b8b38d09f82316ccfe123a09a3db334185525"
+    },
+    {
+      "name": "pressure-wet",
+      "id": "bubbles-rising-beside-a-submerged-wall-gentle-laps-loop",
+      "seconds": 1.2,
+      "skip": 0,
+      "highpass": 330,
+      "lowpass": 4000,
+      "punch": 0.32,
+      "pitch": 0,
+      "recipe": "recipes/bubbles-rising-beside-a-submerged-wall-gentle-laps-loop.ts",
+      "recordings": [
+        {
+          "title": "140816_Brela_HarborSub2.wav",
+          "author": "blaukreuz",
+          "url": "https://freesound.org/people/blaukreuz/sounds/249755/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        },
+        {
+          "title": "Aquatic sound of some bubble in a swimming pool (underwater recording)",
+          "author": "felix.blume",
+          "url": "https://freesound.org/people/felix.blume/sounds/208816/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        },
+        {
+          "title": "Water Splash",
+          "author": "felix.blume",
+          "url": "https://freesound.org/people/felix.blume/sounds/434978/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        }
+      ],
+      "sampleRate": 12000,
+      "frames": 12480,
+      "sourceWavSha256": "13921552b3f231249fb183efb9bff7c64e0f98960dfcb48804606f70d2abbaae",
+      "pcmSha256": "4bdc4807baf57484ada5f4fce5865c73c9d8465a35e33505ff4192ba11ed94f7"
+    },
+    {
+      "name": "shell",
+      "id": "ceramic-roof-tiles-first-piece-gives-way",
+      "seconds": 0.34,
+      "skip": 0,
+      "highpass": 175,
+      "lowpass": 5900,
+      "punch": 0.54,
+      "pitch": -4,
+      "recipe": "recipes/ceramic-roof-tiles-first-piece-gives-way.ts",
+      "recordings": [
+        {
+          "title": "Glass Breaking.wav",
+          "author": "21100375",
+          "url": "https://freesound.org/people/21100375/sounds/593135/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        },
+        {
+          "title": "Footsteps On Tile",
+          "author": "IENBA",
+          "url": "https://freesound.org/people/IENBA/sounds/834027/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        },
+        {
+          "title": "Concrete Breaks Several Denoised",
+          "author": "loganzsound",
+          "url": "https://freesound.org/people/loganzsound/sounds/843339/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        }
+      ],
+      "sampleRate": 24000,
+      "frames": 8160,
+      "sourceWavSha256": "ebb9f7ec060d50a0c6bb01ab5d41bad32f20e7a7c29ea7d2388f0a4b12dad1f2",
+      "pcmSha256": "c77cc63956b3fd2a7674a6c15b6b5eb6e0d0bda99378b3eab36756654cb21f34"
+    },
+    {
+      "name": "inner",
+      "id": "glass-guard-screen-hard-impact-and-scatter",
+      "seconds": 0.38,
+      "skip": 0,
+      "highpass": 210,
+      "lowpass": 6400,
+      "punch": 0.53,
+      "pitch": 0,
+      "recipe": "recipes/glass-guard-screen-hard-impact-and-scatter.ts",
+      "recordings": [
+        {
+          "title": "Glass lid on.wav",
+          "author": "BillyPalmer",
+          "url": "https://freesound.org/people/BillyPalmer/sounds/434999/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        },
+        {
+          "title": "Glass Break",
+          "author": "unfa",
+          "url": "https://freesound.org/people/unfa/sounds/221528/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        },
+        {
+          "title": "Glass Breaking.wav",
+          "author": "21100375",
+          "url": "https://freesound.org/people/21100375/sounds/593135/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        }
+      ],
+      "sampleRate": 24000,
+      "frames": 9120,
+      "sourceWavSha256": "81e420b132b3d9f18451d37faf2d398e5d7a71ebc3399b5a69a95e7864c5cde6",
+      "pcmSha256": "98b7e3d680a237f3176170d9e1f713beb3c29df3180a640fe2cad15b6c69caf1"
+    },
+    {
+      "name": "core",
+      "id": "ceramic-shield-frame-loses-power",
+      "seconds": 0.59,
+      "skip": 0,
+      "highpass": 155,
+      "lowpass": 6200,
+      "punch": 0.48,
+      "pitch": -3,
+      "recipe": "recipes/ceramic-shield-frame-loses-power.ts",
+      "recordings": [],
+      "sampleRate": 24000,
+      "frames": 14160,
+      "sourceWavSha256": "f41b940b6570b894b3820b7d32e0660d9fe1015733abe62aa3bc4c5938c15b0b",
+      "pcmSha256": "8a0e3d658512ecf481c8011192264594a7db86112c22e78b58a25afde1956533"
+    },
+    {
+      "name": "finale",
+      "id": "portal-unfold",
+      "seconds": 0.85,
+      "skip": 0,
+      "highpass": 180,
+      "lowpass": 6400,
+      "punch": 0.48,
+      "pitch": 0,
+      "recipe": "recipes/portal-unfold.ts",
+      "recordings": [
+        {
+          "title": "Squeaking tram departing.wav",
+          "author": "dersinnsspace",
+          "url": "https://freesound.org/people/dersinnsspace/sounds/417657/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        },
+        {
+          "title": "Wooden Chest Lid Latches Open.wav",
+          "author": "The_Frisbee_of_Peace",
+          "url": "https://freesound.org/people/The_Frisbee_of_Peace/sounds/573653/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        }
+      ],
+      "sampleRate": 24000,
+      "frames": 20400,
+      "sourceWavSha256": "198d5c44138a93564c601db2140bae3a447549b1c9dd977a5dff638a2eb86807",
+      "pcmSha256": "cbd8eff471f89760c9e2b80f3af79050f664e6ca01f6449030361e1e986da950"
+    },
+    {
+      "name": "select",
+      "id": "menu-focus-tap",
+      "seconds": 0.095,
+      "skip": 0,
+      "highpass": 420,
+      "lowpass": 6400,
+      "punch": 0.36,
+      "pitch": 0,
+      "recipe": "recipes/menu-focus-tap.ts",
+      "recordings": [],
+      "sampleRate": 24000,
+      "frames": 1632,
+      "sourceWavSha256": "dfaee4ac9ddbb9e3925379107390232a1affe09f75005732b4cdea1976899fb8",
+      "pcmSha256": "280aa617fa3e67fa9218d8957780a737d73f00d58911686a5af8f9bd6986dcd7"
+    },
+    {
+      "name": "growth",
+      "id": "quest-accepted-chime",
+      "seconds": 0.38,
+      "skip": 0,
+      "highpass": 300,
+      "lowpass": 6100,
+      "punch": 0.39,
+      "pitch": 0,
+      "recipe": "recipes/quest-accepted-chime.ts",
+      "recordings": [],
+      "sampleRate": 24000,
+      "frames": 9120,
+      "sourceWavSha256": "54e03262c964dad3ea55bfa125008fb77020639199f4c87827353ff9fadf727a",
+      "pcmSha256": "d694ee7a128ccbd7f8ea290d8e51bcd51a6fd4ee6036adb0b882f0870f1f3f81"
+    },
+    {
+      "name": "unlock",
+      "id": "crystal-pickup-tick",
+      "seconds": 0.31,
+      "skip": 0,
+      "highpass": 370,
+      "lowpass": 6100,
+      "punch": 0.37,
+      "pitch": 0,
+      "recipe": "recipes/crystal-pickup-tick.ts",
+      "recordings": [],
+      "sampleRate": 24000,
+      "frames": 7440,
+      "sourceWavSha256": "27faa3f07725277f0ab818f54f12395d5cba5000f3a564ec947973d0214738ea",
+      "pcmSha256": "6b503036355bdc73fb5048f3688fd2ebd5c79c05738f6e179eac25e48c4d92bb"
+    },
+    {
+      "name": "bed-wax",
+      "id": "late-night-workshop-window-air-loop",
+      "seconds": 2.7,
+      "skip": 0,
+      "highpass": 340,
+      "lowpass": 4100,
+      "punch": 0.31,
+      "pitch": 0,
+      "recipe": "recipes/late-night-workshop-window-air-loop.ts",
+      "recordings": [
+        {
+          "title": "Whistling wind at marina",
+          "author": "richwise",
+          "url": "https://freesound.org/people/richwise/sounds/796396/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        },
+        {
+          "title": "Train Station",
+          "author": "Sam-Mortley",
+          "url": "https://freesound.org/people/Sam-Mortley/sounds/774271/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        }
+      ],
+      "sampleRate": 12000,
+      "frames": 30480,
+      "sourceWavSha256": "87677e8e33cdafc23fb69f5fb6a9da1e59f8edbde0461438918a16b51af558c1",
+      "pcmSha256": "d1c6e40d6c098b52d8e42943958c9e0d501787c1621787939244330ce45bb2ea"
+    },
+    {
+      "name": "bed-jelly",
+      "id": "glass-elevator-interior-air-loop",
+      "seconds": 2.7,
+      "skip": 0,
+      "highpass": 270,
+      "lowpass": 3800,
+      "punch": 0.31,
+      "pitch": 0,
+      "recipe": "recipes/glass-elevator-interior-air-loop.ts",
+      "recordings": [
+        {
+          "title": "on train.wav",
+          "author": "soundofsong",
+          "url": "https://freesound.org/people/soundofsong/sounds/650570/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        }
+      ],
+      "sampleRate": 12000,
+      "frames": 30480,
+      "sourceWavSha256": "e7f30f73f60896823c4e20ca86a216115f4f164ea29984bdac048f84c29189fd",
+      "pcmSha256": "1a0d522d2ec528b7d3ad9710305dea0664d4f07ff022266ba12e4ea8b1369b13"
+    },
+    {
+      "name": "bed-soap",
+      "id": "greenhouse-drips-loop",
+      "seconds": 2.7,
+      "skip": 0,
+      "highpass": 380,
+      "lowpass": 4500,
+      "punch": 0.31,
+      "pitch": 0,
+      "recipe": "recipes/greenhouse-drips-loop.ts",
+      "recordings": [],
+      "sampleRate": 12000,
+      "frames": 30480,
+      "sourceWavSha256": "2f98a336478af8870ccf00a7155ec60a68f39f1e22da964306542fbee05828ba",
+      "pcmSha256": "500202fa96bec0b3b2dc42f93854c1ad77f21504548750f597615fa186b47723"
+    },
+    {
+      "name": "bed-chalk",
+      "id": "narrow-sandstone-canyon-by-day-loop",
+      "seconds": 2.7,
+      "skip": 0,
+      "highpass": 480,
+      "lowpass": 4500,
+      "punch": 0.31,
+      "pitch": 0,
+      "recipe": "recipes/narrow-sandstone-canyon-by-day-loop.ts",
+      "recordings": [
+        {
+          "title": "Whistling wind at marina",
+          "author": "richwise",
+          "url": "https://freesound.org/people/richwise/sounds/796396/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        },
+        {
+          "title": "Rural farmland ambience",
+          "author": "billgrip",
+          "url": "https://freesound.org/people/billgrip/sounds/490850/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        }
+      ],
+      "sampleRate": 12000,
+      "frames": 30480,
+      "sourceWavSha256": "3effec1f45870ffdc5583feedaa6768d8af31dea6f9c1b4da210b8907a5dc5d0",
+      "pcmSha256": "9df2e9ce92a692e752ecc5edfe9943de554d9e4151081b84db845ae01d8db3f0"
+    },
+    {
+      "name": "bed-sand",
+      "id": "dry-grass-wind-loop",
+      "seconds": 2.7,
+      "skip": 0,
+      "highpass": 530,
+      "lowpass": 4600,
+      "punch": 0.31,
+      "pitch": 0,
+      "recipe": "recipes/dry-grass-wind-loop.ts",
+      "recordings": [
+        {
+          "title": "Dry Grasses in Wind",
+          "author": "flumpytripod",
+          "url": "https://freesound.org/people/flumpytripod/sounds/845415/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-27"
+        }
+      ],
+      "sampleRate": 12000,
+      "frames": 30480,
+      "sourceWavSha256": "36f2434799eb204a9668ebbd493c6338207fadfd9c910001b4c12697ffb12846",
+      "pcmSha256": "7846e0e3cce1c26332e85fb5f6eb3ca575fd9fe47f2dc91ed8920647f66f15b5"
+    },
+    {
+      "name": "bed-sponge",
+      "id": "lagoon-ripples-against-a-stone-step-loop",
+      "seconds": 2.7,
+      "skip": 0,
+      "highpass": 310,
+      "lowpass": 4500,
+      "punch": 0.31,
+      "pitch": 0,
+      "recipe": "recipes/lagoon-ripples-against-a-stone-step-loop.ts",
+      "recordings": [
+        {
+          "title": "Waves Lapping a Pebbled Beach",
+          "author": "apintofmild",
+          "url": "https://freesound.org/people/apintofmild/sounds/819474/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        },
+        {
+          "title": "water splash",
+          "author": "audiosmedia",
+          "url": "https://freesound.org/people/audiosmedia/sounds/243519/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        },
+        {
+          "title": "Aquatic sound of some bubble in a swimming pool (underwater recording)",
+          "author": "felix.blume",
+          "url": "https://freesound.org/people/felix.blume/sounds/208816/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        },
+        {
+          "title": "Scooping Water with Plastic Watering Can",
+          "author": "qubodup",
+          "url": "https://freesound.org/people/qubodup/sounds/210424/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        },
+        {
+          "title": "Waterdrop falling on water surface",
+          "author": "damarlo",
+          "url": "https://freesound.org/people/damarlo/sounds/736528/",
+          "license": "CC0-1.0",
+          "verifiedOn": "2026-11-21"
+        }
+      ],
+      "sampleRate": 12000,
+      "frames": 30480,
+      "sourceWavSha256": "c775de0c6d10d0dc40296841cf93edac1117607d3272b8af0d3a9d8e8fd4b5b3",
+      "pcmSha256": "423bb36b0a20a2e2544b152237f8882b68a7dc70ff1f3d41f0dfc5fe0e7fcb31"
+    },
+    {
+      "name": "bed-beadslime",
+      "id": "environmental-scrubber-bed-loop",
+      "seconds": 2.7,
+      "skip": 0,
+      "highpass": 380,
+      "lowpass": 3700,
+      "punch": 0.31,
+      "pitch": 0,
+      "recipe": "recipes/environmental-scrubber-bed-loop.ts",
+      "recordings": [],
+      "sampleRate": 12000,
+      "frames": 30480,
+      "sourceWavSha256": "b1e85b0ed7e3daaf94611d11e9cb42fd0e992933ab39dab623dca87e13c89c32",
+      "pcmSha256": "92cb8727f586685e58991905feb51801a154d19f96e7e7131ae18c64eb258209"
+    },
+    {
+      "name": "bed-kohaku",
+      "id": "slow-wind-gusts-loop",
+      "seconds": 2.7,
+      "skip": 0,
+      "highpass": 520,
+      "lowpass": 4600,
+      "punch": 0.31,
+      "pitch": 1,
+      "recipe": "recipes/slow-wind-gusts-loop.ts",
+      "recordings": [],
+      "sampleRate": 12000,
+      "frames": 30480,
+      "sourceWavSha256": "e1d3ffca8131c9b04f9f9a7206ccb44e7b2aa975bb6f67a3115d122190381491",
+      "pcmSha256": "563e2c8b47199a74b4b0872ee8467cd585386fe706fca57163889c9a3efcf383"
+    }
+  ]
+}

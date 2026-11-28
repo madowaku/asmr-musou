@@ -208,6 +208,7 @@
       report('touch');
       if (G.rt >= roller.nextSound) {
         ping(body, mat.sound, roller.mode === 'quick' ? 0.64 : 0.49);
+        if (window.StudioSound && window.StudioSound.mode !== 'A') C.sfx('roller_contact', { x: body.x });
         roller.nextSound = G.rt + T.contactSound;
       }
     }
