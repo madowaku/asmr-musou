@@ -1,0 +1,420 @@
+/* CRUNCH STUDIO v1.0 Menus:
+ * 5 heroes, 8 stages, 8-material ASMR Book with live hero-switching, and clean screen transitions. */
+(function () {
+  'use strict';
+  window.StudioMenus = ({ L, C, G, Studio, progress, start, fillFree, cancel, draw }) => {
+    const $ = id => document.getElementById(id);
+    const { heroes, stages } = Studio;
+    const WorldArt = window.StudioWorld;
+    const plainBackground = () => document.querySelector('input[name="book-background"]:checked').value === 'plain';
+    const heroOrder = ['slasher', 'crusher', 'caster', 'spinner', 'roller'];
+    const screens = Array.from(document.querySelectorAll('.screen'));
+    let freeSelect = false, material = null, settingsFrom = null, practice = false;
+    const isIaiStudy = Boolean(C.iai?.study);
+    const isRollerStudy = Boolean(C.rollerFeel?.study);
+    const comparison = $('wave-comparison');
+    const params = new URLSearchParams(location.search);
+    comparison.hidden = isIaiStudy || isRollerStudy || !(params.has('waves') || params.has('test'));
+    $('sound-mode').closest('label').hidden = !(params.has('sound') || params.has('test'));
+    const { en, t } = window.StudioLanguage;
+    const comparisonUrl = new URL(location.href);
+    if (window.StudioFormations.classic) {
+      comparisonUrl.searchParams.delete('waves');
+      comparison.textContent = '新しい隊形へ';
+    } else comparisonUrl.searchParams.set('waves', 'classic');
+    comparison.href = comparisonUrl.href;
+    const practiceHero = isIaiStudy ? 'slasher' : 'roller';
+    const practiceTitle = isIaiStudy ? '居合の練習' : 'ROLLERの練習';
+
+    function view(id, focus = true) {
+      if (id !== 'play') $('pops').replaceChildren();
+      for (const section of screens) section.hidden = section.id !== id;
+      const active = id === 'play';
+      if (!active && id !== 'result' && id !== 'aftermath' && G.environment) {
+        WorldArt.leave();
+        G.environment = null;
+      }
+      const film = active && Boolean(G.film);
+      $('hud').hidden = $('play-footer').hidden = !active || film;
+      $('film-exit').hidden = !film;
+      $('film-aftermath').hidden = !film || G.environment.plain;
+      $('arena').classList.toggle('playing', active);
+      $('arena').classList.toggle('film-mode', film);
+      if (id === 'title') updateTitleBadges();
+      if (focus && !active) {
+        const target = $(id)?.querySelector('h1,h2');
+        if (target) {
+          target.tabIndex = -1;
+          target.focus({ preventScroll: true });
+        }
+      }
+    }
+
+    function updateTitleBadges() {
+      const badge = $('book-badge');
+      if (badge) badge.textContent = progress.cleared.length + ' / ' + stages.length + ' ›';
+    }
+
+    const helpFor = id => heroes[id].help;
+
+    function paintHero() {
+      const hero = heroes[progress.hero];
+      const art = $('hero-art');
+      art.src = Studio.portrait(progress.hero);
+      $('hero-preview').style.setProperty('--hero', hero.color);
+      $('hero-name').textContent = en ? hero.name : hero.name + '  ' + hero.jp;
+      $('hero-preview').dataset.hero = progress.hero;
+      $('hero-instruction').textContent = hero.gesture[1];
+      $('hero-techniques').open = false;
+      $('hero-help').textContent = helpFor(progress.hero);
+      const isFilm = freeSelect && $('film-mode')?.checked;
+      $('hero-confirm').textContent = t(isFilm ? '撮影モードを始める ›' : freeSelect ? 'フリープレイを始める ›' : 'ステージを選ぶ ›');
+      for (const button of $('hero-cards').querySelectorAll('button')) {
+        button.setAttribute('aria-pressed', String(button.dataset.hero === progress.hero));
+      }
+    }
+
+    function selectHero(free) {
+      freeSelect = free;
+      paintHero();
+      view('select');
+    }
+
+    function card(stage, mode) {
+      const book = mode === 'book';
+      const available = book ? practice || Studio.learned(stage, progress) : Studio.unlocked(stage, progress);
+      const button = document.createElement('button');
+      button.className = 'stage-card' + (available ? '' : ' locked');
+      button.dataset.stage = stage.n;
+      button.style.setProperty('--swatch', stage.colors[0]);
+      button.disabled = !available;
+      if (book) button.setAttribute('aria-pressed', String(stage === material));
+      const image = document.createElement('img');
+      image.src = book ? L.tex('body/' + stage.mat + '_boss').src : WorldArt.thumbnail(stage.mat);
+      if (!book) {
+        image.className = 'world-thumb';
+        image.width = 360;
+        image.height = 205;
+        image.decoding = 'async';
+        image.addEventListener('error', () => { image.hidden = true; }, { once: true });
+      }
+      image.alt = '';
+      const info = document.createElement('div');
+      const caption = document.createElement('small');
+      caption.textContent = '0' + stage.n + ' · ' + (book ? stage.name : WorldArt.worlds[stage.mat].name);
+      const label = document.createElement('strong');
+      label.textContent = L.combat.stages.MATERIALS[stage.mat].jp;
+      const note = document.createElement('span');
+      const formation = !book && !window.StudioFormations.classic && window.StudioFormations.materials[stage.mat][1];
+      note.textContent = available
+        ? (Studio.learned(stage, progress) && !book ? 'CLEAR · ' : '') + (formation || L.combat.stages.MATERIALS[stage.mat].sound)
+        : (en ? 'Clear stage ' : 'STAGE ') + (book ? stage.n : stage.n - 1) + (en ? ' to unlock' : ' クリアで解放');
+      info.append(caption, label, note);
+      button.append(image, info);
+      if (book) button.addEventListener('click', () => {
+        material = stage;
+        $('book-confirm').disabled = false;
+        for (const item of $('material-cards').querySelectorAll('button')) {
+          item.setAttribute('aria-pressed', String(item === button));
+        }
+      });
+      else button.addEventListener('click', () => launch(stage));
+      return button;
+    }
+
+    function showStages() {
+      $('stage-progress').textContent = progress.cleared.length + ' / ' + stages.length + ' CLEAR';
+      $('stage-cards').replaceChildren(...stages.map(stage => card(stage, 'stage')));
+      if (Studio.festivalOpen(progress)) {
+        const encore = document.createElement('button');
+        encore.className = 'primary festival-enter';
+        encore.textContent = (progress.festivalClear ? '✓ ' : '') + 'ASMR FESTIVAL';
+        encore.onclick = () => launch(Studio.festival);
+        $('stage-cards').append(encore);
+      }
+      view('stages');
+    }
+
+    function showBook() {
+      if (!material || (!practice && !Studio.learned(material, progress))) {
+        material = practice ? stages[0] : stages.find(stage => Studio.learned(stage, progress)) || null;
+      }
+      $('book-heading').textContent = practice ? practiceTitle : t('ASMR図鑑');
+      $('book-progress').textContent = practice ? '全8素材 開放中' : progress.cleared.length + ' / ' + stages.length + (en ? ' unlocked' : ' 解放');
+      $('book-confirm').textContent = practice ? (isIaiStudy ? 'この素材を斬る ›' : 'この素材を圧延する ›') : t('キャラクターを選ぶ ›');
+      $('material-cards').replaceChildren(...stages.map(stage => card(stage, 'book')));
+      $('book-confirm').disabled = !material;
+      view('book');
+    }
+
+    function applySettings() {
+      C.muted = !progress.sound;
+      C.studioVolume = progress.volume;
+      if (G.state === 'play') C.sfxGain = (C.mix?.sfx ?? 0.7) * (G.film ? 0.52 : 1) * progress.volume / 0.65;
+      L.audio.setEnabled(progress.sound);
+      L.audio.setMaster(progress.volume);
+      if (!progress.volume) C.muted = true;
+      $('sound-setting').checked = progress.sound;
+      $('volume').value = Math.round(progress.volume * 100);
+      $('motion').checked = progress.motion;
+      $('sound-mode').value = window.StudioSound.mode;
+      $('arena').classList.toggle('calm', !progress.motion);
+    }
+
+    function syncSettings() {
+      progress.sound = $('sound-setting').checked;
+      progress.volume = Number($('volume').value) / 100;
+      progress.motion = $('motion').checked;
+      applySettings();
+      Studio.save(progress);
+      if (progress.sound) L.audio.unlock();
+    }
+
+    function settings(active, trigger) {
+      settingsFrom = trigger;
+      if (active) { G.paused = true; cancel(); }
+      $('leave').hidden = !active;
+      $('settings').hidden = false;
+      document.querySelector('.screen:not([hidden])')?.setAttribute('inert', '');
+      $('sound-setting').focus({ preventScroll: true });
+    }
+
+    function closeSettings(resume = true) {
+      $('settings').hidden = true;
+      for (const screen of screens) screen.removeAttribute('inert');
+      if (resume && G.state === 'play') G.paused = false;
+      if (resume) settingsFrom?.focus({ preventScroll: true });
+    }
+
+    function launch(stage, free = null, opts = {}) {
+      L.audio.unlock();
+      start(progress.hero, stage, free, null, opts);
+    }
+
+    function showTitle() {
+      G.state = 'select';
+      view('title');
+    }
+
+    function inspectFloor() {
+      G.inspecting = true;
+      G.paused = true;
+      cancel();
+      $('aftermath-status').textContent = '';
+      $('aftermath-back').textContent = t('‹ 撮影に戻る');
+      view('aftermath', false);
+      draw();
+      $('aftermath-back').focus();
+    }
+
+    function saveFloor() {
+      const trigger = $('aftermath-save');
+      const filename = 'asmr-musou-' + G.stage.mat + '-aftermath.png';
+      trigger.disabled = true;
+      $('aftermath-status').textContent = '';
+      draw();
+      $('scene').toBlob(blob => {
+        trigger.disabled = false;
+        if (!blob) {
+          $('aftermath-status').textContent = t('画像を保存できませんでした');
+          return;
+        }
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        document.body.append(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 30000);
+      }, 'image/png');
+    }
+
+    function bind() {
+      const buttons = Object.entries(heroes).map(([id, hero]) => {
+        const button = document.createElement('button');
+        button.dataset.hero = id;
+        button.style.setProperty('--hero', hero.color);
+        button.textContent = en ? hero.name : hero.jp;
+        const image = document.createElement('img');
+        image.src = window.StudioBattleArt['hero/' + id];
+        image.alt = '';
+        button.prepend(image);
+        button.addEventListener('click', () => {
+          window.StudioSound.select('ui_select');
+          progress.hero = id;
+          Studio.save(progress);
+          paintHero();
+        });
+        return button;
+      });
+      $('hero-cards').replaceChildren(...buttons);
+      for (const id of heroOrder) {
+        const image = document.createElement('img');
+        image.src = Studio.portrait(id);
+        image.alt = '';
+        $('title-art').append(image);
+      }
+      $('adventure').onclick = () => selectHero(false);
+      $('collection').onclick = () => { practice = false; showBook(); };
+      if (isIaiStudy || isRollerStudy) {
+        $('roller-practice').textContent = practiceTitle + ' ›';
+        $('roller-practice').hidden = false;
+        $('roller-baseline').hidden = false;
+        $('roller-practice').onclick = () => {
+          practice = true;
+          if (isIaiStudy) document.querySelector('input[value="group"]').checked = true;
+          showBook();
+        };
+      }
+      $('hero-back').onclick = () => freeSelect ? showBook() : showTitle();
+      $('stage-back').onclick = () => selectHero(false);
+      $('book-back').onclick = showTitle;
+      $('book-confirm').onclick = () => {
+        if (!material) return;
+        if (practice) {
+          L.audio.unlock();
+          start(practiceHero, material, document.querySelector('input[name="layout"]:checked').value, isIaiStudy ? 'iai' : 'roller', { plain: plainBackground() });
+        } else selectHero(true);
+      };
+      $('hero-confirm').onclick = () => {
+        if (freeSelect && material) {
+          const layout = document.querySelector('input[name="layout"]:checked').value;
+          const level = Number(document.querySelector('input[name="book-level"]:checked')?.value || 1);
+          const film = Boolean($('film-mode')?.checked);
+          launch(material, layout, { film, level, plain: plainBackground() });
+        } else showStages();
+      };
+      $('film-exit').onclick = () => {
+        G.paused = false;
+        G.state = 'select';
+        cancel();
+        showBook();
+      };
+      $('settings-open').onclick = () => settings(false, $('settings-open'));
+      $('pause').onclick = () => settings(true, $('pause'));
+      $('settings-close').onclick = () => closeSettings();
+      $('leave').onclick = () => {
+        closeSettings(false);
+        G.paused = false;
+        G.state = 'select';
+        cancel();
+        if (G.free) showBook(); else showStages();
+      };
+      for (const id of ['sound-setting', 'volume', 'motion']) $(id).addEventListener('input', syncSettings);
+      $('sound-mode').onchange = () => window.StudioSound.setMode($('sound-mode').value);
+      $('free-refill').onclick = fillFree;
+      // Quick hero cycle inside ASMR Book so players can compare all 5 heroes on any material in 1 tap!
+      $('free-hero').onclick = () => {
+        if (!G.free) return;
+        const idx = (heroOrder.indexOf(G.cls) + 1) % heroOrder.length;
+        progress.hero = heroOrder[idx];
+        Studio.save(progress);
+        start(progress.hero, G.stage, G.free, G.practice, { film: G.film, level: G.startLv, plain: G.environment.plain });
+      };
+      $('again').onclick = () => launch(G.stage);
+      $('film-aftermath').onclick = inspectFloor;
+      $('aftermath-save').onclick = saveFloor;
+      $('aftermath-back').onclick = () => {
+        G.inspecting = false;
+        G.paused = false;
+        view('play', false);
+        $('film-aftermath').focus({ preventScroll: true });
+      };
+      $('result-back').onclick = () => { G.state = 'select'; showStages(); };
+      $('result-title').onclick = showTitle;
+      document.addEventListener('keydown', event => {
+        if (event.key !== 'Escape') return;
+        if (!$('aftermath').hidden) { $('aftermath-back').click(); return; }
+        if (G.state === 'play' && G.film) { $('film-exit').click(); return; }
+        if (!$('settings').hidden) closeSettings();
+        else if (G.state === 'play') settings(true, $('pause'));
+      });
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden && G.state === 'play' && !G.paused) settings(true, $('pause'));
+      });
+    }
+
+    return {
+      ready() { bind(); applySettings(); view('title', false); L.audio.prime(); },
+      play() {
+        const info = heroes[G.cls];
+        $('arena').dataset.material = G.stage.mat;
+        $('stage-tag').textContent = G.free
+          ? (practice ? practiceTitle + ' · ' : t('ASMR図鑑') + ' · ') + L.combat.stages.MATERIALS[G.stage.mat].jp
+          : G.stage.festival ? 'ASMR FESTIVAL' : 'STAGE 0' + G.stage.n + '  ' + WorldArt.worlds[G.stage.mat].name;
+        $('cls').textContent = info.name;
+        $('help').textContent = helpFor(G.cls);
+        $('gesture-icon').textContent = info.gesture[0];
+        $('gesture-text').textContent = info.gesture[1];
+        $('gesture-guide').hidden = G.film;
+        $('growth-notice').hidden = true;
+        $('breach').textContent = '0';
+        $('clock-track').hidden = $('breach-box').hidden = $('upmeter').hidden = Boolean(G.free);
+        $('boss-meter').hidden = true;
+        $('combo').textContent = '';
+        $('banner').classList.remove('show');
+        $('free-refill').hidden = !G.free;
+        $('free-hero').hidden = !G.free || practice;
+        view('play');
+      },
+      result(stats) {
+        const stage = G.stage;
+        const first = !stage.festival && stats.bossDefeated && !Studio.learned(stage, progress);
+        if (first) {
+          progress.cleared.push(stage.n);
+          Studio.save(progress);
+          C.sfx('ui_unlock');
+        }
+        const ending = stage.festival && stats.bossDefeated;
+        if (ending) {
+          progress.festivalClear = true;
+          Studio.save(progress);
+        }
+        $('festival-finale').hidden = !ending;
+        $('festival-finale').replaceChildren(...(ending ? stages.map(s => {
+          const image = new Image();
+          image.alt = L.combat.stages.MATERIALS[s.mat].jp;
+          image.src = WorldArt.thumbnail(s.mat);
+          return image;
+        }) : []));
+        $('result-stage').textContent = stage.festival ? 'ASMR FESTIVAL' : 'STAGE 0' + stage.n + ' · ' + WorldArt.worlds[stage.mat].name;
+        $('r-title').textContent = ending ? 'FESTIVAL CLEAR' : stats.bossDefeated ? 'STAGE CLEAR' : 'TIME UP';
+        $('result').classList.toggle('cleared', stats.bossDefeated);
+        $('result-boss').src = stats.bossDefeated
+          ? Studio.portrait(G.cls) : window.StudioBossArt['studio-boss/' + stage.mat];
+        $('r-stats').replaceChildren(...[
+          ['撃破', stats.kills],
+          ['最大連続破壊', stats.best],
+          ['到達レベル', stats.levelUps.length + 1]
+        ].map(([label, value]) => {
+          const block = document.createElement('div');
+          const small = document.createElement('span');
+          small.textContent = t(label);
+          const number = document.createElement('b');
+          number.textContent = value;
+          block.append(small, number);
+          return block;
+        }));
+        const materialName = L.combat.stages.MATERIALS[stage.mat].jp;
+        $('r-defense').textContent = en ? (first ? materialName + ' unlocked in the ASMR Book!' : stage.bossName + (stats.bossDefeated ? ' defeated!' : ' survived.')) : first ? materialName + 'を図鑑に解放しました！'
+          : stats.bossDefeated ? stage.bossName + 'を撃破！'
+          : stage.bossName + 'はまだ砕けていません。';
+        $('r-growth').textContent = t('侵入') + ' ' + stats.breaches.length + ' · ' +
+          (stats.ups.map(id => C.UPGRADES[stats.cls].find(upgrade => upgrade.id === id)?.name).filter(Boolean).join(' / ') || t('強化なし'));
+        if (ending) $('r-defense').textContent = en ? 'Thank you for playing ASMR MUSOU.' : '最後のひと粒まで、遊んでくれてありがとう。';
+        const next = stages[stage.n] || (!stage.festival && Studio.festivalOpen(progress) ? Studio.festival : null);
+        const canContinue = next && stats.bossDefeated;
+        $('next').textContent = t(canContinue ? '次のステージ ›' : first ? '図鑑で遊ぶ ›' : 'もう一度挑戦 ›');
+        if (canContinue && next.festival) $('next').textContent = 'ASMR FESTIVAL ›';
+        if (ending) $('next').textContent = t('タイトルへ');
+        $('next').onclick = ending ? showTitle : canContinue ? () => launch(next) : first ? () => {
+          G.state = 'select';
+          material = stage;
+          showBook();
+        } : () => launch(stage);
+        view('result');
+      }
+    };
+  };
+})();
