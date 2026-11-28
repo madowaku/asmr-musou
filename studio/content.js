@@ -56,6 +56,10 @@
   ];
 
 
+  const festival = { ...stages[7], festival: true, n: 9, name: 'ASMR FESTIVAL',
+    bossName: '八彩のクラウン', boss: ['wax', 'sponge', 'kohaku'] };
+  const festivalOpen = progress => stages.every(stage => progress.cleared.includes(stage.n));
+
   function wedge(r0, r1, a0, a1, steps = 7) {
     const pts = [];
     for (let i = 0; i <= steps; i++) {
@@ -110,7 +114,8 @@
         const a1 = (i + 1) / Ly.n * Math.PI * 2 - 0.002;
         const poly = wedge(Ly.r0, Ly.r1, a0, a1);
         const c = L.slice.centroid(poly);
-        const b = W.spawn(Ly.m, cx, cy, 0, {
+        const material = stage.festival ? stages[(i + Ly.layer * 4) % stages.length].mat : Ly.m;
+        const b = W.spawn(material, cx, cy, 0, {
           poly: poly.map(p => ({ ...p })),
           texture: 'studio-boss/' + stage.mat,
           boss: true,
@@ -136,7 +141,7 @@
     const art = 'studio-boss/' + stage.mat, radius = 216;
     for (const body of bodies) {
       if (!body.bossPart) continue;
-      body.baseTexture = art;
+      body.baseTexture = stage.festival ? 'studio-boss/' + body.material : art;
       const dx = body.x - boss.cx, dy = body.y - boss.cy;
       for (const points of [body.poly, body.soft?.points].filter(Boolean)) {
         for (const point of points) {
@@ -159,6 +164,7 @@
       value = JSON.parse(localStorage.getItem(key)) || JSON.parse(localStorage.getItem('asmr-crunch-studio-v09')) || {};
     } catch (_) { /* private browsing */ }
     return {
+      festivalClear: value.festivalClear === true,
       cleared: Array.isArray(value.cleared) ? [...new Set(value.cleared.filter(n => validStages.has(n)))] : [],
       hero: Object.hasOwn(heroes, value.hero) ? value.hero : 'slasher',
       sound: value.sound !== false,
@@ -170,5 +176,5 @@
   const unlocked = (stage, progress) => allOpen || stage.n === 1 || progress.cleared.includes(stage.n - 1);
   const learned = (stage, progress) => allOpen || progress.cleared.includes(stage.n);
   const portrait = id => 'studio/art/' + id + '-portrait.webp';
-  window.StudioContent = { heroes, stages, spawnBoss, dressBoss, load, save, unlocked, learned, portrait };
+  window.StudioContent = { heroes, stages, festival, festivalOpen, spawnBoss, dressBoss, load, save, unlocked, learned, portrait };
 })(window.LAB);

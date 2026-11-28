@@ -5,8 +5,8 @@
   try { language ||= localStorage.getItem('crunch-flow-language'); } catch {}
   const en = language === 'en';
   const strings = {
-    '一つを味わう。やがて、全部を砕く。':'Savor the first crack. Shatter the whole wave.',
-    'ステージ攻略':'Play stages','ASMR図鑑':'ASMR Book','設定':'Settings','キャラクター':'Characters',
+    'パキッ、ぷるん、サクッ。':'Snap. Jiggle. Crunch.',
+    '遊ぶ':'Play','ASMR図鑑':'ASMR Book','設定':'Settings','キャラクター':'Characters',
     '‹ 戻る':'‹ Back','ほかの攻撃方法':'More moves','ステージ':'Stage','‹ キャラクター':'‹ Characters',
     '‹ タイトル':'‹ Title','単体':'Single','複数配置':'Group','連続供給':'Continuous',
     '撮影モード':'Film mode','HUD非表示・連続供給・素材音主役（縦型動画向け）':'Hide the HUD and keep materials flowing.',
@@ -40,6 +40,7 @@
   };
   if (!en) return;
   document.documentElement.lang = 'en';
+  StudioContent.festival.bossName = 'Eightfold Crown';
   const toggle = document.getElementById('language');
   toggle.lang = 'ja';
   toggle.textContent = '日本語';

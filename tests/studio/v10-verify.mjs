@@ -167,21 +167,36 @@ try {
 
   // 3. Full 8-stage campaign walkthrough rotating all 5 heroes, verifying seamless bosses & clean result screen
   const heroCycle = ['slasher', 'spinner', 'roller', 'crusher', 'caster', 'roller', 'spinner', 'slasher'];
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i <= heroCycle.length; i++) {
     const stageNum = i + 1;
-    const hero = heroCycle[i];
-    const mat = await page.evaluate(idx => StudioContent.stages[idx].mat, i);
+    const hero = heroCycle[i] || 'slasher';
+    const mat = await page.evaluate(idx => (StudioContent.stages[idx] || StudioContent.festival).mat, i);
     const res = await page.evaluate(async ({ idx, hero, stageNum, mat }) => {
       const { G, input, step, start, targets, draw } = StudioTest;
-      start(hero, StudioContent.stages[idx]);
+      if (idx === 8) {
+        if (!StudioContent.festivalOpen(StudioContent.load())) throw Error('Festival locked after campaign');
+        document.querySelector('#next').click();
+      } else start(hero, StudioContent.stages[idx]);
       let bossShot = false, upgradeShot = false, nextAction = 0, aim = null, rollerTarget = null;
       let zeroReachFrames = 0, playFrames = 0;
+      const chapters = new Set();
       for (let frame = 0; frame < 5200 && G.state === 'play'; frame++) {
         if (window.v10Shot && stageNum === 1 && G.stats.levelUps.length && !upgradeShot) {
           upgradeShot = true; draw(); await window.v10Shot('v10-growth-hud');
         }
         if (window.v10Shot && G.boss && !bossShot) {
           bossShot = true; draw(); await window.v10Shot(`v10-boss-${stageNum}-${mat}`);
+        }
+        if (idx === 8 && !G.boss && !chapters.has(G.sched.chapter)) {
+          const material = StudioContent.stages[G.sched.chapter].mat;
+          if (!targets().length || targets().some(b => b.material !== material)) throw Error('Mixed festival chapter ' + material);
+          chapters.add(G.sched.chapter);
+        }
+        if (idx === 8 && G.boss && !bossShot && !window.v10Shot) {
+          if (chapters.size !== 8) throw Error('Missing festival chapter');
+          const mats = new Set(targets().filter(b => b.bossPart).map(b => b.material));
+          if (mats.size !== 8) throw Error('Expected all eight boss materials');
+          bossShot = true;
         }
         if (G.bossDown) { step(1 / 60); continue; }
         playFrames++;
@@ -239,6 +254,8 @@ try {
     report.stages.push(res);
   }
 
+  assert.equal(await page.locator('#festival-finale img').count(), 8);
+  assert(await page.evaluate(() => StudioContent.load().festivalClear));
   // 4. Verify ASMR Book has all 8 materials unlocked + quick hero switching
   await page.locator('#result-title').tap();
   await page.locator('#collection').tap();

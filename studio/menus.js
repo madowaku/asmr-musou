@@ -125,6 +125,13 @@
     function showStages() {
       $('stage-progress').textContent = progress.cleared.length + ' / ' + stages.length + ' CLEAR';
       $('stage-cards').replaceChildren(...stages.map(stage => card(stage, 'stage')));
+      if (Studio.festivalOpen(progress)) {
+        const encore = document.createElement('button');
+        encore.className = 'primary festival-enter';
+        encore.textContent = (progress.festivalClear ? '✓ ' : '') + 'ASMR FESTIVAL';
+        encore.onclick = () => launch(Studio.festival);
+        $('stage-cards').append(encore);
+      }
       view('stages');
     }
 
@@ -189,14 +196,12 @@
       view('title');
     }
 
-    function inspectFloor(fromFilm) {
+    function inspectFloor() {
       G.inspecting = true;
-      if (fromFilm) {
-        G.paused = true;
-        cancel();
-      }
+      G.paused = true;
+      cancel();
       $('aftermath-status').textContent = '';
-      $('aftermath-back').textContent = t(fromFilm ? '‹ 撮影に戻る' : '‹ 結果に戻る');
+      $('aftermath-back').textContent = t('‹ 撮影に戻る');
       view('aftermath', false);
       draw();
       $('aftermath-back').focus();
@@ -308,15 +313,13 @@
         start(progress.hero, G.stage, G.free, G.practice, { film: G.film, level: G.startLv, plain: G.environment.plain });
       };
       $('again').onclick = () => launch(G.stage);
-      $('result-aftermath').onclick = () => inspectFloor(false);
-      $('film-aftermath').onclick = () => inspectFloor(true);
+      $('film-aftermath').onclick = inspectFloor;
       $('aftermath-save').onclick = saveFloor;
       $('aftermath-back').onclick = () => {
         G.inspecting = false;
-        const fromFilm = G.state === 'play';
-        if (fromFilm) G.paused = false;
-        view(fromFilm ? 'play' : 'result', false);
-        $(fromFilm ? 'film-aftermath' : 'result-aftermath').focus({ preventScroll: true });
+        G.paused = false;
+        view('play', false);
+        $('film-aftermath').focus({ preventScroll: true });
       };
       $('result-back').onclick = () => { G.state = 'select'; showStages(); };
       $('result-title').onclick = showTitle;
@@ -339,7 +342,7 @@
         $('arena').dataset.material = G.stage.mat;
         $('stage-tag').textContent = G.free
           ? (practice ? practiceTitle + ' · ' : t('ASMR図鑑') + ' · ') + L.combat.stages.MATERIALS[G.stage.mat].jp
-          : 'STAGE 0' + G.stage.n + '  ' + WorldArt.worlds[G.stage.mat].name;
+          : G.stage.festival ? 'ASMR FESTIVAL' : 'STAGE 0' + G.stage.n + '  ' + WorldArt.worlds[G.stage.mat].name;
         $('cls').textContent = info.name;
         $('help').textContent = helpFor(G.cls);
         $('gesture-icon').textContent = info.gesture[0];
@@ -357,14 +360,26 @@
       },
       result(stats) {
         const stage = G.stage;
-        const first = stats.bossDefeated && !Studio.learned(stage, progress);
+        const first = !stage.festival && stats.bossDefeated && !Studio.learned(stage, progress);
         if (first) {
           progress.cleared.push(stage.n);
           Studio.save(progress);
           C.sfx('ui_unlock');
         }
-        $('result-stage').textContent = 'STAGE 0' + stage.n + ' · ' + WorldArt.worlds[stage.mat].name;
-        $('r-title').textContent = stats.bossDefeated ? 'STAGE CLEAR' : 'TIME UP';
+        const ending = stage.festival && stats.bossDefeated;
+        if (ending) {
+          progress.festivalClear = true;
+          Studio.save(progress);
+        }
+        $('festival-finale').hidden = !ending;
+        $('festival-finale').replaceChildren(...(ending ? stages.map(s => {
+          const image = new Image();
+          image.alt = L.combat.stages.MATERIALS[s.mat].jp;
+          image.src = WorldArt.thumbnail(s.mat);
+          return image;
+        }) : []));
+        $('result-stage').textContent = stage.festival ? 'ASMR FESTIVAL' : 'STAGE 0' + stage.n + ' · ' + WorldArt.worlds[stage.mat].name;
+        $('r-title').textContent = ending ? 'FESTIVAL CLEAR' : stats.bossDefeated ? 'STAGE CLEAR' : 'TIME UP';
         $('result').classList.toggle('cleared', stats.bossDefeated);
         $('result-boss').src = stats.bossDefeated
           ? Studio.portrait(G.cls) : window.StudioBossArt['studio-boss/' + stage.mat];
@@ -387,10 +402,13 @@
           : stage.bossName + 'はまだ砕けていません。';
         $('r-growth').textContent = t('侵入') + ' ' + stats.breaches.length + ' · ' +
           (stats.ups.map(id => C.UPGRADES[stats.cls].find(upgrade => upgrade.id === id)?.name).filter(Boolean).join(' / ') || t('強化なし'));
-        const next = stages[stage.n];
+        if (ending) $('r-defense').textContent = en ? 'Thank you for playing ASMR MUSOU.' : '最後のひと粒まで、遊んでくれてありがとう。';
+        const next = stages[stage.n] || (!stage.festival && Studio.festivalOpen(progress) ? Studio.festival : null);
         const canContinue = next && stats.bossDefeated;
         $('next').textContent = t(canContinue ? '次のステージ ›' : first ? '図鑑で遊ぶ ›' : 'もう一度挑戦 ›');
-        $('next').onclick = canContinue ? () => launch(next) : first ? () => {
+        if (canContinue && next.festival) $('next').textContent = 'ASMR FESTIVAL ›';
+        if (ending) $('next').textContent = t('タイトルへ');
+        $('next').onclick = ending ? showTitle : canContinue ? () => launch(next) : first ? () => {
           G.state = 'select';
           material = stage;
           showBook();

@@ -81,10 +81,10 @@ h1:focus, h2:focus { outline: none; }
   padding: max(22px, env(safe-area-inset-top)) 20px max(13px, env(safe-area-inset-bottom));
   overflow: hidden;
 }
-.title-copy { position: relative; z-index: 2; }
-.title-copy .kicker { display: inline-block; border-block: 1px solid #b86d86; padding-block: 5px; color: #903d62; }
+.title-copy { position: relative; z-index: 2; text-align: center; }
+.title-copy .kicker { display: inline-block; letter-spacing: .22em; padding-block: 4px; color: #903d62; }
 h1 { font: italic 900 clamp(46px, 14vw, 76px)/.82 var(--label); letter-spacing: -.085em; margin: 12px 0 7px; color: #6e214a; text-shadow: 2px 2px 0 #fff5d5; }
-.title-copy p { margin: 8px 0 0; font-weight: 800; font-size: 12px; color: #653c51; }
+.title-copy p { margin: 8px 0 0; font-weight: 800; font-size: clamp(14px, 3.7vw, 17px); letter-spacing: .08em; color: #653c51; }
 .title-art { position: relative; isolation: isolate; margin-inline: -20px; overflow: hidden; }
 .title-art::before {
   content: "";
@@ -113,7 +113,7 @@ h1 { font: italic 900 clamp(46px, 14vw, 76px)/.82 var(--label); letter-spacing: 
 }
 
 .title-actions { position: relative; z-index: 5; display: grid; gap: 9px; padding-top: 8px; background: linear-gradient(#fff3e600, #fff3e6 22%); }
-.title-actions .plain { justify-self: center; padding: 0 20px; }
+.title-actions .plain { justify-self: center; padding: 0 20px; min-height: 44px; }
 .title-links { display: flex; justify-content: center; gap: 12px; align-items: center; }
 .title-actions #roller-practice { background: #2a7461; border-color: #266451; box-shadow: inset 0 1px #ffffff44, 0 4px 0 #204e47; }
 .title-links a { color: var(--muted); font-size: 12px; font-weight: 750; }
@@ -406,3 +406,7 @@ input { accent-color: var(--key); }
 @media (prefers-reduced-motion: reduce) { .hero-preview .gesture-track::after { animation: none; } }
 #hero-techniques summary { display: list-item; padding: 12px 4px; min-height: 44px; cursor: pointer; }
 #hero-techniques p { margin: 0 4px 12px; font-size: 14px; }
+
+.festival-enter { grid-column: 1 / -1; }
+#festival-finale { display: grid; grid-template-columns: repeat(8, 1fr); gap: 2px; margin-block: 6px; }
+#festival-finale img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 50%; }

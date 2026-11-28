@@ -382,6 +382,7 @@
     C.sfxGain = (C.mix?.sfx ?? 0.7) * (film ? 0.52 : 1) * progress.volume / 0.65;
     ui.play();
     if (free) fillFree();
+    else if (stage.festival) updateFestival();
     else if (Formations.classic) {
       K.spawn('weak', 345, 613, { m: stage.mat });
       K.spawn('weak', G.cls === 'roller' ? 345 : 465, 408, { m: stage.mat });
@@ -417,10 +418,10 @@
   }
   const alive = k => { let n = 0; for (const b of W.bodies) if (!b.removed && !b.active && b.team === 'enemy' && !b.bossPart && (!k || b.kind === k)) n++; return n; };
 
-  function spawnWave(wave, x, y, opening = false) {
+  function spawnWave(wave, x, y, opening = false, material = G.stage.mat) {
     const phase = G.sched.movement, rule = Formations.movements[phase];
     const kind = phase === 'horde' ? 'swarm' : 'mid';
-    const mix = wave.materialOnly ? [[G.stage.mat, 1]] : Stages.mixAt(G.stage, G.t);
+    const mix = wave.materialOnly ? [[material, 1]] : Stages.mixAt(G.stage, G.t);
     const positions = Stages.assign(wave.positions, mix, L.random);
     const driftPhase = G.sched.wave * 1.7;
     for (const p of positions) {
@@ -432,6 +433,26 @@
       body.phase = driftPhase;
       body.marchSpeed = rule.speed * (p.kind === 'weak' && phase !== 'one' ? 0.9 : 1);
     }
+  }
+
+  function updateFestival() {
+    const s = G.sched;
+    const chapter = Math.min(7, Math.floor(G.t / 5.4));
+    const material = Studio.stages[chapter].mat;
+    if (s.chapter !== chapter) {
+      for (const body of W.enemies()) body.removed = true;
+      s.chapter = chapter;
+      s.wave = 0;
+      s.nextWave = G.t;
+      s.movement = chapter < 2 ? 'one' : chapter < 5 ? 'grow' : 'horde';
+      const info = Stages.MATERIALS[material];
+      banner(info.jp, info.sound);
+    }
+    if (G.t < s.nextWave || alive() > 10 || W.bodies.length > 165) return;
+    const wave = Formations.wave(s.movement, s.wave++, material, G.cls);
+    wave.materialOnly = true;
+    spawnWave(wave, 360, s.wave === 1 ? 570 : 295, chapter === 0 && s.wave === 1, material);
+    s.nextWave = G.t + 1.65;
   }
 
   function updateFormations(level) {
@@ -487,8 +508,9 @@
     const S = G.sched, t = G.t;
     for (const k of ['spawn', 'hard', 'thin']) S[k] -= dt;
     const lv = Math.min(3, G.hero.ups.size);
-    if (!G.boss && !Formations.classic) {
+    if (!G.boss && (!Formations.classic || G.stage.festival)) {
       if (t >= BOSS_T) startBoss();
+      else if (G.stage.festival) updateFestival();
       else updateFormations(lv);
     } else if (!G.boss) {
       const waiting = W.bodies.filter(b => !b.removed && !b.active && b.team === 'enemy' && !b.bossPart && b.y < REACH).length;
