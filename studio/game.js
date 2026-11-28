@@ -773,7 +773,7 @@
   P.up = p => {
     const q = P.ptr; if (!q) return; P.ptr = null;
     const h = G.hero;
-    if (h.cls === 'roller') { C.rollerStop(q); return; }
+    if (h.cls === 'roller') { C.rollerStop(q, G.state === 'play' && !G.paused); return; }
     if (G.state !== 'play' || G.paused) return;
     if (p) q.last = p;
     if (q.charging && h.charge) { const k = h.charge.k, at = h.charge.p; h.charge = null; C.release(h, at, k); return; }

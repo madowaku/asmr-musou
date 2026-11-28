@@ -72,7 +72,12 @@
         if (s) { s.target = amount; s.rate = clamp(finite(p.rate, 1), 0, 3); s.last = this.time; s.pan = pan; }
         return;
       }
-      if (name === 'release') { this.emit('strain', { material: m, amount: 0 }); this.play(CUT[m], this.time, .85, pan); return; }
+      if (name === 'release') {
+        this.emit('strain', { material: m, amount: 0 });
+        if (p.rollerEase) this.play('synth_grain_' + m, this.time, .22 + .35 * clamp(p.rollerEase, 0, 1), pan, -3);
+        else this.play(CUT[m], this.time, .85, pan);
+        return;
+      }
       if (name === 'settle') {
         const plan = T.wavePlan([{ material: m, dt: 0 }]); const energy = Math.sqrt(clamp(finite(p.energy, .5), 0, 1));
         if (!energy || this.queue.length > 4000) return;
@@ -90,6 +95,7 @@
           if (name === 'press' && (m === 'sponge' || m === 'beadslime')) this.play('synth_' + m + (m === 'sponge' ? '_press' : '_stretch'), this.time, .3 * Math.sqrt(value), pan, 0, key);
         }
         s.target = value; s.last = this.time; s.pan = pan; s.freq = clamp(finite(p.freq, 4), .5, 18);
+        s.lease = clamp(finite(p.rollerLease, .032), .032, .095);
         return;
       }
       if (name === 'kill') { this.kill(m, pan); return; }
@@ -160,7 +166,7 @@
       }
       for (const [key, s] of this.streams) {
         // Lease expires even if the engine forgets its explicit zero event.
-        if (this.time - s.last >= .032) { this.streams.delete(key); this.stopGroup(key); continue; }
+        if (this.time - s.last >= s.lease) { this.streams.delete(key); this.stopGroup(key); continue; }
         s.value += (s.target - s.value) * .38; s.phase += .005 * s.freq;
         let rate, gain;
         if (s.name === 'flow') { const v = clamp(s.value / 1200, 0, 1); rate = 45 + 150 * Math.sqrt(v); gain = .18 + .43 * Math.sqrt(v); }

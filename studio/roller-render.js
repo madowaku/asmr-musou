@@ -126,9 +126,10 @@
     if (tool.contact > 0) {
       const { light } = tint(tool.material || 'wax');
       const lip = depth * 0.98;
+      const compression = study.refined ? tool.depth : 0;
       r.mesh('roller-study/contact',
-        [place(-width * 0.84, lip), place(width * 0.84, lip), place(width * 0.68, lip + 6), place(-width * 0.68, lip + 6)],
-        quadrilateral, [...light, 0.34 + tool.contact * 0.48], 1);
+        [place(-width * 0.84, lip), place(width * 0.84, lip), place(width * 0.68, lip + 6 + 10 * compression), place(-width * 0.68, lip + 6 + 10 * compression)],
+        quadrilateral, [...light, 0.34 + tool.contact * 0.48 + 0.14 * compression], 1);
     }
   };
 })(window.LAB);

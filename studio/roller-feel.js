@@ -4,6 +4,7 @@
   'use strict';
   const query = new URLSearchParams(location.search);
   if (query.get('roller') === 'classic') return;
+  const refined = query.get('pressure') === 'refined';
   const C = L.combat, W = L.world, K = C.crunch;
   const T = {
     follow: 660, slow: 34, quick: 350, holdDelay: 0.16, contactSound: 0.080, beat: 0.112,
@@ -38,6 +39,7 @@
   L.clearHooks.push(() => { active = null; remnants.length = ripples.length = 0; flattened.clear(); });
   C.rollerFeel = {
     study: query.get('roller') === 'feel',
+    get refined() { return refined && (!window.StudioSound || window.StudioSound.mode === 'A'); },
     get contact() { return active; },
     remnants, ripples, profile, clamp
   };
@@ -239,17 +241,22 @@
 
   function audio(roller, body, contact, motion, now) {
     if (!body) { stopSound(roller); return; }
-    if (body.material !== roller.material || roller.audioMode !== roller.mode) stopSound(roller);
+    const shaped = C.rollerFeel.refined;
+    // Keep the same pressure voice as the finger eases between rolling and holding.
+    if (body.material !== roller.material || (shaped && roller.mode === 'quick' && roller.audioMode !== 'quick') ||
+        (!shaped && roller.audioMode !== roller.mode)) stopSound(roller);
     if (now < roller.audioAt) return;
     const m = roller.material = body.material;
     const mat = material(body);
     roller.audioMode = roller.mode;
     const quick = roller.mode === 'quick', hold = roller.mode === 'hold';
-    const amount = clamp((hold ? 0.60 : quick ? 0.28 : 0.44) * (0.4 + contact * 0.6));
+    const weight = shaped ? 0.72 + 0.55 * roller.depth : 1;
+    const amount = clamp((hold ? 0.60 : quick ? 0.28 : 0.44) * (0.4 + contact * 0.6) * weight);
+    const rollerLease = shaped ? 0.095 : undefined;
     L.events.emit('strain', { material: m, x: roller.x, amount, rate: hold ? 0.58 : quick ? 1.8 : 1.05 });
-    if (mat.stream === 'flow') L.events.emit('flow', { material: m, x: roller.x, rate: 16 + motion.rolling * (quick ? 160 : 72) });
-    if (mat.stream === 'wobble' && !quick) L.events.emit('wobble', { material: m, x: roller.x, amp: amount, freq: hold ? 3 : 6 });
-    roller.audioAt = now + 0.06;
+    if (mat.stream === 'flow') L.events.emit('flow', { material: m, x: roller.x, rate: 16 + motion.rolling * (quick ? 160 : 72), rollerLease });
+    if (mat.stream === 'wobble' && !quick) L.events.emit('wobble', { material: m, x: roller.x, amp: amount, freq: hold ? 3 : 6, rollerLease });
+    roller.audioAt = now + (shaped ? 0.04 : 0.06);
   }
 
   function stopSound(roller) {
@@ -292,9 +299,12 @@
     roller.inputY = point.y;
   };
 
-  C.rollerStop = pointer => {
+  C.rollerStop = (pointer, lifted = false) => {
     if (!pointer?.roller) return;
     const roller = pointer.roller;
+    if (lifted && C.rollerFeel.refined && roller.material && roller.depth >= 0.24) {
+      L.events.emit('release', { material: roller.material, x: roller.x, rollerEase: roller.depth });
+    }
     stopSound(roller);
     if (C.state.hero) C.state.hero.rollerDirection = { ux: roller.ux, uy: roller.uy };
     active = null;
@@ -343,6 +353,7 @@
       }
     }
     roller.contact = strongest;
+    roller.depth = loudest && !loudest.removed ? loudest.rollFeel?.depth || 0 : 0;
     audio(roller, loudest, strongest, motion, G.rt);
     if (dt > 0) rework(roller, shape, G.t, dt);
   };
