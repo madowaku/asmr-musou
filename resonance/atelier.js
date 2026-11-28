@@ -91,5 +91,3 @@ function frame(t){
   requestAnimationFrame(frame)
 }
 resize();createField();ui();requestAnimationFrame(frame)
-
-
