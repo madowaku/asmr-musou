@@ -2,7 +2,7 @@
  * 5 heroes, 8 stages, 8-material ASMR Book with live hero-switching, and clean screen transitions. */
 (function () {
   'use strict';
-  window.StudioMenus = ({ L, C, G, Studio, progress, start, fillFree, cancel }) => {
+  window.StudioMenus = ({ L, C, G, Studio, progress, start, fillFree, cancel, draw }) => {
     const $ = id => document.getElementById(id);
     const { heroes, stages } = Studio;
     const WorldArt = window.StudioWorld;
@@ -34,6 +34,7 @@
       const film = active && Boolean(G.film);
       $('hud').hidden = $('play-footer').hidden = !active || film;
       $('film-exit').hidden = !film;
+      $('film-aftermath').hidden = !film || G.environment.plain;
       $('arena').classList.toggle('playing', active);
       $('arena').classList.toggle('film-mode', film);
       if (id === 'title') updateTitleBadges();
@@ -180,6 +181,42 @@
       view('title');
     }
 
+    function inspectFloor(fromFilm) {
+      G.inspecting = true;
+      if (fromFilm) {
+        G.paused = true;
+        cancel();
+      }
+      $('aftermath-status').textContent = '';
+      $('aftermath-back').textContent = fromFilm ? '‹ 撮影に戻る' : '‹ 結果に戻る';
+      view('aftermath', false);
+      draw();
+      $('aftermath-back').focus();
+    }
+
+    function saveFloor() {
+      const trigger = $('aftermath-save');
+      const filename = 'asmr-musou-' + G.stage.mat + '-aftermath.png';
+      trigger.disabled = true;
+      $('aftermath-status').textContent = '';
+      draw();
+      $('scene').toBlob(blob => {
+        trigger.disabled = false;
+        if (!blob) {
+          $('aftermath-status').textContent = '画像を保存できませんでした';
+          return;
+        }
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        document.body.append(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 30000);
+      }, 'image/png');
+    }
+
     function bind() {
       const buttons = Object.entries(heroes).map(([id, hero]) => {
         const button = document.createElement('button');
@@ -261,13 +298,15 @@
         start(progress.hero, G.stage, G.free, G.practice, { film: G.film, level: G.startLv, plain: G.environment.plain });
       };
       $('again').onclick = () => launch(G.stage);
-      $('result-aftermath').onclick = () => {
-        view('aftermath', false);
-        $('aftermath-back').focus();
-      };
+      $('result-aftermath').onclick = () => inspectFloor(false);
+      $('film-aftermath').onclick = () => inspectFloor(true);
+      $('aftermath-save').onclick = saveFloor;
       $('aftermath-back').onclick = () => {
-        view('result', false);
-        $('result-aftermath').focus({ preventScroll: true });
+        G.inspecting = false;
+        const fromFilm = G.state === 'play';
+        if (fromFilm) G.paused = false;
+        view(fromFilm ? 'play' : 'result', false);
+        $(fromFilm ? 'film-aftermath' : 'result-aftermath').focus({ preventScroll: true });
       };
       $('result-back').onclick = () => { G.state = 'select'; showStages(); };
       $('result-title').onclick = showTitle;
@@ -309,7 +348,9 @@
         if (first) { progress.cleared.push(stage.n); Studio.save(progress); }
         $('result-stage').textContent = 'STAGE 0' + stage.n + ' · ' + WorldArt.worlds[stage.mat].name;
         $('r-title').textContent = stats.bossDefeated ? 'STAGE CLEAR' : 'TIME UP';
-        $('result-boss').src = window.StudioBossArt['studio-boss/' + stage.mat];
+        $('result').classList.toggle('cleared', stats.bossDefeated);
+        $('result-boss').src = stats.bossDefeated
+          ? Studio.portrait(G.cls) : window.StudioBossArt['studio-boss/' + stage.mat];
         $('r-stats').replaceChildren(...[
           ['撃破', stats.kills],
           ['最大連続破壊', stats.best],

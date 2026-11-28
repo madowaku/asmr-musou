@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { chromium } from 'playwright';
@@ -13,6 +13,37 @@ const errors = [];
 const hero = ['slasher', 'spinner', 'caster', 'crusher', 'slasher', 'roller', 'caster', 'spinner'];
 const sizes = [{ width: 360, height: 640 }, { width: 390, height: 844 }];
 const report = { captures: [], performance: [] };
+
+async function checkHeroMotion(page) {
+  const checks = await page.evaluate(() => Object.keys(StudioContent.heroes).map(cls => {
+    const T = StudioTest;
+    T.start(cls, StudioContent.stages[0]);
+    const h = T.G.hero;
+    const stable = { x: h.x, y: h.y, face: h.face };
+    const { quad } = StudioHeroMotion;
+    const frame = (time, fields = {}, motion = true) => quad(h, { ...T.G, t: time, ...fields }, motion);
+    const rest = frame(0.05);
+    h.poseAction = 0.05;
+    const attack = frame(0.11);
+    delete h.poseAction;
+    h.poseGrowth = 0.05;
+    const growth = frame(0.18);
+    delete h.poseGrowth;
+    const victory = frame(1, { bossDown: true, finaleT: 0.37 });
+    const calm = frame(0, {}, false);
+    return { cls, rest, attack, growth, victory,
+      reducedStable: JSON.stringify(calm) === JSON.stringify(frame(1, { bossDown: true, finaleT: 0.37 }, false)),
+      anchorStable: Object.entries(stable).every(([key, value]) => h[key] === value) };
+  }));
+  for (const result of checks) {
+    assert(result.anchorStable && result.reducedStable, result.cls);
+    assert.notDeepEqual(result.rest, result.attack, result.cls);
+    assert.notDeepEqual(result.rest, result.growth, result.cls);
+    assert.notDeepEqual(result.rest, result.victory, result.cls);
+  }
+  assert.equal(new Set(checks.map(result => JSON.stringify(result.attack))).size, 5);
+  report.heroMotion = checks.map(({ cls, reducedStable, anchorStable }) => ({ cls, reducedStable, anchorStable }));
+}
 
 async function start(context, url, test = true) {
   const page = await context.newPage();
@@ -71,6 +102,7 @@ async function capture(viewport) {
   await mkdir(dir, { recursive: true });
   const context = await browser.newContext({ viewport, deviceScaleFactor: 1, isMobile: true, hasTouch: true });
   const page = await start(context, candidate);
+  await page.screenshot({ path: resolve(dir, 'title.png') });
   await page.locator('#adventure').tap();
   await page.locator('#hero-confirm').tap();
   await page.evaluate(async n => {
@@ -108,6 +140,14 @@ async function capture(viewport) {
   await page.locator('#result-aftermath').tap();
   assert(await page.evaluate(() => StudioTest.G.state === 'result' && StudioTest.G.environment.marks.length > 0));
   await page.screenshot({ path: resolve(dir, 'aftermath.png') });
+  const downloadReady = page.waitForEvent('download');
+  await page.locator('#aftermath-save').tap();
+  const download = await downloadReady;
+  const exported = resolve(dir, 'aftermath-export.png');
+  await download.saveAs(exported);
+  const png = await readFile(exported);
+  assert.equal(png.toString('ascii', 12, 16), 'IHDR');
+  assert.deepEqual([png.readUInt32BE(16), png.readUInt32BE(20)], [720, 1280]);
   await page.locator('#aftermath-back').tap();
   await page.locator('#result-title').tap();
   await page.locator('#collection').tap();
@@ -116,6 +156,7 @@ async function capture(viewport) {
   await page.locator('#book-confirm').tap();
   await page.locator('#hero-confirm').tap();
   assert.deepEqual(await page.evaluate(() => [StudioTest.G.film, StudioTest.G.environment.plain]), [true, true]);
+  assert(await page.locator('#film-aftermath').isHidden());
   await page.screenshot({ path: resolve(dir, 'film-plain.png') });
   await page.locator('#film-exit').tap();
   await page.locator('input[name="book-background"][value="stage"]').check();
@@ -123,6 +164,13 @@ async function capture(viewport) {
   await page.locator('#hero-confirm').tap();
   assert(await page.evaluate(() => StudioTest.G.environment.ready));
   await page.screenshot({ path: resolve(dir, 'film-stage.png') });
+  await page.locator('#film-aftermath').tap();
+  assert.deepEqual(await page.evaluate(() => [StudioTest.G.inspecting, StudioTest.G.paused]), [true, true]);
+  await page.screenshot({ path: resolve(dir, 'film-aftermath.png') });
+  await page.keyboard.press('Escape');
+  assert.deepEqual(await page.evaluate(() => [StudioTest.G.inspecting, StudioTest.G.paused]), [false, false]);
+  assert(await page.locator('#film-exit').isVisible());
+  if (viewport.width === 390) await checkHeroMotion(page);
   await context.close();
 }
 

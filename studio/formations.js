@@ -12,17 +12,23 @@
   const shapes = {
     solo: () => [{ x: 0, y: 0, kind: 'weak' }],
     duet: () => [{ x: -105, y: 18, kind: 'weak' }, { x: 105, y: -18, kind: 'weak' }],
-    line: big => big ? [...row(8, 75, 40), ...row(8, 75, -40)] : row(6, 94),
-    file: big => row(big ? 3 : 2, 195).flatMap(({ x }) =>
-      points(big ? 6 : 4, j => ({ x, y: 138 - j * (big ? 55 : 84) }))
-    ),
+    line: big => big
+      ? [...row(9, 67, 56), ...row(7, 75, -49)]
+      : row(6, 91),
+    file: big => {
+      const spine = points(big ? 8 : 6, j => ({ x: 0, y: 150 - j * (big ? 44 : 56) }));
+      const wings = big ? [-136, 136].flatMap(x =>
+        points(5, j => ({ x, y: 69 - j * 55 }))) : row(2, 270, -98);
+      return [...spine, ...wings];
+    },
     ring: big => big ? [...circle(14, 160), ...circle(6, 78)] : circle(8, 130),
     spiral: big => points(big ? 17 : 11, i => {
       const a = i * 0.7, r = 35 + i * (big ? 10 : 15);
       return { x: Math.cos(a) * r, y: Math.sin(a) * r };
     }),
     mass: big => points(big ? 4 : 3, j =>
-      row(big ? 7 : 5, big ? 66 : 91, (j - 1) * (big ? 60 : 77), j % 2 ? 25 : -10)
+      row(big ? 7 : 5, big ? 65 : 82, (j - 1) * (big ? 56 : 65), j % 2 ? 28 : 0)
+        .map((p, i) => ({ ...p, size: j === 2 && i === 2 ? 1.12 : 0.94 }))
     ).flat(),
     crowns: big => [-1, 1].flatMap(s => row(big ? 7 : 5, big ? 77 : 100)
       .map((p, i) => ({ x: p.x, y: s * (55 + (i - (big ? 3 : 2)) ** 2 * 9) }))),
@@ -61,6 +67,19 @@
     beadslime: ['beads', 'ビーズの帯がうねる'],
     kohaku: ['vein', '琥珀糖が鉱脈のように枝分かれする']
   };
+  // Keep the same HP and enemy roles. Scale silhouettes within each material's formation.
+  const sizes = {
+    wax: [1, .94, 1.1], jelly: [1.12, .92, 1.16], soap: [.94, .91, 1],
+    chalk: [.90, .88, 1.07], sand: [1, 1, 1], sponge: [1.22, .93, 1.06],
+    beadslime: [1.04, .85, 1.09], kohaku: [.94, .90, 1.13]
+  };
+  const opening = material => ({ pattern: 'solo', materialOnly: true,
+    positions: [{ x: 0, y: 0, kind: 'weak', size: sizes[material][0] }] });
+  const entry = (material, phase) => {
+    if (phase === 'one') return [430, 360, 500];
+    if (material === 'soap') return [510, 437, 350];
+    return [430, 360, 500];
+  };
   const movements = {
     one: { title: '素材を味わう', limit: 7, interval: 1.8, speed: 66 },
     grow: { title: '隊形を崩す', limit: 22, interval: 1.45, speed: 100 },
@@ -74,7 +93,18 @@
     const signature = materials[material][0], big = phase === 'horde';
     const pattern = phase === 'one' ? (index % 3 === 0 ? 'solo' : 'duet')
       : (index % 2 === 0 ? (big ? signature : heroes[hero]) : (big ? heroes[hero] : signature));
-    return { pattern, positions: shapes[pattern](big), materialOnly: phase === 'one' || pattern === signature };
+    const positions = shapes[pattern](big);
+    if (pattern === signature && material !== 'sand') {
+      const [, small, accent] = sizes[material];
+      positions.forEach((p, i) => {
+        if (p.size === undefined) p.size = i % 5 === 2 ? accent : small;
+      });
+    }
+    if (phase === 'one' && material !== 'sand') {
+      const size = sizes[material][0];
+      positions.forEach((p, i) => { p.size = pattern === 'solo' ? size : Math.min(1.06, size) - i * .13; });
+    }
+    return { pattern, positions, materialOnly: phase === 'one' || pattern === signature };
   }
-  window.StudioFormations = { classic, materials, movements, movement, wave };
+  window.StudioFormations = { classic, materials, movements, movement, opening, entry, wave };
 })();

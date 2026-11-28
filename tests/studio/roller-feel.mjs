@@ -20,12 +20,20 @@ try{
   await page.goto(root.href);
   await page.locator('#title').waitFor();
   assert(await page.locator('#roller-practice').isHidden());
+  assert.deepEqual(await page.evaluate(()=>({
+    active: Boolean(LAB.combat.rollerFeel?.profile),
+    study: LAB.combat.rollerFeel?.study
+  })), {active:true,study:false});
+  const classic=new URL(root);
+  classic.searchParams.set('roller','classic');
+  await page.goto(classic.href);
+  await page.locator('#title').waitFor();
   assert.equal(await page.evaluate(()=>Boolean(LAB.combat.rollerFeel)),false);
   await page.goto(study.href);
   await page.locator('#title').waitFor();
   await shot('roller-feel-title');
   await tap('roller-practice');
-  assert.equal(await page.locator('#material-cards button:enabled').count(),3);
+  assert.equal(await page.locator('#material-cards button:enabled').count(),8);
   await tap('book-confirm');
   await page.waitForFunction(()=>LAB.audio.stats().ready);
   const cdp=await context.newCDPSession(page), box=await page.locator('#scene').boundingBox();
@@ -127,6 +135,7 @@ try{
   });
   assert(details.modes.hold.modes.hold>0 && details.modes.hold.stages>=2,JSON.stringify(details));
   assert(details.modes.slow.modes.slow>0 && details.modes.slow.depth>details.modes.quick.depth,JSON.stringify(details));
+  assert.equal(details.modes.slow.stages,5);
   assert(details.modes.quick.modes.quick>0,JSON.stringify(details));
   assert.deepEqual(details.turn,{before:1,after:0,score:1,reworked:1});
   assert(details.width.every((v,i,a)=>i===0||v>a[i-1]));

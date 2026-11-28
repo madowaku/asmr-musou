@@ -1,5 +1,7 @@
 # GAME_DIRECTION
 
+初期版 `index.html` の制作記録です。現行 Studio の仕様は [WORLD ATELIER 仕上げ・現行仕様](docs/v1.3/STUDIO_CURRENT.md) を参照してください。
+
 既存の ORCHESTRATOR_BRIEF.md と T5 指示をまとめた制作方針。ゲームルールは変更しない。
 
 ## 核体験

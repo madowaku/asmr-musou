@@ -135,7 +135,7 @@
     renderer.mesh(plateName, fullQuad, indices);
     if (env.plain) return;
     const mat = G.stage.mat;
-    const playing = G.state === 'play';
+    const playing = G.state === 'play' && !G.inspecting;
     const time = motion ? G.t : 0;
     if (playing) ambient[mat].forEach(([id, x, y, w, h, alpha], i) => {
       const phase = time * (mat === 'sand' ? 0.68 : 0.48) + i * 1.9;

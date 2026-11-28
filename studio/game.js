@@ -65,6 +65,7 @@
   };
   C.begin = (h, kind, info = {}) => {
     h.action++; h.lastKind = kind; h.idle = 0;
+    h.poseAction = G.t;
     G.actions.set(h.action, {
       id: h.action, kind, cls: G.cls, kills: 0, hurts: 0, chainMax: 0, chainKills: 0,
       t0: G.t, last: G.t, level: h.ups.size, inputT: G.gestureT, fireT: G.rt,
@@ -358,7 +359,7 @@
       for (const u of pool.slice(0, startLv - 1)) hero.ups.add(u.id);
     }
     Object.assign(G, {
-      cls, stage, free, practice, film, startLv, seed, t: 0, rt: 0, hero, boss: null, slow: 0,
+      cls, stage, free, practice, film, startLv, seed, t: 0, rt: 0, hero, boss: null, slow: 0, inspecting: false,
       environment: WorldArt.enter(stage, Boolean(free && opts.plain)),
       actions: new Map(), later: [], bolts: [], glows: [], arcs: [], sparks: [], lastPop: -9,
       bossDown: false, finaleT: 0, paused: false, choice: null, broken: new Map(), gestureT: 0,
@@ -388,8 +389,7 @@
       banner(stage.name, Stages.MATERIALS[stage.mat].sound);
     } else {
       G.sched.movement = 'one';
-      const opening = { pattern: 'solo', positions: [{ x: 0, y: 0, kind: 'weak', size: stage.mat === 'sponge' ? 1.22 : 1 }], materialOnly: true };
-      spawnWave(opening, 345, 613);
+      spawnWave(Formations.opening(stage.mat), 345, 613);
       G.sched.wave = 1;
       G.sched.nextWave = 1.8;
       banner('素材を味わう', Stages.MATERIALS[stage.mat].sound);
@@ -449,8 +449,10 @@
     const rule = Formations.movements[phase];
     if (remaining + next.positions.length > rule.limit || W.bodies.length + next.positions.length > 186) return;
     const occupied = W.enemies();
-    const entry = [430, 360, 500].find(y => next.positions.every(p => {
-      const radius = p.kind === 'weak' ? 88 * (p.size ?? 1) : (phase === 'horde' ? 30 : 42);
+    const entry = Formations.entry(G.stage.mat, phase).find(y => next.positions.every(p => {
+      const type = p.kind ?? (phase === 'horde' ? 'swarm' : 'mid');
+      const nominal = type === 'weak' ? 88 : type === 'mid' ? 42 : 30;
+      const radius = nominal * (p.size ?? 1);
       return occupied.every(b => Math.hypot(b.x - 360 - p.x, b.y - y - p.y) >= (b.radius + radius) * 0.92);
     }));
     if (entry === undefined) return;
@@ -599,6 +601,7 @@
     if (!G.choice?.includes(u)) return;
     const h = G.hero;
     h.ups.add(u.id); G.stats.ups.push(u.id); G.paused = false; G.choice = null;
+    h.poseGrowth = G.t;
     $('upgrade').hidden = true;
     banner('LEVEL ' + (h.ups.size + 1) + ' · ' + u.name, u.desc);
     C.sfx('levelup');
@@ -841,15 +844,6 @@
   }
 
   // ---------- render ----------
-  function heroQuad(h) {
-    const k = h.move ? 1.12 : 1, s = (h.cls === 'roller' ? 84 : 82) * k;
-    const flip = Math.cos(h.face) < 0 ? -1 : 1, bob = h.move ? 0 : Math.sin(h.bob * 4) * 4;
-    let sp = 0; if (h.spin > 0) { h.spin -= 1 / 60; sp = G.t * 40; }
-    const c = Math.cos(sp), si = Math.sin(sp);
-    const P2 = (x, y) => ({ x: h.x + (x * c - y * si), y: h.y + bob + (x * si + y * c) });
-    const a = P2(-s, -s), b = P2(s, -s), cc = P2(s, s), d = P2(-s, s);
-    return [{ ...a, u: flip > 0 ? 0 : 1, v: 0 }, { ...b, u: flip > 0 ? 1 : 0, v: 0 }, { ...cc, u: flip > 0 ? 1 : 0, v: 1 }, { ...d, u: flip > 0 ? 0 : 1, v: 1 }];
-  }
   const TINT = { slasher: [0.2, 0.55, 1], crusher: [1, 0.45, 0.3], caster: [0.6, 0.35, 1], spinner: [0.88, 0.59, 0.19], roller: [0.25, 0.75, 0.58] };
   function circle(p, r, w, col, seg = 40, rot = 0) {
     let prev = null;
@@ -862,7 +856,7 @@
   function draw() {
     renderer.begin();
     WorldArt.draw(renderer, G, progress.motion && !reduceMotion.matches, K.LINE);
-    if (G.state === 'result') {
+    if (G.state === 'result' || G.inspecting) {
       renderer.render([], G.t, 0, false);
       return;
     }
@@ -918,7 +912,8 @@
       const lv = h.ups.size;
       renderer.glow(h.x, h.y + 68, 58, [0.3, 0.2, 0.3, 0.35]);
       if (lv) circle({ x: h.x, y: h.y + 4 }, 82 + lv * 8, 1.5 + lv, [...col, 0.35 + 0.15 * Math.sin(G.t * 6)], 36, G.t);
-      renderer.mesh('hero/' + h.cls, heroQuad(h), [0, 1, 2, 0, 2, 3]);
+      const quad = window.StudioHeroMotion.quad(h, G, progress.motion && !reduceMotion.matches, C.rollerFeel?.contact);
+      renderer.mesh('hero/' + h.cls, quad, [0, 1, 2, 0, 2, 3]);
     }
     for (const g of G.arcs) {
       const age = g.total - g.life, rev = Math.min(1, age / 0.1), f = Math.min(1, g.life / (g.total * 0.7)), n = g.pts.length - 1, m = Math.ceil(n * rev);
@@ -984,16 +979,16 @@
   }
 
   // ---------- loop ----------
-  const ui = window.StudioMenus({ L, C, G, Studio, progress, start, fillFree, cancel: P.cancel });
+  const ui = window.StudioMenus({ L, C, G, Studio, progress, start, fillFree, cancel: P.cancel, draw });
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
   let prev = 0, resultPlate;
   function frame(ms) {
     const dt = prev ? Math.min(0.05, (ms - prev) / 1000) : 1 / 60; prev = ms;
     if (!testing) step(dt);
-    if (G.state === 'play') {
+    if (G.state === 'play' && !G.inspecting) {
       resultPlate = null;
       draw();
-    } else if (G.state === 'result' && resultPlate !== G.environment.plate) {
+    } else if ((G.state === 'result' || G.inspecting) && resultPlate !== G.environment.plate) {
       resultPlate = G.environment.plate;
       draw();
     }

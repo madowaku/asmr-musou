@@ -17,6 +17,27 @@ try {
   );
   await page.goto(url.href);
   await page.locator('#title').waitFor();
+  const geometry = await page.evaluate(() => {
+    const F = StudioFormations;
+    const line = F.wave('horde', 1, 'wax', 'slasher').positions;
+    const file = F.wave('grow', 0, 'chalk', 'crusher').positions;
+    const mass = F.wave('horde', 1, 'sponge', 'roller').positions;
+    const opening = StudioContent.stages.map(s => F.opening(s.mat).positions[0].size);
+    const spans = group => ({
+      x: Math.max(...group.map(p => p.x)) - Math.min(...group.map(p => p.x)),
+      y: Math.max(...group.map(p => p.y)) - Math.min(...group.map(p => p.y))
+    });
+    return {
+      slash: line.filter(p => p.y === 56).length,
+      spine: spans(file.filter(p => p.x === 0)),
+      roll: spans(mass),
+      openingSizes: new Set(opening).size
+    };
+  });
+  assert.equal(geometry.slash, 9);
+  assert(geometry.spine.y >= 280 && geometry.spine.x === 0);
+  assert(geometry.roll.x <= 420 && geometry.roll.y <= 175);
+  assert(geometry.openingSizes >= 6);
   const results = [];
   for (let i = 0; i < 8; i++) {
     const data = await page.evaluate(async ({ i, capture }) => {
@@ -80,6 +101,7 @@ try {
   }), 1);
   assert.equal(errors.length, 0, errors.join('\n'));
   console.log(results.join('\n'));
+  console.log('Attack opportunities:', geometry);
 } finally {
   await browser.close();
 }

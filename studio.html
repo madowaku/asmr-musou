@@ -27,6 +27,7 @@
   <script defer src="studio/iai.js"></script>
   <script defer src="studio/heroes-polish.js"></script><script defer src="studio/content.js"></script>
   <script defer src="studio/world-atelier.js"></script>
+  <script defer src="studio/hero-motion.js"></script>
   <script defer src="studio/formations.js"></script><script defer src="studio/menus.js"></script><script defer src="studio/game.js"></script>
 </head>
 <body>
@@ -43,6 +44,7 @@
   </header>
   <footer id="play-footer" hidden><p id="help"></p><span id="roll-feel-mode" hidden aria-hidden="true"></span><button id="free-hero" hidden>キャラ変更</button><button id="free-refill" hidden>置き直す</button></footer>
   <button id="film-exit" hidden aria-label="撮影モードを終了">✕</button>
+  <button id="film-aftermath" hidden aria-label="破壊の跡を見る" title="破壊の跡を見る"></button>
   <section id="loading" class="screen"><p role="status">スタジオを準備中…</p></section>
   <section id="title" class="screen title-screen" hidden>
     <div class="title-copy"><span class="kicker">ASMR MUSOU</span><h1>WORLD<br>ATELIER</h1><p>一つを味わう。やがて、全部を砕く。</p></div>
@@ -103,7 +105,11 @@
     <button id="result-back" class="plain">ステージへ</button><button id="result-title" class="plain">タイトルへ</button></div>
   </section>
   <section id="aftermath" class="screen" aria-label="破壊の跡" hidden>
-    <button id="aftermath-back" class="secondary">‹ 結果に戻る</button>
+    <div class="aftermath-actions">
+      <p id="aftermath-status" role="status"></p>
+      <button id="aftermath-save" class="primary">画像を保存</button>
+      <button id="aftermath-back" class="secondary">‹ 結果に戻る</button>
+    </div>
   </section>
   <section id="settings" class="overlay" role="dialog" aria-modal="true" aria-labelledby="settings-title" hidden><div class="dialog">
     <h2 id="settings-title">設定</h2>
