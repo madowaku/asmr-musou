@@ -212,7 +212,7 @@
         return;
       }
       case 'levelup_ready': {
-        // Crisp energetic fill chime right before the evolution choice appears
+        // Short anticipatory growth cue used in the listening comparison
         for (const [dt, f, px] of [[0, 587.33, 240], [0.055, 739.99, 360], [0.11, 880, 480]]) {
           tone(c, t + dt, 0.36, f, f, 0.068, px, 'triangle', 0.005);
         }

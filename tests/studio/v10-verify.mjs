@@ -176,18 +176,10 @@ try {
       start(hero, StudioContent.stages[idx]);
       let bossShot = false, upgradeShot = false, nextAction = 0, aim = null, rollerTarget = null;
       let zeroReachFrames = 0, playFrames = 0;
-      const handleLevel = () => {
-        if (!G.choice) return;
-        const gale = G.choice.findIndex(c => c.id === 'gale');
-        const heavy = G.choice.findIndex(c => c.id === 'heavy');
-        document.querySelectorAll('.upcard')[Math.max(0, gale, heavy)].click();
-        aim = null; rollerTarget = null; nextAction = 0;
-      };
       for (let frame = 0; frame < 5200 && G.state === 'play'; frame++) {
-        if (window.v10Shot && stageNum === 1 && G.choice && !upgradeShot) {
-          upgradeShot = true; draw(); await window.v10Shot('v10-upgrade-dialog');
+        if (window.v10Shot && stageNum === 1 && G.stats.levelUps.length && !upgradeShot) {
+          upgradeShot = true; draw(); await window.v10Shot('v10-growth-hud');
         }
-        handleLevel();
         if (window.v10Shot && G.boss && !bossShot) {
           bossShot = true; draw(); await window.v10Shot(`v10-boss-${stageNum}-${mat}`);
         }

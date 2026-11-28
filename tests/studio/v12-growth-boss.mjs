@@ -270,13 +270,6 @@ try {
 
       const maxFrames = 78 * 60; // 78s safety cap
       while (G.state === 'play' && f < maxFrames) {
-        if (G.paused && G.choice?.length) {
-          // Pick first upgrade option automatically
-          document.querySelector('#up-cards button')?.click();
-          spinnerDown = false;
-          rollerDown = false;
-          casterChargeStart = -1;
-        }
         if (G.state !== 'play') break;
 
         if (!G.paused) {

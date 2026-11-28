@@ -168,7 +168,7 @@
     function closeSettings(resume = true) {
       $('settings').hidden = true;
       for (const screen of screens) screen.removeAttribute('inert');
-      if (resume && G.state === 'play' && !G.choice) G.paused = false;
+      if (resume && G.state === 'play') G.paused = false;
       if (resume) settingsFrom?.focus({ preventScroll: true });
     }
 
@@ -318,7 +318,7 @@
         if (!$('aftermath').hidden) { $('aftermath-back').click(); return; }
         if (G.state === 'play' && G.film) { $('film-exit').click(); return; }
         if (!$('settings').hidden) closeSettings();
-        else if (G.state === 'play' && !G.choice) settings(true, $('pause'));
+        else if (G.state === 'play') settings(true, $('pause'));
       });
       document.addEventListener('visibilitychange', () => {
         if (document.hidden && G.state === 'play' && !G.paused) settings(true, $('pause'));
@@ -335,6 +335,10 @@
           : 'STAGE 0' + G.stage.n + '  ' + WorldArt.worlds[G.stage.mat].name;
         $('cls').textContent = info.name;
         $('help').textContent = helpFor(G.cls);
+        $('gesture-icon').textContent = info.gesture[0];
+        $('gesture-text').textContent = info.gesture[1];
+        $('gesture-guide').hidden = G.film;
+        $('growth-notice').hidden = true;
         $('breach').textContent = '0';
         $('clock-track').hidden = $('breach-box').hidden = $('upmeter').hidden = Boolean(G.free);
         $('boss-meter').hidden = true;
@@ -342,7 +346,6 @@
         $('banner').classList.remove('show');
         $('free-refill').hidden = !G.free;
         $('free-hero').hidden = !G.free || practice;
-        $('upgrade').hidden = true;
         view('play');
       },
       result(stats) {

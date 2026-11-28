@@ -111,7 +111,7 @@
     if (h.cls !== 'caster') return origBurst(h, p, o);
     const G = C.state;
     if (!o.sub) {
-      if (G.rt - h.lastCast < 0.14) return false;
+      if (!o.enclosed && G.rt - h.lastCast < 0.14) return false;
       h.lastCast = G.rt;
     }
     const en = C.targets(), r = o.rAbs || C.castRadius(h);
@@ -124,7 +124,7 @@
         const k = Math.min(0.55, 48 / d);
         c = { x: p.x + (mx - p.x) * k, y: p.y + (my - p.y) * k };
       }
-      C.begin(h, 'burst', { input: p, at: c, snap: dist(c, p) });
+      C.begin(h, 'burst', { input: p, at: c, snap: dist(c, p), enclosed: Boolean(o.enclosed) });
       C.moveTo(h, { x: Math.max(C.FIELD.x0, Math.min(C.FIELD.x1, h.x + (c.x - h.x) * 0.35)), y: C.HOME_Y }, 0.22);
       h.face = Math.atan2(c.y - h.y, c.x - h.x);
       C.bolt({ x: h.x + 28, y: h.y - 68 }, c);

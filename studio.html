@@ -41,10 +41,11 @@
     <div class="bar" id="clock-track"><i id="time"></i></div>
     <div class="hud-row counts"><span id="cls"></span><span><b id="kills">0</b> 撃破</span><span id="breach-box">侵入 <b id="breach">0</b></span><span id="combo"></span></div>
     <div id="upmeter"><small id="uplv">Lv 1</small><div class="bar"><i id="upbar"></i></div><small>CRUNCH</small></div>
+    <output id="growth-notice" role="status" aria-live="polite" hidden></output>
     <div id="boss-meter" hidden><span id="boss-name"></span><progress id="boss-progress" max="1" value="1" aria-label="ボスの残り耐久"></progress></div>
     <div id="banner"></div>
   </header>
-  <footer id="play-footer" hidden><p id="help"></p><span id="roll-feel-mode" hidden aria-hidden="true"></span><button id="free-hero" hidden>キャラ変更</button><button id="free-refill" hidden>置き直す</button></footer>
+  <footer id="play-footer" hidden><div id="gesture-guide" hidden><span id="gesture-icon" aria-hidden="true"></span><strong id="gesture-text"></strong></div><p id="help"></p><span id="roll-feel-mode" hidden aria-hidden="true"></span><button id="free-hero" hidden>キャラ変更</button><button id="free-refill" hidden>置き直す</button></footer>
   <button id="film-exit" hidden aria-label="撮影モードを終了">✕</button>
   <button id="film-aftermath" hidden aria-label="破壊の跡を見る" title="破壊の跡を見る"></button>
   <section id="loading" class="screen"><p role="status">スタジオを準備中…</p></section>
@@ -96,9 +97,6 @@
     </div>
     <button id="book-confirm" class="primary">キャラクターを選ぶ <span>›</span></button>
   </section>
-  <section id="upgrade" class="overlay" role="dialog" aria-modal="true" aria-labelledby="upgrade-title" hidden><div class="dialog upgrade-dialog">
-    <p class="kicker" id="up-n"></p><h2 id="upgrade-title">武器を進化させる</h2><p id="up-power"></p><div id="up-cards"></div>
-  </div></section>
   <section id="result" class="screen panel result" hidden>
     <p class="kicker" id="result-stage"></p><h2 id="r-title"></h2><img id="result-boss" alt="">
     <div id="r-stats" class="result-stats"></div><p id="r-defense"></p><p id="r-growth"></p>

@@ -89,28 +89,20 @@ try {
     const result = await page.evaluate(async n => {
       const {G,input,step,targets}=StudioTest;
       const advance=secs=>{for(let i=0;i<Math.ceil(secs*60)&&G.state==='play';i++){
-        if(G.choice)return;
         step(1/60);
       }};
       const tap=p=>{input.down(p);advance(.047);input.up(p);};
       let sawGale=false, lastUp=null, nextAction=0, aim=null, spinner=false, rollerTarget=null;
       let bossShot=false, upgradeShot=false;
-      const handleLevel=()=>{
-        if(!G.choice)return;
-        lastUp=G.t;
-        const gale=G.choice.findIndex(c=>c.id==='gale');
-        sawGale ||= gale>=0;
-        const heavy=G.choice.findIndex(c=>c.id==='heavy');
-        document.querySelectorAll('.upcard')[Math.max(0,gale,heavy)].click();
-        aim=null;rollerTarget=null;nextAction=0;
-      };
       for(let frame=0;frame<5200&&G.state==='play';frame++){
-        if(window.studioShot && G.choice && !upgradeShot){
+        const level = G.stats.levelUps.at(-1);
+        if (level) lastUp = level.t;
+        sawGale ||= G.hero.ups.has('gale');
+        if(window.studioShot && level && !upgradeShot){
           upgradeShot=true;
           StudioTest.draw();
           await window.studioShot('stage-'+n+'-upgrade');
         }
-        handleLevel();
         if(window.studioShot && G.boss && !bossShot){
           bossShot=true;
           StudioTest.draw();

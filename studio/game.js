@@ -38,7 +38,7 @@
   const G = {
     state: 'select', cls: 'slasher', seed: 1, t: 0, rt: 0, hero: null, boss: null, slow: 0,
     actions: new Map(), stats: null, later: [], bolts: [], glows: [], arcs: [], sparks: [],
-    bossDown: false, finaleT: 0, paused: false, choice: null, broken: new Map(), gestureT: 0,
+    bossDown: false, finaleT: 0, paused: false, broken: new Map(), gestureT: 0,
     sched: null, lineFlash: 0, breakT: 0, levelGlow: 0
   };
   C.state = G;
@@ -66,6 +66,7 @@
   C.begin = (h, kind, info = {}) => {
     h.action++; h.lastKind = kind; h.idle = 0;
     h.poseAction = G.t;
+    if (kind === 'iai' || kind === 'slash' || kind === 'jab' || (kind === 'spin' && info.circle)) G.guideDone = true;
     G.actions.set(h.action, {
       id: h.action, kind, cls: G.cls, kills: 0, hurts: 0, chainMax: 0, chainKills: 0,
       t0: G.t, last: G.t, level: h.ups.size, inputT: G.gestureT, fireT: G.rt,
@@ -319,7 +320,6 @@
     if (G.energy >= ENERGY.need[lv] && !G.paused && !G.levelPending) {
       G.levelPending = true;
       G.levelGlow = 0.28;
-      C.sfx('levelup_ready');
       C.later(0.08, () => {
         G.levelPending = false;
         if (G.hero.ups.size < 3 && G.energy >= ENERGY.need[G.hero.ups.size]) levelUp();
@@ -334,9 +334,17 @@
   C.studioChip = (body, value) => { gain(value, 'chip'); if (value > 0) spark(body); };
   function levelUp() {
     const lv = G.hero.ups.size;
+    const upgrade = upgradesFor(G.cls).find(item => !G.hero.ups.has(item.id));
+    if (!upgrade) return;
     G.energy -= ENERGY.need[lv];
     G.stats.levelUps.push({ lv: lv + 1, t: +G.t.toFixed(2), kills: G.stats.kills, actions: G.stats.actions });
-    offerUpgrade();
+    G.hero.ups.add(upgrade.id);
+    G.stats.ups.push(upgrade.id);
+    G.hero.poseGrowth = G.t;
+    G.hero.flashT = 0.9;
+    G.growthNoticeUntil = G.rt + 3.2;
+    $('growth-notice').textContent = 'Lv ' + (lv + 2) + ' · ' + upgrade.name;
+    C.sfx('levelup');
   }
 
   // ---------- unbroken enemy queue (reduced downtime across all heroes) ----------
@@ -349,21 +357,13 @@
     const film = Boolean(free && opts.film);
     const startLv = free ? Math.max(1, Math.min(4, Number(opts.level) || 1)) : 1;
     const hero = C.createHero(cls);
-    if (startLv > 1) {
-      // Apply ordered upgrades for chosen growth level in ASMR Book / Film Mode
-      const pool = (C.UPGRADES[cls] || []).slice();
-      if (cls === 'spinner') {
-        const gi = pool.findIndex(u => u.id === 'gale');
-        if (gi > 0) [pool[0], pool[gi]] = [pool[gi], pool[0]];
-      }
-      for (const u of pool.slice(0, startLv - 1)) hero.ups.add(u.id);
-    }
+    for (const upgrade of upgradesFor(cls).slice(0, startLv - 1)) hero.ups.add(upgrade.id);
     Object.assign(G, {
       cls, stage, free, practice, film, startLv, seed, t: 0, rt: 0, hero, boss: null, slow: 0, inspecting: false,
       environment: WorldArt.enter(stage, Boolean(free && opts.plain)),
       actions: new Map(), later: [], bolts: [], glows: [], arcs: [], sparks: [], lastPop: -9,
-      bossDown: false, finaleT: 0, paused: false, choice: null, broken: new Map(), gestureT: 0,
-      lineFlash: 0, sampleT: 0, levelGlow: 0,
+      bossDown: false, finaleT: 0, paused: false, broken: new Map(), gestureT: 0,
+      lineFlash: 0, sampleT: 0, levelGlow: 0, growthNoticeUntil: 0, guideDone: false,
       sched: { spawn: 0, hard: 10, thin: 0, firstHard: true, lane: 0, movement: null, wave: 0, nextWave: 0 },
       energy: 0, energyOver: 0, levelPending: false, gainFlash: 0, holdSupply: 0
     });
@@ -579,42 +579,10 @@
     $('breach-box').classList.remove('hit'); void $('breach-box').offsetWidth; $('breach-box').classList.add('hit');
   }
 
-  // ---------- achievement level-up ----------
-  function offerUpgrade() {
-    if (G.paused) return;
-    const pool = C.UPGRADES[G.cls].filter(u => !G.hero.ups.has(u.id)).slice();
-    for (let i = pool.length - 1; i > 0; i--) { const j = Math.floor(L.random() * (i + 1)); [pool[i], pool[j]] = [pool[j], pool[i]]; }
-    if (G.cls === 'spinner' && !G.hero.ups.size) { const index = pool.findIndex(u => u.id === 'gale'); if (index >= 0) [pool[0], pool[index]] = [pool[index], pool[0]]; }
-    const ch = pool.slice(0, 2);
-    G.paused = true; G.choice = ch; P.cancel();
-    C.sfx('pause');
-    $('up-n').textContent = 'LEVEL ' + (G.hero.ups.size + 2) + ' · 進化';
-    $('up-power').textContent = G.cls === 'roller'
-      ? '圧縮の深さとローラー幅が進化する！'
-      : '範囲・連鎖・工程が進化！（削り力 ' + K.POWER[G.hero.ups.size] + ' → ' + K.POWER[G.hero.ups.size + 1] + '）';
-    $('up-cards').innerHTML = ch.map((u, i) => `<button class="upcard" data-i="${i}"><b>✦ ${u.name}</b><span>${u.desc}</span></button>`).join('');
-    for (const b of $('up-cards').querySelectorAll('button')) b.onclick = () => choose(ch[+b.dataset.i]);
-    $('upgrade').hidden = false;
-    $('up-cards').querySelector('button').focus({ preventScroll: true });
-  }
-  function choose(u) {
-    if (!G.choice?.includes(u)) return;
-    const h = G.hero;
-    h.ups.add(u.id); G.stats.ups.push(u.id); G.paused = false; G.choice = null;
-    h.poseGrowth = G.t;
-    $('upgrade').hidden = true;
-    banner('LEVEL ' + (h.ups.size + 1) + ' · ' + u.name, u.desc);
-    C.sfx('levelup');
-    h.flashT = 0.9;
-    W.punch = Math.max(W.punch, 0.032);
-    W.rings.push(
-      { x: h.x, y: h.y, r0: 25, r1: 270, life: 0.55, total: 0.55, w: 9, color: [1, 0.58, 0.80], alpha: 0.8 },
-      { x: h.x, y: h.y, r0: 15, r1: 195, life: 0.42, total: 0.42, w: 6, color: [1, 0.84, 0.35], alpha: 0.85 }
-    );
-    for (let i = 0; i < 18; i++) {
-      const a = i / 18 * Math.PI * 2;
-      L.addParticle({ x: h.x, y: h.y, vx: Math.cos(a) * (160 + L.random() * 140), vy: Math.sin(a) * (160 + L.random() * 140) - 60, size: 5 + L.random() * 5, life: 0.65, color: i % 2 ? [1, 0.84, 0.38, 1] : [1, 0.55, 0.82, 1] });
-    }
+  function upgradesFor(cls) {
+    const pool = C.UPGRADES[cls] || [];
+    if (cls !== 'spinner') return pool;
+    return [...pool.filter(u => u.id === 'gale'), ...pool.filter(u => u.id !== 'gale')];
   }
 
   // ---------- seamless multi-layer giant boss ----------
@@ -735,16 +703,16 @@
   P.down = p => {
     if (G.state !== 'play' || G.paused) return;
     const h = G.hero; G.gestureT = G.rt;
-    P.ptr = { start: p, last: p, anchor: p, t0: G.rt, moved: 0, fired: 0, charging: false, castAt: p, dir: null, redirected: false };
+    P.ptr = { start: p, last: p, anchor: p, t0: G.rt, moved: 0, fired: 0, charging: false, dir: null, redirected: false };
     if (h.cls === 'crusher') C.jab(h, p);
-    else if (h.cls === 'caster') C.burst(h, p);
+    else if (h.cls === 'caster') { P.ptr.castPath = [p]; C.burst(h, p); }
     else if (h.cls === 'spinner') C.spinDown(h, P.ptr, p);
     else if (h.cls === 'roller') C.rollerDown(h, P.ptr, p);
   };
   P.move = p => {
     const q = P.ptr; if (!q || G.paused) return;
     const h = G.hero; q.moved += dist(p, q.last); q.last = p;
-    if (h.cls === 'roller') { C.rollerMove(q, p); return; }
+    if (h.cls === 'roller') { if (q.moved >= 28) G.guideDone = true; C.rollerMove(q, p); return; }
     if (q.charging) { h.charge && (h.charge.p = p); return; }
     if (h.cls === 'spinner') { C.spinMove(h, q, p); return; }
     if (h.cls === 'slasher') {
@@ -766,10 +734,30 @@
         const dx = p.x - q.start.x, dy = p.y - q.start.y, d = Math.hypot(dx, dy) || 1;
         q.redirected = C.redirect(h, dx / d, dy / d);
       }
-    } else if (dist(p, q.castAt) >= 115) {
-      q.castAt = p; G.gestureT = G.rt; C.burst(h, p);
+    } else if (q.castPath.length < 120 && dist(p, q.castPath.at(-1)) >= 12) {
+      q.castPath.push(p);
     }
   };
+  function enclosedCenter(path, end) {
+    if (path.length < 7) return null;
+    const points = [...path, end];
+    const xs = points.map(p => p.x), ys = points.map(p => p.y);
+    const left = Math.min(...xs), top = Math.min(...ys);
+    const width = Math.max(...xs) - left, height = Math.max(...ys) - top;
+    const size = Math.max(width, height);
+    if (Math.min(width, height) < Math.max(62, size * .48) || dist(points[0], end) > size * .42) return null;
+    const center = { x: left + width / 2, y: top + height / 2 };
+    let turn = 0, total = 0;
+    for (let i = 1; i < points.length; i++) {
+      const ax = points[i - 1].x - center.x, ay = points[i - 1].y - center.y;
+      const bx = points[i].x - center.x, by = points[i].y - center.y;
+      const angle = Math.atan2(ax * by - ay * bx, ax * bx + ay * by);
+      turn += angle;
+      total += Math.abs(angle);
+    }
+    return Math.abs(turn) >= Math.PI * 1.55 && Math.abs(turn) >= total * .76 ? center : null;
+  }
+
   P.up = p => {
     const q = P.ptr; if (!q) return; P.ptr = null;
     const h = G.hero;
@@ -777,7 +765,12 @@
     if (G.state !== 'play' || G.paused) return;
     if (p) q.last = p;
     if (q.charging && h.charge) { const k = h.charge.k, at = h.charge.p; h.charge = null; C.release(h, at, k); return; }
-    if (h.cls === 'caster') C.casterReleaseTap?.();
+    if (h.cls === 'caster') {
+      const center = enclosedCenter(q.castPath, q.last);
+      if (center) { G.guideDone = true; C.burst(h, center, { enclosed: true }); }
+      else if (dist(q.start, q.last) >= 115) C.burst(h, q.last);
+      C.casterReleaseTap?.();
+    }
     if (h.cls === 'spinner') { C.spinUp(h, q, q.last); return; }
     if (h.cls === 'slasher' && !q.fired) {
       const dx = q.last.x - q.start.x, dy = q.last.y - q.start.y, d = Math.hypot(dx, dy);
@@ -901,6 +894,12 @@
     if (h?.cls === 'roller') C.drawRollerTools?.(renderer, h, G.t);
     C.drawStudioHeroes?.(renderer, h, G.t);
     C.synergy?.drawOver(renderer);
+    if (h?.cls === 'caster' && P.ptr && !P.ptr.charging) {
+      const path = P.ptr.castPath;
+      for (let i = 1; i < path.length; i++) {
+        renderer.line(path[i - 1], path[i], 3.5, [0.36, 0.20, 0.61, 0.54]);
+      }
+    }
     if (h) {
       const col = TINT[h.cls];
       if (h.charge && h.cls !== 'caster') {
@@ -957,6 +956,8 @@
   }
   function hud() {
     if (G.state !== 'play') return;
+    $('gesture-guide').hidden = G.film || G.guideDone || G.rt >= 7;
+    $('growth-notice').hidden = G.free || G.rt >= G.growthNoticeUntil;
     const seconds = Math.max(0, Math.ceil(RUN_TIME - G.t));
     const clock = G.free ? '∞' : String(seconds).padStart(2, '0') + ' 秒';
     if ($('clock').textContent !== clock) $('clock').textContent = clock;

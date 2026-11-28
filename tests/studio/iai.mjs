@@ -60,7 +60,6 @@ try{
     start('slasher',StudioContent.stages[0]);
     let next=0;
     for(let i=0;i<5200&&G.state==='play';i++){
-      if(G.choice)document.querySelector('.upcard').click();
       if(!G.bossDown&&G.t>=next){
         const enemy=targets().find(e=>e.y>270&&e.y<1080);
         if(enemy){
