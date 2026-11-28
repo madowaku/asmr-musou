@@ -60,6 +60,9 @@
       art.src = Studio.portrait(progress.hero);
       $('hero-preview').style.setProperty('--hero', hero.color);
       $('hero-name').textContent = hero.name + '  ' + hero.jp;
+      $('hero-preview').dataset.hero = progress.hero;
+      $('hero-instruction').textContent = hero.gesture[1];
+      $('hero-techniques').open = false;
       $('hero-help').textContent = helpFor(progress.hero);
       const isFilm = freeSelect && $('film-mode')?.checked;
       $('hero-confirm').textContent = isFilm ? '撮影モードを始める ›' : freeSelect ? 'フリープレイを始める ›' : 'ステージを選ぶ ›';

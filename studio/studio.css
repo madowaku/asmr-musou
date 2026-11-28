@@ -380,3 +380,29 @@ input { accent-color: var(--key); }
 }
 #gesture-icon { color: var(--key); font-size: 22px; line-height: 1; }
 #gesture-text { font-size: 13px; }
+
+/* Show the first stroke beside the portrait, before entering the stage. */
+.gesture-preview { display: flex; align-items: center; gap: 9px; color: var(--hero); }
+.gesture-track { position: relative; width: 44px; height: 30px; flex: none; }
+.gesture-track::before, .gesture-track::after { content: ""; position: absolute; }
+.gesture-track::before { inset: 14px 4px auto; border-top: 2px dashed currentColor; }
+.gesture-track::after {
+  width: 9px; height: 9px; background: currentColor; border-radius: 50%;
+  offset-path: path("M 4 15 L 40 15"); animation: preview-stroke 1.6s ease-in-out infinite;
+}
+[data-hero="caster"] .gesture-track::before, [data-hero="spinner"] .gesture-track::before,
+[data-hero="crusher"] .gesture-track::before {
+  inset: 3px 10px; border: 2px dashed currentColor; border-radius: 50%;
+}
+[data-hero="caster"] .gesture-track::after, [data-hero="spinner"] .gesture-track::after {
+  offset-path: path("M 22 4 A 11 11 0 1 1 21.99 4 Z");
+}
+[data-hero="spinner"] .gesture-track::after { animation: preview-turn 1.25s linear infinite; }
+[data-hero="crusher"] .gesture-track::after { offset-path: none; left: 18px; top: 11px; animation: preview-tap 1.1s infinite; }
+[data-hero="roller"] .gesture-track::after { animation: preview-turn 1.9s ease-in-out infinite alternate; }
+@keyframes preview-stroke { 0%, 12% { offset-distance: 0%; } 75%, 100% { offset-distance: 100%; } 85%, 100% { opacity: 0; } }
+@keyframes preview-turn { to { offset-distance: 100%; } }
+@keyframes preview-tap { 50% { transform: scale(.65); box-shadow: 0 0 0 4px currentColor; } }
+@media (prefers-reduced-motion: reduce) { .hero-preview .gesture-track::after { animation: none; } }
+#hero-techniques summary { display: list-item; padding: 12px 4px; min-height: 44px; cursor: pointer; }
+#hero-techniques p { margin: 0 4px 12px; font-size: 14px; }
