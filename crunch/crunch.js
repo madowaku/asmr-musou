@@ -16,7 +16,7 @@
     hard:{mats:['kohaku'],r:[70,76],hp:15,speed:32,label:'硬い新型'}
   };
   K.power=h=>K.POWER[Math.min(2,h.ups.size)];
-  K.spawn=(kind,x,y,o={})=>{const T=K.TYPES[kind],m=o.m||T.mats[Math.floor(R()*T.mats.length)],r=T.r[0]+R()*(T.r[1]-T.r[0]);
+  K.spawn=(kind,x,y,o={})=>{const T=K.TYPES[kind],m=o.m||T.mats[Math.floor(R()*T.mats.length)],r=(T.r[0]+R()*(T.r[1]-T.r[0]))*(o.size??1);
     const b=W.spawn(m,x,y,r,{variant:'grunt',lod:'book',extra:{hp:1,hpc:T.hp,hpMax:T.hp,kind,speed:T.speed*(o.speedK||1)*(.92+R()*.16),hits:0,born:C.state.t,pop:0,cracks:[],area0:0}});
     if(b){b.drift=null;b.area0=b.area;b.phase=R()*6.28;}return b;};
 

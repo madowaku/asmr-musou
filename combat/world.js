@@ -67,7 +67,7 @@
   // Cut `body` along the polyline `path`; if the path only grazes it, cut along a parallel line through it.
   W.cut=(body,path,speed=1200,opt={})=>{
     if(!W.bodies.includes(body)||body.removed||body.depth>=config.maxDepth)return null;
-    const poly=W.currentPoly(body),id='cut-'+(++W.cutId);let r=S.splitPath(poly,path,{minArea:config.minPieceArea,cutId:id});
+    const poly=opt.outline??W.currentPoly(body),id='cut-'+(++W.cutId);let r=S.splitPath(poly,path,{minArea:config.minPieceArea,cutId:id});
     if(!r.cut){const a=path[0],z=path[path.length-1],dx=z.x-a.x,dy=z.y-a.y,len=Math.hypot(dx,dy)||1,ux=dx/len,uy=dy/len,t=((body.x-a.x)*ux+(body.y-a.y)*uy),px=a.x+ux*t,py=a.y+uy*t,dd=Math.hypot(body.x-px,body.y-py)||1,o=Math.min(dd,body.radius*.4),cx=body.x-(body.x-px)/dd*o,cy=body.y-(body.y-py)/dd*o,R=body.radius*2.5;
       path=[{x:cx-ux*R,y:cy-uy*R},{x:cx+ux*R,y:cy+uy*R}];r=S.splitPath(poly,path,{minArea:config.minPieceArea,cutId:id});}
     if(!r.cut)return null;r.id=id;return fracture(body,r,path,speed,opt);

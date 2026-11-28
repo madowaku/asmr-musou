@@ -37,8 +37,12 @@
     C.sfx('twin',{x:c.x,combo:h.spinCombo});
     const en=C.targets().filter(e=>dist(e,c)<R+e.radius*.5).sort((a,b)=>dist(a,c)-dist(b,c)).slice(0,max);
     for(const e of en){const dx=e.x-c.x,dy=e.y-c.y,d=Math.hypot(dx,dy)||1,ux=dx/d,uy=dy/d,tx=-uy,ty=ux,off=(L.random()-.5)*e.radius*.6;
-      const line=[{x:e.x+ux*off-tx*e.radius*3,y:e.y+uy*off-ty*e.radius*3},{x:e.x+ux*off+tx*e.radius*3,y:e.y+uy*off+ty*e.radius*3}];
-      C.hit(e,()=>W.cut(e,line,1800,{push:{x:ux*160+tx*140,y:uy*160+ty*140},action:id,cause:'spin',stop:.006}),{action:id,dmg},Math.min(.06,d/R*.05));}
+      C.hit(e,()=>{
+        // The vortex can pull the target between scheduling the hit and cutting it.
+        const x=e.x+ux*off,y=e.y+uy*off,reach=e.radius*3;
+        const line=[{x:x-tx*reach,y:y-ty*reach},{x:x+tx*reach,y:y+ty*reach}];
+        return W.cut(e,line,1800,{push:{x:ux*160+tx*140,y:uy*160+ty*140},action:id,cause:'spin',stop:.006});
+      },{action:id,dmg},Math.min(.06,d/R*.05));}
     if(h.ups.has('gale'))for(const e of C.targets()){if(e.bossPart)continue;const d=dist(e,c);if(d<R*.6||d>R*1.8)continue;e.nudge={x:(c.x-e.x)/d*26,y:(c.y-e.y)/d*26,t:.1};}
     W.punch=Math.max(W.punch,.012+Math.min(.02,en.length*.002));
     return en.length;};
@@ -61,7 +65,7 @@
   C.spinUpdate=(h,q)=>{const G=C.state;if(!q||!q.spinning)return;const lastP=q.pts[q.pts.length-1];if(G.rt-lastP.t<.15&&G.rt-q.lastTick>.3)C.spinFrom(h,q);};
   C.spinFrom=(h,q)=>{const G=C.state,recent=q.pts.filter(p=>G.rt-p.t<.5);const P=recent.length>=3?recent:q.pts;
     const c={x:P.reduce((s,p)=>s+p.x,0)/P.length,y:P.reduce((s,p)=>s+p.y,0)/P.length},r=Math.max(S.R0,Math.min(S.R1,P.reduce((s,p)=>s+dist(p,c),0)/P.length*1.15));
-    const last=q.pts[q.pts.length-1];q.lastTick=G.rt;q.ticks=(q.ticks||0)+1;C.spinTick(h,inField(c),r,{circle:true,angle:Math.atan2(last.y-c.y,last.x-c.x)});};
+    const last=q.pts[q.pts.length-1];q.lastTick=G.rt;q.ticks=(q.ticks||0)+1;C.spinTick(h,inField(c),r,{circle:true,angle:Math.atan2(last.y-c.y,last.x-c.x),direction:q.dir});};
   C.spinUp=(h,q,p)=>{const G=C.state;if(q.spinning){G.stats.spinTicks=(G.stats.spinTicks||0)+(q.ticks||0);return;}
     if(q.moved<18){const c=inField(p);for(let i=0;i<3;i++)C.later(i*.08,()=>C.spinTick(h,c,80,{angle:i*2.1,ring:i===0}));return;}   // tap: クルッ
     if(q.moved>=60){const a=q.start,b=p,dx=b.x-a.x,dy=b.y-a.y,l=Math.hypot(dx,dy)||1;C.begin(h,'dash',{at:{x:(a.x+b.x)/2,y:(a.y+b.y)/2}});const id=h.action;   // straight swipe: dash-slice

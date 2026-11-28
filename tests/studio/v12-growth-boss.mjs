@@ -383,6 +383,16 @@ try {
       const p1 = lt[0];
       const p2 = (lt[1] != null && lt[0] != null) ? +(lt[1] - lt[0]).toFixed(2) : null;
       const p3 = (lt[2] != null && lt[1] != null) ? +(lt[2] - lt[1]).toFixed(2) : null;
+      const movements = {};
+      for (const action of G.actions.values()) {
+        if (action.system || action.phase === 'boss') continue;
+        const movement = movements[action.phase] ??= { actions: 0, kills: 0 };
+        movement.actions++;
+        movement.kills += action.kills;
+      }
+      for (const movement of Object.values(movements)) {
+        movement.killsPerAction = +(movement.kills / movement.actions).toFixed(2);
+      }
       return {
         cls,
         stage: stageIdx + 1,
@@ -395,6 +405,7 @@ try {
         bossDefeated: G.stats.bossDefeated,
         bossSecs: G.stats.bossSecs != null ? +G.stats.bossSecs.toFixed(2) : null,
         phaseDurations: { p1Outer: p1, p2Inner: p2, p3Core: p3 },
+        movements,
         cumLayerTimes: lt,
         bossRemainingHp: G.boss && !G.bossDown ? world.bodies.reduce((s, b) => s + (!b.active && !b.removed && b.bossPart ? b.hp : 0), 0) : 0,
         bossPhaseReached: G.boss ? G.boss.phase : -1,
@@ -414,6 +425,19 @@ try {
       normal: await runCampaign(cls, 7, 'normal', false)
     };
   }
+
+  // Run after the campaign matrix so the fixture cannot shift its seed sequence.
+  report.spinnerDirection = await page.evaluate(() => {
+    const { start, targets, G } = StudioTest;
+    return [1, -1].map(direction => {
+      start('spinner', StudioContent.stages[7], 'single', null, { level: 4 });
+      const body = targets()[0];
+      // Just outside the blades, inside Gale's reach.
+      const center = { x: body.x - 290, y: body.y };
+      LAB.combat.spinTick(G.hero, center, 105, { circle: true, direction });
+      return { direction, x: body.nudge?.x, y: body.nudge?.y };
+    });
+  });
 
   if (shots) await writeFile(path.join(shots, 'v12-report.json'), JSON.stringify(report, null, 2));
 
@@ -444,6 +468,23 @@ try {
   assert(report.slasherMultiSlice.after2Count >= 3, 'SLASHER 2nd slice should quarter halves: ' + JSON.stringify(report.slasherMultiSlice));
   assert(report.spinnerVortex.Lv1.maxInwardPullPx >= 20, 'SPINNER Lv1 pull broken: ' + JSON.stringify(report.spinnerVortex));
   assert(report.spinnerVortex.Lv4.maxInwardPullPx >= 45, 'SPINNER Lv4 suction vortex broken: ' + JSON.stringify(report.spinnerVortex));
+  for (const { direction, x, y } of report.spinnerDirection) {
+    assert(x < 0 && Math.sign(y) === direction, 'SPINNER pull should spiral in the gesture direction');
+  }
+  for (const [stage, runs] of Object.entries(report.bossMatrix)) {
+    for (const [hero, tempos] of Object.entries(runs)) {
+      for (const [tempo, run] of Object.entries(tempos)) {
+        const label = `${stage} ${hero} ${tempo}`;
+        assert.equal(run.endState, 'result', `${label}: result was not reached`);
+        assert.equal(run.bossDefeated, true, `${label}: boss was not defeated`);
+        assert.equal(run.cutErrors, 0, `${label}: cut errors`);
+        assert(Object.values(run.phaseDurations).every(t => t > 0), `${label}: missing boss phase`);
+        if (hero === 'spinner') {
+          assert(Math.round(run.bossSecs) >= 15 && run.bossSecs <= 22, `${label}: boss took ${run.bossSecs}s`);
+        }
+      }
+    }
+  }
   console.log('v12-growth-boss: PASS');
 } finally {
   await browser.close();

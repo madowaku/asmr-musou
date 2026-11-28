@@ -6,6 +6,7 @@
   const C = L.combat, W = L.world, K = C.crunch, $ = id => document.getElementById(id), canvas = $('scene');
   const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
   const Studio = window.StudioContent, Stages = C.stages, CLASSES = Studio.heroes;
+  const Formations = window.StudioFormations;
   const progress = Studio.load(), testing = new URLSearchParams(location.search).get('test') === '1';
   Stages.patchEngine();
   // v1.2 Growth Curve: restrained single-target power scaling [1 -> 2.2] so tactile material steps
@@ -74,6 +75,7 @@
     if (G.stats.firstActionT == null) G.stats.firstActionT = G.t;
   };
   C.sfxGain = 0.74;
+  const WIDE_SPIN_BOSS_BEAT = { radius: 175, plateCooldown: 0.27, coreCooldown: 0.30, plateHits: 3 };
 
   // Every hit goes through here. Not enough damage -> chip (visible + audible), enough -> hero's own break.
   C.hit = (e, fn, h, delay = 0, gen = 0) => {
@@ -87,11 +89,15 @@
         const B = G.boss;
         // Per-part rhythmic cadence + layer beat budget (max 4 simultaneous plates per 0.16s beat)
         // prevents wide AoEs from erasing an entire 12-plate ring in <1s while keeping every hit crunchy!
-        const cd = e.bossLayer === 2 ? 0.22 : 0.21;
+        // Broad sweeps hit many plates at once. Tight circles keep their faster cadence.
+        const wideSpin = act?.kind === 'spin' && act.info.r >= WIDE_SPIN_BOSS_BEAT.radius;
+        const cd = e.bossLayer === 2
+          ? (wideSpin ? WIDE_SPIN_BOSS_BEAT.coreCooldown : 0.22)
+          : (wideSpin ? WIDE_SPIN_BOSS_BEAT.plateCooldown : 0.21);
         if (e.bossHitAt != null && G.t - e.bossHitAt < cd) return;
         if (B && e.bossLayer < 2 && !h?.resonance) {
           if (G.t - (B.beatAt || -9) >= 0.16) { B.beatAt = G.t; B.beatHits = 0; }
-          if (B.beatHits >= 4) return;
+          if (B.beatHits >= (wideSpin ? WIDE_SPIN_BOSS_BEAT.plateHits : 4)) return;
           B.beatHits++;
         }
         e.bossHitAt = G.t;
@@ -154,13 +160,20 @@
     pop(core.x, core.y - 115, label, 'ko');
   }
 
-  // Safe cut wrapper (prevents triangulation errors on heavily chipped jelly from halting play)
+  // A wobbling jelly outline can fold over itself. Retry the same cut against its resting shape.
   {
     const cut = W.cut;
     W.cut = (body, path, speed, opt = {}) => {
       try { return cut(body, path, speed, opt); }
-      catch (_) {
+      catch (error) {
         if (!W.bodies.includes(body) || body.removed) return null;
+        if (body.material === 'jelly' && error.message === 'Non-simple or degenerate polygon cannot be triangulated') {
+          const outline = body.poly.map(p => ({ ...p, ...L.worldPoint(body, p) }));
+          try {
+            const pieces = cut(body, path, speed, { ...opt, outline });
+            if (pieces) return pieces;
+          } catch (_) { /* The particle fallback below still completes the hit. */ }
+        }
         const d0 = body.depth;
         body.removed = true;
         G.stats.cutErrors = (G.stats.cutErrors || 0) + 1;
@@ -176,6 +189,7 @@
     K.hurt = (e, d, f, o) => {
       const uid = e.uid ?? e.id, a0 = e.area, core = hurt(e, d, f, o);
       core.uid = uid;
+      if (e.marchSpeed) { core.marchSpeed = e.marchSpeed; core.formation = e.formation; }
       C.sfx('crack', { x: core.x, stage: core.hits });
       const removed = Math.max(0, a0 - core.area) / (e.area0 || a0);
       C.studioChip(core, removed * ENERGY.chip * Math.sqrt((e.area0 || a0) / 12000));
@@ -270,7 +284,9 @@
       s.lifeOf.push({ kind: b.kind, life: G.t - b.born, hits: b.hits || 1, t: G.t });
     }
     if (opt.cause !== 'finale') {
-      const val = b.bossPart ? ENERGY.boss : b.sliceSecondary ? 1.5 : (ENERGY.kill[b.kind] ?? 0.6);
+      const formedSwarm = b.formation && b.kind === 'swarm';
+      const val = b.bossPart ? ENERGY.boss : b.sliceSecondary ? 1.5
+        : formedSwarm ? ENERGY.formationSwarm : (ENERGY.kill[b.kind] ?? 0.6);
       gain(val, b.sliceSecondary ? 'chip' : 'kill');
       spark(b);
     }
@@ -279,9 +295,14 @@
 
   // ---------- flow (75 s: 45 s build-up + 15-22 s multi-phase giant boss + finish margin) ----------
   const RUN_TIME = 75, BOSS_T = 45;
-  const phaseAt = () => G.boss ? 'boss' : ['one', 'grow', 'horde', 'horde'][Math.min(3, G.hero.ups.size)];
+  const phaseAt = () => G.boss ? 'boss'
+    : G.sched?.movement ?? ['one', 'grow', 'horde', 'horde'][Math.min(3, G.hero.ups.size)];
+  const WAVE_END = BOSS_T - 2.8;
   // v1.2 Balanced Growth Curve: Lv2 (~9-13s), Lv3 (~21-28s), Lv4 (~35-43s right before 45s Boss!)
-  const ENERGY = { need: [135, 310, 520], chip: 7.2, kill: { weak: 9, mid: 2.6, swarm: 0.72, hard: 16 }, boss: 2.5, bigHit: 0.055, bigCap: 6, pace: [13, 27, 40] };
+  const ENERGY = {
+    need: [135, 310, 520], chip: 7.2, kill: { weak: 9, mid: 2.6, swarm: 0.72, hard: 16 },
+    formationSwarm: 2.4, boss: 2.5, bigHit: 0.055, bigCap: 6, pace: [13, 27, 40]
+  };
 
   function gain(v, src) {
     if (!G.stats || G.state !== 'play' || G.free || v <= 0) return;
@@ -341,7 +362,7 @@
       actions: new Map(), later: [], bolts: [], glows: [], arcs: [], sparks: [], lastPop: -9,
       bossDown: false, finaleT: 0, paused: false, choice: null, broken: new Map(), gestureT: 0,
       lineFlash: 0, sampleT: 0, levelGlow: 0,
-      sched: { spawn: 0, hard: 10, thin: 0, firstHard: true, lane: 0 },
+      sched: { spawn: 0, hard: 10, thin: 0, firstHard: true, lane: 0, movement: null, wave: 0, nextWave: 0 },
       energy: 0, energyOver: 0, levelPending: false, gainFlash: 0, holdSupply: 0
     });
     G.stats = {
@@ -359,11 +380,18 @@
     C.sfxGain = (C.mix?.sfx ?? 0.7) * (film ? 0.52 : 1) * progress.volume / 0.65;
     ui.play();
     if (free) fillFree();
-    else {
+    else if (Formations.classic) {
       K.spawn('weak', 345, 613, { m: stage.mat });
       K.spawn('weak', G.cls === 'roller' ? 345 : 465, 408, { m: stage.mat });
       K.spawn('weak', 230, 234, { m: stage.mat });
       banner(stage.name, Stages.MATERIALS[stage.mat].sound);
+    } else {
+      G.sched.movement = 'one';
+      const opening = { pattern: 'solo', positions: [{ x: 0, y: 0, kind: 'weak', size: stage.mat === 'sponge' ? 1.22 : 1 }], materialOnly: true };
+      spawnWave(opening, 345, 613);
+      G.sched.wave = 1;
+      G.sched.nextWave = 1.8;
+      banner('素材を味わう', Stages.MATERIALS[stage.mat].sound);
     }
   }
 
@@ -387,6 +415,48 @@
     for (const p of rowPoints) K.spawn(kind, p.x, p.y, { m: p.m });
   }
   const alive = k => { let n = 0; for (const b of W.bodies) if (!b.removed && !b.active && b.team === 'enemy' && !b.bossPart && (!k || b.kind === k)) n++; return n; };
+
+  function spawnWave(wave, x, y) {
+    const phase = G.sched.movement, rule = Formations.movements[phase];
+    const kind = phase === 'horde' ? 'swarm' : 'mid';
+    const mix = wave.materialOnly ? [[G.stage.mat, 1]] : Stages.mixAt(G.stage, G.t);
+    const positions = Stages.assign(wave.positions, mix, L.random);
+    const driftPhase = G.sched.wave * 1.7;
+    for (const p of positions) {
+      const body = K.spawn(p.kind ?? kind, x + p.x, y + p.y, { m: p.m, size: p.size });
+      if (!body) continue;
+      body.formation = wave.pattern;
+      body.phase = driftPhase;
+      body.marchSpeed = rule.speed * (p.kind === 'weak' && phase !== 'one' ? 0.9 : 1);
+    }
+  }
+
+  function updateFormations(level) {
+    const s = G.sched;
+    const phase = Formations.movement(G.t, level);
+    if (phase !== s.movement) {
+      s.movement = phase;
+      s.wave = 0;
+      s.nextWave = G.t;
+      banner(Formations.movements[phase].title,
+        phase === 'grow' ? Formations.materials[G.stage.mat][1] : '広がる隊形をまとめて砕く');
+    }
+    if (G.t >= WAVE_END) return;
+    const remaining = alive();
+    if (G.t < s.nextWave && (remaining || s.nextWave - G.t > 0.65)) return;
+    const next = Formations.wave(phase, s.wave, G.stage.mat, G.cls);
+    const rule = Formations.movements[phase];
+    if (remaining + next.positions.length > rule.limit || W.bodies.length + next.positions.length > 186) return;
+    const occupied = W.enemies();
+    const entry = [430, 360, 500].find(y => next.positions.every(p => {
+      const radius = p.kind === 'weak' ? 88 * (p.size ?? 1) : (phase === 'horde' ? 30 : 42);
+      return occupied.every(b => Math.hypot(b.x - 360 - p.x, b.y - y - p.y) >= (b.radius + radius) * 0.92);
+    }));
+    if (entry === undefined) return;
+    spawnWave(next, 360, entry);
+    s.wave++;
+    s.nextWave = G.t + rule.interval;
+  }
 
   function updateFlow(dt) {
     if (G.state !== 'play') return;
@@ -412,7 +482,10 @@
     const S = G.sched, t = G.t;
     for (const k of ['spawn', 'hard', 'thin']) S[k] -= dt;
     const lv = Math.min(3, G.hero.ups.size);
-    if (!G.boss) {
+    if (!G.boss && !Formations.classic) {
+      if (t >= BOSS_T) startBoss();
+      else updateFormations(lv);
+    } else if (!G.boss) {
       const waiting = W.bodies.filter(b => !b.removed && !b.active && b.team === 'enemy' && !b.bossPart && b.y < REACH).length;
       const totalAlive = alive();
       const room = W.bodies.length < 188 && totalAlive < 76;
@@ -427,7 +500,7 @@
         if (b && S.firstHard) { S.firstHard = false; banner('厚い素材', '断面が見えるまで何度か削る'); }
       }
       if (t >= BOSS_T) startBoss();
-    } else if (!G.bossDown) {
+    } else if (!G.bossDown && Formations.classic) {
       if (S.thin <= 0 && alive() < 12 && W.bodies.length < 175) { row(2, true); S.thin = 2.4; }
     }
     if (G.boss && !G.bossDown) moveBoss(dt);
@@ -479,6 +552,10 @@
     const emptyBoost = inReach === 0 ? 1.35 : 1;
     for (const b of W.bodies) if (!b.removed && !b.active && b.team === 'enemy' && !b.bossPart) list.push(b);
     for (const b of list) {
+      if (b.marchSpeed) {
+        b.speed = b.marchSpeed * (b.rollDrag > G.t ? 0.19 : 1);
+        continue;
+      }
       if (b.base == null) b.base = b.speed;
       let sp = b.base * (b.y < REACH ? (1 + 4.2 * short) * emptyBoost : 1) + (b.y < REACH && short > 0.45 ? 78 * emptyBoost : 0) + (b.y < QUEUE ? 105 : 0);
       for (const o of list) {
@@ -539,6 +616,17 @@
   // ---------- seamless multi-layer giant boss ----------
   function startBoss() {
     if (G.boss) return;
+    if (!Formations.classic) {
+      // The remaining wave drifts off as the boss takes the field.
+      for (const b of W.enemies()) {
+        b.active = true;
+        b.age = 1.8;
+        b.vy = -460;
+        b.vx = Math.sign(b.x - 360) * 150;
+        b.gScale = 0;
+        b.spin = 0;
+      }
+    }
     if (W.bodies.length > 170) {
       const deb = W.bodies.filter(b => b.active).sort((a, b) => b.age - a.age);
       for (const b of deb.slice(0, W.bodies.length - 170)) b.removed = true;
@@ -546,7 +634,8 @@
     }
     G.boss = Studio.spawnBoss(G.stage);
     G.stats.bossTime = G.t;
-    banner('BOSS · ' + G.stage.bossName, '外層から順に砕いてコアを壊せ！');
+    banner(Formations.classic ? 'BOSS · ' + G.stage.bossName : '巨大素材の解体',
+      Formations.classic ? '外層から順に砕いてコアを壊せ！' : G.stage.bossName);
   }
   function moveBoss(dt) {
     const B = G.boss;

@@ -10,6 +10,14 @@
     let freeSelect = false, material = null, settingsFrom = null, practice = false;
     const isIaiStudy = Boolean(C.iai?.study);
     const isRollerStudy = Boolean(C.rollerFeel?.study);
+    const comparison = $('wave-comparison');
+    comparison.hidden = isIaiStudy || isRollerStudy;
+    const comparisonUrl = new URL(location.href);
+    if (window.StudioFormations.classic) {
+      comparisonUrl.searchParams.delete('waves');
+      comparison.textContent = '新しい隊形へ';
+    } else comparisonUrl.searchParams.set('waves', 'classic');
+    comparison.href = comparisonUrl.href;
     const practiceHero = isIaiStudy ? 'slasher' : 'roller';
     const practiceTitle = isIaiStudy ? '居合の練習' : 'ROLLERの練習';
 
@@ -77,8 +85,9 @@
       const label = document.createElement('strong');
       label.textContent = L.combat.stages.MATERIALS[stage.mat].jp;
       const note = document.createElement('span');
+      const formation = !book && !window.StudioFormations.classic && window.StudioFormations.materials[stage.mat][1];
       note.textContent = available
-        ? (Studio.learned(stage, progress) && !book ? 'CLEAR · ' : '') + L.combat.stages.MATERIALS[stage.mat].sound
+        ? (Studio.learned(stage, progress) && !book ? 'CLEAR · ' : '') + (formation || L.combat.stages.MATERIALS[stage.mat].sound)
         : 'STAGE ' + (book ? stage.n : stage.n - 1) + ' クリアで解放';
       info.append(caption, label, note);
       button.append(image, info);

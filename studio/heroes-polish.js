@@ -260,25 +260,33 @@
   };
 
   // ======================= SPINNER: Gentle Lv1 pull + crisp swirl polish =======================
+  const SPIN_PULL = {
+    base: { outer: 1.9, step: 24 },
+    gale: { outer: 2.35, step: 56 },
+    inner: 0.35,
+    tangent: 0.45
+  };
   const origSpinTick = C.spinTick;
   C.spinTick = (h, c, r, o = {}) => {
     const hits = origSpinTick(h, c, r, o);
     // Even before unlocking 'gale', gentle inward pull prevents frustrating Lv1 whiffs after breaking the first target
     const wide = h.ups.has('wide'), gale = h.ups.has('gale');
     const R = r * (wide ? 1.4 : 1) + h.ups.size * 18;
-    const pullOuter = gale ? R * 2.35 : R * 1.9;
-    const pullStep = gale ? 42 : 24;
+    const pull = gale ? SPIN_PULL.gale : SPIN_PULL.base;
+    const inner = R * SPIN_PULL.inner;
+    const direction = o.direction ?? 1;
+    const tangent = direction * SPIN_PULL.tangent;
     for (const e of C.targets()) {
       const d = dist(e, c);
       if (d <= R + e.radius * 0.55) {
         const ux = (e.x - c.x) / (d || 1), uy = (e.y - c.y) / (d || 1);
-        C.synergy?.onSpinnerTick(e, c, -uy, ux, h.spinCombo || 1);
+        C.synergy?.onSpinnerTick(e, c, -uy * direction, ux * direction, h.spinCombo || 1);
       }
       if (e.bossPart) continue;
-      if (d < R * 0.45 || d > pullOuter) continue;
-      const ux = (c.x - e.x) / d, uy = (c.y - e.y) / d;
-      // Add slight tangential swirl so materials visibly spiral into the twin blades!
-      e.nudge = { x: (ux * pullStep - uy * pullStep * 0.35), y: (uy * pullStep + ux * pullStep * 0.35), t: 0.10 };
+      if (d <= inner || d > R * pull.outer) continue;
+      const ux = (e.x - c.x) / d, uy = (e.y - c.y) / d;
+      const step = Math.min(pull.step, (d - inner) * 0.35);
+      e.nudge = { x: (-ux - uy * tangent) * step, y: (-uy + ux * tangent) * step, t: 0.10 };
     }
     return hits;
   };

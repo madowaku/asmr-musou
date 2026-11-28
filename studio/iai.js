@@ -90,6 +90,7 @@
           drift: null,
           shard: null,
           kind: e.kind,
+          formation: e.formation,
           hpc: nextHp,
           hpMax: e.hpMax || 3,
           hits: (e.hits || 0) + 1,

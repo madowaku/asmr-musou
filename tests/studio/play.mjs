@@ -147,6 +147,7 @@ try {
     }, n);
     console.log('STAGE '+n, result);
     assert(result.clear, JSON.stringify(result));
+    assert.equal(result.cuts, 0, `Stage ${n}: a cut fell back to particles`);
     assert.equal(result.hero, hero);
     if (hero==='spinner') assert(result.sawGale && result.upgrades.includes('gale'));
     clears.push(result);
