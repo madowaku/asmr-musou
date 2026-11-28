@@ -8,22 +8,23 @@ export function pitch(x,mode){
   const semitone=mode===0?(u<.5?lo:hi):mode===1?raw:lo+(hi-lo)*soft
   return 196*2**(semitone/12)
 }
-export function glass(ctx,input,x,y,mode){
+export function glass(ctx,input,x,y,mode,polished=false){
   const gain=ctx.createGain(),pan=ctx.createStereoPanner(), start=ctx.currentTime
   gain.gain.value=.00001;gain.gain.setTargetAtTime(.102,start,.075)
   gain.connect(pan).connect(input)
   const spectra=[[1,.18,.075,.035],[1,.05,.19,.05],[1,.23,.025,.12]]
-  const parts=[1,1.003,2,3].map((ratio,i)=>{
+  const ratios=polished?[1,1.003,2,3,4]:[1,1.003,2,3]
+  const parts=ratios.map((ratio,i)=>{
     const osc=ctx.createOscillator(),amp=ctx.createGain()
     amp.gain.value=i?0:1;osc.frequency.value=pitch(x,mode)*ratio
     osc.connect(amp).connect(gain);osc.start();return {ratio,osc,amp}
   })
   function move(x,y,depth,mode){
-    const t=ctx.currentTime, zone=clamp(y)*2, a=Math.floor(zone), b=Math.min(2,a+1), blend=zone-a
+    const t=ctx.currentTime, zone=clamp(y)*2, a=Math.floor(zone), b=Math.min(2,a+1), fraction=zone-a, blend=polished?fraction*fraction*(3-2*fraction):fraction
     const f=pitch(x,mode)
     parts.forEach(({osc,ratio,amp},i)=>{
       osc.frequency.setTargetAtTime(f*ratio,t,.028)
-      const color=spectra[a][i]*(1-blend)+spectra[b][i]*blend
+      const color=i===4?(.035+.06*y)*depth*depth:spectra[a][i]*(1-blend)+spectra[b][i]*blend
       amp.gain.setTargetAtTime(i?color*(.18+1.45*depth):1-.13*depth,t,.055)
     })
     pan.pan.setTargetAtTime((clamp(x)-.5)*1.25,t,.065)
